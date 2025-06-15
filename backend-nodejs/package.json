@@ -2,10 +2,10 @@
   "name": "backend-nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/.js",
   "scripts": {
     "start": "node dist/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.ts"
   },
   "keywords": [],
   "author": "",
