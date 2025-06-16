@@ -19,6 +19,11 @@ const schema = new mongoose.Schema<userModelInterface>({
     type: String,
     required: true,
   },
+  is_verified: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
   created_at: {
     type: Date,
     default: Date.now,
