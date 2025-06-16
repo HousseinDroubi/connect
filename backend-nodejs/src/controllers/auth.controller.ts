@@ -11,6 +11,8 @@ const login = async (request: Request, response: Response) => {
 };
 
 const createNewAccount = async (request: Request, response: Response) => {
+  // TODO: implement validation
+
   const body: createUserAccountBodyInterface = request.body;
   const password = body.password;
   const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUND));
@@ -22,6 +24,10 @@ const createNewAccount = async (request: Request, response: Response) => {
     email: body.email,
     pin: body.pin,
   });
+
+  // TODO: save image
+
+  // TODO: send email verification
 
   // ! Testing
   response.json({
