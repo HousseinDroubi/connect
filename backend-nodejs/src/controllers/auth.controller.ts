@@ -5,6 +5,7 @@ import User from "../models/user.model";
 import { moveFile } from "../functions/server_file_system";
 import path from "path";
 import { createUserAccountBodyInterface } from "../interfaces/controller.interface";
+import { sendEmail } from "../emails/scripts/email";
 
 dotenv.config();
 
@@ -40,7 +41,12 @@ const createNewAccount = async (request: Request, response: Response) => {
     profile_url: file_destination,
   });
 
-  // TODO: send email verification
+  await sendEmail({
+    email: "housseinalialdroubi@gmail.com",
+    subject: "Activate Account",
+    link: "someLink",
+    is_for_activate_account: true,
+  });
 
   // Rerturn response
   response.json({
