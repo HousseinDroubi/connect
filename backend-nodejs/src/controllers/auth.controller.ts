@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 import { createUserAccountBodyInterface } from "../interfaces/model.interface";
 import { Request, Response, response } from "express";
+import User from "../models/user.model";
 
 dotenv.config();
 
@@ -14,6 +15,13 @@ const createNewAccount = async (request: Request, response: Response) => {
   const password = body.password;
   const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUND));
   const hashed_password = await bcrypt.hash(body.password, salt);
+
+  const user = User.create({
+    username: body.username,
+    password: hashed_password,
+    email: body.email,
+    pin: body.pin,
+  });
 
   // ! Testing
   response.json({
