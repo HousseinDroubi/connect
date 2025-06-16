@@ -32,4 +32,8 @@ const moveFile = async ({
   await fs_promises.rename(file_source, file_destination);
 };
 
-export { createFolder, createMainFolders, moveFile };
+const readFile = async (path: string) => {
+  return fs_promises.readFile(path, "utf-8");
+};
+
+export { createFolder, createMainFolders, moveFile, readFile };
