@@ -39,7 +39,7 @@ const createNewAccount = async (request: Request, response: Response) => {
   const hashed_password = await bcrypt.hash(body.password, salt);
 
   // Create account for user
-  const user = User.create({
+  const user = await User.create({
     username: body.username,
     password: hashed_password,
     email: body.email,
@@ -49,7 +49,7 @@ const createNewAccount = async (request: Request, response: Response) => {
 
   // Send email
   await sendEmail({
-    email: body.email,
+    email: user.email,
     subject: "Activate Account",
     link: "someLink",
     is_for_activate_account: true,
