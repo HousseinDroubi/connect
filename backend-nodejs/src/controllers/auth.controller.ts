@@ -1,41 +1,31 @@
-import { controllerFunctionInterface } from "../interfaces/controller.interface";
+import dotenv from "dotenv";
+import bcrypt from "bcrypt";
+import { createUserAccountBodyInterface } from "../interfaces/model.interface";
+import { Request, Response, response } from "express";
 
-const login = async ({ request, response }: controllerFunctionInterface) => {
+dotenv.config();
+
+const login = async (request: Request, response: Response) => {
   // login
 };
 
-const createNewAccount = async ({
-  request,
-  response,
-}: controllerFunctionInterface) => {
+const createNewAccount = async (request: Request, response: Response) => {
   // createNewAccount
 };
 
-const forgotPassword = async ({
-  request,
-  response,
-}: controllerFunctionInterface) => {
+const forgotPassword = async (request: Request, response: Response) => {
   // forgotPassword
 };
 
-const updateProfileData = async ({
-  request,
-  response,
-}: controllerFunctionInterface) => {
+const updateProfileData = async (request: Request, response: Response) => {
   // updateProfileData
 };
 
-const updatePassword = async ({
-  request,
-  response,
-}: controllerFunctionInterface) => {
+const updatePassword = async (request: Request, response: Response) => {
   // updatePassword
 };
 
-const deleteUserAccount = async ({
-  request,
-  response,
-}: controllerFunctionInterface) => {
+const deleteUserAccount = async (request: Request, response: Response) => {
   // deleteUserAccount
 };
 
