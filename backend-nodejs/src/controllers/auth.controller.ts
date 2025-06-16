@@ -18,7 +18,6 @@ const createNewAccount = async (request: Request, response: Response) => {
 
   // Get body from request
   const body: createUserAccountBodyInterface = request.body;
-  console.log(body);
 
   // Move image file from temp to public
   const file_source = path.join(__dirname, `../temp/${body.file_name}`);
