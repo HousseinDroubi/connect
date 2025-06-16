@@ -11,4 +11,4 @@ interface userModelInterface extends createUserAccountBodyInterface {
   created_at?: Date;
 }
 
-export { userModelInterface };
+export { createUserAccountBodyInterface, userModelInterface };
