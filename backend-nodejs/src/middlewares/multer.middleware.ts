@@ -3,8 +3,8 @@ import path from "path";
 import { createMainFolders } from "../functions/server_file_system";
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    createMainFolders();
+  destination: async (req, file, cb) => {
+    await createMainFolders();
     cb(null, path.join(__dirname, "../temp"));
   },
   filename: (req, file, cb) => {

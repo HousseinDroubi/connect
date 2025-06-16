@@ -17,13 +17,12 @@ const createFolder = async (folder_path: string) => {
   }
 };
 
-const createMainFolders = () => {
+const createMainFolders = async () => {
   const main_folders = ["temp", "public", "conversations"];
-
-  main_folders.forEach((folder_name: string) => {
-    const folder_path = path.join(__dirname, `../${folder_name}`);
-    createFolder(folder_path);
-  });
+  for (let index = 0; index < main_folders.length; index++) {
+    const folder_path = path.join(__dirname, `../${main_folders[index]}`);
+    await createFolder(folder_path);
+  }
 };
 
 const moveFile = async ({
