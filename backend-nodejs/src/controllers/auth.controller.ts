@@ -1,8 +1,10 @@
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
-import { createUserAccountBodyInterface } from "../interfaces/model.interface";
 import { Request, Response, response } from "express";
 import User from "../models/user.model";
+import { moveFile } from "../functions/server_file_system";
+import path from "path";
+import { createUserAccountBodyInterface } from "../interfaces/controller.interface";
 
 dotenv.config();
 
@@ -15,6 +17,15 @@ const createNewAccount = async (request: Request, response: Response) => {
 
   // Get body from request
   const body: createUserAccountBodyInterface = request.body;
+  console.log(body);
+
+  // Move image file from temp to public
+  const file_source = path.join(__dirname, `../temp/${body.file_name}`);
+  const file_destination = path.join(__dirname, `../public/${body.file_name}`);
+  await moveFile({
+    file_source,
+    file_destination,
+  });
 
   // Hash password
   const password = body.password;
@@ -27,17 +38,16 @@ const createNewAccount = async (request: Request, response: Response) => {
     password: hashed_password,
     email: body.email,
     pin: body.pin,
-    profile_url: `public/${body.profile_url}`,
+    profile_url: file_destination,
   });
-
-  // TODO: save image
 
   // TODO: send email verification
 
   // Rerturn response
   response.json({
-    password,
-    hashed_password,
+    last_iamge: body.file_name,
+    file_source,
+    file_destination,
   });
 };
 
