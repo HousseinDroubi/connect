@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { moveFileInterface } from "../interfaces/functions.interface";
+import fs_promises from "fs/promises";
 
 const createFolder = (folder_path: string) => {
   if (!fs.existsSync(folder_path)) {
@@ -17,6 +18,11 @@ const createMainFolders = () => {
   });
 };
 
-const moveFile = ({ file_source, file_destination }: moveFileInterface) => {};
+const moveFile = async ({
+  file_source,
+  file_destination,
+}: moveFileInterface) => {
+  await fs_promises.rename(file_source, file_destination);
+};
 
-export { createFolder, createMainFolders };
+export { createFolder, createMainFolders, moveFile };
