@@ -17,6 +17,10 @@ const login = async (request: Request, response: Response) => {
 
 const createNewAccount = async (request: Request, response: Response) => {
   // TODO: implement validation
+  if (!request.file)
+    response.status(400).json({
+      result: "image_required",
+    });
 
   // Get body from request
   const body: createUserAccountBodyInterface = request.body;
