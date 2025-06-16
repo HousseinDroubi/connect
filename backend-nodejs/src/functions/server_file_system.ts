@@ -1,11 +1,19 @@
-import fs from "fs";
 import path from "path";
 import { moveFileInterface } from "../interfaces/functions.interface";
 import fs_promises from "fs/promises";
 
-const createFolder = (folder_path: string) => {
-  if (!fs.existsSync(folder_path)) {
-    fs.mkdirSync(folder_path);
+const checkFileExistence = async (path: string): Promise<boolean> => {
+  try {
+    await fs_promises.access(path);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+const createFolder = async (folder_path: string) => {
+  if (!(await checkFileExistence(folder_path))) {
+    await fs_promises.mkdir(folder_path);
   }
 };
 
