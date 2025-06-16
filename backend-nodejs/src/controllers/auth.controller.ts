@@ -21,6 +21,7 @@ const createNewAccount = async (request: Request, response: Response) => {
   // Get body from request
   const body: createUserAccountBodyInterface = request.body;
 
+  // Check if pin or email is taken
   const is_user_existed = await User.findOne({
     $or: [{ pin: body.pin }, { email: body.email }],
   });
@@ -49,6 +50,7 @@ const createNewAccount = async (request: Request, response: Response) => {
     profile_url: file_destination,
   });
 
+  // Create new token
   const token = await Token.create({
     value: crypto.randomBytes(32).toString("hex"),
     user_id: user._id,
