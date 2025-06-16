@@ -1,18 +1,11 @@
 import multer from "multer";
 import path from "path";
-import fs from "fs";
-
-const createPublicFolder = () => {
-  const uploadPath = path.join(__dirname, "../public");
-  if (!fs.existsSync(uploadPath)) {
-    fs.mkdirSync(uploadPath);
-  }
-};
+import { createMainFolders } from "../functions/server_file_system";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    createPublicFolder();
-    cb(null, path.join(__dirname, "../public"));
+    createMainFolders();
+    cb(null, path.join(__dirname, "../temp"));
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
