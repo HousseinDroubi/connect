@@ -15,10 +15,16 @@ const login = async (request: Request, response: Response) => {
 
 const createNewAccount = async (request: Request, response: Response) => {
   // TODO: implement validation
-  // TODO: Check if email and pin are unique and if not delete file.
 
   // Get body from request
   const body: createUserAccountBodyInterface = request.body;
+
+  const is_user_existed = await User.findOne({
+    $or: [{ pin: body.pin }, { email: body.email }],
+  });
+
+  if (is_user_existed)
+    response.status(405).json({ result: "email_or_pin_taken" });
 
   // Move image file from temp to public
   const file_source = path.join(__dirname, `../temp/${body.file_name}`);
@@ -43,7 +49,7 @@ const createNewAccount = async (request: Request, response: Response) => {
 
   // Send email
   await sendEmail({
-    email: "housseinalialdroubi@gmail.com",
+    email: body.email,
     subject: "Activate Account",
     link: "someLink",
     is_for_activate_account: true,
