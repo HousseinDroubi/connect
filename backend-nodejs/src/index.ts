@@ -7,7 +7,9 @@ import { connectToDB } from "./db/db.connection";
 dotenv.config();
 
 const app = express();
+
 app.use(cors());
+app.use(express.json());
 
 app.use("/auth", router);
 
