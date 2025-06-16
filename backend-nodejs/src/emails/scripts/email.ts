@@ -1,4 +1,33 @@
 import nodemailer from "nodemailer";
+import { readFile } from "../../functions/server_file_system";
+import path from "path";
+
+const sendEmail = async ({
+  email,
+  subject,
+  text,
+  is_for_activate_account,
+}: sendEmailInterface) => {
+  const activateAccountTemplatePath = path.join(
+    __dirname,
+    "../templates/activate_account.html"
+  );
+  const forgotPasswordTemplatePath = path.join(
+    __dirname,
+    "../templates/forgot_password.html"
+  );
+  try {
+    const template = await readFile(
+      is_for_activate_account
+        ? activateAccountTemplatePath
+        : forgotPasswordTemplatePath
+    );
+    const html = template.replace("{{text}}", text);
+    await emailConfigurations(email, subject, html);
+  } catch (error) {
+    return error;
+  }
+};
 
 const emailConfigurations = async (
   email: string,
@@ -22,3 +51,5 @@ const emailConfigurations = async (
     html: html,
   });
 };
+
+export { sendEmail };
