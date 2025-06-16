@@ -28,7 +28,6 @@ const createNewAccount = async (request: Request, response: Response) => {
   });
 
   // Hash password
-  const password = body.password;
   const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUND));
   const hashed_password = await bcrypt.hash(body.password, salt);
 
