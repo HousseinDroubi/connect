@@ -13,11 +13,15 @@ const login = async (request: Request, response: Response) => {
 const createNewAccount = async (request: Request, response: Response) => {
   // TODO: implement validation
 
+  // Get body from request
   const body: createUserAccountBodyInterface = request.body;
+
+  // Hash password
   const password = body.password;
   const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUND));
   const hashed_password = await bcrypt.hash(body.password, salt);
 
+  // Create account for user
   const user = User.create({
     username: body.username,
     password: hashed_password,
@@ -29,7 +33,7 @@ const createNewAccount = async (request: Request, response: Response) => {
 
   // TODO: send email verification
 
-  // ! Testing
+  // Rerturn response
   response.json({
     password,
     hashed_password,
