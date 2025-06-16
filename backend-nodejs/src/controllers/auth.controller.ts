@@ -4,8 +4,10 @@ import { Request, Response, response } from "express";
 import User from "../models/user.model";
 import { moveFile } from "../functions/server_file_system";
 import path from "path";
+import crypto from "crypto";
 import { createUserAccountBodyInterface } from "../interfaces/controller.interface";
 import { sendEmail } from "../emails/scripts/email";
+import { Token } from "../models/token.model";
 
 dotenv.config();
 
@@ -47,11 +49,16 @@ const createNewAccount = async (request: Request, response: Response) => {
     profile_url: file_destination,
   });
 
+  const token = await Token.create({
+    value: crypto.randomBytes(32).toString("hex"),
+    user_id: user._id,
+  });
+
   // Send email
   await sendEmail({
     email: user.email,
     subject: "Activate Account",
-    link: "someLink",
+    link: `${process.env.FRONT_END_URL}/verify_account/${token.value}`,
     is_for_activate_account: true,
   });
 
