@@ -41,6 +41,7 @@ const createNewAccount = async (request: Request, response: Response) => {
     profile_url: file_destination,
   });
 
+  // Send email
   await sendEmail({
     email: "housseinalialdroubi@gmail.com",
     subject: "Activate Account",
