@@ -4,3 +4,5 @@ interface sendEmailInterface {
   text: string;
   is_for_activate_account: boolean;
 }
+
+export { sendEmailInterface };
