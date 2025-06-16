@@ -6,7 +6,7 @@ import { sendEmailInterface } from "../../interfaces/email_script.interface";
 const sendEmail = async ({
   email,
   subject,
-  text,
+  link,
   is_for_activate_account,
 }: sendEmailInterface) => {
   const activateAccountTemplatePath = path.join(
@@ -23,7 +23,7 @@ const sendEmail = async ({
         ? activateAccountTemplatePath
         : forgotPasswordTemplatePath
     );
-    const html = template.replace("{{text}}", text);
+    const html = template.replace("{{link}}", link);
     await emailConfigurations(email, subject, html);
   } catch (error) {
     return error;
