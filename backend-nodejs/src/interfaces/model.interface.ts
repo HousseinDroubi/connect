@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { createUserAccountBodyInterface } from "./controller.interface";
 
 interface userModelInterface
@@ -7,4 +8,10 @@ interface userModelInterface
   created_at?: Date;
 }
 
-export { userModelInterface };
+interface tokenModelInterface {
+  user_id: mongoose.Schema.Types.ObjectId;
+  value: string;
+  created_at: Date;
+}
+
+export { userModelInterface, tokenModelInterface };
