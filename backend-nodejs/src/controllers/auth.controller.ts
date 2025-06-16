@@ -27,6 +27,7 @@ const createNewAccount = async (request: Request, response: Response) => {
     password: hashed_password,
     email: body.email,
     pin: body.pin,
+    profile_url: `public/${body.profile_url}`,
   });
 
   // TODO: save image
