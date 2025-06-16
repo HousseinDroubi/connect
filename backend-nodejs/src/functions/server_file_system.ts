@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { moveFileInterface } from "../interfaces/functions.interface";
 
 const createFolder = (folder_path: string) => {
   if (!fs.existsSync(folder_path)) {
@@ -15,5 +16,7 @@ const createMainFolders = () => {
     createFolder(folder_path);
   });
 };
+
+const moveFile = ({ file_source, file_destination }: moveFileInterface) => {};
 
 export { createFolder, createMainFolders };
