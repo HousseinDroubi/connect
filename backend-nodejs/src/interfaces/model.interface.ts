@@ -3,7 +3,7 @@ interface createUserAccountBodyInterface {
   username: string;
   pin: number;
   password: string;
-  profile_url: string;
+  file_name: string;
 }
 
 interface userModelInterface extends createUserAccountBodyInterface {
