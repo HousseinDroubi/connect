@@ -14,6 +14,7 @@ const login = async (request: Request, response: Response) => {
 
 const createNewAccount = async (request: Request, response: Response) => {
   // TODO: implement validation
+  // TODO: Check if email and pin are unique and if not delete file.
 
   // Get body from request
   const body: createUserAccountBodyInterface = request.body;
