@@ -49,10 +49,8 @@ const createNewAccount = async (request: Request, response: Response) => {
   });
 
   // Rerturn response
-  response.json({
-    last_iamge: body.file_name,
-    file_source,
-    file_destination,
+  response.status(201).json({
+    result: "account_created",
   });
 };
 
