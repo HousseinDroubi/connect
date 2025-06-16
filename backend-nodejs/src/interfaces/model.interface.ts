@@ -3,10 +3,10 @@ interface createUserAccountBodyInterface {
   username: string;
   pin: number;
   password: string;
+  profile_url: string;
 }
 
 interface userModelInterface extends createUserAccountBodyInterface {
-  profile_url: string;
   is_verified?: boolean;
   created_at?: Date;
 }
