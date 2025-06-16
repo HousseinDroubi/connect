@@ -10,7 +10,16 @@ const login = async (request: Request, response: Response) => {
 };
 
 const createNewAccount = async (request: Request, response: Response) => {
-  // createNewAccount
+  const body: createUserAccountBodyInterface = request.body;
+  const password = body.password;
+  const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUND));
+  const hashed_password = await bcrypt.hash(body.password, salt);
+
+  // ! Testing
+  response.json({
+    password,
+    hashed_password,
+  });
 };
 
 const forgotPassword = async (request: Request, response: Response) => {
