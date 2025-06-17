@@ -1,6 +1,7 @@
 import joi, { alternatives } from "joi";
 import {
   createUserAccountBodyInterface,
+  forgotPasswordBodyInterface,
   loginBodyType,
   verifyAccountParamsInterface,
 } from "../interfaces/controller.interface";
@@ -106,4 +107,35 @@ const validateLogin = (data: loginBodyType) => {
   return schema.validate(data);
 };
 
-export { validateCreateAccount, validateActivateAccount, validateLogin };
+const validateForgotPassword = (data: forgotPasswordBodyInterface) => {
+  const schema = joi
+    .object({
+      email: joi.string().required().email().label("Email").messages({
+        "any.required": "email_is_required",
+        "string.email": "invalid_email",
+        "string.empty": "email_is_not_allowed_to_be_empty",
+      }),
+      password: joi
+        .string()
+        .required()
+        .min(5)
+        .max(20)
+        .label("Password")
+        .messages({
+          "any.required": "password_is_required",
+          "string.base": "password_must_be_of_type_string",
+          "string.empty": "password_is_not_allowed_to_be_empty",
+          "string.min": "password_must_be_minimum_5_digits",
+          "string.max": "password_must_be_maximum_20_digits",
+        }),
+    })
+    .required();
+  return schema.validate(data);
+};
+
+export {
+  validateCreateAccount,
+  validateActivateAccount,
+  validateLogin,
+  validateForgotPassword,
+};
