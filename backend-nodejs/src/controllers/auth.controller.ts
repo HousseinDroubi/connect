@@ -82,9 +82,8 @@ const createNewAccount = async (request: Request, response: Response) => {
     });
   }
 
-  // TODO: update the following to exists
   // Check if pin or email is taken
-  const is_user_existed = await User.findOne({
+  const is_user_existed = await User.exists({
     $or: [{ pin: body.pin }, { email: body.email }],
   });
 
