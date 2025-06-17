@@ -23,7 +23,7 @@ const login = async (request: Request, response: Response) => {
   // Validate request body
   const error = validateLogin(body).error?.details[0].message;
   if (error) {
-    response.status(400).json({
+    return response.status(400).json({
       result: "validation_error",
       error,
     });
@@ -44,7 +44,12 @@ const login = async (request: Request, response: Response) => {
     return response.status(405).json({ error: "user_not_verified" });
 
   return response.status(200).json({
-    result: "done",
+    result: "logged_in",
+    _id: user._id,
+    email: user.email,
+    username: user.username,
+    pin: user.pin,
+    profile_url: `http://${process.env.DOMAIN}:${process.env.PORT}/${user.profile_url}`,
   });
 };
 
