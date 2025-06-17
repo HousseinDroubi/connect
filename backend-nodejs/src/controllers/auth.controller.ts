@@ -8,7 +8,10 @@ import crypto from "crypto";
 import { createUserAccountBodyInterface } from "../interfaces/controller.interface";
 import { sendEmail } from "../emails/scripts/email";
 import { Token } from "../models/token.model";
-import { validateCreateAccount } from "../validations/auth.validation";
+import {
+  validateActivateAccount,
+  validateCreateAccount,
+} from "../validations/auth.validation";
 
 dotenv.config();
 
@@ -105,8 +108,44 @@ const deleteUserAccount = async (request: Request, response: Response) => {
   // deleteUserAccount
 };
 
-const verifyAccount = (request: Request, response: Response) => {
-  // verifyAccount
+const verifyAccount = async (request: Request, response: Response) => {
+  // Get params from request
+  const { token } = request.params;
+
+  // Validate params data
+  const error = validateActivateAccount({ token }).error?.details[0].message;
+  if (error)
+    return response.status(400).json({
+      result: "validation_error",
+      error,
+    });
+
+  // Get token
+  const user_token = await Token.where("value", token).findOne();
+  if (!user_token)
+    return response.status(404).json({
+      result: "token_not_found",
+    });
+
+  const user = await User.findById(user_token.user_id);
+  if (!user)
+    return response.status(410).json({
+      result: "user_account_deleted",
+    });
+
+  if (user.is_verified) {
+    return response.status(406).json({
+      result: "user_already_verified",
+    });
+  }
+
+  user.is_verified = true;
+  await user.save();
+  await user_token.deleteOne();
+
+  return response.json({
+    result: "user_verified",
+  });
 };
 
 export {
