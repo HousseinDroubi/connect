@@ -17,6 +17,7 @@ const login = async (request: Request, response: Response) => {
 };
 
 const createNewAccount = async (request: Request, response: Response) => {
+  // Stop request if imagae isn't existed
   if (!request.file)
     return response.status(400).json({
       result: "image_required",
@@ -24,8 +25,11 @@ const createNewAccount = async (request: Request, response: Response) => {
 
   // Get body from request
   const body: createUserAccountBodyInterface = request.body;
+
+  // Get image source
   const file_source = path.join(__dirname, `../temp/${body.file_name}`);
 
+  // Validate body
   const error = validateCreateAccount(body).error?.details[0].message;
   if (error) {
     deleteFile(file_source);
