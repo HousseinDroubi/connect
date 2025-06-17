@@ -83,6 +83,7 @@ const validateLogin = (data: loginBodyType) => {
         }),
       email: joi.string().email().label("Email").messages({
         "string.email": "invalid_email",
+        "string.base": "email_must_be_of_type_string",
         "string.empty": "email_is_not_allowed_to_be_empty",
       }),
       password: joi
@@ -111,6 +112,7 @@ const validateForgotPassword = (data: forgotPasswordBodyInterface) => {
   const schema = joi.object({
     email: joi.string().required().email().label("Email").messages({
       "any.required": "email_is_required",
+      "string.validation": "email_must_be_of_type_string",
       "string.email": "invalid_email",
       "string.empty": "email_is_not_allowed_to_be_empty",
     }),
