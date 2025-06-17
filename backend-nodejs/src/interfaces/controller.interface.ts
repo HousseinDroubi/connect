@@ -24,8 +24,14 @@ type loginBodyType =
   | loginViaEmailAndPasswordInterface
   | loginViaPinAndPasswordInterface;
 
+interface forgotPasswordBodyInterface {
+  email: string;
+  password: string;
+}
+
 export {
   createUserAccountBodyInterface,
   verifyAccountParamsInterface,
   loginBodyType,
+  forgotPasswordBodyInterface,
 };

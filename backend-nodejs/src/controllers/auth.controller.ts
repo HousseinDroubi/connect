@@ -13,6 +13,7 @@ import {
   validateCreateAccount,
   validateLogin,
 } from "../validations/auth.validation";
+import { generateToken } from "../functions/general";
 
 dotenv.config();
 
@@ -50,6 +51,7 @@ const login = async (request: Request, response: Response) => {
     username: user.username,
     pin: user.pin,
     profile_url: `http://${process.env.DOMAIN}:${process.env.PORT}/${user.profile_url}`,
+    token: generateToken(user._id),
   });
 };
 
