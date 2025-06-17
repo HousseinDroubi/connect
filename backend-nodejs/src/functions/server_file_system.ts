@@ -36,4 +36,8 @@ const readFile = async (path: string) => {
   return fs_promises.readFile(path, "utf-8");
 };
 
-export { createFolder, createMainFolders, moveFile, readFile };
+const deleteFile = async (path: string): Promise<void> => {
+  await fs_promises.unlink(path);
+};
+
+export { createFolder, createMainFolders, moveFile, readFile, deleteFile };
