@@ -11,12 +11,41 @@ import { Token } from "../models/token.model";
 import {
   validateActivateAccount,
   validateCreateAccount,
+  validateLogin,
 } from "../validations/auth.validation";
 
 dotenv.config();
 
 const login = async (request: Request, response: Response) => {
-  // login
+  // Get request body
+  const body = request.body;
+
+  // Validate request body
+  const error = validateLogin(body).error?.details[0].message;
+  if (error) {
+    response.status(400).json({
+      result: "validation_error",
+      error,
+    });
+  }
+
+  const user = await User.findOne({
+    $or: [{ pin: body.pin }, { email: body.email }],
+  });
+
+  if (!user)
+    return response.status(401).json({ error: "wrong_email_or_password" });
+
+  const compare_result = await bcrypt.compare(body.password, user.password);
+  if (!compare_result)
+    return response.status(401).json({ error: "wrong_email_or_password" });
+
+  if (!user.is_verified)
+    return response.status(405).json({ error: "user_not_verified" });
+
+  return response.status(200).json({
+    result: "done",
+  });
 };
 
 const createNewAccount = async (request: Request, response: Response) => {
