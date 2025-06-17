@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
-import { Request, Response, response } from "express";
+import { Request, Response } from "express";
 import User from "../models/user.model";
 import { moveFile } from "../functions/server_file_system";
 import path from "path";
@@ -8,6 +8,7 @@ import crypto from "crypto";
 import { createUserAccountBodyInterface } from "../interfaces/controller.interface";
 import { sendEmail } from "../emails/scripts/email";
 import { Token } from "../models/token.model";
+import { validateCreateAccount } from "../validations/auth.validation";
 
 dotenv.config();
 
@@ -16,14 +17,20 @@ const login = async (request: Request, response: Response) => {
 };
 
 const createNewAccount = async (request: Request, response: Response) => {
-  // TODO: implement validation
   if (!request.file)
-    response.status(400).json({
+    return response.status(400).json({
       result: "image_required",
     });
 
   // Get body from request
   const body: createUserAccountBodyInterface = request.body;
+
+  const error = validateCreateAccount(body).error?.details[0].message;
+  if (error)
+    return response.status(400).json({
+      result: "validation_error",
+      error,
+    });
 
   // Check if pin or email is taken
   const is_user_existed = await User.findOne({
@@ -31,7 +38,7 @@ const createNewAccount = async (request: Request, response: Response) => {
   });
 
   if (is_user_existed)
-    response.status(405).json({ result: "email_or_pin_taken" });
+    return response.status(405).json({ result: "email_or_pin_taken" });
 
   // Move image file from temp to public
   const file_source = path.join(__dirname, `../temp/${body.file_name}`);
@@ -69,7 +76,7 @@ const createNewAccount = async (request: Request, response: Response) => {
   });
 
   // Rerturn response
-  response.status(201).json({
+  return response.status(201).json({
     result: "account_created",
   });
 };
