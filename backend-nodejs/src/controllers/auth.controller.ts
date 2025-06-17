@@ -103,7 +103,7 @@ const createNewAccount = async (request: Request, response: Response) => {
     password: hashed_password,
     email: body.email,
     pin: body.pin,
-    profile_url: file_destination,
+    profile_url: `public/${body.file_name}`,
   });
 
   // Create new token
