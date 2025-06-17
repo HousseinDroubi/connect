@@ -6,4 +6,8 @@ interface createUserAccountBodyInterface {
   file_name: string;
 }
 
-export { createUserAccountBodyInterface };
+interface verifyAccountBodyInterface {
+  token: string;
+}
+
+export { createUserAccountBodyInterface, verifyAccountBodyInterface };
