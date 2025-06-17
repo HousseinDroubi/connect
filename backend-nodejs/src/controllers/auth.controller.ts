@@ -179,7 +179,7 @@ const forgotPassword = async (request: Request, response: Response) => {
   await sendEmail({
     email: user.email,
     subject: "Reset Password",
-    link: token.value,
+    link: `${process.env.FRONT_END_URL}/update_forgotten_password/${token.value}`,
     is_for_activate_account: false,
   });
 
