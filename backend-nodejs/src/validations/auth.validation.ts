@@ -1,4 +1,4 @@
-import joi from "joi";
+import joi, { alternatives } from "joi";
 import {
   createUserAccountBodyInterface,
   loginBodyType,
@@ -63,57 +63,41 @@ const validateActivateAccount = (data: verifyAccountParamsInterface) => {
   return schema.validate(data);
 };
 
-const emailLoginSchema = joi
-  .object({
-    email: joi.string().email().required().label("Email").messages({
-      "string.email": "invalid_email",
-      "string.empty": "email_is_not_allowed_to_be_empty",
-      "any.required": "email_is_required",
-    }),
-    password: joi
-      .string()
-      .required()
-      .min(5)
-      .max(20)
-      .label("Password")
-      .messages({
-        "any.required": "password_is_required",
-        "string.empty": "password_is_not_allowed_to_be_empty",
-        "string.min": "password_must_be_minimum_5_digits",
-        "string.max": "password_must_be_maximum_20_digits",
-      }),
-  })
-  .required();
-
-const pinLoginSchema = joi
-  .object({
-    pin: joi
-      .string()
-      .pattern(/^\d{6}$/)
-      .required()
-      .label("Pin")
-      .messages({
-        "string.pattern.base": "pin_must_be_exactly_6_digits",
-        "string.empty": "pin_is_not_allowed_to_be_empty",
-        "any.required": "pin_is_required",
-      }),
-    password: joi
-      .string()
-      .required()
-      .min(5)
-      .max(20)
-      .label("Password")
-      .messages({
-        "any.required": "password_is_required",
-        "string.empty": "password_is_not_allowed_to_be_empty",
-        "string.min": "password_must_be_minimum_5_digits",
-        "string.max": "password_must_be_maximum_20_digits",
-      }),
-  })
-  .required();
-
 const validateLogin = (data: loginBodyType) => {
-  const schema = joi.alternatives().try(emailLoginSchema, pinLoginSchema);
+  const schema = joi
+    .object({
+      pin: joi
+        .string()
+        .pattern(/^\d{6}$/)
+        .label("Pin")
+        .messages({
+          "string.base": "pin_must_be_of_type_string",
+          "string.pattern.base": "pin_must_be_exactly_6_digits",
+          "string.empty": "pin_is_not_allowed_to_be_empty",
+        }),
+      email: joi.string().email().label("Email").messages({
+        "string.email": "invalid_email",
+        "string.empty": "email_is_not_allowed_to_be_empty",
+      }),
+      password: joi
+        .string()
+        .required()
+        .min(5)
+        .max(20)
+        .label("Password")
+        .messages({
+          "any.required": "password_is_required",
+          "string.base": "password_must_be_of_type_string",
+          "string.empty": "password_is_not_allowed_to_be_empty",
+          "string.min": "password_must_be_minimum_5_digits",
+          "string.max": "password_must_be_maximum_20_digits",
+        }),
+    })
+    .xor("pin", "email")
+    .required()
+    .messages({
+      "object.missing": "pin_or_email_is_required",
+    });
   return schema.validate(data);
 };
 
