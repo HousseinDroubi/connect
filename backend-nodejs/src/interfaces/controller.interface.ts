@@ -26,7 +26,6 @@ type loginBodyType =
 
 interface forgotPasswordBodyInterface {
   email: string;
-  password: string;
 }
 
 export {
