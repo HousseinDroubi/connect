@@ -105,6 +105,10 @@ const deleteUserAccount = async (request: Request, response: Response) => {
   // deleteUserAccount
 };
 
+const verifyAccount = (request: Request, response: Response) => {
+  // verifyAccount
+};
+
 export {
   login,
   createNewAccount,
