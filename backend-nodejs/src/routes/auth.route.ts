@@ -14,7 +14,7 @@ const router = Router();
 
 router.post("/login", login);
 router.post("/create_new_account", upload.single("image"), createNewAccount);
-router.post("/verify_account", verifyAccount);
+router.get("/verify_account/:token", verifyAccount);
 router.post("/forgot_password", forgotPassword);
 router.put("/update_profile_data", updateProfileData);
 router.put("/update_password", updatePassword);
