@@ -6,6 +6,7 @@ const validateCreateAccount = (data: createUserAccountBodyInterface) => {
     email: joi.string().required().label("Email").email().messages({
       "any.required": "email_is_required",
       "string.email": "invalid_email",
+      "string.empty": "email_is_not_allowed_to_be_empty",
     }),
     pin: joi
       .string()
@@ -14,8 +15,8 @@ const validateCreateAccount = (data: createUserAccountBodyInterface) => {
       .pattern(/^\d{6}$/)
       .messages({
         "string.pattern.base": "pin_must_be_exactly_6_digits",
-        "number.base": "pin_must_be_of_type_number",
         "any.required": "pin_is_required",
+        "string.empty": "pin_is_not_allowed_to_be_empty",
       }),
     password: joi
       .string()
@@ -24,7 +25,8 @@ const validateCreateAccount = (data: createUserAccountBodyInterface) => {
       .min(5)
       .max(20)
       .messages({
-        "string.empty": "password_is_required",
+        "any.required": "password_is_required",
+        "string.empty": "password_is_not_allowed_to_be_empty",
         "string.min": "password_must_be_minimum_5_digits",
         "string.max": "password_must_be_maximum_20_digits",
       }),
@@ -35,7 +37,8 @@ const validateCreateAccount = (data: createUserAccountBodyInterface) => {
       .min(3)
       .max(10)
       .messages({
-        "string.empty": "username_is_required",
+        "any.required": "username_is_required",
+        "string.empty": "username_is_not_allowed_to_be_empty",
         "string.min": "username_must_be_minimum_3_digits",
         "string.max": "username_must_be_maximum_10_digits",
       }),
