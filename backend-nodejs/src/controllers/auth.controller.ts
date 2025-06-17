@@ -176,12 +176,15 @@ const forgotPassword = async (request: Request, response: Response) => {
     user_id: user._id,
   });
 
+  //Send email
   await sendEmail({
     email: user.email,
     subject: "Reset Password",
     link: token.value,
     is_for_activate_account: false,
   });
+
+  //Send response
   return response.status(201).json({
     result: "email_sent",
   });
