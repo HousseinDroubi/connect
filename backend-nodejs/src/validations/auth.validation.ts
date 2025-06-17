@@ -1,5 +1,8 @@
 import joi from "joi";
-import { createUserAccountBodyInterface } from "../interfaces/controller.interface";
+import {
+  createUserAccountBodyInterface,
+  verifyAccountBodyInterface,
+} from "../interfaces/controller.interface";
 
 const validateCreateAccount = (data: createUserAccountBodyInterface) => {
   const schema = joi.object({
@@ -49,4 +52,14 @@ const validateCreateAccount = (data: createUserAccountBodyInterface) => {
   return schema.validate(data);
 };
 
-export { validateCreateAccount };
+const validateActivateAccount = (data: verifyAccountBodyInterface) => {
+  const schema = joi.object({
+    token: joi.string().required().label("Token").messages({
+      "any.required": "token_is_required",
+      "string.empty": "token_is_not_allowed_to_be_empty",
+    }),
+  });
+  return schema.validate(data);
+};
+
+export { validateCreateAccount, validateActivateAccount };
