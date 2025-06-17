@@ -5,12 +5,16 @@ import User from "../models/user.model";
 import { deleteFile, moveFile } from "../functions/server_file_system";
 import path from "path";
 import crypto from "crypto";
-import { createUserAccountBodyInterface } from "../interfaces/controller.interface";
+import {
+  createUserAccountBodyInterface,
+  forgotPasswordBodyInterface,
+} from "../interfaces/controller.interface";
 import { sendEmail } from "../emails/scripts/email";
 import { Token } from "../models/token.model";
 import {
   validateActivateAccount,
   validateCreateAccount,
+  validateForgotPassword,
   validateLogin,
 } from "../validations/auth.validation";
 import { generateToken } from "../functions/general";
@@ -78,6 +82,7 @@ const createNewAccount = async (request: Request, response: Response) => {
     });
   }
 
+  // TODO: update the following to exists
   // Check if pin or email is taken
   const is_user_existed = await User.findOne({
     $or: [{ pin: body.pin }, { email: body.email }],
@@ -129,7 +134,57 @@ const createNewAccount = async (request: Request, response: Response) => {
 };
 
 const forgotPassword = async (request: Request, response: Response) => {
-  // forgotPassword
+  // Get body from request
+  const body: forgotPasswordBodyInterface = request.body;
+
+  // Validate request body
+  const error = validateForgotPassword(body).error?.details[0].message;
+  if (error) {
+    return response.status(400).json({
+      result: "validation_error",
+      error,
+    });
+  }
+
+  // Check if email existed
+  const user = await User.findOne({ email: body.email });
+  if (!user) {
+    return response.status(404).json({
+      result: "user_not_found",
+    });
+  }
+
+  // Check user if verified
+  if (!user.is_verified)
+    return response.status(405).json({
+      result: "user_is_not_verified",
+    });
+
+  // Check if token already created
+  const is_token_existed = await Token.exists({
+    user_id: user._id,
+  });
+
+  if (is_token_existed)
+    return response.status(405).json({
+      result: "token_already_sent",
+    });
+
+  // Create new token
+  const token = await Token.create({
+    value: crypto.randomBytes(32).toString("hex"),
+    user_id: user._id,
+  });
+
+  await sendEmail({
+    email: user.email,
+    subject: "Reset Password",
+    link: token.value,
+    is_for_activate_account: false,
+  });
+  return response.status(201).json({
+    result: "email_sent",
+  });
 };
 
 const updateProfileData = async (request: Request, response: Response) => {
