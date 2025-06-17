@@ -1,7 +1,7 @@
 import joi from "joi";
 import {
   createUserAccountBodyInterface,
-  verifyAccountBodyInterface,
+  verifyAccountParamsInterface,
 } from "../interfaces/controller.interface";
 
 const validateCreateAccount = (data: createUserAccountBodyInterface) => {
@@ -52,7 +52,7 @@ const validateCreateAccount = (data: createUserAccountBodyInterface) => {
   return schema.validate(data);
 };
 
-const validateActivateAccount = (data: verifyAccountBodyInterface) => {
+const validateActivateAccount = (data: verifyAccountParamsInterface) => {
   const schema = joi.object({
     token: joi.string().required().label("Token").messages({
       "any.required": "token_is_required",
