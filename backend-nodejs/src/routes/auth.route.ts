@@ -5,6 +5,7 @@ import {
   updateProfileData,
   updatePassword,
   deleteUserAccount,
+  verifyAccount,
 } from "../controllers/auth.controller";
 import { Router } from "express";
 import { upload } from "../middlewares/multer.middleware";
@@ -13,6 +14,7 @@ const router = Router();
 
 router.post("/login", login);
 router.post("/create_new_account", upload.single("image"), createNewAccount);
+router.post("/verify_account", verifyAccount);
 router.post("/forgot_password", forgotPassword);
 router.put("/update_profile_data", updateProfileData);
 router.put("/update_password", updatePassword);
