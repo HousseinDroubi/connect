@@ -10,4 +10,22 @@ interface verifyAccountParamsInterface {
   token: string;
 }
 
-export { createUserAccountBodyInterface, verifyAccountParamsInterface };
+interface loginViaEmailAndPasswordInterface {
+  email: string;
+  password: string;
+}
+
+interface loginViaPinAndPasswordInterface {
+  pin: string;
+  password: string;
+}
+
+type loginBodyType =
+  | loginViaEmailAndPasswordInterface
+  | loginViaPinAndPasswordInterface;
+
+export {
+  createUserAccountBodyInterface,
+  verifyAccountParamsInterface,
+  loginBodyType,
+};
