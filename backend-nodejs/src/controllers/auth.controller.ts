@@ -247,8 +247,10 @@ const updateForgottenPassword = async (
   request: Request,
   response: Response
 ) => {
+  // Get request body
   const body: updateForgottenPasswordBodytInterface = request.body;
 
+  // Validate request body
   const error =
     validateUpdateForgottenPasswordtInterface(body).error?.details[0].message;
   if (error) {
@@ -258,12 +260,14 @@ const updateForgottenPassword = async (
     });
   }
 
+  // Find token
   const token = await Token.findOne({ value: body.token });
   if (!token)
     return response.status(404).json({
       result: "token_not_found",
     });
 
+  // Find user
   const user = await User.findById(token.user_id);
   if (!user)
     return response.status(410).json({
@@ -274,10 +278,12 @@ const updateForgottenPassword = async (
   const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUND));
   const hashed_password = await bcrypt.hash(body.password, salt);
 
+  // Update password and delete token
   user.password = hashed_password;
   await user.save();
   await token.deleteOne();
 
+  // Return response
   return response.status(205).json({
     result: "password_updated",
   });
