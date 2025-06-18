@@ -158,11 +158,11 @@ const validateUpdatePassword = (data: updatePasswordBodyInterface) => {
       .max(20)
       .label("Password")
       .messages({
-        "any.required": "password_is_required",
-        "string.base": "password_must_be_of_type_string",
-        "string.empty": "password_is_not_allowed_to_be_empty",
-        "string.min": "password_must_be_minimum_5_digits",
-        "string.max": "password_must_be_maximum_20_digits",
+        "any.required": "old_password_is_required",
+        "string.base": "old_password_must_be_of_type_string",
+        "string.empty": "old_password_is_not_allowed_to_be_empty",
+        "string.min": "old_password_must_be_minimum_5_digits",
+        "string.max": "old_password_must_be_maximum_20_digits",
       }),
     new_password: joi
       .string()
@@ -171,11 +171,11 @@ const validateUpdatePassword = (data: updatePasswordBodyInterface) => {
       .max(20)
       .label("Password")
       .messages({
-        "any.required": "password_is_required",
-        "string.base": "password_must_be_of_type_string",
-        "string.empty": "password_is_not_allowed_to_be_empty",
-        "string.min": "password_must_be_minimum_5_digits",
-        "string.max": "password_must_be_maximum_20_digits",
+        "any.required": "new_password_is_required",
+        "string.base": "new_password_must_be_of_type_string",
+        "string.empty": "new_password_is_not_allowed_to_be_empty",
+        "string.min": "new_password_must_be_minimum_5_digits",
+        "string.max": "new_password_must_be_maximum_20_digits",
       }),
     user_id: joi
       .string()
