@@ -4,6 +4,7 @@ import {
   forgotPasswordBodyInterface,
   loginBodyType,
   updateForgottenPasswordBodytInterface,
+  updatePasswordBodyInterface,
   verifyAccountParamsInterface,
 } from "../interfaces/controller.interface";
 
@@ -147,10 +148,30 @@ const validateUpdateForgottenPasswordtInterface = (
   return schema.validate(data);
 };
 
+const validateUpdatePassword = (data: updatePasswordBodyInterface) => {
+  const schema = joi.object({
+    password: joi
+      .string()
+      .required()
+      .min(5)
+      .max(20)
+      .label("Password")
+      .messages({
+        "any.required": "password_is_required",
+        "string.base": "password_must_be_of_type_string",
+        "string.empty": "password_is_not_allowed_to_be_empty",
+        "string.min": "password_must_be_minimum_5_digits",
+        "string.max": "password_must_be_maximum_20_digits",
+      }),
+  });
+  return schema.validate(data);
+};
+
 export {
   validateCreateAccount,
   validateActivateAccount,
   validateLogin,
   validateForgotPassword,
   validateUpdateForgottenPasswordtInterface,
+  validateUpdatePassword,
 };
