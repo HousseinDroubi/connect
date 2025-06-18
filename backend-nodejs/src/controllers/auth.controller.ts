@@ -241,6 +241,10 @@ const verifyAccount = async (request: Request, response: Response) => {
   });
 };
 
+const updateForgottenPassword = (request: Request, response: Response) => {
+  // updateForgottenPassword
+};
+
 export {
   login,
   createNewAccount,
@@ -249,4 +253,5 @@ export {
   updatePassword,
   deleteUserAccount,
   verifyAccount,
+  updateForgottenPassword,
 };

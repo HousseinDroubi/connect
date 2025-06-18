@@ -6,6 +6,7 @@ import {
   updatePassword,
   deleteUserAccount,
   verifyAccount,
+  updateForgottenPassword,
 } from "../controllers/auth.controller";
 import { Router } from "express";
 import { upload } from "../middlewares/multer.middleware";
@@ -19,5 +20,5 @@ router.post("/forgot_password", forgotPassword);
 router.put("/update_profile_data", updateProfileData);
 router.put("/update_password", updatePassword);
 router.delete("/delete_user_account", deleteUserAccount);
-
+router.put("/update_forgotten_password", updateForgottenPassword);
 export default router;
