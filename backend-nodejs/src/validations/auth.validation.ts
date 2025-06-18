@@ -187,6 +187,8 @@ const validateUpdatePassword = (data: updatePasswordBodyInterface) => {
         return value;
       }, "ObjectId Validation")
       .messages({
+        "any.required": "object_id_is_required",
+        "string.empty": "object_id_is_not_allowerd_to_be_empty",
         "any.invalid": "invalid_object_id",
       }),
   });
