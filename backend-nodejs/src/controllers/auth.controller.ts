@@ -197,14 +197,20 @@ const forgotPassword = async (request: Request, response: Response) => {
 };
 
 const updateProfileData = async (request: Request, response: Response) => {
+  // Get body from request
   const body: updateProfileBodyInterface = request.body;
   let file_source: string = "";
 
+  // Validate body
   const error = validateUpdateProfile(body).error?.details[0].message;
+
+  // save file source inside variable
   if (body.file_name)
     file_source = path.join(__dirname, `../temp/${body.file_name}`);
 
+  // Stop request if validation fails
   if (error) {
+    // Delete file
     if (body.file_name) await deleteFile(file_source);
     return response.status(400).json({
       result: "validation_error",
@@ -212,30 +218,41 @@ const updateProfileData = async (request: Request, response: Response) => {
     });
   }
 
+  // Get user
   const user = await User.findById(body.user_id);
   if (!user) {
+    // Delete file
     if (body.file_name) await deleteFile(file_source);
     return response.status(401).json({
       result: "user_not_found",
       error,
     });
   }
+
+  // Update username
   if (body.username) user.username = body.username;
+  // Update user profile
   if (body.file_name) {
+    // Delete old image
     await deleteFile(path.join(__dirname, `../${user.profile_url}`));
     const file_destination = path.join(
       __dirname,
       `../public/${body.file_name}`
     );
+    // Move file from temp to public
     await moveFile({ file_source, file_destination });
+    // Update profile url
     user.profile_url = `public/${body.file_name}`;
   }
+  // Save user data
   await user.save();
 
+  // Prepare response json
   const response_json: updateProfileResponseInterface = {
     result: "data_updated",
   };
 
+  // Return response
   if (body.file_name)
     response_json.new_profile_url = `http://${process.env.DOMAIN}:${process.env.PORT}/${user.profile_url}`;
   return response.status(202).json(response_json);
