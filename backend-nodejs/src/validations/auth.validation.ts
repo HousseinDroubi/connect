@@ -5,6 +5,7 @@ import {
   loginBodyType,
   updateForgottenPasswordBodytInterface,
   updatePasswordBodyInterface,
+  updateProfileBodyInterface,
   verifyAccountParamsInterface,
 } from "../interfaces/controllers/auth.controller.interfaces";
 import mongoose from "mongoose";
@@ -195,6 +196,48 @@ const validateUpdatePassword = (data: updatePasswordBodyInterface) => {
   return schema.validate(data);
 };
 
+const validateUpdateProfile = (data: updateProfileBodyInterface) => {
+  const schema = joi
+    .object({
+      file_name: joi.string().required().messages({
+        "any.required": "file_name_is_required",
+      }),
+      username: joi
+        .string()
+        .required()
+        .label("Username")
+        .min(3)
+        .max(10)
+        .messages({
+          "string.base": "username_must_be_of_type_string",
+          "any.required": "username_is_required",
+          "string.empty": "username_is_not_allowed_to_be_empty",
+          "string.min": "username_must_be_minimum_3_digits",
+          "string.max": "username_must_be_maximum_10_digits",
+        }),
+      user_id: joi
+        .string()
+        .required()
+        .custom((value, helpers) => {
+          if (!mongoose.Types.ObjectId.isValid(value)) {
+            return helpers.error("any.invalid");
+          }
+          return value;
+        }, "ObjectId Validation")
+        .messages({
+          "any.required": "object_id_is_required",
+          "string.empty": "object_id_is_not_allowerd_to_be_empty",
+          "any.invalid": "invalid_object_id",
+        }),
+    })
+    .or("username", "file_name")
+    .required()
+    .messages({
+      "object.missing": "pin_or_email_is_required",
+    });
+  return schema.validate(data);
+};
+
 export {
   validateCreateAccount,
   validateActivateAccount,
@@ -202,4 +245,5 @@ export {
   validateForgotPassword,
   validateUpdateForgottenPasswordtInterface,
   validateUpdatePassword,
+  validateUpdateProfile,
 };
