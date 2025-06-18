@@ -14,12 +14,12 @@ const generateToken = (_id: mongoose.Types.ObjectId) => {
 };
 
 const getIdFromToken = (token: string | undefined): null | string => {
-  if (!token || !process.env.PRIVATE_KEY) return null;
+  if (!token || !process.env.JWT_PRIVATE_KEY) return null;
 
   try {
     const { _id } = jsonwebtoken.verify(
       token.split(" ")[1],
-      process.env.PRIVATE_KEY
+      process.env.JWT_PRIVATE_KEY
     ) as JwtPayload;
 
     return _id;
