@@ -284,7 +284,7 @@ const updateForgottenPassword = async (
   await token.deleteOne();
 
   // Return response
-  return response.status(205).json({
+  return response.status(202).json({
     result: "password_updated",
   });
 };
