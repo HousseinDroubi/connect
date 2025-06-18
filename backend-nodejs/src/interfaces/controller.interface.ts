@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 interface createUserAccountBodyInterface {
   email: string;
   username: string;
@@ -34,7 +36,9 @@ interface updateForgottenPasswordBodytInterface {
 }
 
 interface updatePasswordBodyInterface {
+  user_id: mongoose.Schema.Types.ObjectId;
   new_password: string;
+  old_password: string;
 }
 
 export {
