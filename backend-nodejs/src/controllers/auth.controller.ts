@@ -8,6 +8,7 @@ import crypto from "crypto";
 import {
   createUserAccountBodyInterface,
   forgotPasswordBodyInterface,
+  updateForgottenPasswordBodytInterface,
 } from "../interfaces/controller.interface";
 import { sendEmail } from "../emails/scripts/email";
 import { Token } from "../models/token.model";
@@ -16,6 +17,7 @@ import {
   validateCreateAccount,
   validateForgotPassword,
   validateLogin,
+  validateUpdateForgottenPasswordtInterface,
 } from "../validations/auth.validation";
 import { generateToken } from "../functions/general";
 
@@ -241,8 +243,44 @@ const verifyAccount = async (request: Request, response: Response) => {
   });
 };
 
-const updateForgottenPassword = (request: Request, response: Response) => {
-  // updateForgottenPassword
+const updateForgottenPassword = async (
+  request: Request,
+  response: Response
+) => {
+  const body: updateForgottenPasswordBodytInterface = request.body;
+
+  const error =
+    validateUpdateForgottenPasswordtInterface(body).error?.details[0].message;
+  if (error) {
+    return response.status(400).json({
+      result: "validation_error",
+      error,
+    });
+  }
+
+  const token = await Token.findOne({ value: body.token });
+  if (!token)
+    return response.status(404).json({
+      result: "token_not_found",
+    });
+
+  const user = await User.findById(token.user_id);
+  if (!user)
+    return response.status(410).json({
+      result: "user_account_deleted",
+    });
+
+  // Hash password
+  const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUND));
+  const hashed_password = await bcrypt.hash(body.password, salt);
+
+  user.password = hashed_password;
+  await user.save();
+  await token.deleteOne();
+
+  return response.status(205).json({
+    result: "password_updated",
+  });
 };
 
 export {
