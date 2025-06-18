@@ -28,9 +28,15 @@ interface forgotPasswordBodyInterface {
   email: string;
 }
 
+interface updateForgottenPasswordBodytInterface {
+  password: string;
+  token: string;
+}
+
 export {
   createUserAccountBodyInterface,
   verifyAccountParamsInterface,
   loginBodyType,
   forgotPasswordBodyInterface,
+  updateForgottenPasswordBodytInterface,
 };
