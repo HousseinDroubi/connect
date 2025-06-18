@@ -41,6 +41,12 @@ interface updatePasswordBodyInterface {
   old_password: string;
 }
 
+interface updateProfileBodyInterface {
+  user_id: mongoose.Schema.Types.ObjectId;
+  file_name?: string;
+  username?: string;
+}
+
 export {
   createUserAccountBodyInterface,
   verifyAccountParamsInterface,
@@ -48,4 +54,5 @@ export {
   forgotPasswordBodyInterface,
   updateForgottenPasswordBodytInterface,
   updatePasswordBodyInterface,
+  updateProfileBodyInterface,
 };
