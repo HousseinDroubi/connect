@@ -9,6 +9,7 @@ import {
   createUserAccountBodyInterface,
   forgotPasswordBodyInterface,
   updateForgottenPasswordBodytInterface,
+  updatePasswordBodyInterface,
 } from "../interfaces/controller.interface";
 import { sendEmail } from "../emails/scripts/email";
 import { Token } from "../models/token.model";
@@ -18,6 +19,7 @@ import {
   validateForgotPassword,
   validateLogin,
   validateUpdateForgottenPasswordtInterface,
+  validateUpdatePassword,
 } from "../validations/auth.validation";
 import { generateToken } from "../functions/general";
 
@@ -196,7 +198,36 @@ const updateProfileData = async (request: Request, response: Response) => {
 };
 
 const updatePassword = async (request: Request, response: Response) => {
-  // updatePassword
+  const body: updatePasswordBodyInterface = request.body;
+
+  const error = validateUpdatePassword(body).error?.details[0].message;
+
+  if (error)
+    return response.status(400).json({
+      result: "validation_error",
+      error,
+    });
+
+  const user = await User.findById(body.user_id);
+  if (!user)
+    return response.status(401).json({
+      result: "user_not_found",
+      error,
+    });
+
+  const compare_result = await bcrypt.compare(body.old_password, user.password);
+  if (!compare_result)
+    return response.status(401).json({ error: "old_password_wrong" });
+
+  const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUND));
+  const hashed_password = await bcrypt.hash(body.new_password, salt);
+
+  user.password = hashed_password;
+  await user.save();
+
+  response.status(202).json({
+    result: "password_updated",
+  });
 };
 
 const deleteUserAccount = async (request: Request, response: Response) => {
