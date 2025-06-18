@@ -10,6 +10,8 @@ import {
   forgotPasswordBodyInterface,
   updateForgottenPasswordBodytInterface,
   updatePasswordBodyInterface,
+  updateProfileBodyInterface,
+  updateProfileResponseInterface,
 } from "../interfaces/controllers/auth.controller.interfaces";
 import { sendEmail } from "../emails/scripts/email";
 import { Token } from "../models/token.model";
@@ -20,6 +22,7 @@ import {
   validateLogin,
   validateUpdateForgottenPasswordtInterface,
   validateUpdatePassword,
+  validateUpdateProfile,
 } from "../validations/auth.validation";
 import { generateToken } from "../functions/general";
 
@@ -194,12 +197,52 @@ const forgotPassword = async (request: Request, response: Response) => {
 };
 
 const updateProfileData = async (request: Request, response: Response) => {
-  // updateProfileData
+  const body: updateProfileBodyInterface = request.body;
+  let file_source: string = "";
+
+  const error = validateUpdateProfile(body).error?.details[0].message;
+  if (body.file_name)
+    file_source = path.join(__dirname, `../temp/${body.file_name}`);
+
+  if (error) {
+    if (body.file_name) await deleteFile(file_source);
+    return response.status(400).json({
+      result: "validation_error",
+      error,
+    });
+  }
+
+  const user = await User.findById(body.user_id);
+  if (!user) {
+    if (body.file_name) await deleteFile(file_source);
+    return response.status(401).json({
+      result: "user_not_found",
+      error,
+    });
+  }
+  if (body.username) user.username = body.username;
+  if (body.file_name) {
+    await deleteFile(path.join(__dirname, `../${user.profile_url}`));
+    const file_destination = path.join(
+      __dirname,
+      `../public/${body.file_name}`
+    );
+    await moveFile({ file_source, file_destination });
+    user.profile_url = `public/${body.file_name}`;
+  }
+  await user.save();
+
+  const response_json: updateProfileResponseInterface = {
+    result: "data_updated",
+  };
+
+  if (body.file_name)
+    response_json.new_profile_url = `http://${process.env.DOMAIN}:${process.env.PORT}/${user.profile_url}`;
+  return response.status(202).json(response_json);
 };
 
 const updatePassword = async (request: Request, response: Response) => {
   const body: updatePasswordBodyInterface = request.body;
-
   const error = validateUpdatePassword(body).error?.details[0].message;
 
   if (error)

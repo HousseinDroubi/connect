@@ -47,6 +47,11 @@ interface updateProfileBodyInterface {
   username?: string;
 }
 
+interface updateProfileResponseInterface {
+  result: string;
+  new_profile_url?: string;
+}
+
 export {
   createUserAccountBodyInterface,
   verifyAccountParamsInterface,
@@ -55,4 +60,5 @@ export {
   updateForgottenPasswordBodytInterface,
   updatePasswordBodyInterface,
   updateProfileBodyInterface,
+  updateProfileResponseInterface,
 };
