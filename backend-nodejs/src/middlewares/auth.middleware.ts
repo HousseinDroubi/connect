@@ -3,7 +3,7 @@ import { getIdFromToken } from "../functions/general";
 
 declare module "express-serve-static-core" {
   interface Request {
-    _id?: string;
+    user_id?: string;
   }
 }
 
@@ -14,7 +14,7 @@ const isUserAuthenticated = (
 ) => {
   const _id = getIdFromToken(request.headers.authorization);
   if (!_id) return response.status(401).json({ error: "invalid_id" });
-  request._id = _id;
+  request.user_id = _id;
   next();
 };
 
