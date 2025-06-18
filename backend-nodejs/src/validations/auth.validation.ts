@@ -3,6 +3,7 @@ import {
   createUserAccountBodyInterface,
   forgotPasswordBodyInterface,
   loginBodyType,
+  updateForgottenPasswordBodytInterface,
   verifyAccountParamsInterface,
 } from "../interfaces/controller.interface";
 
@@ -120,9 +121,36 @@ const validateForgotPassword = (data: forgotPasswordBodyInterface) => {
   return schema.validate(data);
 };
 
+const validateUpdateForgottenPasswordtInterface = (
+  data: updateForgottenPasswordBodytInterface
+) => {
+  const schema = joi.object({
+    password: joi
+      .string()
+      .required()
+      .min(5)
+      .max(20)
+      .label("Password")
+      .messages({
+        "any.required": "password_is_required",
+        "string.base": "password_must_be_of_type_string",
+        "string.empty": "password_is_not_allowed_to_be_empty",
+        "string.min": "password_must_be_minimum_5_digits",
+        "string.max": "password_must_be_maximum_20_digits",
+      }),
+    token: joi.string().required().label("Token").messages({
+      "any.required": "token_is_required",
+      "string.base": "token_must_be_of_type_string",
+      "string.empty": "token_is_not_allowed_to_be_empty",
+    }),
+  });
+  return schema.validate(data);
+};
+
 export {
   validateCreateAccount,
   validateActivateAccount,
   validateLogin,
   validateForgotPassword,
+  validateUpdateForgottenPasswordtInterface,
 };
