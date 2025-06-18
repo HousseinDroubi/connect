@@ -33,10 +33,15 @@ interface updateForgottenPasswordBodytInterface {
   token: string;
 }
 
+interface updatePasswordBodyInterface {
+  new_password: string;
+}
+
 export {
   createUserAccountBodyInterface,
   verifyAccountParamsInterface,
   loginBodyType,
   forgotPasswordBodyInterface,
   updateForgottenPasswordBodytInterface,
+  updatePasswordBodyInterface,
 };
