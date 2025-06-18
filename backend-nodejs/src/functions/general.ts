@@ -28,4 +28,8 @@ const getIdFromToken = (token: string | undefined): null | string => {
   }
 };
 
-export { generateToken, getIdFromToken };
+const isObjectIdValid = (object_id: string): boolean => {
+  return mongoose.Types.ObjectId.isValid(object_id);
+};
+
+export { generateToken, getIdFromToken, isObjectIdValid };
