@@ -199,22 +199,16 @@ const validateUpdatePassword = (data: updatePasswordBodyInterface) => {
 const validateUpdateProfile = (data: updateProfileBodyInterface) => {
   const schema = joi
     .object({
-      file_name: joi.string().required().messages({
+      file_name: joi.string().messages({
         "any.required": "file_name_is_required",
       }),
-      username: joi
-        .string()
-        .required()
-        .label("Username")
-        .min(3)
-        .max(10)
-        .messages({
-          "string.base": "username_must_be_of_type_string",
-          "any.required": "username_is_required",
-          "string.empty": "username_is_not_allowed_to_be_empty",
-          "string.min": "username_must_be_minimum_3_digits",
-          "string.max": "username_must_be_maximum_10_digits",
-        }),
+      username: joi.string().label("Username").min(3).max(10).messages({
+        "string.base": "username_must_be_of_type_string",
+        "any.required": "username_is_required",
+        "string.empty": "username_is_not_allowed_to_be_empty",
+        "string.min": "username_must_be_minimum_3_digits",
+        "string.max": "username_must_be_maximum_10_digits",
+      }),
       user_id: joi
         .string()
         .required()
@@ -233,7 +227,7 @@ const validateUpdateProfile = (data: updateProfileBodyInterface) => {
     .or("username", "file_name")
     .required()
     .messages({
-      "object.missing": "pin_or_email_is_required",
+      "object.missing": "username_of_file_name_is_required",
     });
   return schema.validate(data);
 };
