@@ -82,7 +82,7 @@ const createNewAccount = async (request: Request, response: Response) => {
   // Validate body
   const error = validateCreateAccount(body).error?.details[0].message;
   if (error) {
-    deleteFile(file_source);
+    await deleteFile(file_source);
     return response.status(400).json({
       result: "validation_error",
       error,
@@ -95,7 +95,7 @@ const createNewAccount = async (request: Request, response: Response) => {
   });
 
   if (is_user_existed) {
-    deleteFile(file_source);
+    await deleteFile(file_source);
     return response.status(405).json({ result: "email_or_pin_taken" });
   }
 
