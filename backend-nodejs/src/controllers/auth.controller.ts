@@ -10,7 +10,7 @@ import {
   forgotPasswordBodyInterface,
   updateForgottenPasswordBodytInterface,
   updatePasswordBodyInterface,
-} from "../interfaces/controller.interface";
+} from "../interfaces/controllers/auth.controller.interfaces";
 import { sendEmail } from "../emails/scripts/email";
 import { Token } from "../models/token.model";
 import {

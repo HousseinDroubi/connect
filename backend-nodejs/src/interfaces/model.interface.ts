@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { createUserAccountBodyInterface } from "./controller.interface";
+import { createUserAccountBodyInterface } from "./controllers/auth.controller.interfaces";
 
 interface userModelInterface
   extends Omit<createUserAccountBodyInterface, "file_name"> {

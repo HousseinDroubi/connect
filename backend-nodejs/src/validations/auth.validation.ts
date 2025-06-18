@@ -6,7 +6,7 @@ import {
   updateForgottenPasswordBodytInterface,
   updatePasswordBodyInterface,
   verifyAccountParamsInterface,
-} from "../interfaces/controller.interface";
+} from "../interfaces/controllers/auth.controller.interfaces";
 import mongoose from "mongoose";
 
 const validateCreateAccount = (data: createUserAccountBodyInterface) => {
