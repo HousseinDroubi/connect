@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { userModelInterface } from "../interfaces/model.interface";
+import { userModelInterface } from "../interfaces/models/model.interface";
 const schema = new mongoose.Schema<userModelInterface>({
   email: {
     type: String,

@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import { readFile } from "../../functions/server_file_system";
 import path from "path";
-import { sendEmailInterface } from "../../interfaces/email_script.interface";
+import { sendEmailInterface } from "../../interfaces/emails/email_script.interface";
 
 const sendEmail = async ({
   email,

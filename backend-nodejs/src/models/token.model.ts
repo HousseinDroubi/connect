@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { tokenModelInterface } from "../interfaces/model.interface";
+import { tokenModelInterface } from "../interfaces/models/model.interface";
 
 const schema = new mongoose.Schema<tokenModelInterface>({
   user_id: {

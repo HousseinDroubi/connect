@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { userModelInterface } from "../model.interface";
+import { userModelInterface } from "../models/model.interface";
 
 interface userDocumentInterface {
   user:

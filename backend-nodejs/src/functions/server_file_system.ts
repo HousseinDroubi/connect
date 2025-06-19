@@ -1,5 +1,5 @@
 import path from "path";
-import { moveFileInterface } from "../interfaces/functions.interface";
+import { moveFileInterface } from "../interfaces/functions/functions.interface";
 import fs_promises from "fs/promises";
 
 const checkFileExistence = async (path: string): Promise<boolean> => {
