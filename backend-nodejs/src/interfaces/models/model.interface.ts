@@ -26,10 +26,10 @@ interface messageModelInterface {
 }
 
 interface conversationModelInterface {
-  between: [mongoose.Types.ObjectId] | null;
+  between: Array<mongoose.Types.ObjectId> | null;
   created_at: Date;
   last_message: mongoose.Types.ObjectId;
-  deleted_for: [mongoose.Types.ObjectId];
+  deleted_for: Array<mongoose.Types.ObjectId>;
 }
 
 export {
