@@ -31,4 +31,4 @@ interface loginResponseInterface {
   ];
 }
 
-export { updateProfileResponseInterface };
+export { updateProfileResponseInterface, loginResponseInterface };
