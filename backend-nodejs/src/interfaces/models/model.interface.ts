@@ -26,4 +26,16 @@ interface messageModelInterface {
   profile_url?: string | null;
 }
 
-export { userModelInterface, tokenModelInterface, messageModelInterface };
+interface conversationModelInterface {
+  between: [userModelInterface] | "all";
+  created_at: Date;
+  last_message: messageModelInterface;
+  deleted_from: [mongoose.Types.ObjectId];
+}
+
+export {
+  userModelInterface,
+  tokenModelInterface,
+  messageModelInterface,
+  conversationModelInterface,
+};
