@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { createUserAccountBodyInterface } from "./controllers/auth.controller.interfaces";
+import mongoose, { mongo } from "mongoose";
+import { createUserAccountBodyInterface } from "../controllers/auth.controller.interfaces";
 
 interface userModelInterface
   extends Omit<createUserAccountBodyInterface, "file_name"> {
@@ -15,4 +15,15 @@ interface tokenModelInterface {
   created_at: Date;
 }
 
-export { userModelInterface, tokenModelInterface };
+interface messageModelInterface {
+  sender: mongoose.Types.ObjectId;
+  receiver: mongoose.Types.ObjectId | "all";
+  created_at: Date;
+  deleted_from_sender_at: Date | null;
+  deleted_from_others_at: Date | null;
+  is_text: boolean;
+  content?: string | null;
+  profile_url?: string | null;
+}
+
+export { userModelInterface, tokenModelInterface, messageModelInterface };
