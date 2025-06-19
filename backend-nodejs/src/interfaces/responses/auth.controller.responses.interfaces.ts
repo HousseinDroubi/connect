@@ -6,29 +6,30 @@ interface updateProfileResponseInterface {
 }
 
 interface loginResponseInterface {
+  result: string;
   _id: mongoose.Types.ObjectId;
   email: string;
   username: string;
   pin: number;
   profile_url: string;
   token: string;
-  conversations: [
-    {
-      recipient: {
-        profile_url: string;
-        username: string;
-      };
+  conversations: Array<{
+    recipient: {
+      _id: mongoose.Types.ObjectId;
+      profile_url: string;
+      username: string;
+    } | null;
+    created_at: Date;
+    last_message: {
+      _id: mongoose.Types.ObjectId;
+      sender_id: mongoose.Types.ObjectId;
+      receiver_id: mongoose.Types.ObjectId | null;
       created_at: Date;
-      last_message: {
-        sender: mongoose.Types.ObjectId;
-        receiver: mongoose.Types.ObjectId;
-        created_at: Date;
-        deleted: boolean;
-        is_text: boolean;
-        content: string;
-      };
-    }
-  ];
+      deleted: boolean;
+      is_text: boolean;
+      content: string;
+    } | null;
+  }>;
 }
 
 export { updateProfileResponseInterface, loginResponseInterface };
