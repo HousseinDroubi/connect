@@ -10,7 +10,10 @@ import {
 } from "../controllers/auth.controller";
 import { Router } from "express";
 import { upload } from "../middlewares/multer.middleware";
-import { isUserAuthenticated } from "../middlewares/auth.middleware";
+import {
+  isUserAccountDeleted,
+  isUserAuthenticated,
+} from "../middlewares/auth.middleware";
 
 const router = Router();
 
@@ -22,9 +25,20 @@ router.put(
   "/update_profile_data",
   upload.single("image"),
   isUserAuthenticated,
+  isUserAccountDeleted,
   updateProfileData
 );
-router.put("/update_password", isUserAuthenticated, updatePassword);
-router.delete("/delete_user_account", isUserAuthenticated, deleteUserAccount);
+router.put(
+  "/update_password",
+  isUserAuthenticated,
+  isUserAccountDeleted,
+  updatePassword
+);
+router.delete(
+  "/delete_user_account",
+  isUserAuthenticated,
+  isUserAccountDeleted,
+  deleteUserAccount
+);
 router.put("/update_forgotten_password", updateForgottenPassword);
 export default router;
