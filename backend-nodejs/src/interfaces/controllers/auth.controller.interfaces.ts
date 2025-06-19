@@ -53,6 +53,10 @@ interface updateProfileResponseInterface {
   new_profile_url?: string;
 }
 
+interface deleteUserAccountBodyInterface extends userDocumentInterface {
+  user_id: mongoose.Types.ObjectId;
+}
+
 export {
   createUserAccountBodyInterface,
   verifyAccountParamsInterface,
@@ -62,4 +66,5 @@ export {
   updatePasswordBodyInterface,
   updateProfileBodyInterface,
   updateProfileResponseInterface,
+  deleteUserAccountBodyInterface,
 };
