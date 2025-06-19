@@ -34,6 +34,11 @@ const schema = new mongoose.Schema<userModelInterface>({
     default: Date.now,
     required: false,
   },
+  deleted_at: {
+    type: Date,
+    default: null,
+    required: false,
+  },
 });
 
 const User = mongoose.model("users", schema);

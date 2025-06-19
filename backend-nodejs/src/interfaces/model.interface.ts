@@ -6,6 +6,7 @@ interface userModelInterface
   profile_url: string;
   is_verified?: boolean;
   created_at?: Date;
+  deleted_at?: null | Date;
 }
 
 interface tokenModelInterface {
