@@ -27,9 +27,9 @@ interface messageModelInterface {
 }
 
 interface conversationModelInterface {
-  between: [userModelInterface] | "all";
+  between: [mongoose.Types.ObjectId] | "all";
   created_at: Date;
-  last_message: messageModelInterface;
+  last_message: mongoose.Types.ObjectId;
   deleted_from: [mongoose.Types.ObjectId];
 }
 
