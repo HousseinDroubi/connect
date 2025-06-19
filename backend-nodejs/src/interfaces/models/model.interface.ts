@@ -17,20 +17,20 @@ interface tokenModelInterface {
 
 interface messageModelInterface {
   sender: mongoose.Types.ObjectId;
-  receiver: mongoose.Types.ObjectId | "all";
+  receiver: mongoose.Types.ObjectId | null;
   created_at: Date;
-  deleted_from_sender_at: Date | null;
-  deleted_from_others_at: Date | null;
+  deleted_for_sender_at: Date | null;
+  deleted_for_others_at: Date | null;
   is_text: boolean;
   content?: string | null;
   profile_url?: string | null;
 }
 
 interface conversationModelInterface {
-  between: [mongoose.Types.ObjectId] | "all";
+  between: [mongoose.Types.ObjectId] | null;
   created_at: Date;
   last_message: mongoose.Types.ObjectId;
-  deleted_from: [mongoose.Types.ObjectId];
+  deleted_for: [mongoose.Types.ObjectId];
 }
 
 export {

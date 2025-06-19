@@ -9,12 +9,12 @@ const schema = new mongoose.Schema<messageModelInterface>({
     required: false,
     default: Date.now,
   },
-  deleted_from_sender_at: {
+  deleted_for_sender_at: {
     type: Date,
     required: false,
     default: null,
   },
-  deleted_from_others_at: {
+  deleted_for_others_at: {
     type: Date,
     required: false,
     default: null,

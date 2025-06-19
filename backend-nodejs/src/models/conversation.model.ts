@@ -16,7 +16,7 @@ const schema = new mongoose.Schema<conversationModelInterface>({
   last_message: {
     type: mongoose.Schema.Types.ObjectId,
   },
-  deleted_from: {
+  deleted_for: {
     type: [mongoose.Schema.Types.ObjectId],
   },
 });
