@@ -12,8 +12,8 @@ import {
   updateForgottenPasswordBodytInterface,
   updatePasswordBodyInterface,
   updateProfileBodyInterface,
-  updateProfileResponseInterface,
 } from "../interfaces/controllers/auth.controller.interfaces";
+import { updateProfileResponseInterface } from "../interfaces/responses/auth.controller.responses.interfaces";
 import { sendEmail } from "../emails/scripts/email";
 import { Token } from "../models/token.model";
 import {
