@@ -33,6 +33,8 @@ const isUserAccountDeleted = async (
       result: "user_account_deleted",
     });
 
+  request.body.user = user;
+
   next();
 };
 
