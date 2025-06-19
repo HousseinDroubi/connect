@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { getIdFromToken, isObjectIdValid } from "../functions/general";
-import { request } from "http";
+import { getIdFromToken } from "../functions/general";
 import User from "../models/user.model";
 
 const isUserAuthenticated = (
