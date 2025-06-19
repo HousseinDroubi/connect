@@ -22,8 +22,7 @@ interface messageModelInterface {
   deleted_for_sender_at: Date | null;
   deleted_for_others_at: Date | null;
   is_text: boolean;
-  content?: string | null;
-  profile_url?: string | null;
+  content: string;
 }
 
 interface conversationModelInterface {

@@ -21,17 +21,11 @@ const schema = new mongoose.Schema<messageModelInterface>({
   },
   is_text: {
     type: Boolean,
-    required: false,
-    default: true,
+    required: true,
   },
   content: {
     type: String,
     required: false,
-  },
-  profile_url: {
-    type: String,
-    required: false,
-    default: null,
   },
 });
 
