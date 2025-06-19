@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { userDocumentInterface } from "../documents/user.document.interface";
 
 interface createUserAccountBodyInterface {
   email: string;
@@ -35,13 +36,13 @@ interface updateForgottenPasswordBodytInterface {
   token: string;
 }
 
-interface updatePasswordBodyInterface {
+interface updatePasswordBodyInterface extends userDocumentInterface {
   user_id: mongoose.Schema.Types.ObjectId;
   new_password: string;
   old_password: string;
 }
 
-interface updateProfileBodyInterface {
+interface updateProfileBodyInterface extends userDocumentInterface {
   user_id: mongoose.Schema.Types.ObjectId;
   file_name?: string;
   username?: string;
