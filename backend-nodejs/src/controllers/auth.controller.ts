@@ -13,7 +13,10 @@ import {
   updatePasswordBodyInterface,
   updateProfileBodyInterface,
 } from "../interfaces/controllers/auth.controller.interfaces";
-import { updateProfileResponseInterface } from "../interfaces/responses/auth.controller.responses.interfaces";
+import {
+  loginResponseInterface,
+  updateProfileResponseInterface,
+} from "../interfaces/responses/auth.controller.responses.interfaces";
 import { sendEmail } from "../emails/scripts/email";
 import { Token } from "../models/token.model";
 import {
@@ -26,6 +29,7 @@ import {
   validateUpdateProfile,
 } from "../validations/auth.validation";
 import { generateToken } from "../functions/general";
+import { Conversation } from "../models/conversation.model";
 
 dotenv.config();
 
@@ -56,7 +60,131 @@ const login = async (request: Request, response: Response) => {
   if (!user.is_verified)
     return response.status(405).json({ error: "user_not_verified" });
 
-  return response.status(200).json({
+  const conversations = await Conversation.aggregate([
+    {
+      $match: {
+        $or: [
+          { between: user._id },
+          { between: { $eq: null } },
+          { between: { $size: 0 } },
+        ],
+      },
+    },
+    {
+      $addFields: {
+        recipient_id: {
+          $cond: [
+            {
+              $and: [
+                { $isArray: "$between" },
+                { $eq: [{ $size: "$between" }, 2] },
+              ],
+            },
+            {
+              $filter: {
+                input: "$between",
+                as: "id",
+                cond: { $ne: ["$$id", user._id] },
+              },
+            },
+            [],
+          ],
+        },
+      },
+    },
+    {
+      $unwind: {
+        path: "$recipient_id",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "recipient_id",
+        foreignField: "_id",
+        as: "recipient",
+      },
+    },
+    {
+      $unwind: {
+        path: "$recipient",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
+      $lookup: {
+        from: "messages",
+        localField: "last_message",
+        foreignField: "_id",
+        as: "last_message",
+      },
+    },
+    {
+      $unwind: {
+        path: "$last_message",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "last_message.sender",
+        foreignField: "_id",
+        as: "sender_user",
+      },
+    },
+    {
+      $unwind: {
+        path: "$sender_user",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
+      $project: {
+        _id: 1,
+        between: 1,
+        created_at: 1,
+        deleted_for: 1,
+        recipient: {
+          _id: "$recipient._id",
+          username: "$recipient.username",
+          profile_url: "$recipient.profile_url",
+        },
+
+        last_message: {
+          $cond: {
+            if: { $eq: [{ $type: "$last_message._id" }, "objectId"] },
+            then: {
+              _id: "$last_message._id",
+              sender_id: "$last_message.sender",
+              receiver_id: "$last_message.receiver",
+              created_at: "$last_message.created_at",
+              is_text: "$last_message.is_text",
+              content: "$last_message.content",
+              deleted: {
+                $cond: {
+                  if: { $ne: ["$last_message.deleted_for_others_at", null] },
+                  then: true,
+                  else: false,
+                },
+              },
+              sender_name: {
+                $cond: {
+                  if: { $eq: ["$last_message.sender", user._id] },
+                  then: "You",
+                  else: "$sender_user.username",
+                },
+              },
+            },
+            else: "$$REMOVE", // this removes the entire last_message field
+          },
+        },
+      },
+    },
+  ]);
+
+  const response_json: loginResponseInterface = {
     result: "logged_in",
     _id: user._id,
     email: user.email,
@@ -64,7 +192,10 @@ const login = async (request: Request, response: Response) => {
     pin: user.pin,
     profile_url: `http://${process.env.DOMAIN}:${process.env.PORT}/${user.profile_url}`,
     token: generateToken(user._id),
-  });
+    conversations,
+  };
+
+  return response.status(200).json(response_json);
 };
 
 const createNewAccount = async (request: Request, response: Response) => {
