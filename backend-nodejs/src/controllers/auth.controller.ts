@@ -217,24 +217,16 @@ const updateProfileData = async (request: Request, response: Response) => {
       error,
     });
   }
-
-  // Get user
-  const user = await User.findById(body.user_id);
-  if (!user) {
-    // Delete file
-    if (body.file_name) await deleteFile(file_source);
-    return response.status(401).json({
-      result: "user_not_found",
-      error,
-    });
+  if (!body.user) {
+    throw new Error("User not found");
   }
 
   // Update username
-  if (body.username) user.username = body.username;
+  if (body.username) body.user.username = body.username;
   // Update user profile
   if (body.file_name) {
     // Delete old image
-    await deleteFile(path.join(__dirname, `../${user.profile_url}`));
+    await deleteFile(path.join(__dirname, `../${body.user.profile_url}`));
     const file_destination = path.join(
       __dirname,
       `../public/${body.file_name}`
@@ -242,10 +234,10 @@ const updateProfileData = async (request: Request, response: Response) => {
     // Move file from temp to public
     await moveFile({ file_source, file_destination });
     // Update profile url
-    user.profile_url = `public/${body.file_name}`;
+    body.user.profile_url = `public/${body.file_name}`;
   }
   // Save user data
-  await user.save();
+  await body.user.save();
 
   // Prepare response json
   const response_json: updateProfileResponseInterface = {
@@ -254,7 +246,7 @@ const updateProfileData = async (request: Request, response: Response) => {
 
   // Return response
   if (body.file_name)
-    response_json.new_profile_url = `http://${process.env.DOMAIN}:${process.env.PORT}/${user.profile_url}`;
+    response_json.new_profile_url = `http://${process.env.DOMAIN}:${process.env.PORT}/${body.user.profile_url}`;
   return response.status(202).json(response_json);
 };
 
@@ -268,22 +260,22 @@ const updatePassword = async (request: Request, response: Response) => {
       error,
     });
 
-  const user = await User.findById(body.user_id);
-  if (!user)
-    return response.status(401).json({
-      result: "user_not_found",
-      error,
-    });
+  if (!body.user) {
+    throw new Error("User not found in body");
+  }
 
-  const compare_result = await bcrypt.compare(body.old_password, user.password);
+  const compare_result = await bcrypt.compare(
+    body.old_password,
+    body.user.password
+  );
   if (!compare_result)
     return response.status(401).json({ error: "old_password_wrong" });
 
   const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUND));
   const hashed_password = await bcrypt.hash(body.new_password, salt);
 
-  user.password = hashed_password;
-  await user.save();
+  body.user.password = hashed_password;
+  await body.user.save();
 
   response.status(202).json({
     result: "password_updated",
