@@ -1,5 +1,5 @@
 class Singleton {
-  public static instance: Singleton;
+  private static instance: Singleton;
 
   private constructor() {
     this.launchWebSocket();
@@ -9,7 +9,7 @@ class Singleton {
     console.log("Launching ws");
   }
 
-  public getInstance(): Singleton {
+  public static getInstance(): Singleton {
     if (!Singleton.instance) {
       Singleton.instance = new Singleton();
     }
