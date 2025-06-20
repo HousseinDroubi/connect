@@ -1,4 +1,6 @@
 import { WebSocket } from "ws";
+import { getIdFromToken } from "../functions/general";
+import { getIdFromWebsocket } from "../functions/web_socket";
 
 class Singleton {
   private static instance: Singleton;
@@ -11,6 +13,9 @@ class Singleton {
     const wss = new WebSocket.Server({ port: Number(process.env.WS_PORT) });
     wss.on("connection", (websocket: WebSocket, request: Request) => {
       console.log("New guest");
+      const websocket_id: string | null = getIdFromWebsocket(request.url);
+      if (!websocket_id) return;
+
       websocket.on("message", () => {
         console.log("Sending message");
       });
