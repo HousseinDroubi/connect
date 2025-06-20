@@ -4,6 +4,7 @@ import cors from "cors";
 import path from "path";
 import authRoutes from "./routes/auth.route";
 import { connectToDB } from "./db/db.connection";
+import Singleton from "./messages/Singleton";
 
 dotenv.config();
 
@@ -20,3 +21,5 @@ connectToDB();
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
 });
+
+Singleton.getInstance();
