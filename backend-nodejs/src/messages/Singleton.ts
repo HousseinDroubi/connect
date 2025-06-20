@@ -1,6 +1,6 @@
 import { WebSocket } from "ws";
-import { getIdFromToken } from "../functions/general";
-import { getIdFromWebsocket } from "../functions/web_socket";
+import { getUserFromWebsocketUrl } from "../functions/web_socket";
+import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 
 class Singleton {
   private static instance: Singleton;
@@ -11,10 +11,11 @@ class Singleton {
 
   private launchWebSocket(): void {
     const wss = new WebSocket.Server({ port: Number(process.env.WS_PORT) });
-    wss.on("connection", (websocket: WebSocket, request: Request) => {
+    wss.on("connection", async (websocket: WebSocket, request: Request) => {
       console.log("New guest");
-      const websocket_id: string | null = getIdFromWebsocket(request.url);
-      if (!websocket_id) return;
+      const user: userDocumentInterface["user"] | null =
+        await getUserFromWebsocketUrl(request.url);
+      if (!user) return;
 
       websocket.on("message", () => {
         console.log("Sending message");
