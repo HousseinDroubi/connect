@@ -23,6 +23,7 @@ class Singleton {
       websocket.on("message", () => {
         console.log("Sending message");
       });
+
       websocket.on("close", async () => {
         await toggleUserStatus(user, false);
       });
