@@ -1,5 +1,8 @@
 import { WebSocket } from "ws";
-import { getUserFromWebsocketUrl } from "../functions/web_socket";
+import {
+  getUserFromWebsocketUrl,
+  toggleUserStatus,
+} from "../functions/web_socket";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 
 class Singleton {
@@ -16,11 +19,13 @@ class Singleton {
       const user: userDocumentInterface["user"] | null =
         await getUserFromWebsocketUrl(request.url);
       if (!user) return;
+      await toggleUserStatus(user, true);
 
       websocket.on("message", () => {
         console.log("Sending message");
       });
-      websocket.on("close", () => {
+      websocket.on("close", async () => {
+        await toggleUserStatus(user, false);
         console.log("User closed");
       });
     });

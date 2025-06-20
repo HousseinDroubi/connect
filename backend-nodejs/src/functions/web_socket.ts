@@ -13,4 +13,12 @@ const getUserFromWebsocketUrl = async (
   return user;
 };
 
-export { getUserFromWebsocketUrl };
+const toggleUserStatus = async (
+  user: userDocumentInterface["user"],
+  is_online: boolean
+) => {
+  user!.is_online = is_online;
+  await user?.save();
+};
+
+export { getUserFromWebsocketUrl, toggleUserStatus };
