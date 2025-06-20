@@ -15,7 +15,6 @@ class Singleton {
   private launchWebSocket(): void {
     const wss = new WebSocket.Server({ port: Number(process.env.WS_PORT) });
     wss.on("connection", async (websocket: WebSocket, request: Request) => {
-      console.log("New guest");
       const user: userDocumentInterface["user"] | null =
         await getUserFromWebsocketUrl(request.url);
       if (!user) return;
@@ -26,7 +25,6 @@ class Singleton {
       });
       websocket.on("close", async () => {
         await toggleUserStatus(user, false);
-        console.log("User closed");
       });
     });
   }
