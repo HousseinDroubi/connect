@@ -39,6 +39,11 @@ const schema = new mongoose.Schema<userModelInterface>({
     default: null,
     required: false,
   },
+  is_online: {
+    type: Boolean,
+    default: false,
+    required: false,
+  },
 });
 
 const User = mongoose.model("users", schema);

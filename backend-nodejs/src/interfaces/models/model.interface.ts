@@ -7,6 +7,7 @@ interface userModelInterface
   is_verified?: boolean;
   created_at?: Date;
   deleted_at?: null | Date;
+  is_online: boolean;
 }
 
 interface tokenModelInterface {
