@@ -13,6 +13,7 @@ interface loginResponseInterface {
   pin: number;
   profile_url: string;
   token: string;
+  is_online: false;
   conversations: Array<{
     recipient: {
       _id: mongoose.Types.ObjectId;
