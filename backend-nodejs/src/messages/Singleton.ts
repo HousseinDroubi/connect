@@ -1,6 +1,6 @@
 import { WebSocket } from "ws";
 import {
-  findMessageRoute,
+  findSendMessageRoute,
   getUserFromWebsocketUrl,
   saveWebSocketIntoWebSocketsMap,
   toggleUserStatusIntoDB,
@@ -162,7 +162,7 @@ class Singleton {
             conversation.save();
 
             // Send message
-            findMessageRoute(
+            findSendMessageRoute(
               {
                 event_name: "new_message",
                 from: String(user._id),

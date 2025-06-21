@@ -52,7 +52,7 @@ const toggleUserStatusToOthersToFrontend = (
   });
 };
 
-const findMessageRoute = (
+const findSendMessageRoute = (
   event: eventInterface,
   websockets_map: Map<string, WebSocket>
 ) => {
@@ -75,5 +75,5 @@ export {
   toggleUserStatusIntoDB,
   saveWebSocketIntoWebSocketsMap,
   toggleUserStatusToOthersToFrontend,
-  findMessageRoute,
+  findSendMessageRoute,
 };
