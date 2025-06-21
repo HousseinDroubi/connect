@@ -65,105 +65,125 @@ class Singleton {
 
       // Listen for message in ws
       websocket.on("message", async (data) => {
+        const parsed_data = JSON.parse(data.toString());
+
         // Get event name from data
-        const event_name: newMessageEventNameType = JSON.parse(
-          data.toString()
-        ).event_name;
+        const event_name: newMessageEventNameType = parsed_data.event_name;
         let error =
           validateNewMessageEventName(event_name).error?.details[0].message;
 
         if (!event_name) return;
 
-        // Parse message to json
-        const new_message: newMessageInterface = JSON.parse(data.toString());
+        switch (event_name) {
+          case "new_message":
+            // ----------------------------- Start of new message case -------------------------------------------
 
-        // Validate message
-        error = validateNewMessage(new_message).error?.details[0].message;
-        if (error) return;
+            // Parse message to json
+            const new_message: newMessageInterface = parsed_data;
 
-        // Validate user id and their existence in DB
-        if (new_message.to !== null) {
-          if (!isObjectIdValid(new_message.to)) return;
-          if (!(await User.exists({ _id: new_message.to }))) return;
-        }
+            // Validate message
+            error = validateNewMessage(new_message).error?.details[0].message;
+            if (error) return;
 
-        // Validate sending message to theirselves
-        if (new_message.to === String(user._id)) return;
+            // Validate user id and their existence in DB
+            if (new_message.to !== null) {
+              if (!isObjectIdValid(new_message.to)) return;
+              if (!(await User.exists({ _id: new_message.to }))) return;
+            }
 
-        // Validate image existence if into DB
-        if (!new_message.is_text) {
-          if (
-            !(await checkFileExistence(
-              path.join(__dirname, `../temp/${new_message.content}`)
-            ))
-          )
-            return;
-        }
+            // Validate sending message to theirselves
+            if (new_message.to === String(user._id)) return;
 
-        // Create new conversation if not existed
-        let conversation;
-        if (new_message.to !== null) {
-          conversation = await Conversation.findOne({
-            between: {
-              $all: [new mongoose.Types.ObjectId(new_message.to), user._id],
-            },
-          });
-        } else {
-          conversation = await Conversation.findOne({
-            between: null,
-          });
-        }
+            // Validate image existence if into DB
+            if (!new_message.is_text) {
+              if (
+                !(await checkFileExistence(
+                  path.join(__dirname, `../temp/${new_message.content}`)
+                ))
+              )
+                return;
+            }
 
-        if (!conversation && new_message.to === null) return;
+            // Create new conversation if not existed
+            let conversation;
+            if (new_message.to !== null) {
+              conversation = await Conversation.findOne({
+                between: {
+                  $all: [new mongoose.Types.ObjectId(new_message.to), user._id],
+                },
+              });
+            } else {
+              conversation = await Conversation.findOne({
+                between: null,
+              });
+            }
 
-        if (!conversation) {
-          conversation = await Conversation.create({
-            between: [new mongoose.Types.ObjectId(new_message.to), user._id],
-            last_message: null,
-          });
-        }
+            if (!conversation && new_message.to === null) return;
 
-        if (!new_message.is_text) {
-          await createFolder(
-            path.join(__dirname, `../conversations/${conversation._id}`)
-          );
-          await moveFile({
-            file_source: path.join(__dirname, `../temp/${new_message.content}`),
-            file_destination: path.join(
-              __dirname,
-              `../conversations/${conversation._id}/${new_message.content}`
-            ),
-          });
-        }
+            if (!conversation) {
+              conversation = await Conversation.create({
+                between: [
+                  new mongoose.Types.ObjectId(new_message.to),
+                  user._id,
+                ],
+                last_message: null,
+              });
+            }
 
-        // Create new message
-        const message = await Message.create({
-          sender: user._id,
-          receiver: new mongoose.Types.ObjectId(new_message.to),
-          is_text: new_message.is_text,
-          content: new_message.content,
-          conversation_id: conversation._id,
-        });
+            if (!new_message.is_text) {
+              await createFolder(
+                path.join(__dirname, `../conversations/${conversation._id}`)
+              );
+              await moveFile({
+                file_source: path.join(
+                  __dirname,
+                  `../temp/${new_message.content}`
+                ),
+                file_destination: path.join(
+                  __dirname,
+                  `../conversations/${conversation._id}/${new_message.content}`
+                ),
+              });
+            }
 
-        // Update conversation last message id
-        conversation.last_message = message._id;
-        conversation.save();
-
-        // Send message
-        findMessageRoute(
-          {
-            event_name: "new_message",
-            from: String(user._id),
-            message: {
-              _id: String(message._id),
-              is_text: message.is_text,
-              to: new_message.to,
+            // Create new message
+            const message = await Message.create({
+              sender: user._id,
+              receiver: new mongoose.Types.ObjectId(new_message.to),
+              is_text: new_message.is_text,
               content: new_message.content,
-              conversation_id: String(conversation._id),
-            },
-          },
-          Singleton.websockets_map
-        );
+              conversation_id: conversation._id,
+            });
+
+            // Update conversation last message id
+            conversation.last_message = message._id;
+            conversation.save();
+
+            // Send message
+            findMessageRoute(
+              {
+                event_name: "new_message",
+                from: String(user._id),
+                message: {
+                  _id: String(message._id),
+                  is_text: message.is_text,
+                  to: new_message.to,
+                  content: new_message.content,
+                  conversation_id: String(conversation._id),
+                },
+              },
+              Singleton.websockets_map
+            );
+            // ----------------------------- End of new message case -------------------------------------------
+
+            break;
+          case "edit_message":
+          // ----------------------------- Start of new message case -------------------------------------------
+          // ----------------------------- End of new message case -------------------------------------------
+          case "delete_message":
+          // ----------------------------- Start of new message case -------------------------------------------
+          // ----------------------------- End of new message case -------------------------------------------
+        }
       });
 
       // Listen for connection close in ws
