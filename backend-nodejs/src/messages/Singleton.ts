@@ -7,7 +7,7 @@ import {
 } from "../functions/web_socket";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import { validateNewMessage } from "../validations/ws.validation";
-import mongoose, { isValidObjectId } from "mongoose";
+import mongoose from "mongoose";
 import { newMessageInterface } from "../interfaces/messages/singleton.interface";
 import { isObjectIdValid } from "../functions/general";
 import User from "../models/user.model";
