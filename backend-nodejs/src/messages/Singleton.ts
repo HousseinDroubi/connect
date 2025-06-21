@@ -208,7 +208,7 @@ class Singleton {
                 message_new_content: edit_message.message_new_content,
               },
               Singleton.websockets_map,
-              String(message.receiver)
+              message.receiver === null ? null : String(message.receiver)
             );
             // ----------------------------- End of new message case -------------------------------------------
             break;
@@ -238,7 +238,7 @@ class Singleton {
                 message_id: String(message._id),
               },
               Singleton.websockets_map,
-              String(message.receiver)
+              message.receiver === null ? null : String(message.receiver)
             );
           // ----------------------------- End of new message case -------------------------------------------
         }
