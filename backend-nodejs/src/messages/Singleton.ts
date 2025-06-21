@@ -4,7 +4,6 @@ import {
   getUserFromWebsocketUrl,
   saveWebSocketIntoWebSocketsMap,
   toggleUserStatusIntoDB,
-  toggleUserStatusToOthersToFrontend,
 } from "../functions/web_socket";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import {
@@ -61,11 +60,15 @@ class Singleton {
       await toggleUserStatusIntoDB(user, true);
 
       // Toggle user status to online for others in frontend
-      toggleUserStatusToOthersToFrontend({
-        user_id: String(user._id),
-        is_online: true,
-        websockets_map: Singleton.websockets_map,
-      });
+      findMessageRoute(
+        {
+          event_name: "toggle_user_status",
+          from: String(user._id),
+          is_online: true,
+        },
+        Singleton.websockets_map,
+        null
+      );
 
       // Listen for message in ws
       websocket.on("message", async (data) => {
@@ -255,11 +258,15 @@ class Singleton {
         await toggleUserStatusIntoDB(user, false);
 
         // Toggle user status to offline for others in frontend
-        toggleUserStatusToOthersToFrontend({
-          user_id: String(user._id),
-          is_online: false,
-          websockets_map: Singleton.websockets_map,
-        });
+        findMessageRoute(
+          {
+            event_name: "toggle_user_status",
+            from: String(user._id),
+            is_online: false,
+          },
+          Singleton.websockets_map,
+          null
+        );
 
         // Delete user id from map
         Singleton.websockets_map.delete(String(user._id));

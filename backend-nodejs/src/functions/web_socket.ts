@@ -1,8 +1,5 @@
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
-import {
-  saveWebSocketIntoWebSocketsMapInterface,
-  toggleUserStatusToOthersToFrontendInterface,
-} from "../interfaces/functions/functions.interface";
+import { saveWebSocketIntoWebSocketsMapInterface } from "../interfaces/functions/functions.interface";
 import {
   deleteMessageEventInterface,
   editMessageEventInterface,
@@ -51,21 +48,9 @@ const sendMessage = (
   ws.send(JSON.stringify(event));
 };
 
-const toggleUserStatusToOthersToFrontend = (
-  data: toggleUserStatusToOthersToFrontendInterface
-): void => {
-  data.websockets_map.forEach((websocket: WebSocket, user_id: string) => {
-    if (user_id !== data.user_id)
-      sendMessage(websocket, {
-        event_name: "toggle_user_status",
-        from: data.user_id,
-        is_online: data.is_online,
-      });
-  });
-};
-
 const findMessageRoute = (
   event:
+    | toggleUserStatusEventInterface
     | sentMessageEventInterface
     | editMessageEventInterface
     | deleteMessageEventInterface,
@@ -86,6 +71,5 @@ export {
   getUserFromWebsocketUrl,
   toggleUserStatusIntoDB,
   saveWebSocketIntoWebSocketsMap,
-  toggleUserStatusToOthersToFrontend,
   findMessageRoute,
 };
