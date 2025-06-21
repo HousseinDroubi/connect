@@ -7,6 +7,8 @@ import {
 } from "../functions/web_socket";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import { validateNewMessage } from "../validations/ws.validation";
+import { isValidObjectId } from "mongoose";
+import { newMessageInterface } from "../interfaces/messages/singleton.interface";
 
 class Singleton {
   private static instance: Singleton;
@@ -37,8 +39,8 @@ class Singleton {
       });
 
       websocket.on("message", (data) => {
-        const message = JSON.parse(data.toString());
-        const error = validateNewMessage(message).error?.details[0].message;
+        const new_message: newMessageInterface = JSON.parse(data.toString());
+        const error = validateNewMessage(new_message).error?.details[0].message;
         if (error) return;
       });
 
