@@ -6,7 +6,8 @@ import {
 import {
   deleteMessageEventInterface,
   editMessageEventInterface,
-  sendMessageEventInterface,
+  sentMessageEventInterface,
+  toggleUserStatusEventInterface,
 } from "../interfaces/messages/singleton.interface";
 import User from "../models/user.model";
 import { getIdFromToken, isObjectIdValid } from "./general";
@@ -28,7 +29,7 @@ const toggleUserStatusIntoDB = async (
   is_online: boolean
 ) => {
   user!.is_online = is_online;
-  await user?.save();
+  await user!.save();
 };
 
 const saveWebSocketIntoWebSocketsMap = (
@@ -42,7 +43,8 @@ const saveWebSocketIntoWebSocketsMap = (
 const sendMessage = (
   ws: WebSocket,
   event:
-    | sendMessageEventInterface
+    | toggleUserStatusEventInterface
+    | sentMessageEventInterface
     | editMessageEventInterface
     | deleteMessageEventInterface
 ) => {
@@ -64,7 +66,7 @@ const toggleUserStatusToOthersToFrontend = (
 
 const findMessageRoute = (
   event:
-    | sendMessageEventInterface
+    | sentMessageEventInterface
     | editMessageEventInterface
     | deleteMessageEventInterface,
   websockets_map: Map<string, WebSocket>,
