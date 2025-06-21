@@ -14,6 +14,7 @@ const validateNewMessageEventName = (data: newMessageEventNameType) => {
 
 const validateNewMessage = (data: newMessageInterface) => {
   const schema = joi.object({
+    event_name: joi.string().valid("new_message").required(),
     is_text: joi.boolean().required(),
     content: joi.required().when("is_text", {
       is: true,
