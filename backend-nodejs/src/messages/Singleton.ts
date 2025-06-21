@@ -42,6 +42,12 @@ class Singleton {
 
       websocket.on("close", async () => {
         await toggleUserStatusIntoDB(user, false);
+        toggleUserStatusToOthersToFrontend({
+          user_id: String(user._id),
+          is_online: false,
+          websocket_map: Singleton.websockets_map,
+        });
+        Singleton.websockets_map.delete(String(user._id));
       });
     });
   }
