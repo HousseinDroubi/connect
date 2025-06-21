@@ -12,7 +12,11 @@ import { newMessageInterface } from "../interfaces/messages/singleton.interface"
 import { isObjectIdValid } from "../functions/general";
 import User from "../models/user.model";
 import path from "path";
-import { checkFileExistence } from "../functions/server_file_system";
+import {
+  checkFileExistence,
+  createFolder,
+  moveFile,
+} from "../functions/server_file_system";
 import { Message } from "../models/message.model";
 import { Conversation } from "../models/conversation.model";
 
@@ -86,6 +90,19 @@ class Singleton {
           conversation = await Conversation.create({
             between: [new mongoose.Types.ObjectId(new_message.to), user._id],
             last_message: null,
+          });
+        }
+
+        if (!new_message.is_text) {
+          await createFolder(
+            path.join(__dirname, `../conversations/${conversation._id}`)
+          );
+          await moveFile({
+            file_source: path.join(__dirname, `../temp/${new_message.content}`),
+            file_destination: path.join(
+              __dirname,
+              `../conversations/${conversation._id}/${new_message.content}`
+            ),
           });
         }
 
