@@ -8,11 +8,13 @@ import {
 } from "../functions/web_socket";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import {
+  validateEditMessage,
   validateNewMessage,
   validateNewMessageEventName,
 } from "../validations/ws.validation";
 import mongoose from "mongoose";
 import {
+  editMessageInterface,
   newMessageEventNameType,
   newMessageInterface,
 } from "../interfaces/messages/singleton.interface";
@@ -75,7 +77,7 @@ class Singleton {
         if (!event_name) return;
 
         switch (event_name) {
-          case "new_message":
+          case "new_message": {
             // ----------------------------- Start of new message case -------------------------------------------
 
             // Parse message to json
@@ -175,11 +177,26 @@ class Singleton {
               Singleton.websockets_map
             );
             // ----------------------------- End of new message case -------------------------------------------
-
             break;
-          case "edit_message":
-          // ----------------------------- Start of new message case -------------------------------------------
-          // ----------------------------- End of new message case -------------------------------------------
+          }
+          case "edit_message": {
+            // ----------------------------- Start of new message case -------------------------------------------
+            // Parse message to json
+            const edit_message: editMessageInterface = parsed_data;
+
+            // Validate message
+            error = validateEditMessage(edit_message).error?.details[0].message;
+            if (error) return;
+
+            if (!isObjectIdValid(edit_message.message_id)) return;
+            const message = await Message.findById(edit_message.message_id);
+            if (!message) return;
+            if (message.deleted_for_others_at || message.deleted_for_sender_at)
+              return;
+
+            // ----------------------------- End of new message case -------------------------------------------
+            break;
+          }
           case "delete_message":
           // ----------------------------- Start of new message case -------------------------------------------
           // ----------------------------- End of new message case -------------------------------------------
