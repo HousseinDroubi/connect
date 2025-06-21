@@ -9,6 +9,8 @@ import { userDocumentInterface } from "../interfaces/documents/user.document.int
 import { validateNewMessage } from "../validations/ws.validation";
 import { isValidObjectId } from "mongoose";
 import { newMessageInterface } from "../interfaces/messages/singleton.interface";
+import { isObjectIdValid } from "../functions/general";
+import User from "../models/user.model";
 
 class Singleton {
   private static instance: Singleton;
@@ -38,10 +40,13 @@ class Singleton {
         websockets_map: Singleton.websockets_map,
       });
 
-      websocket.on("message", (data) => {
+      websocket.on("message", async (data) => {
         const new_message: newMessageInterface = JSON.parse(data.toString());
         const error = validateNewMessage(new_message).error?.details[0].message;
         if (error) return;
+
+        if (!isObjectIdValid(new_message.to)) return;
+        if (!(await User.exists({ _id: new_message.to }))) return;
       });
 
       websocket.on("close", async () => {
