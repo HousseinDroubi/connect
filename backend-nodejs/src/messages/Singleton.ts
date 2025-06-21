@@ -194,6 +194,9 @@ class Singleton {
             if (message.deleted_for_others_at || message.deleted_for_sender_at)
               return;
 
+            message.content = edit_message.message_new_content;
+            await message.save();
+
             // ----------------------------- End of new message case -------------------------------------------
             break;
           }
