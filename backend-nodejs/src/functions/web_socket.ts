@@ -15,7 +15,7 @@ const getUserFromWebsocketUrl = async (
   return user;
 };
 
-const toggleUserStatus = async (
+const toggleUserStatusIntoDB = async (
   user: userDocumentInterface["user"],
   is_online: boolean
 ) => {
@@ -33,6 +33,6 @@ const saveWebSocketIntoWebSocketsMap = (
 
 export {
   getUserFromWebsocketUrl,
-  toggleUserStatus,
+  toggleUserStatusIntoDB,
   saveWebSocketIntoWebSocketsMap,
 };

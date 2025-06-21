@@ -2,7 +2,7 @@ import { WebSocket } from "ws";
 import {
   getUserFromWebsocketUrl,
   saveWebSocketIntoWebSocketsMap,
-  toggleUserStatus,
+  toggleUserStatusIntoDB,
 } from "../functions/web_socket";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import mongoose from "mongoose";
@@ -28,14 +28,14 @@ class Singleton {
         websocket_map: Singleton.websockets_map,
       });
 
-      await toggleUserStatus(user, true);
+      await toggleUserStatusIntoDB(user, true);
 
       websocket.on("message", () => {
         console.log("Sending message");
       });
 
       websocket.on("close", async () => {
-        await toggleUserStatus(user, false);
+        await toggleUserStatusIntoDB(user, false);
       });
     });
   }
