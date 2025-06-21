@@ -6,7 +6,6 @@ import {
   toggleUserStatusToOthersToFrontend,
 } from "../functions/web_socket";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
-import mongoose from "mongoose";
 
 class Singleton {
   private static instance: Singleton;

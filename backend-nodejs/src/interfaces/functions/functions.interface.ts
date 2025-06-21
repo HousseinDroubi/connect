@@ -1,5 +1,4 @@
 import { WebSocket } from "ws";
-import mongoose from "mongoose";
 
 interface moveFileInterface {
   file_source: string;

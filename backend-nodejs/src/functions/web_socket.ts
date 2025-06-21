@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import {
   eventInterface,
