@@ -48,6 +48,8 @@ class Singleton {
         const new_message: newMessageInterface = JSON.parse(data.toString());
         const error = validateNewMessage(new_message).error?.details[0].message;
 
+        if (error) return;
+
         if (!isObjectIdValid(new_message.to)) return;
         if (!(await User.exists({ _id: new_message.to }))) return;
 
