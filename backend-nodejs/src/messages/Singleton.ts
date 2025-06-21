@@ -1,5 +1,6 @@
 import { WebSocket } from "ws";
 import {
+  findMessageRoute,
   getUserFromWebsocketUrl,
   saveWebSocketIntoWebSocketsMap,
   toggleUserStatusIntoDB,
@@ -129,6 +130,21 @@ class Singleton {
         // Update conversation last message id
         conversation.last_message = message._id;
         conversation.save();
+
+        // Send message
+        findMessageRoute(
+          {
+            event_name: "new_message",
+            from: String(user._id),
+            message: {
+              _id: String(message._id),
+              is_text: message.is_text,
+              to: new_message.to,
+              content: new_message.content,
+            },
+          },
+          Singleton.websockets_map
+        );
       });
 
       // Listen for connection close in ws

@@ -52,9 +52,17 @@ const toggleUserStatusToOthersToFrontend = (
   });
 };
 
+const findMessageRoute = (
+  event: eventInterface,
+  websockets_map: Map<string, WebSocket>
+) => {
+  // findMessageRoute
+};
+
 export {
   getUserFromWebsocketUrl,
   toggleUserStatusIntoDB,
   saveWebSocketIntoWebSocketsMap,
   toggleUserStatusToOthersToFrontend,
+  findMessageRoute,
 };
