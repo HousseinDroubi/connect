@@ -72,6 +72,14 @@ class Singleton {
             last_message: null,
           });
         }
+
+        const message = await Message.create({
+          sender: user._id,
+          receiver: new mongoose.Types.ObjectId(new_message.to),
+          is_text: new_message.is_text,
+          content: new_message.content,
+          conversation_id: conversation._id,
+        });
       });
 
       websocket.on("close", async () => {
