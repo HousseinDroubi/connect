@@ -63,7 +63,7 @@ const findMessageRoute = (
       }
     });
   } else {
-    const websocket = websockets_map.get(event.from);
+    const websocket = websockets_map.get(event.message!.to);
     if (websocket) {
       sendMessage(websocket, event);
     }
