@@ -4,6 +4,7 @@ import {
   toggleUserStatusToOthersToFrontendInterface,
 } from "../interfaces/functions/functions.interface";
 import {
+  deleteMessageEventInterface,
   editMessageEventInterface,
   sendMessageEventInterface,
 } from "../interfaces/messages/singleton.interface";
@@ -38,7 +39,13 @@ const saveWebSocketIntoWebSocketsMap = (
   }
 };
 
-const sendMessage = (ws: WebSocket, event: sendMessageEventInterface) => {
+const sendMessage = (
+  ws: WebSocket,
+  event:
+    | sendMessageEventInterface
+    | editMessageEventInterface
+    | deleteMessageEventInterface
+) => {
   ws.send(JSON.stringify(event));
 };
 
@@ -80,11 +87,11 @@ const findEditMessageRoute = async (
 ) => {
   if (receiver === null) {
     websockets_map.forEach((websocket: WebSocket, user_id: string) => {
-      if (user_id !== event.from) websocket.send(event);
+      if (user_id !== event.from) sendMessage(websocket, event);
     });
   } else {
     const websocket: WebSocket | undefined = websockets_map.get(receiver);
-    if (websocket) websocket.send(event);
+    if (websocket) sendMessage(websocket, event);
   }
 };
 
