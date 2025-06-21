@@ -27,6 +27,10 @@ const schema = new mongoose.Schema<messageModelInterface>({
     type: String,
     required: false,
   },
+  conversation_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
 });
 
 const Message = mongoose.model("messages", schema);

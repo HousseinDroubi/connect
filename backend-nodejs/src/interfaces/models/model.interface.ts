@@ -24,6 +24,7 @@ interface messageModelInterface {
   deleted_for_others_at: Date | null;
   is_text: boolean;
   content: string;
+  conversation_id: mongoose.Types.ObjectId;
 }
 
 interface conversationModelInterface {
