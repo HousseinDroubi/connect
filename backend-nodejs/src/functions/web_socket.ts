@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import {
+  eventInterface,
   saveWebSocketIntoWebSocketsMapInterface,
   toggleUserStatusToOthersToFrontendInterface,
 } from "../interfaces/functions/functions.interface";
@@ -35,11 +36,20 @@ const saveWebSocketIntoWebSocketsMap = (
   }
 };
 
+const sendMessage = (ws: WebSocket, event: eventInterface) => {
+  ws.send(JSON.stringify(event));
+};
+
 const toggleUserStatusToOthersToFrontend = (
   data: toggleUserStatusToOthersToFrontendInterface
 ): void => {
-  data.websocket_map.forEach((value: WebSocket, key: string) => {
-    console.log(`Key is ${key}`);
+  data.websocket_map.forEach((websocket: WebSocket, user_id: string) => {
+    if (user_id !== data.user_id)
+      sendMessage(websocket, {
+        event_name: "toggle_user_status",
+        from: data.user_id,
+        is_online: data.is_online,
+      });
   });
 };
 
