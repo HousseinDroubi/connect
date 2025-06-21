@@ -80,7 +80,7 @@ const findSendMessageRoute = (
   }
 };
 
-const findEditMessageRoute = async (
+const findEditMessageRoute = (
   event: editMessageEventInterface,
   websockets_map: Map<string, WebSocket>,
   receiver: string | null

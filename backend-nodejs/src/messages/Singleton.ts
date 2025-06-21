@@ -197,7 +197,7 @@ class Singleton {
 
             message.content = edit_message.message_new_content;
             await message.save();
-            await findEditMessageRoute(
+            findEditMessageRoute(
               {
                 from: String(user._id),
                 event_name: "edit_message",
