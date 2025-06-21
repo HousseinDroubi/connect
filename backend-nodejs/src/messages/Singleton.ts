@@ -1,12 +1,15 @@
 import { WebSocket } from "ws";
 import {
   getUserFromWebsocketUrl,
+  saveWebSocketIntoWebSocketsMap,
   toggleUserStatus,
 } from "../functions/web_socket";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
+import mongoose from "mongoose";
 
 class Singleton {
   private static instance: Singleton;
+  private static websockets_map = new Map<mongoose.Types.ObjectId, WebSocket>();
 
   private constructor() {
     this.launchWebSocket();
@@ -18,6 +21,13 @@ class Singleton {
       const user: userDocumentInterface["user"] | null =
         await getUserFromWebsocketUrl(request.url);
       if (!user) return;
+
+      saveWebSocketIntoWebSocketsMap({
+        user_id: user._id,
+        websocket: websocket,
+        websocket_map: Singleton.websockets_map,
+      });
+
       await toggleUserStatus(user, true);
 
       websocket.on("message", () => {

@@ -1,4 +1,6 @@
+import mongoose from "mongoose";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
+import { saveWebSocketIntoWebSocketsMapInterface } from "../interfaces/functions/functions.interface";
 import User from "../models/user.model";
 import { getIdFromToken, isObjectIdValid } from "./general";
 
@@ -21,4 +23,16 @@ const toggleUserStatus = async (
   await user?.save();
 };
 
-export { getUserFromWebsocketUrl, toggleUserStatus };
+const saveWebSocketIntoWebSocketsMap = (
+  data: saveWebSocketIntoWebSocketsMapInterface
+): void => {
+  if (!data.websocket_map.get(data.user_id)) {
+    data.websocket_map.set(data.user_id, data.websocket);
+  }
+};
+
+export {
+  getUserFromWebsocketUrl,
+  toggleUserStatus,
+  saveWebSocketIntoWebSocketsMap,
+};
