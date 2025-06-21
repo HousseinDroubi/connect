@@ -10,7 +10,7 @@ import mongoose from "mongoose";
 
 class Singleton {
   private static instance: Singleton;
-  private static websockets_map = new Map<mongoose.Types.ObjectId, WebSocket>();
+  private static websockets_map = new Map<string, WebSocket>();
 
   private constructor() {
     this.launchWebSocket();
@@ -24,14 +24,14 @@ class Singleton {
       if (!user) return;
 
       saveWebSocketIntoWebSocketsMap({
-        user_id: user._id,
+        user_id: String(user._id),
         websocket: websocket,
         websocket_map: Singleton.websockets_map,
       });
 
       await toggleUserStatusIntoDB(user, true);
       toggleUserStatusToOthersToFrontend({
-        user_id: user._id,
+        user_id: String(user._id),
         is_online: true,
         websocket_map: Singleton.websockets_map,
       });

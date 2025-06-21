@@ -38,11 +38,9 @@ const saveWebSocketIntoWebSocketsMap = (
 const toggleUserStatusToOthersToFrontend = (
   data: toggleUserStatusToOthersToFrontendInterface
 ): void => {
-  data.websocket_map.forEach(
-    (value: WebSocket, key: mongoose.Types.ObjectId) => {
-      console.log(`Key is ${key}`);
-    }
-  );
+  data.websocket_map.forEach((value: WebSocket, key: string) => {
+    console.log(`Key is ${key}`);
+  });
 };
 
 export {

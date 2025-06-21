@@ -7,9 +7,9 @@ interface moveFileInterface {
 }
 
 interface saveWebSocketIntoWebSocketsMapInterface {
-  user_id: mongoose.Types.ObjectId;
+  user_id: string;
   websocket: WebSocket;
-  websocket_map: Map<mongoose.Types.ObjectId, WebSocket>;
+  websocket_map: Map<string, WebSocket>;
 }
 
 interface toggleUserStatusToOthersToFrontendInterface
