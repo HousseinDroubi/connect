@@ -33,9 +33,15 @@ interface deleteMessageInterface {
   message_id: string;
 }
 
+type newMessageEventNameType =
+  | newMessageInterface["event_name"]
+  | editMessageInterface["event_name"]
+  | deleteMessageInterface["event_name"];
+
 export {
   eventInterface,
   newMessageInterface,
   editMessageInterface,
   deleteMessageInterface,
+  newMessageEventNameType,
 };
