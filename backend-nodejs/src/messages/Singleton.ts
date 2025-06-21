@@ -69,7 +69,12 @@ class Singleton {
 
       // Listen for message in ws
       websocket.on("message", async (data) => {
-        const parsed_data = JSON.parse(data.toString());
+        let parsed_data;
+        try {
+          parsed_data = JSON.parse(data.toString());
+        } catch (error) {
+          return;
+        }
 
         // Get event name from data
         const event_name: newMessageEventNameType = parsed_data.event_name;
