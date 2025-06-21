@@ -56,7 +56,18 @@ const findMessageRoute = (
   event: eventInterface,
   websockets_map: Map<string, WebSocket>
 ) => {
-  // findMessageRoute
+  if (event.message!.to === null) {
+    websockets_map.forEach((websocket: WebSocket, user_id: string) => {
+      if (user_id !== event.from) {
+        sendMessage(websocket, event);
+      }
+    });
+  } else {
+    const websocket = websockets_map.get(event.from);
+    if (websocket) {
+      sendMessage(websocket, event);
+    }
+  }
 };
 
 export {
