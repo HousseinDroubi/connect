@@ -66,8 +66,10 @@ class Singleton {
         if (error) return;
 
         // Validate user id and their existence in DB
-        if (!isObjectIdValid(new_message.to)) return;
-        if (!(await User.exists({ _id: new_message.to }))) return;
+        if (new_message.to !== null) {
+          if (!isObjectIdValid(new_message.to)) return;
+          if (!(await User.exists({ _id: new_message.to }))) return;
+        }
 
         // Validate image existence if into DB
         if (!new_message.is_text) {
@@ -80,11 +82,20 @@ class Singleton {
         }
 
         // Create new conversation if not existed
-        let conversation = await Conversation.findOne({
-          between: {
-            $all: [new mongoose.Types.ObjectId(new_message.to), user._id],
-          },
-        });
+        let conversation;
+        if (new_message.to !== null) {
+          conversation = await Conversation.findOne({
+            between: {
+              $all: [new mongoose.Types.ObjectId(new_message.to), user._id],
+            },
+          });
+        } else {
+          conversation = await Conversation.findOne({
+            between: null,
+          });
+        }
+
+        if (!conversation && new_message.to === null) return;
 
         if (!conversation) {
           conversation = await Conversation.create({
