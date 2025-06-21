@@ -1,4 +1,4 @@
-interface eventInterface {
+interface sendMessageEventInterface {
   event_name:
     | "toggle_user_status"
     | "new_message"
@@ -39,7 +39,7 @@ type newMessageEventNameType =
   | deleteMessageInterface["event_name"];
 
 export {
-  eventInterface,
+  sendMessageEventInterface,
   newMessageInterface,
   editMessageInterface,
   deleteMessageInterface,

@@ -3,7 +3,7 @@ import {
   saveWebSocketIntoWebSocketsMapInterface,
   toggleUserStatusToOthersToFrontendInterface,
 } from "../interfaces/functions/functions.interface";
-import { eventInterface } from "../interfaces/messages/singleton.interface";
+import { sendMessageEventInterface } from "../interfaces/messages/singleton.interface";
 import User from "../models/user.model";
 import { getIdFromToken, isObjectIdValid } from "./general";
 import { WebSocket } from "ws";
@@ -35,7 +35,7 @@ const saveWebSocketIntoWebSocketsMap = (
   }
 };
 
-const sendMessage = (ws: WebSocket, event: eventInterface) => {
+const sendMessage = (ws: WebSocket, event: sendMessageEventInterface) => {
   ws.send(JSON.stringify(event));
 };
 
@@ -53,7 +53,7 @@ const toggleUserStatusToOthersToFrontend = (
 };
 
 const findSendMessageRoute = (
-  event: eventInterface,
+  event: sendMessageEventInterface,
   websockets_map: Map<string, WebSocket>
 ) => {
   if (event.message!.to === null) {
