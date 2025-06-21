@@ -14,4 +14,10 @@ interface eventInterface {
   };
 }
 
-export { eventInterface };
+interface newMessageInterface {
+  is_text: boolean;
+  content: string;
+  to: string;
+}
+
+export { eventInterface, newMessageInterface };

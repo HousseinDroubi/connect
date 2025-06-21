@@ -6,6 +6,7 @@ import {
   toggleUserStatusToOthersToFrontend,
 } from "../functions/web_socket";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
+import { validateNewMessage } from "../validations/ws.validation";
 
 class Singleton {
   private static instance: Singleton;
@@ -35,8 +36,10 @@ class Singleton {
         websockets_map: Singleton.websockets_map,
       });
 
-      websocket.on("message", () => {
-        console.log("Sending message");
+      websocket.on("message", (data) => {
+        const message = JSON.parse(data.toString());
+        const error = validateNewMessage(message).error?.details[0].message;
+        if (error) return;
       });
 
       websocket.on("close", async () => {
