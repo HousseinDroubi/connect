@@ -16,9 +16,26 @@ interface eventInterface {
 }
 
 interface newMessageInterface {
+  event_name: "new_message";
   is_text: boolean;
   content: string;
   to: string;
 }
 
-export { eventInterface, newMessageInterface };
+interface editMessageInterface {
+  event_name: "edit_message";
+  message_id: string;
+  message_new_content: string;
+}
+
+interface deleteMessageInterface {
+  event_name: "delete_message";
+  message_id: string;
+}
+
+export {
+  eventInterface,
+  newMessageInterface,
+  editMessageInterface,
+  deleteMessageInterface,
+};
