@@ -3,7 +3,10 @@ import {
   saveWebSocketIntoWebSocketsMapInterface,
   toggleUserStatusToOthersToFrontendInterface,
 } from "../interfaces/functions/functions.interface";
-import { sendMessageEventInterface } from "../interfaces/messages/singleton.interface";
+import {
+  editMessageEventInterface,
+  sendMessageEventInterface,
+} from "../interfaces/messages/singleton.interface";
 import User from "../models/user.model";
 import { getIdFromToken, isObjectIdValid } from "./general";
 import { WebSocket } from "ws";
@@ -70,10 +73,26 @@ const findSendMessageRoute = (
   }
 };
 
+const findEditMessageRoute = async (
+  event: editMessageEventInterface,
+  websockets_map: Map<string, WebSocket>,
+  receiver: string | null
+) => {
+  if (receiver === null) {
+    websockets_map.forEach((websocket: WebSocket, user_id: string) => {
+      if (user_id !== event.from) websocket.send(event);
+    });
+  } else {
+    const websocket: WebSocket | undefined = websockets_map.get(receiver);
+    if (websocket) websocket.send(event);
+  }
+};
+
 export {
   getUserFromWebsocketUrl,
   toggleUserStatusIntoDB,
   saveWebSocketIntoWebSocketsMap,
   toggleUserStatusToOthersToFrontend,
   findSendMessageRoute,
+  findEditMessageRoute,
 };

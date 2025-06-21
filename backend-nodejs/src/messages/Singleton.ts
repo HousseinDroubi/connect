@@ -1,6 +1,7 @@
 import { WebSocket } from "ws";
 import {
   findSendMessageRoute,
+  findEditMessageRoute,
   getUserFromWebsocketUrl,
   saveWebSocketIntoWebSocketsMap,
   toggleUserStatusIntoDB,
@@ -196,7 +197,16 @@ class Singleton {
 
             message.content = edit_message.message_new_content;
             await message.save();
-
+            await findEditMessageRoute(
+              {
+                from: String(user._id),
+                event_name: "edit_message",
+                message_id: String(message._id),
+                message_new_content: edit_message.message_new_content,
+              },
+              Singleton.websockets_map,
+              String(message.receiver)
+            );
             // ----------------------------- End of new message case -------------------------------------------
             break;
           }
