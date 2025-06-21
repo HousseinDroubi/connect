@@ -72,6 +72,9 @@ class Singleton {
           if (!(await User.exists({ _id: new_message.to }))) return;
         }
 
+        // Validate sending message to theirselves
+        if (new_message.to === String(user._id)) return;
+
         // Validate image existence if into DB
         if (!new_message.is_text) {
           if (
