@@ -1,9 +1,9 @@
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import {
-  eventInterface,
   saveWebSocketIntoWebSocketsMapInterface,
   toggleUserStatusToOthersToFrontendInterface,
 } from "../interfaces/functions/functions.interface";
+import { eventInterface } from "../interfaces/messages/singleton.interface";
 import User from "../models/user.model";
 import { getIdFromToken, isObjectIdValid } from "./general";
 import { WebSocket } from "ws";
