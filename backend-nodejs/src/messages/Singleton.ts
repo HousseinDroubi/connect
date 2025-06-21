@@ -3,6 +3,7 @@ import {
   getUserFromWebsocketUrl,
   saveWebSocketIntoWebSocketsMap,
   toggleUserStatusIntoDB,
+  toggleUserStatusToOthersToFrontend,
 } from "../functions/web_socket";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import mongoose from "mongoose";
@@ -29,6 +30,11 @@ class Singleton {
       });
 
       await toggleUserStatusIntoDB(user, true);
+      toggleUserStatusToOthersToFrontend({
+        user_id: user._id,
+        is_online: true,
+        websocket_map: Singleton.websockets_map,
+      });
 
       websocket.on("message", () => {
         console.log("Sending message");

@@ -1,8 +1,12 @@
 import mongoose from "mongoose";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
-import { saveWebSocketIntoWebSocketsMapInterface } from "../interfaces/functions/functions.interface";
+import {
+  saveWebSocketIntoWebSocketsMapInterface,
+  toggleUserStatusToOthersToFrontendInterface,
+} from "../interfaces/functions/functions.interface";
 import User from "../models/user.model";
 import { getIdFromToken, isObjectIdValid } from "./general";
+import { WebSocket } from "ws";
 
 const getUserFromWebsocketUrl = async (
   request_url: string
@@ -31,8 +35,19 @@ const saveWebSocketIntoWebSocketsMap = (
   }
 };
 
+const toggleUserStatusToOthersToFrontend = (
+  data: toggleUserStatusToOthersToFrontendInterface
+): void => {
+  data.websocket_map.forEach(
+    (value: WebSocket, key: mongoose.Types.ObjectId) => {
+      console.log(`Key is ${key}`);
+    }
+  );
+};
+
 export {
   getUserFromWebsocketUrl,
   toggleUserStatusIntoDB,
   saveWebSocketIntoWebSocketsMap,
+  toggleUserStatusToOthersToFrontend,
 };

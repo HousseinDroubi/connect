@@ -12,4 +12,13 @@ interface saveWebSocketIntoWebSocketsMapInterface {
   websocket_map: Map<mongoose.Types.ObjectId, WebSocket>;
 }
 
-export { moveFileInterface, saveWebSocketIntoWebSocketsMapInterface };
+interface toggleUserStatusToOthersToFrontendInterface
+  extends Omit<saveWebSocketIntoWebSocketsMapInterface, "websocket"> {
+  is_online: boolean;
+}
+
+export {
+  moveFileInterface,
+  saveWebSocketIntoWebSocketsMapInterface,
+  toggleUserStatusToOthersToFrontendInterface,
+};
