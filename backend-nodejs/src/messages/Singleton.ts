@@ -7,12 +7,14 @@ import {
 } from "../functions/web_socket";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import { validateNewMessage } from "../validations/ws.validation";
-import { isValidObjectId } from "mongoose";
+import mongoose, { isValidObjectId } from "mongoose";
 import { newMessageInterface } from "../interfaces/messages/singleton.interface";
 import { isObjectIdValid } from "../functions/general";
 import User from "../models/user.model";
 import path from "path";
 import { checkFileExistence } from "../functions/server_file_system";
+import { Message } from "../models/message.model";
+import { Conversation } from "../models/conversation.model";
 
 class Singleton {
   private static instance: Singleton;
@@ -45,7 +47,6 @@ class Singleton {
       websocket.on("message", async (data) => {
         const new_message: newMessageInterface = JSON.parse(data.toString());
         const error = validateNewMessage(new_message).error?.details[0].message;
-        if (error) return;
 
         if (!isObjectIdValid(new_message.to)) return;
         if (!(await User.exists({ _id: new_message.to }))) return;
@@ -57,6 +58,19 @@ class Singleton {
             )
           )
             return;
+        }
+
+        let conversation = await Conversation.findOne({
+          between: {
+            $all: [new mongoose.Types.ObjectId(new_message.to), user._id],
+          },
+        });
+
+        if (!conversation) {
+          conversation = await Conversation.create({
+            between: [new mongoose.Types.ObjectId(new_message.to), user._id],
+            last_message: null,
+          });
         }
       });
 
