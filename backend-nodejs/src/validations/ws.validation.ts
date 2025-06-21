@@ -9,7 +9,7 @@ const validateNewMessage = (data: newMessageInterface) => {
       then: joi.string().min(1).max(100),
       otherwise: joi.string().min(10).max(100),
     }),
-    to: joi.string().required(),
+    to: joi.string().allow(null).required(),
   });
 
   return schema.validate(data);
