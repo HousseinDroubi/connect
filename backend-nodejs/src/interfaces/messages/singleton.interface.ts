@@ -1,16 +1,3 @@
-interface sendMessageEventInterface {
-  event_name: "toggle_user_status" | "new_message";
-  from: string;
-  is_online?: boolean;
-  message?: {
-    _id: string;
-    is_text: boolean;
-    to: string;
-    content: string;
-    conversation_id: string;
-  };
-}
-
 interface newMessageInterface {
   event_name: "new_message";
   is_text: boolean;
@@ -34,8 +21,31 @@ type newMessageEventNameType =
   | editMessageInterface["event_name"]
   | deleteMessageInterface["event_name"];
 
+interface sendMessageEventInterface {
+  event_name: "toggle_user_status" | "new_message";
+  from: string;
+  is_online?: boolean;
+  message?: {
+    _id: string;
+    is_text: boolean;
+    to: string;
+    content: string;
+    conversation_id: string;
+  };
+}
+
+interface editMessageEventInterface extends editMessageInterface {
+  from: string;
+}
+
+interface deleteMessageEventInterface extends deleteMessageInterface {
+  from: string;
+}
+
 export {
   sendMessageEventInterface,
+  editMessageEventInterface,
+  deleteMessageEventInterface,
   newMessageInterface,
   editMessageInterface,
   deleteMessageInterface,
