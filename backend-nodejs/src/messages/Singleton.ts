@@ -1,6 +1,6 @@
 import { WebSocket } from "ws";
 import {
-  findMessageRoute,
+  sendEventMessage,
   getUserFromWebsocketUrl,
   saveWebSocketIntoWebSocketsMap,
   toggleUserStatusIntoDB,
@@ -60,7 +60,7 @@ class Singleton {
       await toggleUserStatusIntoDB(user, true);
 
       // Toggle user status to online for others in frontend
-      findMessageRoute(
+      sendEventMessage(
         {
           event_name: "toggle_user_status",
           from: String(user._id),
@@ -172,7 +172,7 @@ class Singleton {
             conversation.save();
 
             // Send message
-            findMessageRoute(
+            sendEventMessage(
               {
                 event_name: "new_message",
                 from: String(user._id),
@@ -208,7 +208,7 @@ class Singleton {
 
             message.content = edit_message.message_new_content;
             await message.save();
-            findMessageRoute(
+            sendEventMessage(
               {
                 from: String(user._id),
                 event_name: "edit_message",
@@ -239,7 +239,7 @@ class Singleton {
             message.deleted_for_others_at = new Date();
             await message.save();
 
-            findMessageRoute(
+            sendEventMessage(
               {
                 from: String(user._id),
                 event_name: "delete_message",
@@ -258,7 +258,7 @@ class Singleton {
         await toggleUserStatusIntoDB(user, false);
 
         // Toggle user status to offline for others in frontend
-        findMessageRoute(
+        sendEventMessage(
           {
             event_name: "toggle_user_status",
             from: String(user._id),

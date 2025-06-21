@@ -48,7 +48,7 @@ const sendMessage = (
   ws.send(JSON.stringify(event));
 };
 
-const findMessageRoute = (
+const sendEventMessage = (
   event:
     | toggleUserStatusEventInterface
     | sentMessageEventInterface
@@ -71,5 +71,6 @@ export {
   getUserFromWebsocketUrl,
   toggleUserStatusIntoDB,
   saveWebSocketIntoWebSocketsMap,
-  findMessageRoute,
+  sendMessage,
+  sendEventMessage,
 };
