@@ -80,6 +80,9 @@ class Singleton {
           content: new_message.content,
           conversation_id: conversation._id,
         });
+
+        conversation.last_message = message._id;
+        conversation.save();
       });
 
       websocket.on("close", async () => {
