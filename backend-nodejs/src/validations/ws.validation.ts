@@ -1,4 +1,5 @@
 import {
+  deleteMessageInterface,
   editMessageInterface,
   newMessageEventNameType,
   newMessageInterface,
@@ -39,4 +40,18 @@ const validateEditMessage = (data: editMessageInterface) => {
   return schema.validate(data);
 };
 
-export { validateNewMessage, validateNewMessageEventName, validateEditMessage };
+const validateDeleteMessage = (data: deleteMessageInterface) => {
+  const schema = joi.object({
+    event_name: joi.string().valid("delete_message").required(),
+    message_id: joi.string().required(),
+  });
+
+  return schema.validate(data);
+};
+
+export {
+  validateNewMessage,
+  validateNewMessageEventName,
+  validateEditMessage,
+  validateDeleteMessage,
+};
