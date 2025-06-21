@@ -31,8 +31,8 @@ const toggleUserStatusIntoDB = async (
 const saveWebSocketIntoWebSocketsMap = (
   data: saveWebSocketIntoWebSocketsMapInterface
 ): void => {
-  if (!data.websocket_map.get(data.user_id)) {
-    data.websocket_map.set(data.user_id, data.websocket);
+  if (!data.websockets_map.get(data.user_id)) {
+    data.websockets_map.set(data.user_id, data.websocket);
   }
 };
 
@@ -43,7 +43,7 @@ const sendMessage = (ws: WebSocket, event: eventInterface) => {
 const toggleUserStatusToOthersToFrontend = (
   data: toggleUserStatusToOthersToFrontendInterface
 ): void => {
-  data.websocket_map.forEach((websocket: WebSocket, user_id: string) => {
+  data.websockets_map.forEach((websocket: WebSocket, user_id: string) => {
     if (user_id !== data.user_id)
       sendMessage(websocket, {
         event_name: "toggle_user_status",

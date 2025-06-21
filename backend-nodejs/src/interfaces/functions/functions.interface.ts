@@ -9,7 +9,7 @@ interface moveFileInterface {
 interface saveWebSocketIntoWebSocketsMapInterface {
   user_id: string;
   websocket: WebSocket;
-  websocket_map: Map<string, WebSocket>;
+  websockets_map: Map<string, WebSocket>;
 }
 
 interface toggleUserStatusToOthersToFrontendInterface

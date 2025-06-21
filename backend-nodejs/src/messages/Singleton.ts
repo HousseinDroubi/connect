@@ -26,14 +26,14 @@ class Singleton {
       saveWebSocketIntoWebSocketsMap({
         user_id: String(user._id),
         websocket: websocket,
-        websocket_map: Singleton.websockets_map,
+        websockets_map: Singleton.websockets_map,
       });
 
       await toggleUserStatusIntoDB(user, true);
       toggleUserStatusToOthersToFrontend({
         user_id: String(user._id),
         is_online: true,
-        websocket_map: Singleton.websockets_map,
+        websockets_map: Singleton.websockets_map,
       });
 
       websocket.on("message", () => {
@@ -45,7 +45,7 @@ class Singleton {
         toggleUserStatusToOthersToFrontend({
           user_id: String(user._id),
           is_online: false,
-          websocket_map: Singleton.websockets_map,
+          websockets_map: Singleton.websockets_map,
         });
         Singleton.websockets_map.delete(String(user._id));
       });
