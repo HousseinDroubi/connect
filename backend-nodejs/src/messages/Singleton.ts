@@ -144,6 +144,7 @@ class Singleton {
               is_text: message.is_text,
               to: new_message.to,
               content: new_message.content,
+              conversation_id: String(conversation._id),
             },
           },
           Singleton.websockets_map

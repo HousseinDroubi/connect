@@ -11,6 +11,7 @@ interface eventInterface {
     is_text: boolean;
     to: string;
     content: string;
+    conversation_id: string;
   };
 }
 
