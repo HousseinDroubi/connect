@@ -153,7 +153,7 @@ class Singleton {
             // Create new message
             const message = await Message.create({
               sender: user._id,
-              receiver: new mongoose.Types.ObjectId(new_message.to),
+              receiver: new_message.to,
               is_text: new_message.is_text,
               content: new_message.content,
               conversation_id: conversation._id,
@@ -193,6 +193,7 @@ class Singleton {
 
             if (!isObjectIdValid(edit_message.message_id)) return;
             const message = await Message.findById(edit_message.message_id);
+
             if (!message) return;
             if (message.deleted_for_others_at || message.deleted_for_sender_at)
               return;
