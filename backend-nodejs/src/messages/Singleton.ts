@@ -1,12 +1,10 @@
 import { WebSocket } from "ws";
 import {
-  findSendMessageRoute,
-  findEditMessageRoute,
+  findMessageRoute,
   getUserFromWebsocketUrl,
   saveWebSocketIntoWebSocketsMap,
   toggleUserStatusIntoDB,
   toggleUserStatusToOthersToFrontend,
-  findDeleteMessageRoute,
 } from "../functions/web_socket";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import {
@@ -166,7 +164,7 @@ class Singleton {
             conversation.save();
 
             // Send message
-            findSendMessageRoute(
+            findMessageRoute(
               {
                 event_name: "new_message",
                 from: String(user._id),
@@ -178,7 +176,8 @@ class Singleton {
                   conversation_id: String(conversation._id),
                 },
               },
-              Singleton.websockets_map
+              Singleton.websockets_map,
+              new_message.to
             );
             // ----------------------------- End of new message case -------------------------------------------
             break;
@@ -200,7 +199,7 @@ class Singleton {
 
             message.content = edit_message.message_new_content;
             await message.save();
-            findEditMessageRoute(
+            findMessageRoute(
               {
                 from: String(user._id),
                 event_name: "edit_message",
@@ -231,7 +230,7 @@ class Singleton {
             message.deleted_for_others_at = new Date();
             await message.save();
 
-            findDeleteMessageRoute(
+            findMessageRoute(
               {
                 from: String(user._id),
                 event_name: "delete_message",

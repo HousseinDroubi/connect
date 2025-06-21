@@ -62,41 +62,11 @@ const toggleUserStatusToOthersToFrontend = (
   });
 };
 
-const findSendMessageRoute = (
-  event: sendMessageEventInterface,
-  websockets_map: Map<string, WebSocket>
-) => {
-  if (event.message!.to === null) {
-    websockets_map.forEach((websocket: WebSocket, user_id: string) => {
-      if (user_id !== event.from) {
-        sendMessage(websocket, event);
-      }
-    });
-  } else {
-    const websocket = websockets_map.get(event.message!.to);
-    if (websocket) {
-      sendMessage(websocket, event);
-    }
-  }
-};
-
-const findEditMessageRoute = (
-  event: editMessageEventInterface,
-  websockets_map: Map<string, WebSocket>,
-  receiver: string | null
-) => {
-  if (receiver === null) {
-    websockets_map.forEach((websocket: WebSocket, user_id: string) => {
-      if (user_id !== event.from) sendMessage(websocket, event);
-    });
-  } else {
-    const websocket: WebSocket | undefined = websockets_map.get(receiver);
-    if (websocket) sendMessage(websocket, event);
-  }
-};
-
-const findDeleteMessageRoute = (
-  event: deleteMessageEventInterface,
+const findMessageRoute = (
+  event:
+    | sendMessageEventInterface
+    | editMessageEventInterface
+    | deleteMessageEventInterface,
   websockets_map: Map<string, WebSocket>,
   receiver: string | null
 ) => {
@@ -115,7 +85,5 @@ export {
   toggleUserStatusIntoDB,
   saveWebSocketIntoWebSocketsMap,
   toggleUserStatusToOthersToFrontend,
-  findSendMessageRoute,
-  findEditMessageRoute,
-  findDeleteMessageRoute,
+  findMessageRoute,
 };
