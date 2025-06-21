@@ -40,4 +40,11 @@ const deleteFile = async (path: string): Promise<void> => {
   await fs_promises.unlink(path);
 };
 
-export { createFolder, createMainFolders, moveFile, readFile, deleteFile };
+export {
+  createFolder,
+  createMainFolders,
+  moveFile,
+  readFile,
+  deleteFile,
+  checkFileExistence,
+};

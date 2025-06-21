@@ -11,6 +11,8 @@ import { isValidObjectId } from "mongoose";
 import { newMessageInterface } from "../interfaces/messages/singleton.interface";
 import { isObjectIdValid } from "../functions/general";
 import User from "../models/user.model";
+import path from "path";
+import { checkFileExistence } from "../functions/server_file_system";
 
 class Singleton {
   private static instance: Singleton;
@@ -47,6 +49,15 @@ class Singleton {
 
         if (!isObjectIdValid(new_message.to)) return;
         if (!(await User.exists({ _id: new_message.to }))) return;
+
+        if (!new_message.is_text) {
+          if (
+            !checkFileExistence(
+              path.join(__dirname, `../temp/${new_message.content}`)
+            )
+          )
+            return;
+        }
       });
 
       websocket.on("close", async () => {
