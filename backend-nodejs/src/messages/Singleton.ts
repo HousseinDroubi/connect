@@ -7,9 +7,15 @@ import {
   toggleUserStatusToOthersToFrontend,
 } from "../functions/web_socket";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
-import { validateNewMessage } from "../validations/ws.validation";
+import {
+  validateNewMessage,
+  validateNewMessageEventName,
+} from "../validations/ws.validation";
 import mongoose from "mongoose";
-import { newMessageInterface } from "../interfaces/messages/singleton.interface";
+import {
+  newMessageEventNameType,
+  newMessageInterface,
+} from "../interfaces/messages/singleton.interface";
 import { isObjectIdValid } from "../functions/general";
 import User from "../models/user.model";
 import path from "path";
@@ -59,11 +65,20 @@ class Singleton {
 
       // Listen for message in ws
       websocket.on("message", async (data) => {
+        // Get event name from data
+        const event_name: newMessageEventNameType = JSON.parse(
+          data.toString()
+        ).event_name;
+        let error =
+          validateNewMessageEventName(event_name).error?.details[0].message;
+
+        if (!event_name) return;
+
         // Parse message to json
         const new_message: newMessageInterface = JSON.parse(data.toString());
 
         // Validate message
-        const error = validateNewMessage(new_message).error?.details[0].message;
+        error = validateNewMessage(new_message).error?.details[0].message;
         if (error) return;
 
         // Validate user id and their existence in DB

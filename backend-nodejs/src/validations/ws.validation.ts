@@ -1,5 +1,16 @@
-import { newMessageInterface } from "../interfaces/messages/singleton.interface";
+import {
+  newMessageEventNameType,
+  newMessageInterface,
+} from "../interfaces/messages/singleton.interface";
 import joi from "joi";
+
+const validateNewMessageEventName = (data: newMessageEventNameType) => {
+  const schema = joi
+    .string()
+    .valid("new_message", "edit_message", "delete_message")
+    .required();
+  return schema.validate(data);
+};
 
 const validateNewMessage = (data: newMessageInterface) => {
   const schema = joi.object({
@@ -15,4 +26,4 @@ const validateNewMessage = (data: newMessageInterface) => {
   return schema.validate(data);
 };
 
-export { validateNewMessage };
+export { validateNewMessage, validateNewMessageEventName };
