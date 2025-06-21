@@ -6,15 +6,18 @@ import {
   saveWebSocketIntoWebSocketsMap,
   toggleUserStatusIntoDB,
   toggleUserStatusToOthersToFrontend,
+  findDeleteMessageRoute,
 } from "../functions/web_socket";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import {
+  validateDeleteMessage,
   validateEditMessage,
   validateNewMessage,
   validateNewMessageEventName,
 } from "../validations/ws.validation";
 import mongoose from "mongoose";
 import {
+  deleteMessageInterface,
   editMessageInterface,
   newMessageEventNameType,
   newMessageInterface,
@@ -211,7 +214,32 @@ class Singleton {
             break;
           }
           case "delete_message":
-          // ----------------------------- Start of new message case -------------------------------------------
+            // ----------------------------- Start of new message case -------------------------------------------
+            // Parse message to json
+            const delete_message: deleteMessageInterface = parsed_data;
+
+            // Validate message
+            error =
+              validateDeleteMessage(delete_message).error?.details[0].message;
+            if (error) return;
+            if (!isObjectIdValid(delete_message.message_id)) return;
+            const message = await Message.findById(delete_message.message_id);
+            if (!message) return;
+            if (message.deleted_for_others_at || message.deleted_for_sender_at)
+              return;
+
+            message.deleted_for_others_at = new Date();
+            await message.save();
+
+            findDeleteMessageRoute(
+              {
+                from: String(user._id),
+                event_name: "delete_message",
+                message_id: String(message._id),
+              },
+              Singleton.websockets_map,
+              String(message.receiver)
+            );
           // ----------------------------- End of new message case -------------------------------------------
         }
       });

@@ -95,6 +95,21 @@ const findEditMessageRoute = (
   }
 };
 
+const findDeleteMessageRoute = (
+  event: deleteMessageEventInterface,
+  websockets_map: Map<string, WebSocket>,
+  receiver: string | null
+) => {
+  if (receiver === null) {
+    websockets_map.forEach((websocket: WebSocket, user_id: string) => {
+      if (user_id !== event.from) sendMessage(websocket, event);
+    });
+  } else {
+    const websocket: WebSocket | undefined = websockets_map.get(receiver);
+    if (websocket) sendMessage(websocket, event);
+  }
+};
+
 export {
   getUserFromWebsocketUrl,
   toggleUserStatusIntoDB,
@@ -102,4 +117,5 @@ export {
   toggleUserStatusToOthersToFrontend,
   findSendMessageRoute,
   findEditMessageRoute,
+  findDeleteMessageRoute,
 };
