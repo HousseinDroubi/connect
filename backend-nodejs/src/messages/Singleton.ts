@@ -72,9 +72,9 @@ class Singleton {
         // Validate image existence if into DB
         if (!new_message.is_text) {
           if (
-            !checkFileExistence(
+            !(await checkFileExistence(
               path.join(__dirname, `../temp/${new_message.content}`)
-            )
+            ))
           )
             return;
         }
