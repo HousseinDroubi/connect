@@ -1,9 +1,5 @@
 interface sendMessageEventInterface {
-  event_name:
-    | "toggle_user_status"
-    | "new_message"
-    | "edit_message"
-    | "delete_message_for_others";
+  event_name: "toggle_user_status" | "new_message";
   from: string;
   is_online?: boolean;
   message?: {
