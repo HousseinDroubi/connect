@@ -4,6 +4,7 @@ import {
   validateCreateAccount,
   validateForgotPassword,
   validateLogin,
+  validateUpdateForgottenPasswordtInterface,
   validateUpdatePassword,
   validateUpdateProfile,
 } from "../../validations/auth.validation";
@@ -11,6 +12,7 @@ import {
   createUserAccountBodyInterface,
   forgotPasswordBodyInterface,
   loginBodyInterface,
+  updateForgottenPasswordBodytInterface,
   updatePasswordBodyInterface,
   updateProfileBodyInterface,
 } from "../../interfaces/controllers/auth.controller.interfaces";
@@ -148,6 +150,28 @@ const updatePasswordValidationMiddleware = (
     });
   next();
 };
+
+const updateForgottenPasswordValidationMiddleware = (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  // Get request body
+  const body: updateForgottenPasswordBodytInterface = request.body;
+
+  // Validate request body
+  const error =
+    validateUpdateForgottenPasswordtInterface(body).error?.details[0].message;
+  if (error) {
+    return response.status(400).json({
+      result: "validation_error",
+      error,
+    });
+  }
+
+  next();
+};
+
 export {
   loginValidationMiddleware,
   createAccountValidationMiddleware,
@@ -155,4 +179,5 @@ export {
   forgotPasswordValidationMiddleware,
   updateProfileDataValidationMiddleware,
   updatePasswordValidationMiddleware,
+  updateForgottenPasswordValidationMiddleware,
 };

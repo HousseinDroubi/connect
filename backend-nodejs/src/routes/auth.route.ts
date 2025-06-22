@@ -18,6 +18,7 @@ import {
   createAccountValidationMiddleware,
   forgotPasswordValidationMiddleware,
   loginValidationMiddleware,
+  updateForgottenPasswordValidationMiddleware,
   updatePasswordValidationMiddleware,
   updateProfileDataValidationMiddleware,
   verifyAccountValidationMiddleware,
@@ -67,6 +68,10 @@ router.delete(
   deleteUserAccount
 );
 
-router.put("/update_forgotten_password", updateForgottenPassword);
+router.put(
+  "/update_forgotten_password",
+  updateForgottenPasswordValidationMiddleware,
+  updateForgottenPassword
+);
 
 export default router;

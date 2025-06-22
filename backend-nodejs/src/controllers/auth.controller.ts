@@ -412,16 +412,6 @@ const updateForgottenPassword = async (
   // Get request body
   const body: updateForgottenPasswordBodytInterface = request.body;
 
-  // Validate request body
-  const error =
-    validateUpdateForgottenPasswordtInterface(body).error?.details[0].message;
-  if (error) {
-    return response.status(400).json({
-      result: "validation_error",
-      error,
-    });
-  }
-
   // Find token
   const token = await Token.findOne({ value: body.token });
   if (!token)
