@@ -7,10 +7,7 @@ import {
   isUserAccountDeleted,
   isUserAuthenticated,
 } from "../middlewares/auth.middleware";
-import {
-  isConversationExisted,
-  isUserAuthorizedToAccessConversation,
-} from "../middlewares/conversation.middleware";
+import { isUserAuthorizedToAccessConversation } from "../middlewares/conversation.middleware";
 import { getConversationMessagesValidationMiddleware } from "../middlewares/validations/conversation.validation.middleware";
 
 const router = Router();
@@ -20,7 +17,6 @@ router.get(
   isUserAuthenticated,
   isUserAccountDeleted,
   getConversationMessagesValidationMiddleware,
-  isConversationExisted,
   isUserAuthorizedToAccessConversation,
   getConversationMessages
 );
