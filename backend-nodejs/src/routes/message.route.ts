@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { uploadImage } from "../controllers/message.controller";
+import { uploadImage, viewImage } from "../controllers/message.controller";
 import {
   isUserAccountDeleted,
   isUserAuthenticated,
@@ -15,6 +15,6 @@ router.post(
   upload.single("image"),
   uploadImage
 );
-router.get("/view_image/:message_id", uploadImage);
+router.get("/view_image/:message_id", viewImage);
 
 export default router;
