@@ -33,4 +33,8 @@ const viewImage = (request: Request, response: Response) => {
   return response.send(image_path);
 };
 
-export { uploadImage, viewImage };
+const deleteMessageForSender = (request: Request, response: Response) => {
+  // deleteMessageForSender
+};
+
+export { uploadImage, viewImage, deleteMessageForSender };
