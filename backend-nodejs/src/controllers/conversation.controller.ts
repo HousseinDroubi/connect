@@ -11,6 +11,7 @@ const getConversationMessages = async (
     request.body;
   if (!body.user || !body.conversation)
     throw new Error("Neither user nor conversation in body");
+
   const messages = await Message.find({
     $and: [
       {
