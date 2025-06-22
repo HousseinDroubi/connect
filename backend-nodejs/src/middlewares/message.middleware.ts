@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { Message } from "../models/message.model";
 import { isObjectIdValid } from "../functions/general";
+import { messageDocumentInterface } from "../interfaces/documents/message.document.interface";
 
 // This middleware takes message_id from token and find whethere it exists in DB or not
 const isMessageExisted = async (
@@ -25,4 +26,18 @@ const isMessageExisted = async (
   next();
 };
 
-export { isMessageExisted };
+const isMessageDeleted = async (
+  request: Request,
+  respone: Response,
+  next: NextFunction
+) => {
+  const body: messageDocumentInterface = request.body;
+
+  if (body.message!.deleted_for_others_at)
+    return respone.status(403).json({
+      result: "message_deleted_for_others",
+    });
+
+  next();
+};
+export { isMessageExisted, isMessageDeleted };
