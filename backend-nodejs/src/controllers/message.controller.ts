@@ -3,7 +3,6 @@ import { uploadImageBodyInterface } from "../interfaces/controllers/message.cont
 import { messageDocumentInterface } from "../interfaces/documents/message.document.interface";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import path from "path";
-import { Message } from "../models/message.model";
 
 const uploadImage = (request: Request, response: Response) => {
   const body: uploadImageBodyInterface = request.body;
