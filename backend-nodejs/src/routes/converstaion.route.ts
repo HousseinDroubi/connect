@@ -2,7 +2,6 @@ import { Router } from "express";
 import {
   deleteConversation,
   getConversationMessages,
-  restoreConversation,
 } from "../controllers/conversation.controller";
 import {
   isUserAccountDeleted,
@@ -23,8 +22,6 @@ router.get(
   isUserAuthorizedToAccessConversation,
   getConversationMessages
 );
-
-router.put("/restore_conversation/:conversation_id", restoreConversation);
 
 router.delete("/delete_conversation/:conversation_id", deleteConversation);
 
