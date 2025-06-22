@@ -3,24 +3,36 @@ import { Conversation } from "../models/conversation.model";
 import { isObjectIdValid } from "../functions/general";
 import { conversationDocumentInterface } from "../interfaces/documents/conversation.document.interface";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
+import User from "../models/user.model";
 
 const isConversationExisted = async (
   request: Request,
   response: Response,
   next: NextFunction
 ) => {
-  const { conversation_id } = request.params;
-
-  if (!conversation_id || !isObjectIdValid(conversation_id))
-    return response.status(400).json({
-      result: "conversation_id_is_invalid",
-    });
-
-  const conversation = await Conversation.findById(conversation_id);
-  if (!conversation)
-    return response.status(404).json({
-      result: "conversation_not_found",
-    });
+  const { pin } = request.params;
+  const body: userDocumentInterface = request.body;
+  let conversation;
+  if (pin === "broadcast") {
+    conversation = await Conversation.findOne({ between: null });
+  } else {
+    const other_user = await User.findOne({ pin });
+    if (!other_user)
+      return response.status(404).json({
+        result: "user_not_found",
+      });
+    conversation = await Conversation.findOne({ between: other_user._id });
+    if (!conversation) {
+      conversation = await Conversation.create({
+        between: [other_user._id, body.user!._id],
+        last_message: null,
+      });
+      return response.status(201).json({
+        result: "conversation_added",
+        conversation_id: conversation._id,
+      });
+    }
+  }
 
   request.body.conversation = conversation;
   next();
