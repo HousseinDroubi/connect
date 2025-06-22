@@ -182,6 +182,8 @@ class Singleton {
                   to: new_message.to,
                   content: new_message.content,
                   conversation_id: String(conversation._id),
+                  sender_username: user.username,
+                  sender_profile_url: user.profile_url,
                 },
               },
               Singleton.websockets_map,
