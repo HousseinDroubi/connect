@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { uploadImage, viewImage } from "../controllers/message.controller";
+import {
+  deleteMessageForSender,
+  uploadImage,
+  viewImage,
+} from "../controllers/message.controller";
 import {
   isUserAccountDeleted,
   isUserAuthenticated,
@@ -30,5 +34,7 @@ router.get(
   isMessageAnImage,
   viewImage
 );
+
+router.delete("/delete_message_for_sender/:message_id", deleteMessageForSender);
 
 export default router;
