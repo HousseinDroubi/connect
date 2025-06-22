@@ -28,6 +28,21 @@ const isMessageExisted = async (
   next();
 };
 
+const isMessageDeletedForSender = async (
+  request: Request,
+  respone: Response,
+  next: NextFunction
+) => {
+  const body: messageDocumentInterface = request.body;
+
+  if (body.message!.deleted_for_sender_at)
+    return respone.status(403).json({
+      result: "message_deleted_for_others",
+    });
+
+  next();
+};
+
 const isMessageDeletedForOthers = async (
   request: Request,
   respone: Response,
@@ -68,4 +83,9 @@ const isMessageAnImage = async (
     });
   next();
 };
-export { isMessageExisted, isMessageDeletedForOthers, isMessageAnImage };
+export {
+  isMessageExisted,
+  isMessageDeletedForSender,
+  isMessageDeletedForOthers,
+  isMessageAnImage,
+};
