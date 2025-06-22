@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { Message } from "../models/message.model";
 
+// This middleware takes message_id from token and find whethere it exists in DB or not
 const isMessageExisted = async (
   request: Request,
   respone: Response,
