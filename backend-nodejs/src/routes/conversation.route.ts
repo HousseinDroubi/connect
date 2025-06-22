@@ -7,7 +7,10 @@ import {
   isUserAccountDeleted,
   isUserAuthenticated,
 } from "../middlewares/auth.middleware";
-import { isUserAuthorizedToAccessConversation } from "../middlewares/conversation.middleware";
+import {
+  isConversationExisted,
+  isUserAuthorizedToAccessConversation,
+} from "../middlewares/conversation.middleware";
 import { getConversationMessagesValidationMiddleware } from "../middlewares/validations/conversation.validation.middleware";
 
 const router = Router();
@@ -21,6 +24,13 @@ router.get(
   getConversationMessages
 );
 
-router.delete("/delete_conversation/:conversation_id", deleteConversation);
+router.delete(
+  "/delete_conversation/:conversation_id",
+  isUserAuthenticated,
+  isUserAccountDeleted,
+  isConversationExisted,
+  isUserAuthorizedToAccessConversation,
+  deleteConversation
+);
 
 export default router;
