@@ -20,6 +20,7 @@ const isConversationExisted = async (
       result: "conversation_not_found",
     });
 
+  request.body.conversation = conversation;
   next();
 };
 
