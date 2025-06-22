@@ -11,7 +11,7 @@ import {
 import { upload } from "../middlewares/multer.middleware";
 import {
   isMessageAnImage,
-  isMessageDeleted,
+  isMessageDeletedForOthers,
   isMessageExisted,
 } from "../middlewares/message.middleware";
 
@@ -30,7 +30,7 @@ router.get(
   isUserAuthenticated,
   isUserAccountDeleted,
   isMessageExisted,
-  isMessageDeleted,
+  isMessageDeletedForOthers,
   isMessageAnImage,
   viewImage
 );

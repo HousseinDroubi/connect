@@ -28,7 +28,7 @@ const isMessageExisted = async (
   next();
 };
 
-const isMessageDeleted = async (
+const isMessageDeletedForOthers = async (
   request: Request,
   respone: Response,
   next: NextFunction
@@ -68,4 +68,4 @@ const isMessageAnImage = async (
     });
   next();
 };
-export { isMessageExisted, isMessageDeleted, isMessageAnImage };
+export { isMessageExisted, isMessageDeletedForOthers, isMessageAnImage };
