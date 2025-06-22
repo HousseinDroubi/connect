@@ -20,6 +20,7 @@ router.post(
   upload.single("image"),
   uploadImage
 );
+
 router.get(
   "/view_image/:message_id",
   isUserAuthenticated,
