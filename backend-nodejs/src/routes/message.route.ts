@@ -35,6 +35,12 @@ router.get(
   viewImage
 );
 
-router.delete("/delete_message_for_sender/:message_id", deleteMessageForSender);
+router.delete(
+  "/delete_message_for_sender/:message_id",
+  isUserAuthenticated,
+  isUserAccountDeleted,
+  isMessageExisted,
+  deleteMessageForSender
+);
 
 export default router;
