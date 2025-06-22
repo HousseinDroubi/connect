@@ -11,8 +11,6 @@ const isUserAuthenticated = (
 
   if (!_id) return response.status(401).json({ error: "invalid_id" });
   request.body.user_id = _id;
-  console.log(_id);
-  console.log(request.body.user_id);
   next();
 };
 
@@ -22,8 +20,7 @@ const isUserAccountDeleted = async (
   next: NextFunction
 ) => {
   const { user_id } = request.body;
-  console.log("From other midd");
-  console.log(request.body);
+
   const user = await User.findById(user_id);
 
   if (!user)
