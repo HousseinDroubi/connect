@@ -5,7 +5,10 @@ import {
   isUserAuthenticated,
 } from "../middlewares/auth.middleware";
 import { upload } from "../middlewares/multer.middleware";
-import { isMessageExisted } from "../middlewares/message.middleware";
+import {
+  isMessageDeleted,
+  isMessageExisted,
+} from "../middlewares/message.middleware";
 
 const router = Router();
 
@@ -18,9 +21,10 @@ router.post(
 );
 router.get(
   "/view_image/:message_id",
-  isMessageExisted,
   isUserAuthenticated,
   isUserAccountDeleted,
+  isMessageExisted,
+  isMessageDeleted,
   viewImage
 );
 
