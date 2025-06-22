@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import { Conversation } from "../models/conversation.model";
-import { isObjectIdValid } from "../functions/general";
 import { conversationDocumentInterface } from "../interfaces/documents/conversation.document.interface";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import User from "../models/user.model";
