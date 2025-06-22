@@ -23,6 +23,7 @@ import { Token } from "../models/token.model";
 
 import { generateToken } from "../functions/general";
 import { Conversation } from "../models/conversation.model";
+import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 
 dotenv.config();
 
@@ -289,7 +290,7 @@ const forgotPassword = async (request: Request, response: Response) => {
 
 const updateProfileData = async (request: Request, response: Response) => {
   // Get body from request
-  const body: updateProfileBodyInterface = request.body;
+  const body: updateProfileBodyInterface & userDocumentInterface = request.body;
 
   let file_source: string = "";
 
@@ -331,7 +332,8 @@ const updateProfileData = async (request: Request, response: Response) => {
 };
 
 const updatePassword = async (request: Request, response: Response) => {
-  const body: updatePasswordBodyInterface = request.body;
+  const body: updatePasswordBodyInterface & userDocumentInterface =
+    request.body;
 
   if (!body.user) {
     throw new Error("User not found in body");
