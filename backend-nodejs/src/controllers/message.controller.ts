@@ -3,6 +3,7 @@ import { uploadImageBodyInterface } from "../interfaces/controllers/message.cont
 import { messageDocumentInterface } from "../interfaces/documents/message.document.interface";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import path from "path";
+import { Message } from "../models/message.model";
 
 const uploadImage = (request: Request, response: Response) => {
   const body: uploadImageBodyInterface = request.body;
@@ -33,8 +34,22 @@ const viewImage = (request: Request, response: Response) => {
   return response.send(image_path);
 };
 
-const deleteMessageForSender = (request: Request, response: Response) => {
-  // deleteMessageForSender
+const deleteMessageForSender = async (request: Request, response: Response) => {
+  const body: userDocumentInterface & messageDocumentInterface = request.body;
+  if (!body.message || !body.user)
+    throw new Error("Neither message nor user in the body");
+
+  if (body.message.sender !== body.user._id)
+    return response.status(405).json({
+      result: "method_not_allowed",
+    });
+
+  body.message.deleted_for_sender_at = new Date();
+  await body.message.save();
+
+  return response.status(200).json({
+    result: "message_delete_for_sender",
+  });
 };
 
 export { uploadImage, viewImage, deleteMessageForSender };
