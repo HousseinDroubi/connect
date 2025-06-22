@@ -237,6 +237,8 @@ class Singleton {
               return;
 
             message.deleted_for_others_at = new Date();
+            message.is_text = true;
+            message.content = "This message has been deleted";
             await message.save();
 
             sendEventMessage(
