@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { Conversation } from "../models/conversation.model";
 import { isObjectIdValid } from "../functions/general";
+import { conversationDocumentInterface } from "../interfaces/documents/conversation.document.interface";
+import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 
 const isConversationExisted = async (
   request: Request,
@@ -24,4 +26,24 @@ const isConversationExisted = async (
   next();
 };
 
-export { isConversationExisted };
+const isUserAuthorizedToAccessConversation = (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  const body: conversationDocumentInterface & userDocumentInterface =
+    request.body;
+
+  const is_user_in_conversation = body.conversation!.between?.find(
+    (user_id) => String(user_id) === String(body.user!._id)
+  );
+
+  if (!is_user_in_conversation) {
+    return response.status(401).json({
+      result: "user_not_in_conversation",
+    });
+  }
+  next();
+};
+
+export { isConversationExisted, isUserAuthorizedToAccessConversation };
