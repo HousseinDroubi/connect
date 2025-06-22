@@ -41,18 +41,20 @@ const isUserAuthorizedToAccessConversation = (
   const body: conversationDocumentInterface & userDocumentInterface =
     request.body;
 
-  const is_user_in_conversation =
-    body.conversation!.between === null
-      ? true
-      : body.conversation!.between!.find(
-          (user_id) => String(user_id) === String(body.user!._id)
-        );
+  if (body.conversation!.between === null)
+    return response.status(403).json({
+      result: "method_not_allowed",
+    });
 
-  if (!is_user_in_conversation) {
+  if (
+    !body.conversation!.between.some(
+      (_id) => String(body.user!._id) === String(_id)
+    )
+  )
     return response.status(401).json({
       result: "user_not_in_conversation",
     });
-  }
+
   next();
 };
 
