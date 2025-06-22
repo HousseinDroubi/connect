@@ -16,6 +16,12 @@ router.post(
   upload.single("image"),
   uploadImage
 );
-router.get("/view_image/:message_id", isMessageExisted, viewImage);
+router.get(
+  "/view_image/:message_id",
+  isMessageExisted,
+  isUserAuthenticated,
+  isUserAccountDeleted,
+  viewImage
+);
 
 export default router;
