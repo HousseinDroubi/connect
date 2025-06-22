@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import { Message } from "../models/message.model";
 import { isObjectIdValid } from "../functions/general";
 import { messageDocumentInterface } from "../interfaces/documents/message.document.interface";
+import { checkFileExistence } from "../functions/server_file_system";
+import path from "path";
 
 // This middleware takes message_id from token and find whethere it exists in DB or not
 const isMessageExisted = async (
@@ -40,4 +42,30 @@ const isMessageDeleted = async (
 
   next();
 };
-export { isMessageExisted, isMessageDeleted };
+
+const isMessageAnImage = async (
+  request: Request,
+  respone: Response,
+  next: NextFunction
+) => {
+  const body: messageDocumentInterface = request.body;
+
+  if (body.message!.is_text)
+    return respone.status(406).json({
+      result: "not_a_text",
+    });
+
+  if (
+    !(await checkFileExistence(
+      path.join(
+        __dirname,
+        `../conversations/${body.message?.conversation_id}/${body.message?.content}`
+      )
+    ))
+  )
+    return respone.status(404).json({
+      result: "image_not_found",
+    });
+  next();
+};
+export { isMessageExisted, isMessageDeleted, isMessageAnImage };

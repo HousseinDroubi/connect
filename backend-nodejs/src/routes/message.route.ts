@@ -6,6 +6,7 @@ import {
 } from "../middlewares/auth.middleware";
 import { upload } from "../middlewares/multer.middleware";
 import {
+  isMessageAnImage,
   isMessageDeleted,
   isMessageExisted,
 } from "../middlewares/message.middleware";
@@ -25,6 +26,7 @@ router.get(
   isUserAccountDeleted,
   isMessageExisted,
   isMessageDeleted,
+  isMessageAnImage,
   viewImage
 );
 
