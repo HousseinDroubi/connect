@@ -42,14 +42,12 @@ interface updateForgottenPasswordBodytInterface {
   token: string;
 }
 
-interface updatePasswordBodyInterface extends userDocumentInterface {
-  user_id: mongoose.Schema.Types.ObjectId;
+interface updatePasswordBodyInterface {
   new_password: string;
   old_password: string;
 }
 
-interface updateProfileBodyInterface extends userDocumentInterface {
-  user_id: mongoose.Schema.Types.ObjectId;
+interface updateProfileBodyInterface {
   file_name?: string;
   username?: string;
 }
