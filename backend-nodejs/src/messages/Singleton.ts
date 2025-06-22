@@ -184,6 +184,7 @@ class Singleton {
                   conversation_id: String(conversation._id),
                   sender_username: user.username,
                   sender_profile_url: user.profile_url,
+                  sender_pin: user.pin,
                 },
               },
               Singleton.websockets_map,

@@ -38,6 +38,7 @@ interface sentMessageEventInterface {
     conversation_id: string;
     sender_username: string;
     sender_profile_url: string;
+    sender_pin: number;
   };
 }
 
