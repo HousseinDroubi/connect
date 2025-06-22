@@ -13,32 +13,14 @@ const getConversationMessages = async (
     throw new Error("Neither user nor conversation in body");
 
   const messages = await Message.find({
-    $and: [
-      {
-        $or: [
-          { sender: body.user._id },
-          { receiver: body.user._id },
-          { receiver: null },
-        ],
-      },
-      {
-        conversation_id: body.conversation._id,
-      },
-      {
-        deleted_for_others_at: null,
-      },
-      {
-        $or: [
-          { deleted_for_sender_at: null },
-          {
-            $and: [
-              { deleted_for_sender_at: { $ne: null } },
-              { sender: { $ne: body.user._id } },
-            ],
-          },
-        ],
-      },
+    $or: [
+      { sender: body.user._id },
+      { receiver: body.user._id },
+      { receiver: null },
     ],
+    conversation_id: body.conversation._id,
+    deleted_for_others_at: null,
+    deleted_for: { $nin: [body.user._id] },
   });
 
   return response.status(200).json({

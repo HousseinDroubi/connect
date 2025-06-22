@@ -4,6 +4,7 @@ import { isObjectIdValid } from "../functions/general";
 import { messageDocumentInterface } from "../interfaces/documents/message.document.interface";
 import { checkFileExistence } from "../functions/server_file_system";
 import path from "path";
+import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 
 // This middleware takes message_id from token and find whethere it exists in DB or not
 const isMessageExisted = async (
@@ -28,14 +29,18 @@ const isMessageExisted = async (
   next();
 };
 
-const isMessageDeletedForSender = async (
+const haveUserDeletedMessage = async (
   request: Request,
   respone: Response,
   next: NextFunction
 ) => {
-  const body: messageDocumentInterface = request.body;
+  const body: messageDocumentInterface & userDocumentInterface = request.body;
 
-  if (body.message!.deleted_for_sender_at)
+  if (
+    body.message!.deleted_for.some(
+      (_id) => String(_id) === String(body.user!._id)
+    )
+  )
     return respone.status(403).json({
       result: "message_deleted_for_others",
     });
@@ -85,7 +90,7 @@ const isMessageAnImage = async (
 };
 export {
   isMessageExisted,
-  isMessageDeletedForSender,
+  haveUserDeletedMessage,
   isMessageDeletedForOthers,
   isMessageAnImage,
 };

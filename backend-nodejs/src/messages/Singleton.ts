@@ -206,7 +206,12 @@ class Singleton {
             const message = await Message.findById(edit_message.message_id);
 
             if (!message) return;
-            if (message.deleted_for_others_at || message.deleted_for_sender_at)
+            if (
+              message.deleted_for_others_at ||
+              message.deleted_for.some(
+                (_id) => String(user._id) === String(_id)
+              )
+            )
               return;
 
             message.content = edit_message.message_new_content;
@@ -236,7 +241,12 @@ class Singleton {
             if (!isObjectIdValid(delete_message.message_id)) return;
             const message = await Message.findById(delete_message.message_id);
             if (!message) return;
-            if (message.deleted_for_others_at || message.deleted_for_sender_at)
+            if (
+              message.deleted_for_others_at ||
+              message.deleted_for.some(
+                (_id) => String(_id) === String(user._id)
+              )
+            )
               return;
 
             message.deleted_for_others_at = new Date();

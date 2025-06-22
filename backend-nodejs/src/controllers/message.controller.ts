@@ -43,7 +43,7 @@ const deleteMessageForSender = async (request: Request, response: Response) => {
       result: "method_not_allowed",
     });
 
-  body.message.deleted_for_sender_at = new Date();
+  body.message.deleted_for.push(body.user._id);
   await body.message.save();
 
   return response.status(200).json({
