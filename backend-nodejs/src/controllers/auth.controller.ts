@@ -9,6 +9,7 @@ import {
   createUserAccountBodyInterface,
   deleteUserAccountBodyInterface,
   forgotPasswordBodyInterface,
+  loginBodyInterface,
   updateForgottenPasswordBodytInterface,
   updatePasswordBodyInterface,
   updateProfileBodyInterface,
@@ -34,7 +35,7 @@ import { Conversation } from "../models/conversation.model";
 dotenv.config();
 
 const login = async (request: Request, response: Response) => {
-  const body = request.body;
+  const body: loginBodyInterface = request.body;
 
   const user = await User.findOne({
     $or: [{ pin: body.pin }, { email: body.email }],

@@ -1,6 +1,12 @@
 import mongoose from "mongoose";
 import { userDocumentInterface } from "../documents/user.document.interface";
 
+interface loginBodyInterface {
+  email: string;
+  pin: string;
+  password: string;
+}
+
 interface createUserAccountBodyInterface {
   email: string;
   username: string;
@@ -53,6 +59,7 @@ interface deleteUserAccountBodyInterface extends userDocumentInterface {
 }
 
 export {
+  loginBodyInterface,
   createUserAccountBodyInterface,
   verifyAccountParamsInterface,
   loginBodyType,

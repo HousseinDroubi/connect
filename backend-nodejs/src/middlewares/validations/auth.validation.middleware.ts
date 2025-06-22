@@ -10,6 +10,7 @@ import {
 import {
   createUserAccountBodyInterface,
   forgotPasswordBodyInterface,
+  loginBodyInterface,
   updatePasswordBodyInterface,
   updateProfileBodyInterface,
 } from "../../interfaces/controllers/auth.controller.interfaces";
@@ -22,7 +23,7 @@ const loginValidationMiddleware = (
   next: NextFunction
 ) => {
   // Get request body
-  const body = request.body;
+  const body: loginBodyInterface = request.body;
 
   // Validate request body
   const error = validateLogin(body).error?.details[0].message;
