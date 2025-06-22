@@ -20,15 +20,7 @@ import {
 } from "../interfaces/responses/auth.controller.responses.interfaces";
 import { sendEmail } from "../emails/scripts/email";
 import { Token } from "../models/token.model";
-import {
-  validateActivateAccount,
-  validateCreateAccount,
-  validateForgotPassword,
-  validateLogin,
-  validateUpdateForgottenPasswordtInterface,
-  validateUpdatePassword,
-  validateUpdateProfile,
-} from "../validations/auth.validation";
+
 import { generateToken } from "../functions/general";
 import { Conversation } from "../models/conversation.model";
 
