@@ -34,17 +34,7 @@ import { Conversation } from "../models/conversation.model";
 dotenv.config();
 
 const login = async (request: Request, response: Response) => {
-  // Get request body
   const body = request.body;
-
-  // Validate request body
-  const error = validateLogin(body).error?.details[0].message;
-  if (error) {
-    return response.status(400).json({
-      result: "validation_error",
-      error,
-    });
-  }
 
   const user = await User.findOne({
     $or: [{ pin: body.pin }, { email: body.email }],
@@ -200,27 +190,11 @@ const login = async (request: Request, response: Response) => {
 };
 
 const createNewAccount = async (request: Request, response: Response) => {
-  // Stop request if imagae isn't existed
-  if (!request.file)
-    return response.status(400).json({
-      result: "image_required",
-    });
-
   // Get body from request
   const body: createUserAccountBodyInterface = request.body;
 
   // Get image source
   const file_source = path.join(__dirname, `../temp/${body.file_name}`);
-
-  // Validate body
-  const error = validateCreateAccount(body).error?.details[0].message;
-  if (error) {
-    await deleteFile(file_source);
-    return response.status(400).json({
-      result: "validation_error",
-      error,
-    });
-  }
 
   // Check if pin or email is taken
   const is_user_existed = await User.exists({
@@ -276,15 +250,6 @@ const forgotPassword = async (request: Request, response: Response) => {
   // Get body from request
   const body: forgotPasswordBodyInterface = request.body;
 
-  // Validate request body
-  const error = validateForgotPassword(body).error?.details[0].message;
-  if (error) {
-    return response.status(400).json({
-      result: "validation_error",
-      error,
-    });
-  }
-
   // Check if email existed
   const user = await User.findOne({ email: body.email });
   if (!user) {
@@ -332,24 +297,13 @@ const forgotPassword = async (request: Request, response: Response) => {
 const updateProfileData = async (request: Request, response: Response) => {
   // Get body from request
   const body: updateProfileBodyInterface = request.body;
-  let file_source: string = "";
 
-  // Validate body
-  const error = validateUpdateProfile(body).error?.details[0].message;
+  let file_source: string = "";
 
   // save file source inside variable
   if (body.file_name)
     file_source = path.join(__dirname, `../temp/${body.file_name}`);
 
-  // Stop request if validation fails
-  if (error) {
-    // Delete file
-    if (body.file_name) await deleteFile(file_source);
-    return response.status(400).json({
-      result: "validation_error",
-      error,
-    });
-  }
   if (!body.user) {
     throw new Error("User not found");
   }
@@ -385,13 +339,6 @@ const updateProfileData = async (request: Request, response: Response) => {
 
 const updatePassword = async (request: Request, response: Response) => {
   const body: updatePasswordBodyInterface = request.body;
-  const error = validateUpdatePassword(body).error?.details[0].message;
-
-  if (error)
-    return response.status(400).json({
-      result: "validation_error",
-      error,
-    });
 
   if (!body.user) {
     throw new Error("User not found in body");
@@ -428,14 +375,6 @@ const deleteUserAccount = async (request: Request, response: Response) => {
 const verifyAccount = async (request: Request, response: Response) => {
   // Get params from request
   const { token } = request.params;
-
-  // Validate params data
-  const error = validateActivateAccount({ token }).error?.details[0].message;
-  if (error)
-    return response.status(400).json({
-      result: "validation_error",
-      error,
-    });
 
   // Get token
   const user_token = await Token.where("value", token).findOne();
