@@ -358,7 +358,7 @@ const updatePassword = async (request: Request, response: Response) => {
 
 const deleteUserAccount = async (request: Request, response: Response) => {
   const body: userDocumentInterface = request.body;
-  if (!body.user) throw new Error("User not found");
+  if (!body.user) throw new Error("User not found in body");
 
   body.user.deleted_at = new Date();
   return response.status(202).json({
