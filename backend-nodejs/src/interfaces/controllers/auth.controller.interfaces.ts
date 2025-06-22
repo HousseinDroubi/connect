@@ -52,10 +52,6 @@ interface updateProfileBodyInterface {
   username?: string;
 }
 
-interface deleteUserAccountBodyInterface extends userDocumentInterface {
-  user_id: mongoose.Types.ObjectId;
-}
-
 export {
   loginBodyInterface,
   createUserAccountBodyInterface,
@@ -65,5 +61,4 @@ export {
   updateForgottenPasswordBodytInterface,
   updatePasswordBodyInterface,
   updateProfileBodyInterface,
-  deleteUserAccountBodyInterface,
 };

@@ -7,7 +7,6 @@ import path from "path";
 import crypto from "crypto";
 import {
   createUserAccountBodyInterface,
-  deleteUserAccountBodyInterface,
   forgotPasswordBodyInterface,
   loginBodyInterface,
   updateForgottenPasswordBodytInterface,
@@ -358,7 +357,7 @@ const updatePassword = async (request: Request, response: Response) => {
 };
 
 const deleteUserAccount = async (request: Request, response: Response) => {
-  const body: deleteUserAccountBodyInterface = request.body;
+  const body: userDocumentInterface = request.body;
   if (!body.user) throw new Error("User not found");
 
   body.user.deleted_at = new Date();
