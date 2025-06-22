@@ -191,7 +191,7 @@ class Singleton {
             break;
           }
           case "edit_message": {
-            // ----------------------------- Start of new message case -------------------------------------------
+            // ----------------------------- Start of edit message case -------------------------------------------
             // Parse message to json
             const edit_message: editMessageInterface = parsed_data;
 
@@ -218,11 +218,11 @@ class Singleton {
               Singleton.websockets_map,
               message.receiver === null ? null : String(message.receiver)
             );
-            // ----------------------------- End of new message case -------------------------------------------
+            // ----------------------------- End of edit message case -------------------------------------------
             break;
           }
           case "delete_message":
-            // ----------------------------- Start of new message case -------------------------------------------
+            // ----------------------------- Start of delete message case -------------------------------------------
             // Parse message to json
             const delete_message: deleteMessageInterface = parsed_data;
 
@@ -250,7 +250,7 @@ class Singleton {
               Singleton.websockets_map,
               message.receiver === null ? null : String(message.receiver)
             );
-          // ----------------------------- End of new message case -------------------------------------------
+          // ----------------------------- End of delete message case -------------------------------------------
         }
       });
 
