@@ -20,6 +20,8 @@ const isMessageExisted = async (
       result: "message_not_found",
     });
   }
+
+  request.body.message = message;
   next();
 };
 

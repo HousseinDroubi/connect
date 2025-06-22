@@ -5,6 +5,7 @@ import {
   isUserAuthenticated,
 } from "../middlewares/auth.middleware";
 import { upload } from "../middlewares/multer.middleware";
+import { isMessageExisted } from "../middlewares/message.middleware";
 
 const router = Router();
 
@@ -15,6 +16,6 @@ router.post(
   upload.single("image"),
   uploadImage
 );
-router.get("/view_image/:message_id", viewImage);
+router.get("/view_image/:message_id", isMessageExisted, viewImage);
 
 export default router;
