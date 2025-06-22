@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { Conversation } from "../models/conversation.model";
 import { isObjectIdValid } from "../functions/general";
 
-const iseConversationExisted = async (
+const isConversationExisted = async (
   request: Request,
   response: Response,
   next: NextFunction
@@ -23,4 +23,4 @@ const iseConversationExisted = async (
   next();
 };
 
-export { iseConversationExisted };
+export { isConversationExisted };
