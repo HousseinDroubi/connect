@@ -40,6 +40,7 @@ router.delete(
   isUserAuthenticated,
   isUserAccountDeleted,
   isMessageExisted,
+  isMessageDeletedForOthers,
   deleteMessageForSender
 );
 
