@@ -37,7 +37,7 @@ const isUserAuthorizedToAccessConversation = (
   const is_user_in_conversation =
     body.conversation!.between === null
       ? true
-      : body.conversation!.between?.find(
+      : body.conversation!.between!.find(
           (user_id) => String(user_id) === String(body.user!._id)
         );
 
