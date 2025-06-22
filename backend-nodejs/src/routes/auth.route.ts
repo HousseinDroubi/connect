@@ -42,6 +42,7 @@ router.post(
   forgotPasswordValidationMiddleware,
   forgotPassword
 );
+
 router.put(
   "/update_profile_data",
   upload.single("image"),
@@ -50,6 +51,7 @@ router.put(
   isUserAccountDeleted,
   updateProfileData
 );
+
 router.put(
   "/update_password",
   updatePasswordValidationMiddleware,
@@ -57,11 +59,14 @@ router.put(
   isUserAccountDeleted,
   updatePassword
 );
+
 router.delete(
   "/delete_user_account",
   isUserAuthenticated,
   isUserAccountDeleted,
   deleteUserAccount
 );
+
 router.put("/update_forgotten_password", updateForgottenPassword);
+
 export default router;
