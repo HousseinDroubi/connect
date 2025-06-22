@@ -14,7 +14,7 @@ const isMessageExisted = async (
   const { message_id } = request.params;
   if (!message_id || !isObjectIdValid(message_id))
     return respone.status(400).json({
-      result: "message_id_required",
+      result: "message_id_is_invalid",
     });
 
   const message = await Message.findById(message_id);
