@@ -36,6 +36,11 @@ const getConversationMessages = async (
         result: "conversation_added",
         conversation_id: conversation._id,
       });
+    } else {
+      conversation.deleted_for = conversation.deleted_for.filter(
+        (user_id) => String(user_id) !== String(body.user!._id)
+      );
+      await conversation.save();
     }
   }
 
