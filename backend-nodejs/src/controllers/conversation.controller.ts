@@ -3,6 +3,7 @@ import { userDocumentInterface } from "../interfaces/documents/user.document.int
 import { Message } from "../models/message.model";
 import { Conversation } from "../models/conversation.model";
 import User from "../models/user.model";
+import { conversationDocumentInterface } from "../interfaces/documents/conversation.document.interface";
 
 const getConversationMessages = async (
   request: Request,
@@ -57,8 +58,23 @@ const getConversationMessages = async (
   });
 };
 
-const deleteConversation = (request: Request, response: Response) => {
-  // deleteConversation
+const deleteConversation = async (request: Request, response: Response) => {
+  const body: userDocumentInterface & conversationDocumentInterface =
+    request.body;
+  if (!body.conversation || !body.user)
+    throw new Error("Neither conversation nor user in body");
+
+  if (
+    body.conversation.deleted_for.some(
+      (_id) => String(_id) === String(body.user!._id)
+    )
+  )
+    return response.status(403).json({
+      result: "already_deleted",
+    });
+
+  body.conversation.deleted_for.push(body.user._id);
+  await body.conversation.save();
 };
 
 export { deleteConversation, getConversationMessages };
