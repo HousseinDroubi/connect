@@ -178,20 +178,6 @@ const validateUpdatePassword = (data: updatePasswordBodyInterface) => {
         "string.min": "new_password_must_be_minimum_5_digits",
         "string.max": "new_password_must_be_maximum_20_digits",
       }),
-    user_id: joi
-      .string()
-      .required()
-      .custom((value, helpers) => {
-        if (!mongoose.Types.ObjectId.isValid(value)) {
-          return helpers.error("any.invalid");
-        }
-        return value;
-      }, "ObjectId Validation")
-      .messages({
-        "any.required": "object_id_is_required",
-        "string.empty": "object_id_is_not_allowerd_to_be_empty",
-        "any.invalid": "invalid_object_id",
-      }),
   });
   return schema.validate(data);
 };
@@ -209,20 +195,6 @@ const validateUpdateProfile = (data: updateProfileBodyInterface) => {
         "string.min": "username_must_be_minimum_3_digits",
         "string.max": "username_must_be_maximum_10_digits",
       }),
-      user_id: joi
-        .string()
-        .required()
-        .custom((value, helpers) => {
-          if (!mongoose.Types.ObjectId.isValid(value)) {
-            return helpers.error("any.invalid");
-          }
-          return value;
-        }, "ObjectId Validation")
-        .messages({
-          "any.required": "object_id_is_required",
-          "string.empty": "object_id_is_not_allowerd_to_be_empty",
-          "any.invalid": "invalid_object_id",
-        }),
     })
     .or("username", "file_name")
     .required()
