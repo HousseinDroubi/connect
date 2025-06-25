@@ -43,14 +43,14 @@ const createAccountValidationMiddleware = async (
   response: Response,
   next: NextFunction
 ) => {
+  // Get body from request
+  const body: createUserAccountBodyInterface = request.body;
+
   // Stop request if imagae isn't existed
-  if (!request.file)
+  if (body.file_name === null)
     return response.status(400).json({
       result: "image_required",
     });
-
-  // Get body from request
-  const body: createUserAccountBodyInterface = request.body;
 
   // Validate body
   const error = validateCreateAccount(body).error?.details[0].message;
