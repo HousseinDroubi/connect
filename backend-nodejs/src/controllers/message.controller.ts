@@ -45,11 +45,6 @@ const deleteMessage = async (request: Request, response: Response) => {
   if (!body.message || !body.user)
     throw new Error("Neither message nor user in the body");
 
-  if (body.message.sender !== body.user._id)
-    return response.status(405).json({
-      result: "method_not_allowed",
-    });
-
   body.message.deleted_for.push(body.user._id);
   await body.message.save();
 
