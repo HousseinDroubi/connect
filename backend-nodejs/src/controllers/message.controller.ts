@@ -49,7 +49,7 @@ const deleteMessage = async (request: Request, response: Response) => {
   await body.message.save();
 
   return response.status(200).json({
-    result: "message_delete_for_sender",
+    result: "message_deleted",
   });
 };
 
