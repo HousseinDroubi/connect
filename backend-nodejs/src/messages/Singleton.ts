@@ -210,6 +210,7 @@ class Singleton {
             if (!message) return;
 
             if (
+              String(message.sender) !== String(user._id) ||
               message.deleted_for_others_at ||
               message.deleted_for.some(
                 (_id) => String(user._id) === String(_id)
@@ -245,6 +246,7 @@ class Singleton {
             const message = await Message.findById(delete_message.message_id);
             if (!message) return;
             if (
+              String(message.sender) !== String(user._id) ||
               message.deleted_for_others_at ||
               message.deleted_for.some(
                 (_id) => String(_id) === String(user._id)
