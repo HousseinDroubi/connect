@@ -10,8 +10,13 @@ const isConversationExisted = async (
   next: NextFunction
 ) => {
   const { pin } = request.params;
-  const body: userDocumentInterface = request.body;
+  if (!pin) {
+    return response.status(400).json({
+      result: "pin_required",
+    });
+  }
 
+  const body: userDocumentInterface = request.body;
   const other_user = await User.findOne({ pin });
   if (!other_user)
     return response.status(404).json({
