@@ -29,7 +29,7 @@ const getConversationMessages = async (
     });
     if (!conversation) {
       conversation = await Conversation.create({
-        between: [other_user._id, body.user!._id],
+        between: [other_user._id, body.user._id],
         last_message: null,
       });
       return response.status(201).json({
