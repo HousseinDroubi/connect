@@ -17,6 +17,7 @@ const isConversationExisted = async (
   }
 
   const body: userDocumentInterface = request.body;
+
   const other_user = await User.findOne({ pin });
   if (!other_user)
     return response.status(404).json({
