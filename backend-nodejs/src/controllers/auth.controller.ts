@@ -379,6 +379,11 @@ const verifyAccount = async (request: Request, response: Response) => {
 
   const user = await User.findById(user_token.user_id);
   if (!user)
+    return response.status(404).json({
+      result: "user_not_found",
+    });
+
+  if (user.deleted_at)
     return response.status(410).json({
       result: "user_account_deleted",
     });
