@@ -200,6 +200,7 @@ const validateUpdateProfile = (data: updateProfileBodyInterface) => {
     .required()
     .messages({
       "object.missing": "username_of_file_name_is_required",
+      "object.unknown": "image_is_not_allowed_to_be_empty",
     });
   return schema.validate(data);
 };
