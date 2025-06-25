@@ -201,12 +201,14 @@ class Singleton {
 
             // Validate message
             error = validateEditMessage(edit_message).error?.details[0].message;
+
             if (error) return;
 
             if (!isObjectIdValid(edit_message.message_id)) return;
             const message = await Message.findById(edit_message.message_id);
 
             if (!message) return;
+
             if (
               message.deleted_for_others_at ||
               message.deleted_for.some(
