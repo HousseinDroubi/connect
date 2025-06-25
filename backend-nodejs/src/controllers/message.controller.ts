@@ -24,8 +24,10 @@ const viewImage = (request: Request, response: Response) => {
 
   if (body.message.receiver !== null)
     if (
-      body.user._id !== body.message.sender ||
-      body.user._id !== body.message.receiver
+      !(
+        String(body.user._id) === String(body.message.sender) ||
+        String(body.user._id) === String(body.message.receiver)
+      )
     )
       return response.status(401).json({
         result: "not_allowed_to_view_image",
