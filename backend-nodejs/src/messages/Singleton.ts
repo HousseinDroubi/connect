@@ -95,6 +95,7 @@ class Singleton {
 
             // Validate message
             error = validateNewMessage(new_message).error?.details[0].message;
+
             if (error) return;
 
             // Validate user id and their existence in DB
