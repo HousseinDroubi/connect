@@ -24,4 +24,15 @@ const getConversationMessagesValidation = (data: string) => {
   return schema.validate(data);
 };
 
-export { getConversationMessagesValidation };
+const deleteConversationValidation = (data: string) => {
+  const schema = joi
+    .string()
+    .pattern(/^\d{6}$/)
+    .messages({
+      "string.pattern.base": "pin_must_be_exactly_6_digits",
+    });
+
+  return schema.validate(data);
+};
+
+export { getConversationMessagesValidation, deleteConversationValidation };
