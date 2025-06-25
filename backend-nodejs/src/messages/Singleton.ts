@@ -96,7 +96,6 @@ class Singleton {
 
             // Validate message
             error = validateNewMessage(new_message).error?.details[0].message;
-            console.log(`error is ${error}`);
             if (error) return;
 
             // Validate user id and their existence in DB
