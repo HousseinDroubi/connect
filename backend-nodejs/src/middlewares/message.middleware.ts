@@ -42,7 +42,7 @@ const haveUserDeletedMessage = async (
     )
   )
     return respone.status(403).json({
-      result: "message_deleted_for_others",
+      result: "message_deleted",
     });
 
   next();
