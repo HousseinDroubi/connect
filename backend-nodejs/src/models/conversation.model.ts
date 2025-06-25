@@ -15,6 +15,7 @@ const schema = new mongoose.Schema<conversationModelInterface>({
   },
   last_message: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: "messages",
   },
   deleted_for: {
     type: [mongoose.Schema.Types.ObjectId],
