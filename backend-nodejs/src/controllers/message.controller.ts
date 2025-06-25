@@ -40,7 +40,7 @@ const viewImage = (request: Request, response: Response) => {
   return response.sendFile(image_path);
 };
 
-const deleteMessageForSender = async (request: Request, response: Response) => {
+const deleteMessage = async (request: Request, response: Response) => {
   const body: userDocumentInterface & messageDocumentInterface = request.body;
   if (!body.message || !body.user)
     throw new Error("Neither message nor user in the body");
@@ -58,4 +58,4 @@ const deleteMessageForSender = async (request: Request, response: Response) => {
   });
 };
 
-export { uploadImage, viewImage, deleteMessageForSender };
+export { uploadImage, viewImage, deleteMessage };

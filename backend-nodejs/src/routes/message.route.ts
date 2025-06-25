@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {
-  deleteMessageForSender,
+  deleteMessage,
   uploadImage,
   viewImage,
 } from "../controllers/message.controller";
@@ -44,7 +44,7 @@ router.delete(
   isMessageExisted,
   haveUserDeletedMessage,
   isMessageDeletedForOthers,
-  deleteMessageForSender
+  deleteMessage
 );
 
 export default router;
