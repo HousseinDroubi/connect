@@ -379,7 +379,7 @@ const deleteUserAccount = async (request: Request, response: Response) => {
 
   body.user.deleted_at = new Date();
   return response.status(202).json({
-    result: "user_accout_deleted",
+    result: "user_account_deleted",
   });
 };
 
