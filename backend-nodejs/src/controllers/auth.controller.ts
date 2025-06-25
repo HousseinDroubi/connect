@@ -350,6 +350,11 @@ const updatePassword = async (request: Request, response: Response) => {
     throw new Error("User not found in body");
   }
 
+  if (body.old_password === body.new_password)
+    return response.status(400).json({
+      result: "old_password_same_as_new_password",
+    });
+
   const compare_result = await bcrypt.compare(
     body.old_password,
     body.user.password
