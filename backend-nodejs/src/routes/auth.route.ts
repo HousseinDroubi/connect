@@ -11,7 +11,7 @@ import {
 import { Router } from "express";
 import { upload } from "../middlewares/multer.middleware";
 import {
-  isUserAccountDeleted,
+  isUserAccountUnverifiedOrDeleted,
   isUserAuthenticated,
 } from "../middlewares/auth.middleware";
 import {
@@ -49,7 +49,7 @@ router.put(
   upload.single("image"),
   updateProfileDataValidationMiddleware,
   isUserAuthenticated,
-  isUserAccountDeleted,
+  isUserAccountUnverifiedOrDeleted,
   updateProfileData
 );
 
@@ -57,14 +57,14 @@ router.put(
   "/update_password",
   updatePasswordValidationMiddleware,
   isUserAuthenticated,
-  isUserAccountDeleted,
+  isUserAccountUnverifiedOrDeleted,
   updatePassword
 );
 
 router.delete(
   "/delete_user_account",
   isUserAuthenticated,
-  isUserAccountDeleted,
+  isUserAccountUnverifiedOrDeleted,
   deleteUserAccount
 );
 

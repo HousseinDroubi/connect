@@ -14,7 +14,7 @@ const isUserAuthenticated = (
   next();
 };
 
-const isUserAccountDeleted = async (
+const isUserAccountUnverifiedOrDeleted = async (
   request: Request,
   response: Response,
   next: NextFunction
@@ -28,6 +28,9 @@ const isUserAccountDeleted = async (
       result: "user_not_found",
     });
 
+  if (!user.is_verified)
+    return response.status(405).json({ error: "user_not_verified" });
+
   if (user.deleted_at)
     return response.status(410).json({
       result: "user_account_deleted",
@@ -38,4 +41,4 @@ const isUserAccountDeleted = async (
   next();
 };
 
-export { isUserAuthenticated, isUserAccountDeleted };
+export { isUserAuthenticated, isUserAccountUnverifiedOrDeleted };

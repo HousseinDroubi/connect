@@ -5,7 +5,7 @@ import {
   viewImage,
 } from "../controllers/message.controller";
 import {
-  isUserAccountDeleted,
+  isUserAccountUnverifiedOrDeleted,
   isUserAuthenticated,
 } from "../middlewares/auth.middleware";
 import { upload } from "../middlewares/multer.middleware";
@@ -21,7 +21,7 @@ const router = Router();
 router.post(
   "/upload_image",
   isUserAuthenticated,
-  isUserAccountDeleted,
+  isUserAccountUnverifiedOrDeleted,
   upload.single("image"),
   uploadImage
 );
@@ -29,7 +29,7 @@ router.post(
 router.get(
   "/view_image/:message_id",
   isUserAuthenticated,
-  isUserAccountDeleted,
+  isUserAccountUnverifiedOrDeleted,
   isMessageExisted,
   haveUserDeletedMessage,
   isMessageDeletedForOthers,
@@ -40,7 +40,7 @@ router.get(
 router.delete(
   "/delete_message_for_sender/:message_id",
   isUserAuthenticated,
-  isUserAccountDeleted,
+  isUserAccountUnverifiedOrDeleted,
   isMessageExisted,
   haveUserDeletedMessage,
   isMessageDeletedForOthers,

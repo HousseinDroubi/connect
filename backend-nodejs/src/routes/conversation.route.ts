@@ -4,7 +4,7 @@ import {
   getConversationMessages,
 } from "../controllers/conversation.controller";
 import {
-  isUserAccountDeleted,
+  isUserAccountUnverifiedOrDeleted,
   isUserAuthenticated,
 } from "../middlewares/auth.middleware";
 import {
@@ -18,7 +18,7 @@ const router = Router();
 router.get(
   "/get_conversation_messages/:conversation_id",
   isUserAuthenticated,
-  isUserAccountDeleted,
+  isUserAccountUnverifiedOrDeleted,
   getConversationMessagesValidationMiddleware,
   isUserAuthorizedToAccessConversation,
   getConversationMessages
@@ -27,7 +27,7 @@ router.get(
 router.delete(
   "/delete_conversation/:conversation_id",
   isUserAuthenticated,
-  isUserAccountDeleted,
+  isUserAccountUnverifiedOrDeleted,
   isConversationExisted,
   isUserAuthorizedToAccessConversation,
   deleteConversation
