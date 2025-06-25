@@ -170,7 +170,7 @@ class Singleton {
 
             // Update conversation last message id
             conversation.last_message = message._id;
-            conversation.save();
+            await conversation.save();
 
             // Send message
             sendEventMessage(
