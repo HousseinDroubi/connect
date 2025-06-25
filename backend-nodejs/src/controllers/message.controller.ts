@@ -35,9 +35,9 @@ const viewImage = (request: Request, response: Response) => {
 
   const image_path = path.join(
     __dirname,
-    `../${body.message.conversation_id}/${body.message.content}`
+    `../conversations/${body.message.conversation_id}/${body.message.content}`
   );
-  return response.sendFile(image_path);
+  return response.send(image_path);
 };
 
 const deleteMessageForSender = async (request: Request, response: Response) => {
