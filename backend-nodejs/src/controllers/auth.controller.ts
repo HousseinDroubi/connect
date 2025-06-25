@@ -315,6 +315,7 @@ const updateProfileData = async (request: Request, response: Response) => {
 
   // Update username
   if (body.username) body.user.username = body.username;
+
   // Update user profile
   if (body.file_name) {
     // Delete old image
