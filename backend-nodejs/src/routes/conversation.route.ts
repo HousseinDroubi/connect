@@ -11,7 +11,10 @@ import {
   isConversationExisted,
   isUserAuthorizedToAccessConversation,
 } from "../middlewares/conversation.middleware";
-import { getConversationMessagesValidationMiddleware } from "../middlewares/validations/conversation.validation.middleware";
+import {
+  getConversationMessagesValidationMiddleware,
+  deleteConversationValidationMiddleware,
+} from "../middlewares/validations/conversation.validation.middleware";
 
 const router = Router();
 
@@ -28,6 +31,7 @@ router.delete(
   "/delete_conversation/:pin",
   isUserAuthenticated,
   isUserAccountUnverifiedOrDeleted,
+  deleteConversationValidationMiddleware,
   isConversationExisted,
   isUserAuthorizedToAccessConversation,
   deleteConversation
