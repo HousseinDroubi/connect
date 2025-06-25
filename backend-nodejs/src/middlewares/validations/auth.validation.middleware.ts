@@ -120,7 +120,7 @@ const updateProfileDataValidationMiddleware = async (
 
   // save file source inside variable
   if (body.file_name)
-    file_source = path.join(__dirname, `../temp/${body.file_name}`);
+    file_source = path.join(__dirname, `../../temp/${body.file_name}`);
 
   // Stop request if validation fails
   if (error) {
