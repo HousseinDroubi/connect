@@ -5,6 +5,7 @@ import path from "path";
 import authRoutes from "./routes/auth.route";
 import messageRoutes from "./routes/message.route";
 import conversationRoutes from "./routes/conversation.route";
+import userRoutes from "./routes/user.route";
 import { connectToDB } from "./db/db.connection";
 import Singleton from "./messages/Singleton";
 
@@ -19,6 +20,7 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 app.use("/auth", authRoutes);
 app.use("/message", messageRoutes);
 app.use("/conversation", conversationRoutes);
+app.use("/user", userRoutes);
 
 connectToDB();
 
