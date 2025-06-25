@@ -43,6 +43,12 @@ const login = async (request: Request, response: Response) => {
   if (!user.is_verified)
     return response.status(405).json({ error: "user_not_verified" });
 
+  if (user.deleted_at) {
+    return response.status(403).json({
+      error: "user_account_deleted",
+    });
+  }
+
   const conversations = await Conversation.aggregate([
     {
       $match: {
