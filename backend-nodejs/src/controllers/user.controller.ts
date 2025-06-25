@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import mongoose from "mongoose";
 import User from "../models/user.model";
 
 const viewOtherUserProfile = async (request: Request, response: Response) => {
