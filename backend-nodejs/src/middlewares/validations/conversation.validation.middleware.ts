@@ -3,6 +3,7 @@ import {
   deleteConversationValidation,
   getConversationMessagesValidation,
 } from "../../validations/middleware.validation";
+import { userDocumentInterface } from "../../interfaces/documents/user.document.interface";
 
 const getConversationMessagesValidationMiddleware = (
   request: Request,
@@ -10,8 +11,15 @@ const getConversationMessagesValidationMiddleware = (
   next: NextFunction
 ) => {
   const { pin } = request.params;
+  const body: userDocumentInterface = request.body;
+
   const error =
     getConversationMessagesValidation(pin).error?.details[0].message;
+
+  if (body.user!.pin == Number(pin))
+    return response.status(400).json({
+      result: "same user",
+    });
 
   if (error) {
     return response.status(400).json({
@@ -29,6 +37,8 @@ const deleteConversationValidationMiddleware = (
   next: NextFunction
 ) => {
   const { pin } = request.params;
+  const body: userDocumentInterface = request.body;
+
   const error = deleteConversationValidation(pin).error?.details[0].message;
 
   if (error) {
@@ -37,6 +47,11 @@ const deleteConversationValidationMiddleware = (
       error,
     });
   }
+
+  if (body.user!.pin == Number(pin))
+    return response.status(400).json({
+      result: "same user",
+    });
 
   next();
 };
