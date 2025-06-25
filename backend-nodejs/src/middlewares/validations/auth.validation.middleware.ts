@@ -47,7 +47,7 @@ const createAccountValidationMiddleware = async (
   const body: createUserAccountBodyInterface = request.body;
 
   // Stop request if imagae isn't existed
-  if (body.file_name === null)
+  if (body.file_name === undefined)
     return response.status(400).json({
       result: "image_required",
     });
@@ -55,7 +55,7 @@ const createAccountValidationMiddleware = async (
   // Validate body
   const error = validateCreateAccount(body).error?.details[0].message;
 
-  const file_source = path.join(__dirname, `../temp/${body.file_name}`);
+  const file_source = path.join(__dirname, `../../temp/${body.file_name}`);
 
   if (error) {
     await deleteFile(file_source);
