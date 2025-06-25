@@ -25,6 +25,7 @@ import path from "path";
 import {
   checkFileExistence,
   createFolder,
+  deleteFile,
   moveFile,
 } from "../functions/server_file_system";
 import { Message } from "../models/message.model";
@@ -95,7 +96,7 @@ class Singleton {
 
             // Validate message
             error = validateNewMessage(new_message).error?.details[0].message;
-
+            console.log(`error is ${error}`);
             if (error) return;
 
             // Validate user id and their existence in DB
@@ -131,7 +132,14 @@ class Singleton {
               });
             }
 
-            if (!conversation && new_message.to === null) return;
+            if (!conversation && new_message.to === null) {
+              if (new_message.to === null) {
+                await deleteFile(
+                  path.join(__dirname, `../temp/${new_message.content}`)
+                );
+              }
+              return;
+            }
 
             if (!conversation) {
               conversation = await Conversation.create({
