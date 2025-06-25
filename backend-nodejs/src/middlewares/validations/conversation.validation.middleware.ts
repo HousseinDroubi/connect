@@ -1,5 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { getConversationMessagesValidation } from "../../validations/middleware.validation";
+import {
+  deleteConversationValidation,
+  getConversationMessagesValidation,
+} from "../../validations/middleware.validation";
 
 const getConversationMessagesValidationMiddleware = (
   request: Request,
@@ -20,4 +23,25 @@ const getConversationMessagesValidationMiddleware = (
   next();
 };
 
-export { getConversationMessagesValidationMiddleware };
+const deleteConversationValidationMiddleware = (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  const { pin } = request.params;
+  const error = deleteConversationValidation(pin).error?.details[0].message;
+
+  if (error) {
+    return response.status(400).json({
+      result: "validation_error",
+      error,
+    });
+  }
+
+  next();
+};
+
+export {
+  getConversationMessagesValidationMiddleware,
+  deleteConversationValidationMiddleware,
+};
