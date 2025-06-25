@@ -15,6 +15,7 @@ const viewOtherUserProfile = async (request: Request, response: Response) => {
     username: other_user.username,
     pin: other_user.pin,
     joined_at: other_user.created_at,
+    profile_url: `http://${process.env.DOAMIN}:${process.env.PORT}/${other_user.profile_url}`,
   });
 };
 
