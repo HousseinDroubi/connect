@@ -16,7 +16,7 @@ import { getConversationMessagesValidationMiddleware } from "../middlewares/vali
 const router = Router();
 
 router.get(
-  "/get_conversation_messages/:conversation_id",
+  "/get_conversation_messages/:pin",
   isUserAuthenticated,
   isUserAccountUnverifiedOrDeleted,
   getConversationMessagesValidationMiddleware,
@@ -25,7 +25,7 @@ router.get(
 );
 
 router.delete(
-  "/delete_conversation/:conversation_id",
+  "/delete_conversation/:pin",
   isUserAuthenticated,
   isUserAccountUnverifiedOrDeleted,
   isConversationExisted,
