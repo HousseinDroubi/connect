@@ -6,6 +6,11 @@ import path from "path";
 
 const uploadImage = (request: Request, response: Response) => {
   const body: uploadImageBodyInterface = request.body;
+  if (!body.file_name)
+    return response.status(400).json({
+      result: "missing_image",
+    });
+
   return response.status(200).json({
     result: "image_uploaded",
     file_name: body.file_name,
