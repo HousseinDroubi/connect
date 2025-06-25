@@ -263,6 +263,12 @@ const forgotPassword = async (request: Request, response: Response) => {
       result: "user_is_not_verified",
     });
 
+  // Check user if user account deleted
+  if (user.deleted_at)
+    return response.status(405).json({
+      result: "user_account_deleted",
+    });
+
   // Check if token already created
   const is_token_existed = await Token.exists({
     user_id: user._id,
@@ -429,6 +435,15 @@ const updateForgottenPassword = async (
     return response.status(410).json({
       result: "user_account_deleted",
     });
+
+  if (!user.is_verified)
+    return response.status(405).json({ error: "user_not_verified" });
+
+  if (user.deleted_at) {
+    return response.status(403).json({
+      error: "user_account_deleted",
+    });
+  }
 
   // Hash password
   const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUND));
