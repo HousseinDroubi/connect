@@ -6,9 +6,9 @@ const getConversationMessagesValidationMiddleware = (
   response: Response,
   next: NextFunction
 ) => {
-  const { token } = request.params;
+  const { pin } = request.params;
   const error =
-    getConversationMessagesValidation(token).error?.details[0].message;
+    getConversationMessagesValidation(pin).error?.details[0].message;
 
   if (error) {
     return response.status(400).json({
