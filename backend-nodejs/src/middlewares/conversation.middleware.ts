@@ -39,6 +39,32 @@ const isConversationExisted = async (
   next();
 };
 
+const checkOtherUserInConversationExistence = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  const { pin } = request.params;
+  if (pin === "broadcast") next();
+
+  const other_user = await User.findOne({ pin });
+
+  if (!other_user)
+    return response.status(404).json({
+      result: "other_user_not_found",
+    });
+
+  if (!other_user.is_verified)
+    return response.status(405).json({ error: "other_user_not_verified" });
+
+  if (other_user.deleted_at)
+    return response.status(410).json({
+      result: "other_user_account_deleted",
+    });
+  request.body.other_user = other_user;
+  next();
+};
+
 const isUserAuthorizedToAccessConversation = (
   request: Request,
   response: Response,
@@ -64,4 +90,8 @@ const isUserAuthorizedToAccessConversation = (
   next();
 };
 
-export { isUserAuthorizedToAccessConversation, isConversationExisted };
+export {
+  isUserAuthorizedToAccessConversation,
+  isConversationExisted,
+  checkOtherUserInConversationExistence,
+};
