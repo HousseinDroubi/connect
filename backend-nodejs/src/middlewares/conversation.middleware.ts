@@ -84,7 +84,10 @@ const checkConversationExistence = async (
     conversation = await Conversation.findOne({
       between: { $all: [body.user!._id, body.other_user!._id] },
     });
-    if (request.url.includes("get_conversation_messages") && !conversation) {
+    if (
+      request.url.split("/")[1] == "get_conversation_messages" &&
+      !conversation
+    ) {
       conversation = await Conversation.create({
         between: [body.user!._id, body.other_user!._id],
         last_message: null,
