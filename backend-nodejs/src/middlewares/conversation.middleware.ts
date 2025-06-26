@@ -3,6 +3,7 @@ import { conversationDocumentInterface } from "../interfaces/documents/conversat
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import { Conversation } from "../models/conversation.model";
 import User from "../models/user.model";
+import { checkConversationExistenceBodyInterface } from "../interfaces/middlewares/conversation.middleware.interfaces";
 
 const isConversationExisted = async (
   request: Request,
@@ -65,6 +66,29 @@ const checkOtherUserInConversationExistence = async (
   next();
 };
 
+const checkConversationExistence = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  const { pin } = request.params;
+  const body: checkConversationExistenceBodyInterface = request.body;
+
+  if (!body.user || !body.other_user)
+    throw new Error("Neither user nor other user in body");
+
+  let conversation;
+  if (pin === "broadcast")
+    conversation = await Conversation.findOne({ between: null });
+  else
+    conversation = await Conversation.findOne({
+      between: { $all: [body.user._id, body.other_user._id] },
+    });
+
+  request.body.conversation = conversation;
+  next();
+};
+
 const isUserAuthorizedToAccessConversation = (
   request: Request,
   response: Response,
@@ -94,4 +118,5 @@ export {
   isUserAuthorizedToAccessConversation,
   isConversationExisted,
   checkOtherUserInConversationExistence,
+  checkConversationExistence,
 };
