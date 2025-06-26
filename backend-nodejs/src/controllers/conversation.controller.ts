@@ -4,47 +4,16 @@ import { Message } from "../models/message.model";
 import { Conversation } from "../models/conversation.model";
 import User from "../models/user.model";
 import { conversationDocumentInterface } from "../interfaces/documents/conversation.document.interface";
+import { getConversationMessagesInterface } from "../interfaces/controllers/conversation.controller.interfaces";
 
 const getConversationMessages = async (
   request: Request,
   response: Response
 ) => {
-  const { pin } = request.params;
-  const body: userDocumentInterface = request.body;
+  const body: getConversationMessagesInterface = request.body;
 
-  if (!body.user) throw new Error("User is not in body");
-
-  let conversation;
-
-  if (pin === "broadcast") {
-    conversation = await Conversation.findOne({ between: null });
-  } else {
-    const other_user = await User.findOne({ pin });
-    if (!other_user)
-      return response.status(404).json({
-        result: "user_not_found",
-      });
-    conversation = await Conversation.findOne({
-      between: { $all: [body.user._id, other_user._id] },
-    });
-    if (!conversation) {
-      conversation = await Conversation.create({
-        between: [other_user._id, body.user._id],
-        last_message: null,
-      });
-      return response.status(201).json({
-        result: "conversation_added",
-        conversation_id: conversation._id,
-      });
-    } else {
-      conversation.deleted_for = conversation.deleted_for.filter(
-        (user_id) => String(user_id) !== String(body.user!._id)
-      );
-      await conversation.save();
-    }
-  }
-
-  if (!conversation) throw new Error("Conversation is not existed");
+  if (!body.user || !body.conversation)
+    throw new Error("Neitihr user, nor body is not in body");
 
   const messages = await Message.find({
     $or: [
@@ -52,7 +21,7 @@ const getConversationMessages = async (
       { receiver: body.user._id },
       { receiver: null },
     ],
-    conversation_id: conversation._id,
+    conversation_id: body.conversation._id,
     deleted_for_others_at: null,
     deleted_for: { $nin: [body.user._id] },
   });
