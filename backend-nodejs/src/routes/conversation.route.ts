@@ -8,12 +8,6 @@ import {
   isUserAuthenticated,
 } from "../middlewares/auth.middleware";
 import {
-  checkConversationExistence,
-  checkOtherUserInConversationExistence,
-  isConversationExisted,
-  isUserAuthorizedToAccessConversation,
-} from "../middlewares/conversation.middleware";
-import {
   getConversationMessagesValidationMiddleware,
   deleteConversationValidationMiddleware,
 } from "../middlewares/validations/conversation.validation.middleware";
@@ -25,9 +19,6 @@ router.get(
   isUserAuthenticated,
   isUserAccountUnverifiedOrDeleted,
   getConversationMessagesValidationMiddleware,
-  checkOtherUserInConversationExistence,
-  checkConversationExistence,
-  isUserAuthorizedToAccessConversation,
   getConversationMessages
 );
 
@@ -36,8 +27,6 @@ router.delete(
   isUserAuthenticated,
   isUserAccountUnverifiedOrDeleted,
   deleteConversationValidationMiddleware,
-  isConversationExisted,
-  isUserAuthorizedToAccessConversation,
   deleteConversation
 );
 
