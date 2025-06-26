@@ -74,7 +74,7 @@ const checkConversationExistence = async (
   const { pin } = request.params;
   const body: checkConversationExistenceBodyInterface = request.body;
 
-  if (!body.user || !body.other_user)
+  if ((!body.user || !body.other_user) && pin !== "broadcast")
     throw new Error("Neither user nor other user in body");
 
   let conversation;
@@ -82,7 +82,7 @@ const checkConversationExistence = async (
     conversation = await Conversation.findOne({ between: null });
   else
     conversation = await Conversation.findOne({
-      between: { $all: [body.user._id, body.other_user._id] },
+      between: { $all: [body.user!._id, body.other_user!._id] },
     });
 
   request.body.conversation = conversation;
