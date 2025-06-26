@@ -5,7 +5,6 @@ const schema = new mongoose.Schema<userModelInterface>({
     type: String,
     required: true,
     unique: true,
-    select: false,
   },
   username: {
     type: String,
@@ -20,7 +19,6 @@ const schema = new mongoose.Schema<userModelInterface>({
   password: {
     type: String,
     required: true,
-    select: false,
   },
   profile_url: {
     type: String,
@@ -30,7 +28,6 @@ const schema = new mongoose.Schema<userModelInterface>({
     type: Boolean,
     required: false,
     default: false,
-    select: false,
   },
   created_at: {
     type: Date,
@@ -41,7 +38,6 @@ const schema = new mongoose.Schema<userModelInterface>({
     type: Date,
     default: null,
     required: false,
-    select: false,
   },
   is_online: {
     type: Boolean,
