@@ -8,7 +8,6 @@ import {
   updateProfileBodyInterface,
   verifyAccountParamsInterface,
 } from "../interfaces/controllers/auth.controller.interfaces";
-import mongoose from "mongoose";
 
 const validateCreateAccount = (data: createUserAccountBodyInterface) => {
   const schema = joi.object({

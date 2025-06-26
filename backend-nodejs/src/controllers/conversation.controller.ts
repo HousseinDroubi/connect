@@ -3,8 +3,6 @@ import { userDocumentInterface } from "../interfaces/documents/user.document.int
 import { Message } from "../models/message.model";
 import { Conversation } from "../models/conversation.model";
 import User from "../models/user.model";
-import { conversationDocumentInterface } from "../interfaces/documents/conversation.document.interface";
-import { getConversationMessagesInterface } from "../interfaces/controllers/conversation.controller.interfaces";
 
 const getConversationMessages = async (
   request: Request,

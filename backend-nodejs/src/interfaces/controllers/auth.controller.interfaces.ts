@@ -1,6 +1,3 @@
-import mongoose from "mongoose";
-import { userDocumentInterface } from "../documents/user.document.interface";
-
 interface loginBodyInterface {
   email: string;
   pin: string;
