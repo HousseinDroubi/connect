@@ -16,18 +16,19 @@ const getConversationMessagesValidationMiddleware = (
   const error =
     getConversationMessagesValidation(pin).error?.details[0].message;
 
-  if (body.user!.pin == Number(pin))
-    return response.status(400).json({
-      result: "same user",
-    });
+  if (pin !== "broadcast") {
+    if (body.user!.pin == Number(pin))
+      return response.status(400).json({
+        result: "same user",
+      });
 
-  if (error) {
-    return response.status(400).json({
-      result: "validation_error",
-      error,
-    });
+    if (error) {
+      return response.status(400).json({
+        result: "validation_error",
+        error,
+      });
+    }
   }
-
   next();
 };
 

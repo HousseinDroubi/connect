@@ -46,23 +46,23 @@ const checkOtherUserInConversationExistence = async (
   next: NextFunction
 ) => {
   const { pin } = request.params;
-  if (pin === "broadcast") next();
+  if (pin !== "broadcast") {
+    const other_user = await User.findOne({ pin: Number(pin) });
 
-  const other_user = await User.findOne({ pin: Number(pin) });
+    if (!other_user)
+      return response.status(404).json({
+        result: "other_user_not_found",
+      });
 
-  if (!other_user)
-    return response.status(404).json({
-      result: "other_user_not_found",
-    });
+    if (!other_user.is_verified)
+      return response.status(405).json({ error: "other_user_not_verified" });
 
-  if (!other_user.is_verified)
-    return response.status(405).json({ error: "other_user_not_verified" });
-
-  if (other_user.deleted_at)
-    return response.status(410).json({
-      result: "other_user_account_deleted",
-    });
-  request.body.other_user = other_user;
+    if (other_user.deleted_at)
+      return response.status(410).json({
+        result: "other_user_account_deleted",
+      });
+    request.body.other_user = other_user;
+  }
   next();
 };
 
@@ -85,6 +85,7 @@ const checkConversationExistence = async (
       between: { $all: [body.user!._id, body.other_user!._id] },
     });
   request.body.conversation = conversation;
+  console.log(request.url);
   next();
 };
 
