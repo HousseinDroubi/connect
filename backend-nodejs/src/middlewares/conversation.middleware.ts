@@ -3,7 +3,10 @@ import { conversationDocumentInterface } from "../interfaces/documents/conversat
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import { Conversation } from "../models/conversation.model";
 import User from "../models/user.model";
-import { checkConversationExistenceBodyInterface } from "../interfaces/middlewares/conversation.middleware.interfaces";
+import {
+  checkConversationExistenceBodyInterface,
+  isUserAuthorizedToAccessConversationBodyInterace,
+} from "../interfaces/middlewares/conversation.middleware.interfaces";
 
 const isConversationExisted = async (
   request: Request,
@@ -104,22 +107,33 @@ const isUserAuthorizedToAccessConversation = (
   response: Response,
   next: NextFunction
 ) => {
-  const body: conversationDocumentInterface & userDocumentInterface =
-    request.body;
-
-  if (body.conversation!.between === null)
-    return response.status(403).json({
-      result: "method_not_allowed",
-    });
+  const body: isUserAuthorizedToAccessConversationBodyInterace = request.body;
+  const { pin } = request.params;
 
   if (
-    !body.conversation!.between.some(
-      (_id) => String(body.user!._id) === String(_id)
-    )
+    (pin !== "broadcast" &&
+      (!body.conversation || !body.user || !body.other_user)) ||
+    (pin === "broadcast" && (!body.conversation || !body.user))
   )
-    return response.status(401).json({
-      result: "user_not_in_conversation",
-    });
+    throw new Error("Missing data in request body");
+
+  const is_delete_convesation_request =
+    request.url.split("/")[1] === "delete_conversation";
+  if (is_delete_convesation_request)
+    if (body.conversation!.between === null)
+      return response.status(403).json({
+        result: "method_not_allowed",
+      });
+
+  if (!is_delete_convesation_request && body.conversation!.between !== null)
+    if (
+      !body.conversation!.between.some(
+        (_id) => String(body.user!._id) === String(_id)
+      )
+    )
+      return response.status(401).json({
+        result: "user_not_in_conversation",
+      });
 
   next();
 };

@@ -1,3 +1,4 @@
+import { conversationDocumentInterface } from "../documents/conversation.document.interface";
 import { userDocumentInterface } from "../documents/user.document.interface";
 
 interface checkConversationExistenceBodyInterface {
@@ -5,4 +6,12 @@ interface checkConversationExistenceBodyInterface {
   other_user: userDocumentInterface["user"];
 }
 
-export { checkConversationExistenceBodyInterface };
+interface isUserAuthorizedToAccessConversationBodyInterace
+  extends checkConversationExistenceBodyInterface {
+  conversation: conversationDocumentInterface["conversation"];
+}
+
+export {
+  checkConversationExistenceBodyInterface,
+  isUserAuthorizedToAccessConversationBodyInterace,
+};
