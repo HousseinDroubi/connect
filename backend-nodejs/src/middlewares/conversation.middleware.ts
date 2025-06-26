@@ -48,7 +48,7 @@ const checkOtherUserInConversationExistence = async (
   const { pin } = request.params;
   if (pin === "broadcast") next();
 
-  const other_user = await User.findOne({ pin });
+  const other_user = await User.findOne({ pin: Number(pin) });
 
   if (!other_user)
     return response.status(404).json({
@@ -84,7 +84,6 @@ const checkConversationExistence = async (
     conversation = await Conversation.findOne({
       between: { $all: [body.user!._id, body.other_user!._id] },
     });
-
   request.body.conversation = conversation;
   next();
 };
