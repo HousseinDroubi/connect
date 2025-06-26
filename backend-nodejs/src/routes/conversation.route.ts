@@ -8,6 +8,7 @@ import {
   isUserAuthenticated,
 } from "../middlewares/auth.middleware";
 import {
+  checkConversationExistence,
   checkOtherUserInConversationExistence,
   isConversationExisted,
   isUserAuthorizedToAccessConversation,
@@ -25,6 +26,7 @@ router.get(
   isUserAccountUnverifiedOrDeleted,
   getConversationMessagesValidationMiddleware,
   checkOtherUserInConversationExistence,
+  checkConversationExistence,
   isUserAuthorizedToAccessConversation,
   getConversationMessages
 );
