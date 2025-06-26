@@ -80,12 +80,19 @@ const checkConversationExistence = async (
   let conversation;
   if (pin === "broadcast")
     conversation = await Conversation.findOne({ between: null });
-  else
+  else {
     conversation = await Conversation.findOne({
       between: { $all: [body.user!._id, body.other_user!._id] },
     });
+    if (request.url.includes("get_conversation_messages") && !conversation) {
+      conversation = await Conversation.create({
+        between: [body.user!._id, body.other_user!._id],
+        last_message: null,
+      });
+    }
+  }
+
   request.body.conversation = conversation;
-  console.log(request.url);
   next();
 };
 
