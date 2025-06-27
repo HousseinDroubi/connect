@@ -24,6 +24,7 @@ import { generateToken } from "../functions/general";
 import { Conversation } from "../models/conversation.model";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import { Message } from "../models/message.model";
+import { conversationDocumentInterface } from "../interfaces/documents/conversation.document.interface";
 
 dotenv.config();
 
@@ -68,6 +69,9 @@ const login = async (request: Request, response: Response) => {
         : String(conversations[index].between[0]._id) == String(user._id)
         ? conversations[index].between[1]
         : conversations[index].between[0];
+
+    if (receipt)
+      receipt.profile_url = `http://${process.env.DOMAIN}:${process.env.PORT}/${receipt.profile_url}`;
 
     const last_message: any = await Message.findOne({
       $or: [{ receiver: user._id }, { sender: user._id }],
