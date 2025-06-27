@@ -23,6 +23,7 @@ import { Token } from "../models/token.model";
 import { generateToken } from "../functions/general";
 import { Conversation } from "../models/conversation.model";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
+import { Message } from "../models/message.model";
 
 dotenv.config();
 
@@ -49,129 +50,42 @@ const login = async (request: Request, response: Response) => {
     });
   }
 
-  const conversations = await Conversation.aggregate([
-    {
-      $match: {
-        $or: [
-          { between: user._id },
-          { between: { $eq: null } },
-          { between: { $size: 0 } },
-        ],
-      },
-    },
-    {
-      $addFields: {
-        recipient_id: {
-          $cond: [
-            {
-              $and: [
-                { $isArray: "$between" },
-                { $eq: [{ $size: "$between" }, 2] },
-              ],
-            },
-            {
-              $filter: {
-                input: "$between",
-                as: "id",
-                cond: { $ne: ["$$id", user._id] },
-              },
-            },
-            [],
-          ],
-        },
-      },
-    },
-    {
-      $unwind: {
-        path: "$recipient_id",
-        preserveNullAndEmptyArrays: true,
-      },
-    },
-    {
-      $lookup: {
-        from: "users",
-        localField: "recipient_id",
-        foreignField: "_id",
-        as: "recipient",
-      },
-    },
-    {
-      $unwind: {
-        path: "$recipient",
-        preserveNullAndEmptyArrays: true,
-      },
-    },
-    {
-      $lookup: {
-        from: "messages",
-        localField: "last_message",
-        foreignField: "_id",
-        as: "last_message",
-      },
-    },
-    {
-      $unwind: {
-        path: "$last_message",
-        preserveNullAndEmptyArrays: true,
-      },
-    },
-    {
-      $lookup: {
-        from: "users",
-        localField: "last_message.sender",
-        foreignField: "_id",
-        as: "sender_user",
-      },
-    },
-    {
-      $unwind: {
-        path: "$sender_user",
-        preserveNullAndEmptyArrays: true,
-      },
-    },
-    {
-      $project: {
-        _id: 1,
-        between: 1,
-        created_at: 1,
-        deleted_for: 1,
-        recipient: {
-          _id: "$recipient._id",
-          username: "$recipient.username",
-          profile_url: "$recipient.profile_url",
-        },
+  const conversations: any = await Conversation.find({
+    $or: [{ between: null }, { between: { $in: [user._id] } }],
+  })
+    .populate({
+      path: "between",
+      select: "_id profile_url username",
+    })
+    .select("-deleted_for -__v")
+    .populate("last_message")
+    .lean();
 
-        last_message: {
-          $cond: {
-            if: { $eq: [{ $type: "$last_message._id" }, "objectId"] },
-            then: {
-              _id: "$last_message._id",
-              sender_id: "$last_message.sender",
-              receiver_id: "$last_message.receiver",
-              created_at: "$last_message.created_at",
-              is_text: "$last_message.is_text",
-              content: "$last_message.content",
-              deleted: {
-                $cond: {
-                  if: { $ne: ["$last_message.deleted_for_others_at", null] },
-                  then: true,
-                  else: false,
-                },
-              },
-              sender_name: {
-                $cond: {
-                  if: { $eq: ["$last_message.sender", user._id] },
-                  then: "You",
-                  else: "$sender_user.username",
-                },
-              },
-            },
-            else: "$$REMOVE", // this removes the entire last_message field
-          },
-        },
-      },
-    },
-  ]);
+  for (let index = 0; index < conversations.length; index++) {
+    const receipt: any =
+      conversations[index].between === null
+        ? null
+        : String(conversations[index].between[0]._id) == String(user._id)
+        ? conversations[index].between[1]
+        : conversations[index].between[0];
+
+    const last_message: any = await Message.findOne({
+      $or: [{ receiver: user._id }, { sender: user._id }],
+      deleted_for: { $nin: [user._id] },
+    })
+      .select("-deleted_for -__v")
+      .sort({ created_at: -1 })
+      .lean();
+
+    if (last_message) {
+      last_message.deleted = last_message.deleted_for_others_at !== null;
+      delete last_message.deleted_for_others_at;
+    }
+
+    conversations[index].receipt = receipt;
+    conversations[index].last_message = last_message;
+    delete conversations[index].between;
+  }
 
   const response_json: loginResponseInterface = {
     result: "logged_in",
@@ -182,7 +96,7 @@ const login = async (request: Request, response: Response) => {
     profile_url: `http://${process.env.DOMAIN}:${process.env.PORT}/${user.profile_url}`,
     token: generateToken(user._id),
     is_online: false,
-    conversations,
+    conversations: conversations,
   };
 
   return response.status(200).json(response_json);

@@ -6,7 +6,7 @@ interface updateProfileResponseInterface {
 }
 
 interface loginResponseInterface {
-  result: string;
+  result: "logged_in";
   _id: mongoose.Types.ObjectId;
   email: string;
   username: string;
@@ -15,16 +15,18 @@ interface loginResponseInterface {
   token: string;
   is_online: false;
   conversations: Array<{
+    _id: mongoose.Types.ObjectId;
     recipient: {
       _id: mongoose.Types.ObjectId;
       profile_url: string;
       username: string;
+      pin: number;
     } | null;
     created_at: Date;
     last_message: {
       _id: mongoose.Types.ObjectId;
-      sender_id: mongoose.Types.ObjectId;
-      receiver_id: mongoose.Types.ObjectId | null;
+      sender: mongoose.Types.ObjectId;
+      receiver: mongoose.Types.ObjectId | null;
       created_at: Date;
       deleted: boolean;
       is_text: boolean;
