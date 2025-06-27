@@ -50,18 +50,5 @@ const schema = new mongoose.Schema<userModelInterface>({
   },
 });
 
-schema.virtual("profile_url_server").get(function () {
-  return `http://${process.env.DOMAIN}:${process.env.PORT}/${this.profile_url}`;
-});
-
-schema.set("toJSON", {
-  virtuals: true,
-  transform: function (doc, ret) {
-    delete ret.id;
-    delete ret.profile_url;
-    return ret;
-  },
-});
-
 const User = mongoose.model("users", schema);
 export default User;
