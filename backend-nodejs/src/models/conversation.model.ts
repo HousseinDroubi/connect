@@ -17,9 +17,12 @@ const schema = new mongoose.Schema<conversationModelInterface>({
     type: mongoose.Schema.Types.ObjectId,
     ref: "messages",
   },
-  deleted_for: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "users" }],
-  },
+  deleted_for: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
+    },
+  ],
 });
 
 const Conversation = mongoose.model("conversations", schema);
