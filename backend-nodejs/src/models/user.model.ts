@@ -1,4 +1,8 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
+
 import { userModelInterface } from "../interfaces/models/model.interface";
 const schema = new mongoose.Schema<userModelInterface>({
   email: {
@@ -43,6 +47,19 @@ const schema = new mongoose.Schema<userModelInterface>({
     type: Boolean,
     default: false,
     required: false,
+  },
+});
+
+schema.virtual("profile_url_server").get(function () {
+  return `http://${process.env.DOMAIN}:${process.env.PORT}/${this.profile_url}`;
+});
+
+schema.set("toJSON", {
+  virtuals: true,
+  transform: function (doc, ret) {
+    delete ret.id;
+    delete ret.profile_url;
+    return ret;
   },
 });
 
