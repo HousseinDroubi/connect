@@ -1,5 +1,70 @@
-const CreateAccount = () => {
-  return <div>Hello from CreateAccount</div>;
+import { useState } from "react";
+import Button from "../components/Button";
+import TextField from "../components/TextField";
+import TitleBig from "../components/TitleBig";
+import Profile from "../components/Profile";
+
+const CreateNewAccount = () => {
+  const [image, setImage] = useState<File | null>(null);
+  const [emailText, setEmailText] = useState<string>("");
+  const [usernameText, setUsernameText] = useState<string>("");
+  const [pinText, setPinText] = useState<string>("");
+  const [passwordText, setPasswordText] = useState<string>("");
+  const [confirmationPasswordText, setConfirmationPasswordText] =
+    useState<string>("");
+
+  const createNewAccount = () => {
+    console.log(`email is ${emailText}`);
+    console.log(`username is ${usernameText}`);
+    console.log(`pin is ${pinText}`);
+    console.log(`password is ${passwordText}`);
+    console.log(`confirmation password is ${confirmationPasswordText}`);
+  };
+
+  return (
+    <div className="h-screen w-full flex flex-col items-center justify-center">
+      <TitleBig title="Create New Account" />
+      <div className="mt-5">
+        <Profile setImage={setImage} />
+      </div>
+      <section className="flex flex-col items-center justify-center w-fit mt-3">
+        <TextField
+          title="Email"
+          hint="Enter your email"
+          setText={setEmailText}
+        />
+        <div className="mt-5">
+          <TextField
+            title="Username"
+            hint="Enter your username"
+            setText={setUsernameText}
+          />
+        </div>
+        <div className="mt-5">
+          <TextField title="Pin" hint="Enter your pin" setText={setPinText} />
+        </div>
+        <div className="mt-5">
+          <TextField
+            title="Password"
+            hint="Enter your password"
+            setText={setPasswordText}
+            is_password
+          />
+        </div>
+        <div className="mt-5">
+          <TextField
+            title="Confirmation Password"
+            hint="Re-enter your password"
+            setText={setConfirmationPasswordText}
+            is_password
+          />
+        </div>
+        <div className="mt-5">
+          <Button button_text="Login" fn={createNewAccount} />
+        </div>
+      </section>
+    </div>
+  );
 };
 
-export default CreateAccount;
+export default CreateNewAccount;
