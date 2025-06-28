@@ -1,9 +1,9 @@
-import { TextFieldComponentInterface } from "../interfaces/components/components.interfaces";
+import { textFieldComponentInterface } from "../interfaces/components/components.interfaces";
 import OpenedEye from "../assets/opened_eye.png";
 import ClosedEye from "../assets/closed_eye.png";
 import { useState } from "react";
 
-const TextField: React.FC<TextFieldComponentInterface> = ({
+const TextField: React.FC<textFieldComponentInterface> = ({
   title,
   hint,
   is_password,

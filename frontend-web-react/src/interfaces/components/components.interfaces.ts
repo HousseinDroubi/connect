@@ -12,7 +12,7 @@ interface logoComponentInterface {
   is_small?: boolean;
 }
 
-interface TextFieldComponentInterface {
+interface textFieldComponentInterface {
   title: string;
   hint: string;
   is_password?: boolean;
@@ -20,7 +20,7 @@ interface TextFieldComponentInterface {
   setText: React.Dispatch<React.SetStateAction<string>>;
 }
 
-interface UnderlinedTextComponentInterface {
+interface underlinedTextComponentInterface {
   text: string;
   href: string;
 }
@@ -34,7 +34,7 @@ export type {
   buttonComponentInterface,
   titleBigComponentInterface,
   logoComponentInterface,
-  TextFieldComponentInterface,
-  UnderlinedTextComponentInterface,
+  textFieldComponentInterface,
+  underlinedTextComponentInterface,
   profileComponentInterface,
 };

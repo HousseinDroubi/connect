@@ -1,7 +1,7 @@
 import React from "react";
-import { UnderlinedTextComponentInterface } from "../interfaces/components/components.interfaces";
+import { underlinedTextComponentInterface } from "../interfaces/components/components.interfaces";
 
-const UnderlinedText: React.FC<UnderlinedTextComponentInterface> = ({
+const UnderlinedText: React.FC<underlinedTextComponentInterface> = ({
   text,
   href,
 }) => {
