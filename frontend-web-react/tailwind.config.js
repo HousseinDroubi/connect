@@ -6,6 +6,8 @@ module.exports = {
       colors: {
         blue: "#0C7FF2",
         black: "#0D141C",
+        ice_blue: "#E7EDF4",
+        dusty_blue: "#49739C",
       },
     },
   },
