@@ -8,4 +8,8 @@ interface titleBigInterface {
   title: string;
 }
 
-export { buttonInterface, titleBigInterface };
+interface logoInterface {
+  is_small?: boolean;
+}
+
+export { buttonInterface, titleBigInterface, logoInterface };
