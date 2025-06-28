@@ -12,8 +12,16 @@ interface logoComponentInterface {
   is_small?: boolean;
 }
 
+interface TextFieldComponentInterface {
+  title: string;
+  hint: string;
+  is_password?: boolean;
+  default_text?: string;
+}
+
 export {
   buttonComponentInterface,
   titleBigComponentInterface,
   logoComponentInterface,
+  TextFieldComponentInterface,
 };
