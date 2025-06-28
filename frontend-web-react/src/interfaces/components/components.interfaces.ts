@@ -20,9 +20,15 @@ interface TextFieldComponentInterface {
   setText: React.Dispatch<React.SetStateAction<string>>;
 }
 
+interface UnderlinedTextComponentInterface {
+  text: string;
+  href: string;
+}
+
 export type {
   buttonComponentInterface,
   titleBigComponentInterface,
   logoComponentInterface,
   TextFieldComponentInterface,
+  UnderlinedTextComponentInterface,
 };
