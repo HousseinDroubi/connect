@@ -19,7 +19,7 @@ interface TextFieldComponentInterface {
   default_text?: string;
 }
 
-export {
+export type {
   buttonComponentInterface,
   titleBigComponentInterface,
   logoComponentInterface,
