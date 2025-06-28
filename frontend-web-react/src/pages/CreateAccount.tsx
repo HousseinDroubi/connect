@@ -25,7 +25,7 @@ const CreateNewAccount = () => {
     <div className="h-screen w-full flex flex-col items-center justify-center">
       <TitleBig title="Create New Account" />
       <div className="mt-5">
-        <Profile setImage={setImage} />
+        <Profile image={image} setImage={setImage} />
       </div>
       <section className="flex flex-col items-center justify-center w-fit mt-3">
         <TextField
