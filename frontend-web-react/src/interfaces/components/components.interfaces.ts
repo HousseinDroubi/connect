@@ -25,10 +25,16 @@ interface UnderlinedTextComponentInterface {
   href: string;
 }
 
+interface profileComponentInterface {
+  image: File | null;
+  setImage: React.Dispatch<React.SetStateAction<File | null>>;
+}
+
 export type {
   buttonComponentInterface,
   titleBigComponentInterface,
   logoComponentInterface,
   TextFieldComponentInterface,
   UnderlinedTextComponentInterface,
+  profileComponentInterface,
 };
