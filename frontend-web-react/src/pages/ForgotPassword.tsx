@@ -13,13 +13,13 @@ const ForgotPassword = () => {
   return (
     <div className="h-screen w-full flex flex-col items-center justify-center">
       <TitleBig title="Forgot Password" />
-      <section className="flex flex-col items-center justify-center w-fit h-48 ">
+      <section className="flex flex-col items-center justify-center w-fit h-52">
         <TextField
           title="Email"
           hint="Enter your email"
           setText={setEmailText}
         />
-        <div className="mt-5">
+        <div className="mt-7">
           <Button button_text="Send email" fn={forgotPassowrd} />
         </div>
       </section>

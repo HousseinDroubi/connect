@@ -22,7 +22,7 @@ const Login = () => {
           <Logo />
         </div>
       </section>
-      <section className="flex flex-col items-center justify-center w-fit h-96 ">
+      <section className="flex flex-col items-center justify-center w-fit h-100">
         <TextField
           title="Email or pin"
           hint="Enter your email or pin"
@@ -36,13 +36,13 @@ const Login = () => {
             is_password
           />
         </div>
-        <div className="mt-3 flex justify-end w-full">
+        <div className="mt-7 flex justify-end w-full">
           <UnderlinedText text="Forgot password?" href="/forgot_password" />
         </div>
-        <div className="mt-3">
+        <div className="mt-5">
           <Button button_text="Login" fn={login} />
         </div>
-        <div className="mt-5 flex w-full justify-center">
+        <div className="mt-7 flex w-full justify-center">
           <UnderlinedText
             text="Don’t have an account? Sign up"
             href="/create_new_account"
