@@ -4,4 +4,8 @@ interface buttonInterface {
   fn: () => void;
 }
 
-export { buttonInterface };
+interface titleBigInterface {
+  title: string;
+}
+
+export { buttonInterface, titleBigInterface };
