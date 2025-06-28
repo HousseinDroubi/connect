@@ -1,6 +1,10 @@
-import { buttonInterface } from "../interfaces/components/components.interfaces";
+import { buttonComponentInterface } from "../interfaces/components/components.interfaces";
 
-const Button: React.FC<buttonInterface> = ({ fn, button_text, is_small }) => {
+const Button: React.FC<buttonComponentInterface> = ({
+  fn,
+  button_text,
+  is_small,
+}) => {
   return (
     <button
       onClick={fn}

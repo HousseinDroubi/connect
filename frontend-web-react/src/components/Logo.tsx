@@ -1,8 +1,8 @@
 import React from "react";
-import { logoInterface } from "../interfaces/components/components.interfaces";
+import { logoComponentInterface } from "../interfaces/components/components.interfaces";
 import LogoImage from "../assets/logo.png";
 
-const Logo: React.FC<logoInterface> = ({ is_small }) => {
+const Logo: React.FC<logoComponentInterface> = ({ is_small }) => {
   return (
     <img
       width={is_small ? "30" : "40"}

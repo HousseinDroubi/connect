@@ -1,15 +1,19 @@
-interface buttonInterface {
+interface buttonComponentInterface {
   is_small?: boolean;
   button_text: string;
   fn: () => void;
 }
 
-interface titleBigInterface {
+interface titleBigComponentInterface {
   title: string;
 }
 
-interface logoInterface {
+interface logoComponentInterface {
   is_small?: boolean;
 }
 
-export { buttonInterface, titleBigInterface, logoInterface };
+export {
+  buttonComponentInterface,
+  titleBigComponentInterface,
+  logoComponentInterface,
+};
