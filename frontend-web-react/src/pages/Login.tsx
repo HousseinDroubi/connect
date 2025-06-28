@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../components/Button";
 import Logo from "../components/Logo";
 import TextField from "../components/TextField";
