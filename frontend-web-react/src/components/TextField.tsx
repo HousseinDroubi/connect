@@ -11,6 +11,9 @@ const TextField: React.FC<TextFieldComponentInterface> = ({
   setText,
 }) => {
   const [isClosed, setIsClosed] = useState<boolean>(true);
+  const toggleEyeIcon = () => {
+    setIsClosed(!isClosed);
+  };
   return (
     <section className="flex flex-col justify-between items-start">
       <p className="text-black font-medium text-base">{title}</p>
@@ -18,7 +21,7 @@ const TextField: React.FC<TextFieldComponentInterface> = ({
         <input
           className="bg-ice_blue h-full w-full border-none focus:border-none focus:outline-none text-dusty_blue font-semibold"
           value={default_text}
-          type={is_password ? "password" : "text"}
+          type={is_password && isClosed ? "password" : "text"}
           placeholder={hint}
           onChange={(event) => {
             setText(event.target.value);
@@ -28,6 +31,7 @@ const TextField: React.FC<TextFieldComponentInterface> = ({
           <img
             src={isClosed ? ClosedEye : OpenedEye}
             className="cursor-pointer"
+            onClick={toggleEyeIcon}
           />
         )}
       </div>
