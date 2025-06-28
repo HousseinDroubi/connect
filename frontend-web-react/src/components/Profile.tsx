@@ -2,7 +2,7 @@ import { profileComponentInterface } from "../interfaces/components/components.i
 import DefaultImageIcon from "../assets/profile_default.png";
 import AddImageIcon from "../assets/add_image.png";
 import { handleImage } from "../utils/functions";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 const Profile: React.FC<profileComponentInterface> = ({ image, setImage }) => {
   const [previewURL, setPreviewURL] = useState<string | null>(null);
 
