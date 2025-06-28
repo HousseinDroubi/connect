@@ -8,6 +8,7 @@ module.exports = {
         black: "#0D141C",
         ice_blue: "#E7EDF4",
         dusty_blue: "#49739C",
+        white: "#F8FAFC",
       },
     },
   },
