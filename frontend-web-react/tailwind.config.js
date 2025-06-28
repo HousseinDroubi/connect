@@ -10,6 +10,13 @@ module.exports = {
         dusty_blue: "#49739C",
         white: "#F8FAFC",
       },
+      width: {
+        100: "25rem",
+        104: "26rem",
+        108: "26rem",
+        112: "27rem",
+        116: "28rem",
+      },
     },
   },
   plugins: [],

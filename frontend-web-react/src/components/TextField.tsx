@@ -17,7 +17,7 @@ const TextField: React.FC<TextFieldComponentInterface> = ({
   return (
     <section className="flex flex-col justify-between items-start">
       <p className="text-black font-medium text-base">{title}</p>
-      <div className="pl-3 pr-2 w-80 h-12 bg-ice_blue mt-2 flex items-center rounded-md">
+      <div className="pl-3 pr-2 w-112 h-12 bg-ice_blue mt-2 flex items-center rounded-md">
         <input
           className="bg-ice_blue h-full w-full border-none focus:border-none focus:outline-none text-dusty_blue font-semibold"
           value={default_text}
