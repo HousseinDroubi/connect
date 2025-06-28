@@ -8,6 +8,7 @@ const TextField: React.FC<TextFieldComponentInterface> = ({
   hint,
   is_password,
   default_text,
+  setText,
 }) => {
   const [isClosed, setIsClosed] = useState<boolean>(true);
   return (
@@ -19,6 +20,9 @@ const TextField: React.FC<TextFieldComponentInterface> = ({
           value={default_text}
           type={is_password ? "password" : "text"}
           placeholder={hint}
+          onChange={(event) => {
+            setText(event.target.value);
+          }}
         />
         {is_password !== undefined && (
           <img

@@ -17,6 +17,7 @@ interface TextFieldComponentInterface {
   hint: string;
   is_password?: boolean;
   default_text?: string;
+  setText: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export type {
