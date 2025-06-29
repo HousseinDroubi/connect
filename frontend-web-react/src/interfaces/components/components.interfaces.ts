@@ -37,12 +37,23 @@ interface popupBasicComponentInterface {
   setSeen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+interface popupContentComponentInterface {
+  content: string;
+}
+
 interface popupLoadingComponentInterface extends popupBasicComponentInterface {
   for: "loading";
 }
 
+interface popupAlertComponentInterface
+  extends popupBasicComponentInterface,
+    popupContentComponentInterface {
+  for: "alert";
+}
+
 interface popupConfirmationComponentInterface
-  extends popupBasicComponentInterface {
+  extends popupBasicComponentInterface,
+    popupContentComponentInterface {
   for: "confirmation";
   confimationFunction: () => void;
 }
@@ -68,6 +79,7 @@ interface popupEditMessageForUserComponentInterface
 
 type popupComponentInterface =
   | popupLoadingComponentInterface
+  | popupAlertComponentInterface
   | popupConfirmationComponentInterface
   | popupDeleteMessageForOtherUserComponentInterface
   | popupDeleteMessageForUserComponentInterface
