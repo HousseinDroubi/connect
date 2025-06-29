@@ -1,4 +1,4 @@
-import Joi, { valid } from "joi";
+import Joi from "joi";
 import { createAccountBodyInterface } from "../../../interfaces/requests/create_account_request";
 
 const showValidationForCreateAccountRequest = (
