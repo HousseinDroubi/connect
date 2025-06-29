@@ -54,12 +54,12 @@ const validateCreateAccount = (data: createAccountBodyInterface) => {
       .min(5)
       .max(20)
       .messages({
-        "any.only": "password_must_equal_to_confirm_password",
-        "string.base": "password_must_be_of_type_string",
-        "any.required": "password_is_required",
-        "string.empty": "password_is_not_allowed_to_be_empty",
-        "string.min": "password_must_be_minimum_5_digits",
-        "string.max": "password_must_be_maximum_20_digits",
+        "any.only": "confirm_password_must_equal_to_confirm_password",
+        "string.base": "confirm_password_must_be_of_type_string",
+        "any.required": "confirm_password_is_required",
+        "string.empty": "confirm_password_is_not_allowed_to_be_empty",
+        "string.min": "confirm_password_must_be_minimum_5_digits",
+        "string.max": "confirm_password_must_be_maximum_20_digits",
       }),
   });
 
