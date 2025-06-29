@@ -60,7 +60,7 @@ const CreateNewAccount = () => {
           />
         </div>
         <div className="mt-5">
-          <Button button_text="Login" fn={createNewAccount} />
+          <Button button_text="Create new account" fn={createNewAccount} />
         </div>
       </section>
     </div>
