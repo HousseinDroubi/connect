@@ -16,7 +16,15 @@ const Popup: React.FC<popupComponentInterface> = (props) => {
           />
         )}
         {props.for !== "loading" && (
-          <div className="h-80 w-[500px] bg-white rounded-md flex flex-col p-5">
+          <div
+            className={`w-[500px] bg-white rounded-md flex flex-col p-5 ${
+              props.for === "delete_message_for_user"
+                ? "h-48"
+                : props.for === "delete_message_for_other_user"
+                ? "h-60"
+                : "h80"
+            }`}
+          >
             <header className="flex items-center">
               <h1 className="font-bold flex-grow text-center text-lg">
                 {props.for === "confirmation"
@@ -62,6 +70,25 @@ const Popup: React.FC<popupComponentInterface> = (props) => {
                     </>
                   )}
                 </div>
+              </div>
+            )}
+            {(props.for === "delete_message_for_user" ||
+              props.for === "delete_message_for_other_user") && (
+              <div className="h-full flex flex-col justify-center items-center mt-10">
+                <Button
+                  is_colored_red
+                  button_text="Delete for you"
+                  fn={props.deleteForMe}
+                />
+                {props.for === "delete_message_for_other_user" && (
+                  <div className="mt-5">
+                    <Button
+                      is_colored_red
+                      button_text="Delete for all"
+                      fn={props.deleteForMe}
+                    />
+                  </div>
+                )}
               </div>
             )}
           </div>
