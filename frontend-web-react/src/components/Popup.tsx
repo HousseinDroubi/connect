@@ -35,7 +35,12 @@ const Popup: React.FC<popupComponentInterface> = (props) => {
                   ? "Edit message"
                   : "Delete Message"}
               </h1>
-              <div className="h-10 w-10 border-black border-[2px] rounded-full flex justify-center items-center self-end">
+              <div
+                className="h-10 w-10 border-black border-[2px] rounded-full flex justify-center items-center self-end"
+                onClick={() => {
+                  props.setSeen(false);
+                }}
+              >
                 <p className="cursor-pointer text-black font-bold">X</p>
               </div>
             </header>
