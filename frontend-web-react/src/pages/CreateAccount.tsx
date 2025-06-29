@@ -3,6 +3,8 @@ import Button from "../components/Button";
 import TextField from "../components/TextField";
 import TitleBig from "../components/TitleBig";
 import Profile from "../components/Profile";
+import { validateCreateAccount } from "../services/helpers/validations/create_account.validation";
+import { createAccountBodyInterface } from "../interfaces/requests/create_account_request";
 
 const CreateNewAccount = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -14,11 +16,23 @@ const CreateNewAccount = () => {
     useState<string>("");
 
   const createNewAccount = () => {
-    console.log(`email is ${emailText}`);
-    console.log(`username is ${usernameText}`);
-    console.log(`pin is ${pinText}`);
-    console.log(`password is ${passwordText}`);
-    console.log(`confirmation password is ${confirmationPasswordText}`);
+    if (image) {
+      const data: createAccountBodyInterface = {
+        image,
+        email: emailText,
+        pin: pinText,
+        username: usernameText,
+        password: passwordText,
+        confirmation_password: confirmationPasswordText,
+      };
+      const error = validateCreateAccount(data);
+      console.log(error);
+      if (!error) {
+        // Popup
+      }
+    } else {
+      // Popup
+    }
   };
 
   return (
