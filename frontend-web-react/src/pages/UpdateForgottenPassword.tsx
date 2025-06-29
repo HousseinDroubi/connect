@@ -1,9 +1,7 @@
 import { useState } from "react";
 import Button from "../components/Button";
-import Logo from "../components/Logo";
 import TextField from "../components/TextField";
 import TitleBig from "../components/TitleBig";
-import UnderlinedText from "../components/UnderlinedText";
 
 const UpdateForgottenPassword = () => {
   const [password, setPasswordText] = useState<string>("");
