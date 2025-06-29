@@ -1,6 +1,73 @@
 import Joi, { valid } from "joi";
 import { createAccountBodyInterface } from "../../../interfaces/requests/create_account_request";
 
+const showValidationForCreateAccountRequest = (
+  error: string,
+  showPopup: (error: string) => void
+) => {
+  switch (error) {
+    case "invalid_image_type":
+      showPopup("Image type is invalid");
+      break;
+    case "email_is_not_allowed_to_be_empty":
+    case "email_is_required":
+      showPopup("Email is required");
+      break;
+    case "email_must_be_of_type_string":
+      showPopup("Email must be of type text");
+      break;
+    case "invalid_email":
+      showPopup("Invalid email");
+      break;
+    case "username_is_not_allowed_to_be_empty":
+    case "username_is_required":
+      showPopup("Username is required");
+      break;
+    case "username_must_be_minimum_3_digits":
+    case "username_must_be_maximum_10_digits":
+      showPopup("Username characters must be between 3 and 10 digits");
+      break;
+    case "username_must_be_of_type_string":
+      showPopup("Username must be of type text");
+      break;
+    case "pin_is_not_allowed_to_be_empty":
+    case "pin_is_required":
+      showPopup("Pin is required");
+      break;
+    case "pin_must_be_of_type_string":
+      showPopup("Pin must be of type text");
+      break;
+    case "pin_must_be_exactly_6_digits":
+      showPopup("Pin must be exactly 6 digits");
+      break;
+    case "password_is_required":
+    case "password_is_not_allowed_to_be_empty":
+      showPopup("Password is required");
+      break;
+    case "password_must_be_minimum_5_digits":
+    case "password_must_be_maximum_20_digits":
+      showPopup("Password characters must be between 5 and 20");
+      break;
+    case "password_must_be_of_type_string":
+      showPopup("Password password must be of type text");
+      break;
+    case "confirm_password_is_required":
+    case "confirm_password_is_not_allowed_to_be_empty":
+      showPopup("Confirm password is required");
+      break;
+    case "confirm_password_must_be_minimum_5_digits":
+    case "confirm_password_must_be_maximum_20_digits":
+      showPopup("Confirm passwod characters must be between 5 and 20");
+      break;
+    case "confirm_password_must_be_of_type_string":
+      showPopup("Confirm password must be of tyoe t3ext");
+      break;
+    case "password_must_equal_to_confirm_password":
+      showPopup("Password must match confirm password");
+      break;
+  }
+};
+
 const validateCreateAccount = (data: createAccountBodyInterface) => {
   const schema = Joi.object({
     email: Joi.string()
@@ -75,4 +142,4 @@ const validateCreateAccount = (data: createAccountBodyInterface) => {
   return schema.validate(data).error?.details[0].message;
 };
 
-export { validateCreateAccount };
+export { validateCreateAccount, showValidationForCreateAccountRequest };

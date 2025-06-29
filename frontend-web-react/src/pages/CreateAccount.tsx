@@ -3,7 +3,10 @@ import Button from "../components/Button";
 import TextField from "../components/TextField";
 import TitleBig from "../components/TitleBig";
 import Profile from "../components/Profile";
-import { validateCreateAccount } from "../services/helpers/validations/create_account.validation";
+import {
+  showValidationForCreateAccountRequest,
+  validateCreateAccount,
+} from "../services/helpers/validations/create_account.validation";
 import { createAccountBodyInterface } from "../interfaces/requests/create_account_request";
 import { createAccountRequestValidationError } from "../interfaces/validations_responses/create_account_validtion_responses";
 import Popup from "../components/Popup";
@@ -39,12 +42,12 @@ const CreateNewAccount = () => {
       ) as createAccountRequestValidationError;
       console.log(error);
       if (error) {
-        // Popup
+        showValidationForCreateAccountRequest(error, showPopup);
       } else {
         // Send request
       }
     } else {
-      // Popup
+      showPopup("Image is required");
     }
   };
 
