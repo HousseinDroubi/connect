@@ -58,17 +58,17 @@ interface popupConfirmationComponentInterface
   confimationFunction: () => void;
 }
 
-interface popupDeleteMessageForOtherUserComponentInterface
+interface popupDeleteMessageForAllComponentInterface
   extends popupBasicComponentInterface {
   for: "delete_message_for_other_user";
   deleteForMe: () => void;
+  deleteForEveryOne: () => void;
 }
 
 interface popupDeleteMessageForUserComponentInterface
   extends popupBasicComponentInterface {
   for: "delete_message_for_user";
   deleteForMe: () => void;
-  deleteForEveryOne: () => void;
 }
 
 interface popupEditMessageForUserComponentInterface
@@ -81,7 +81,7 @@ type popupComponentInterface =
   | popupLoadingComponentInterface
   | popupAlertComponentInterface
   | popupConfirmationComponentInterface
-  | popupDeleteMessageForOtherUserComponentInterface
+  | popupDeleteMessageForAllComponentInterface
   | popupDeleteMessageForUserComponentInterface
   | popupEditMessageForUserComponentInterface;
 
