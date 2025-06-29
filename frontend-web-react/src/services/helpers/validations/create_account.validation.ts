@@ -51,18 +51,18 @@ const showValidationForCreateAccountRequest = (
     case "password_must_be_of_type_string":
       showPopup("Password password must be of type text");
       break;
-    case "confirm_password_is_required":
-    case "confirm_password_is_not_allowed_to_be_empty":
-      showPopup("Confirm password is required");
+    case "confirmation_password_is_required":
+    case "confirmation_password_is_not_allowed_to_be_empty":
+      showPopup("Confirmation password is required");
       break;
-    case "confirm_password_must_be_minimum_5_digits":
-    case "confirm_password_must_be_maximum_20_digits":
-      showPopup("Confirm passwod characters must be between 5 and 20");
+    case "confirmation_password_must_be_minimum_5_digits":
+    case "confirmation_password_must_be_maximum_20_digits":
+      showPopup("Confirmation passwod characters must be between 5 and 20");
       break;
-    case "confirm_password_must_be_of_type_string":
-      showPopup("Confirm password must be of tyoe t3ext");
+    case "confirmation_password_must_be_of_type_string":
+      showPopup("Confirmation password must be of tyoe t3ext");
       break;
-    case "password_must_equal_to_confirm_password":
+    case "password_must_equal_to_confirmation_password":
       showPopup("Password must match confirm password");
       break;
   }
@@ -121,12 +121,12 @@ const validateCreateAccount = (data: createAccountBodyInterface) => {
       .min(5)
       .max(20)
       .messages({
-        "any.only": "confirm_password_must_equal_to_confirm_password",
-        "string.base": "confirm_password_must_be_of_type_string",
-        "any.required": "confirm_password_is_required",
-        "string.empty": "confirm_password_is_not_allowed_to_be_empty",
-        "string.min": "confirm_password_must_be_minimum_5_digits",
-        "string.max": "confirm_password_must_be_maximum_20_digits",
+        "string.base": "confirmation_password_must_be_of_type_string",
+        "any.required": "confirmation_password_is_required",
+        "string.empty": "confirmation_password_is_not_allowed_to_be_empty",
+        "string.min": "confirmation_password_must_be_minimum_5_digits",
+        "string.max": "confirmation_password_must_be_maximum_20_digits",
+        "any.only": "password_must_equal_to_confirmation_password",
       }),
   });
 

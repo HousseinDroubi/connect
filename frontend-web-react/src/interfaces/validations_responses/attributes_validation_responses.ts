@@ -12,12 +12,12 @@ export type passwordValidationError =
   | "password_must_be_maximum_20_digits";
 
 export type confirmationPasswordValidationError =
-  | "confirm_password_must_be_of_type_string"
-  | "confirm_password_is_required"
-  | "confirm_password_is_not_allowed_to_be_empty"
-  | "confirm_password_must_be_minimum_5_digits"
-  | "confirm_password_must_be_maximum_20_digits"
-  | "password_must_equal_to_confirm_password";
+  | "confirmation_password_must_be_of_type_string"
+  | "confirmation_password_is_required"
+  | "confirmation_password_is_not_allowed_to_be_empty"
+  | "confirmation_password_must_be_minimum_5_digits"
+  | "confirmation_password_must_be_maximum_20_digits"
+  | "password_must_equal_to_confirmation_password";
 
 export type imageValidationError = "invalid_image_type";
 
