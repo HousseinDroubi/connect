@@ -6,6 +6,7 @@ import Profile from "../components/Profile";
 import { validateCreateAccount } from "../services/helpers/validations/create_account.validation";
 import { createAccountBodyInterface } from "../interfaces/requests/create_account_request";
 import { createAccountRequestValidationError } from "../interfaces/validations_responses/create_account_validtion_responses";
+import Popup from "../components/Popup";
 
 const CreateNewAccount = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -15,6 +16,13 @@ const CreateNewAccount = () => {
   const [passwordText, setPasswordText] = useState<string>("");
   const [confirmationPasswordText, setConfirmationPasswordText] =
     useState<string>("");
+  const [seen, setSeen] = useState<boolean>(false);
+  const [popupText, setPopupText] = useState("");
+
+  const showPopup = (text: string) => {
+    setSeen(true);
+    setPopupText(text);
+  };
 
   const createNewAccount = () => {
     if (image) {
@@ -82,6 +90,7 @@ const CreateNewAccount = () => {
           <Button button_text="Create new account" fn={createNewAccount} />
         </div>
       </section>
+      <Popup seen={seen} setSeen={setSeen} for="alert" content={popupText} />
     </div>
   );
 };
