@@ -5,6 +5,7 @@ import TitleBig from "../components/TitleBig";
 import Profile from "../components/Profile";
 import { validateCreateAccount } from "../services/helpers/validations/create_account.validation";
 import { createAccountBodyInterface } from "../interfaces/requests/create_account_request";
+import { createAccountRequestValidationError } from "../interfaces/validations_responses/create_account_validtion_responses";
 
 const CreateNewAccount = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -25,10 +26,14 @@ const CreateNewAccount = () => {
         password: passwordText,
         confirmation_password: confirmationPasswordText,
       };
-      const error = validateCreateAccount(data);
+      const error = validateCreateAccount(
+        data
+      ) as createAccountRequestValidationError;
       console.log(error);
-      if (!error) {
+      if (error) {
         // Popup
+      } else {
+        // Send request
       }
     } else {
       // Popup
