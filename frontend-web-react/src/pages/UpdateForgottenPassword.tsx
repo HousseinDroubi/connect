@@ -2,13 +2,16 @@ import { useState } from "react";
 import Button from "../components/Button";
 import TextField from "../components/TextField";
 import TitleBig from "../components/TitleBig";
+import { useParams } from "react-router-dom";
 
 const UpdateForgottenPassword = () => {
+  const { token } = useParams();
   const [password, setPasswordText] = useState<string>("");
   const [confrimationPasswordText, setConfrimationPasswordText] =
     useState<string>("");
 
   const changePassword = () => {
+    console.log(`token is ${token}`);
     console.log(`password is ${password}`);
     console.log(`confirmation password is ${confrimationPasswordText}`);
   };

@@ -13,7 +13,7 @@ function App() {
         <Route path="/verify_account/:token" element={<VerifyAccount />} />
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route
-          path="/update_forgotten_password"
+          path="/update_forgotten_password/:token"
           element={<UpdateForgottenPassword />}
         />
       </Routes>
