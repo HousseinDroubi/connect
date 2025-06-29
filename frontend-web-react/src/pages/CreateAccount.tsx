@@ -40,7 +40,7 @@ const CreateNewAccount = () => {
       const error = validateCreateAccount(
         data
       ) as createAccountRequestValidationError;
-      console.log(error);
+
       if (error) {
         showValidationForCreateAccountRequest(error, showPopup);
       } else {
