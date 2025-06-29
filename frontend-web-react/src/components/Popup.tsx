@@ -90,7 +90,7 @@ const Popup: React.FC<popupComponentInterface> = (props) => {
                     <Button
                       is_colored_red
                       button_text="Delete for all"
-                      fn={props.deleteForMe}
+                      fn={props.deleteForEveryOne}
                     />
                   </div>
                 )}
