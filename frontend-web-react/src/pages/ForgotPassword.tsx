@@ -4,6 +4,12 @@ import TextField from "../components/TextField";
 import TitleBig from "../components/TitleBig";
 import Popup from "../components/Popup";
 import { popupComponentInterface } from "../interfaces/components/components.interfaces";
+import { forotPasswordBodyInterface } from "../interfaces/requests/forgot_password_request";
+import {
+  showValidationForForgotPasswordRequest,
+  validateForgotPassword,
+} from "../services/helpers/validations/forgot_password.validation";
+import { forgotPasswordRequestValidationError } from "../interfaces/validations_responses/forgot_password_validtion_responses";
 
 const ForgotPassword = () => {
   const [emailText, setEmailText] = useState<string>("");
@@ -11,7 +17,20 @@ const ForgotPassword = () => {
     null
   );
 
-  const forgotPassowrd = () => {};
+  const forgotPassowrd = async () => {
+    const body: forotPasswordBodyInterface = {
+      email: emailText,
+    };
+
+    const error = validateForgotPassword(
+      body
+    ) as forgotPasswordRequestValidationError;
+
+    if (error) {
+      showValidationForForgotPasswordRequest(setPopupProps, error);
+      return;
+    }
+  };
 
   return (
     <div className="h-screen w-full flex flex-col items-center justify-center">
