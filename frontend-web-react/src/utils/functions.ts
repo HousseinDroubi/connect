@@ -13,4 +13,14 @@ const handleImage = ({
   }
 };
 
-export { handleImage };
+const objectToFormData = (object: any): FormData => {
+  const formData = new FormData();
+  for (const key in object) {
+    if (object.hasOwnProperty(key)) {
+      formData.append(key, object[key]);
+    }
+  }
+  return formData;
+};
+
+export { handleImage, objectToFormData };
