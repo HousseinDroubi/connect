@@ -6,7 +6,7 @@ import { verifyAccountResponseInterface } from "../../interfaces/responses/verif
 const verifyAccountApi = async (
   token: string
 ): Promise<
-  AxiosResponse<verifyAccountParamInterface, verifyAccountResponseInterface>
+  AxiosResponse<verifyAccountResponseInterface, verifyAccountParamInterface>
 > => {
   const response = await axios.get(`${API_VERIFY_TOKEN}/${token}`);
   return response;
