@@ -14,6 +14,8 @@ import { popupComponentInterface } from "../interfaces/components/components.int
 import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import { objectToFormData } from "../utils/functions";
 import { createAccountApi } from "../services/apis/create_account";
+import axios from "axios";
+import { createAccountResponseInterface } from "../interfaces/responses/create_account_response";
 
 const CreateNewAccount = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -47,8 +49,33 @@ const CreateNewAccount = () => {
         showLoading(setPopupProps, true);
         const { confirmation_password, ...request_body } = data;
         const formData = objectToFormData(request_body);
-        const response = await createAccountApi(formData);
-        showLoading(setPopupProps, false);
+        try {
+          const response = await createAccountApi(formData);
+          showLoading(setPopupProps, false);
+          const data = response.data;
+          if (data.result === "account_created" && response.status === 201) {
+            showPopupText(
+              setPopupProps,
+              `Email sent to ${emailText}, please open your inbox and verify it`
+            );
+            setImage(null);
+            setEmailText("");
+            setPinText("");
+            setUsernameText("");
+            setPasswordText("");
+            setConfirmationPasswordText("");
+          } else {
+            throw new Error("Something went wrong");
+          }
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            if (error.status === 405) {
+              showPopupText(setPopupProps, "Pin or email is taken");
+            }
+          } else {
+            showPopupText(setPopupProps, "Something went wrong");
+          }
+        }
       }
     } else {
       showPopupText(setPopupProps, "Image is required");
