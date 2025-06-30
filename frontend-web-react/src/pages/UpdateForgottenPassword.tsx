@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "../components/Button";
 import TextField from "../components/TextField";
 import TitleBig from "../components/TitleBig";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { popupComponentInterface } from "../interfaces/components/components.interfaces";
 import Popup from "../components/Popup";
 import { showLoading, showPopupText } from "../services/helpers/popup_helper";
@@ -15,6 +15,7 @@ import { updateForgottenPasswordApi } from "../services/apis/update_forgotten_pa
 import axios from "axios";
 
 const UpdateForgottenPassword = () => {
+  const navigate = useNavigate();
   const { token } = useParams();
   const [passwordText, setPasswordText] = useState<string>("");
   const [confrimationPasswordText, setConfrimationPasswordText] =
@@ -50,9 +51,15 @@ const UpdateForgottenPassword = () => {
         response.status === 202 &&
         response.data.result === "password_updated"
       ) {
-        showPopupText(setPopupProps, "Password updated. You can login now.");
         setPasswordText("");
         setConfrimationPasswordText("");
+        showPopupText(
+          setPopupProps,
+          "Password updated. You can login now.",
+          () => {
+            navigate("/");
+          }
+        );
         return;
       }
       throw new Error();
