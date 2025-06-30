@@ -5,6 +5,12 @@ import TitleBig from "../components/TitleBig";
 import { useParams } from "react-router-dom";
 import { popupComponentInterface } from "../interfaces/components/components.interfaces";
 import Popup from "../components/Popup";
+import { showPopupText } from "../services/helpers/popup_helper";
+import {
+  showValidationForUpdateForgottenPasswordRequest,
+  validateUpdateForgottenPassword,
+} from "../services/helpers/validations/update_forgotten_password.validation";
+import { updateForgottenPasswordRequestValidationError } from "../interfaces/validations_responses/update_forgotten_password_validtion_responses";
 
 const UpdateForgottenPassword = () => {
   const { token } = useParams();
@@ -15,7 +21,26 @@ const UpdateForgottenPassword = () => {
     null
   );
 
-  const changePassword = () => {};
+  const changePassword = async () => {
+    if (!token) {
+      showPopupText(setPopupProps, "Token is required");
+      return;
+    }
+
+    const data = {
+      token,
+      password: passwordText,
+      confirmation_password: confrimationPasswordText,
+    };
+
+    const error = validateUpdateForgottenPassword(data).error?.details[0]
+      .message as updateForgottenPasswordRequestValidationError;
+
+    if (error) {
+      showValidationForUpdateForgottenPasswordRequest(setPopupProps, error);
+      return;
+    }
+  };
 
   return (
     <div className="h-screen w-full flex flex-col items-center justify-center">
