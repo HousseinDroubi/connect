@@ -1,10 +1,8 @@
 import Joi from "joi";
 import { createAccountBodyInterface } from "../../../interfaces/requests/create_account_request";
 import { showPopupText } from "../popup_helper";
-import { popupComponentInterface } from "../../../interfaces/components/components.interfaces";
-type SetPopupType = React.Dispatch<
-  React.SetStateAction<popupComponentInterface | null>
->;
+import { SetPopupType } from "../../../interfaces/general_types";
+
 const showValidationForCreateAccountRequest = (
   setPopupProps: SetPopupType,
   error: string

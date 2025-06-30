@@ -1,8 +1,4 @@
-import { popupComponentInterface } from "../../interfaces/components/components.interfaces";
-
-type SetPopupType = React.Dispatch<
-  React.SetStateAction<popupComponentInterface | null>
->;
+import { SetPopupType } from "../../interfaces/general_types";
 
 const showLoading = (setPopup: SetPopupType) => {
   setPopup({
