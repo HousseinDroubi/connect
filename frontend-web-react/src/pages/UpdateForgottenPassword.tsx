@@ -22,7 +22,7 @@ const UpdateForgottenPassword = () => {
       <section className="flex flex-col items-center justify-center w-fit h-100">
         <TextField
           title="New Password"
-          hint="Enter your email or pin"
+          hint="Enter new password"
           setText={setPasswordText}
           is_password
           value={passwordText}
@@ -30,7 +30,7 @@ const UpdateForgottenPassword = () => {
         <div className="mt-5">
           <TextField
             title="Confirmation Password"
-            hint="Re-enter your password"
+            hint="Re-enter your new password"
             setText={setConfrimationPasswordText}
             is_password
             value={confrimationPasswordText}
