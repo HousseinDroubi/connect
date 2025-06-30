@@ -55,9 +55,12 @@ const Popup: React.FC<popupComponentInterface> = (props) => {
                   {props.for === "alert" && (
                     <Button
                       button_text="Got it"
-                      fn={() => {
-                        props.setSeen(false);
-                      }}
+                      fn={
+                        props.additionalFunction ||
+                        (() => {
+                          props.setSeen(false);
+                        })
+                      }
                     />
                   )}
                   {props.for === "confirmation" && (

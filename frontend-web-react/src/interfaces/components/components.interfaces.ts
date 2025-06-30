@@ -49,6 +49,7 @@ interface popupAlertComponentInterface
   extends popupBasicComponentInterface,
     popupContentComponentInterface {
   for: "alert";
+  additionalFunction?: () => void;
 }
 
 interface popupConfirmationComponentInterface

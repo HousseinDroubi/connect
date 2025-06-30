@@ -8,11 +8,16 @@ const showLoading = (setPopup: SetPopupType, is_visible: boolean) => {
   });
 };
 
-const showPopupText = (setPopup: SetPopupType, content: string) => {
+const showPopupText = (
+  setPopup: SetPopupType,
+  content: string,
+  additionalFunction?: () => void
+) => {
   setPopup({
     for: "alert",
     seen: true,
     content,
+    additionalFunction,
     setSeen: createSetSeen(setPopup),
   });
 };
