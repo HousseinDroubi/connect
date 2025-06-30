@@ -4,7 +4,7 @@ import TextField from "../components/TextField";
 import TitleBig from "../components/TitleBig";
 import Popup from "../components/Popup";
 import { popupComponentInterface } from "../interfaces/components/components.interfaces";
-import { forotPasswordBodyInterface } from "../interfaces/requests/forgot_password_request";
+import { forgotPasswordBodyInterface } from "../interfaces/requests/forgot_password_request";
 import {
   showValidationForForgotPasswordRequest,
   validateForgotPassword,
@@ -21,7 +21,7 @@ const ForgotPassword = () => {
   );
 
   const forgotPassowrd = async () => {
-    const body: forotPasswordBodyInterface = {
+    const body: forgotPasswordBodyInterface = {
       email: emailText,
     };
 

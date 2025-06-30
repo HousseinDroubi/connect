@@ -1,5 +1,5 @@
-interface forotPasswordResponseInterface {
+interface forgotPasswordResponseInterface {
   result: "email_sent";
 }
 
-export type { forotPasswordResponseInterface };
+export type { forgotPasswordResponseInterface };

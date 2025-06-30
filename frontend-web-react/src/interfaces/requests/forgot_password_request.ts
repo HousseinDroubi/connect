@@ -1,5 +1,5 @@
-interface forotPasswordBodyInterface {
+interface forgotPasswordBodyInterface {
   email: string;
 }
 
-export type { forotPasswordBodyInterface };
+export type { forgotPasswordBodyInterface };

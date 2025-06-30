@@ -4,7 +4,7 @@ import { showPopupText } from "../popup_helper";
 import { SetPopupType } from "../../../interfaces/general_types";
 import { createAccountRequestValidationError } from "../../../interfaces/validations_responses/create_account_validtion_responses";
 import { forgotPasswordRequestValidationError } from "../../../interfaces/validations_responses/forgot_password_validtion_responses";
-import { forotPasswordBodyInterface } from "../../../interfaces/requests/forgot_password_request";
+import { forgotPasswordBodyInterface } from "../../../interfaces/requests/forgot_password_request";
 
 const showValidationForForgotPasswordRequest = (
   setPopupProps: SetPopupType,
@@ -24,7 +24,7 @@ const showValidationForForgotPasswordRequest = (
   }
 };
 
-const validateForgotPassword = (data: forotPasswordBodyInterface) => {
+const validateForgotPassword = (data: forgotPasswordBodyInterface) => {
   const schema = Joi.object({
     email: Joi.string()
       .required()
