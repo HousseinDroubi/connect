@@ -8,7 +8,7 @@ const verifyAccountApi = async (
 ): Promise<
   AxiosResponse<verifyAccountParamInterface, verifyAccountResponseInterface>
 > => {
-  const response = await axios.post(`${API_VERIFY_TOKEN}/${token}`);
+  const response = await axios.get(`${API_VERIFY_TOKEN}/${token}`);
   return response;
 };
 
