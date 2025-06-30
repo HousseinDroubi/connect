@@ -5,12 +5,14 @@ import TitleBig from "../components/TitleBig";
 import { useParams } from "react-router-dom";
 import { popupComponentInterface } from "../interfaces/components/components.interfaces";
 import Popup from "../components/Popup";
-import { showPopupText } from "../services/helpers/popup_helper";
+import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import {
   showValidationForUpdateForgottenPasswordRequest,
   validateUpdateForgottenPassword,
 } from "../services/helpers/validations/update_forgotten_password.validation";
 import { updateForgottenPasswordRequestValidationError } from "../interfaces/validations_responses/update_forgotten_password_validtion_responses";
+import { updateForgottenPasswordApi } from "../services/apis/update_forgotten_password";
+import axios from "axios";
 
 const UpdateForgottenPassword = () => {
   const { token } = useParams();
@@ -35,10 +37,52 @@ const UpdateForgottenPassword = () => {
 
     const error = validateUpdateForgottenPassword(data).error?.details[0]
       .message as updateForgottenPasswordRequestValidationError;
-
     if (error) {
       showValidationForUpdateForgottenPasswordRequest(setPopupProps, error);
       return;
+    }
+    showLoading(setPopupProps, true);
+    try {
+      const { confirmation_password, ...body } = data;
+      const response = await updateForgottenPasswordApi(body);
+      showLoading(setPopupProps, false);
+      if (
+        response.status === 202 &&
+        response.data.result === "password_updated"
+      ) {
+        showPopupText(setPopupProps, "Password updated. You can login now.");
+        setPasswordText("");
+        setConfrimationPasswordText("");
+        return;
+      }
+      throw new Error();
+    } catch (error) {
+      showLoading(setPopupProps, false);
+      if (axios.isAxiosError(error)) {
+        if (error.code === "ERR_NETWORK") {
+          showPopupText(setPopupProps, "Server isn't available");
+          return;
+        }
+
+        if (error.status === 404) {
+          if (error.response?.data.result === "token_not_found") {
+            showPopupText(setPopupProps, "Token not found");
+          } else if (error.response?.data.result === "user_not_found") {
+            showPopupText(setPopupProps, "User not found");
+          } else if (error.response?.data.result === "user_not_found") {
+            showPopupText(setPopupProps, "User not found");
+          }
+          return;
+        } else if (error.status === 405) {
+          if (error.response?.data.result === "user_not_verified") {
+            showPopupText(setPopupProps, "User is not verified yet.");
+          } else if (error.response?.data.result === "user_account_deleted") {
+            showPopupText(setPopupProps, "User account deleted");
+          }
+          return;
+        }
+      }
+      showPopupText(setPopupProps, "Something went wrong");
     }
   };
 
