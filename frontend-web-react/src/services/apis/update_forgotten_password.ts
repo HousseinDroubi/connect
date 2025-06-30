@@ -11,7 +11,7 @@ const updateForgottenPasswordApi = async (
     Omit<updateForgottenPasswordBodyInterface, "confirmation_password">
   >
 > => {
-  const response = await axios.post(API_UPDATE_FORGOTTEN_PASSWORD, data);
+  const response = await axios.put(API_UPDATE_FORGOTTEN_PASSWORD, data);
   return response;
 };
 
