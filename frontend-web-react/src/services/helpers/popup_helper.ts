@@ -1,9 +1,9 @@
 import { SetPopupType } from "../../interfaces/general_types";
 
-const showLoading = (setPopup: SetPopupType) => {
+const showLoading = (setPopup: SetPopupType, is_visible: boolean) => {
   setPopup({
     for: "loading",
-    seen: true,
+    seen: is_visible,
     setSeen: createSetSeen(setPopup),
   });
 };
