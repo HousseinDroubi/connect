@@ -1,3 +1,5 @@
+export type imageValidationError = "image_is_required";
+
 export type emailValidationError =
   | "email_is_required"
   | "email_must_be_of_type_string"
@@ -18,8 +20,6 @@ export type confirmationPasswordValidationError =
   | "confirmation_password_must_be_minimum_5_digits"
   | "confirmation_password_must_be_maximum_20_digits"
   | "password_must_equal_to_confirmation_password";
-
-export type imageValidationError = "invalid_image_type";
 
 export type pinValidationError =
   | "pin_must_be_of_type_string"

@@ -2,14 +2,15 @@ import Joi from "joi";
 import { createAccountBodyInterface } from "../../../interfaces/requests/create_account_request";
 import { showPopupText } from "../popup_helper";
 import { SetPopupType } from "../../../interfaces/general_types";
+import { createAccountRequestValidationError } from "../../../interfaces/validations_responses/create_account_validtion_responses";
 
 const showValidationForCreateAccountRequest = (
   setPopupProps: SetPopupType,
-  error: string
+  error: createAccountRequestValidationError
 ) => {
   switch (error) {
-    case "invalid_image_type":
-      showPopupText(setPopupProps, "Image type is invalid");
+    case "image_is_required":
+      showPopupText(setPopupProps, "Image is required");
       break;
     case "email_is_not_allowed_to_be_empty":
     case "email_is_required":
@@ -84,6 +85,9 @@ const showValidationForCreateAccountRequest = (
 
 const validateCreateAccount = (data: createAccountBodyInterface) => {
   const schema = Joi.object({
+    image: Joi.object().required().label("Image").messages({
+      "any.required": "image_is_required",
+    }),
     email: Joi.string()
       .required()
       .label("Email")
