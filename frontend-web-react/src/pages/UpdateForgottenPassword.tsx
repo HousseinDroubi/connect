@@ -3,18 +3,19 @@ import Button from "../components/Button";
 import TextField from "../components/TextField";
 import TitleBig from "../components/TitleBig";
 import { useParams } from "react-router-dom";
+import { popupComponentInterface } from "../interfaces/components/components.interfaces";
+import Popup from "../components/Popup";
 
 const UpdateForgottenPassword = () => {
   const { token } = useParams();
   const [passwordText, setPasswordText] = useState<string>("");
   const [confrimationPasswordText, setConfrimationPasswordText] =
     useState<string>("");
+  const [popupProps, setPopupProps] = useState<popupComponentInterface | null>(
+    null
+  );
 
-  const changePassword = () => {
-    console.log(`token is ${token}`);
-    console.log(`password is ${passwordText}`);
-    console.log(`confirmation password is ${confrimationPasswordText}`);
-  };
+  const changePassword = () => {};
 
   return (
     <div className="h-screen w-full flex flex-col items-center justify-center">
@@ -40,6 +41,7 @@ const UpdateForgottenPassword = () => {
           <Button button_text="Change Password" fn={changePassword} />
         </div>
       </section>
+      {popupProps && <Popup {...popupProps} />}
     </div>
   );
 };
