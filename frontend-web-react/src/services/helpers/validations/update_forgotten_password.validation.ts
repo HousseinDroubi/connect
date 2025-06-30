@@ -79,7 +79,7 @@ const validateUpdateForgottenPassword = (
         "any.only": "password_must_equal_to_confirmation_password",
       }),
   });
-  return schema.validate(data).error?.details[0].message;
+  return schema.validate(data);
 };
 
 export {
