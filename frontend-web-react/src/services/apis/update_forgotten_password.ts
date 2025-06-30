@@ -4,11 +4,11 @@ import { updateForgottenPasswordBodyInterface } from "../../interfaces/requests/
 import { updateForgottenPasswordResponseInterface } from "../../interfaces/responses/update_forgotten_password_response";
 
 const updateForgottenPasswordApi = async (
-  data: updateForgottenPasswordBodyInterface
+  data: Omit<updateForgottenPasswordBodyInterface, "confirmation_password">
 ): Promise<
   AxiosResponse<
     updateForgottenPasswordResponseInterface,
-    updateForgottenPasswordBodyInterface
+    Omit<updateForgottenPasswordBodyInterface, "confirmation_password">
   >
 > => {
   const response = await axios.post(API_UPDATE_FORGOTTEN_PASSWORD, data);
