@@ -10,6 +10,9 @@ import {
   validateForgotPassword,
 } from "../services/helpers/validations/forgot_password.validation";
 import { forgotPasswordRequestValidationError } from "../interfaces/validations_responses/forgot_password_validtion_responses";
+import { forgotPasswordApi } from "../services/apis/forgot_password";
+import { showPopupText } from "../services/helpers/popup_helper";
+import axios from "axios";
 
 const ForgotPassword = () => {
   const [emailText, setEmailText] = useState<string>("");
@@ -29,6 +32,38 @@ const ForgotPassword = () => {
     if (error) {
       showValidationForForgotPasswordRequest(setPopupProps, error);
       return;
+    }
+
+    try {
+      const response = await forgotPasswordApi(body);
+      if (response.data.result === "email_sent" && response.status == 201) {
+        showPopupText(
+          setPopupProps,
+          `Email sent to ${emailText}, please check your inbox and update password`
+        );
+        return;
+      } else throw new Error();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.code === "ERR_NETWORK") {
+          showPopupText(setPopupProps, "Server isn't available");
+          return;
+        }
+        if (error.status === 404) {
+          showPopupText(setPopupProps, "No user found with this email");
+          return;
+        } else if (error.status === 405) {
+          if (error.response?.data.result === "user_is_not_verified") {
+            showPopupText(setPopupProps, "User is not verified yet.");
+          } else if (error.response?.data.result === "user_account_deleted") {
+            showPopupText(setPopupProps, "User account deleted");
+          } else if (error.response?.data.result === "token_already_sent") {
+            showPopupText(setPopupProps, "Already token sent to this email");
+          }
+          return;
+        }
+      }
+      showPopupText(setPopupProps, "Something went wrong");
     }
   };
 
