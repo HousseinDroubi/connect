@@ -13,8 +13,11 @@ import { forgotPasswordRequestValidationError } from "../interfaces/validations_
 import { forgotPasswordApi } from "../services/apis/forgot_password";
 import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
+  const navigate = useNavigate();
+
   const [emailText, setEmailText] = useState<string>("");
   const [popupProps, setPopupProps] = useState<popupComponentInterface | null>(
     null
@@ -41,7 +44,10 @@ const ForgotPassword = () => {
         setEmailText("");
         showPopupText(
           setPopupProps,
-          `Email sent to ${emailText}, please check your inbox and update password`
+          `Email sent to ${emailText}, please check your inbox and update password`,
+          () => {
+            navigate("/");
+          }
         );
         return;
       } else throw new Error();
