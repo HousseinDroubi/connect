@@ -11,7 +11,7 @@ import {
 } from "../services/helpers/validations/forgot_password.validation";
 import { forgotPasswordRequestValidationError } from "../interfaces/validations_responses/forgot_password_validtion_responses";
 import { forgotPasswordApi } from "../services/apis/forgot_password";
-import { showPopupText } from "../services/helpers/popup_helper";
+import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import axios from "axios";
 
 const ForgotPassword = () => {
@@ -33,10 +33,12 @@ const ForgotPassword = () => {
       showValidationForForgotPasswordRequest(setPopupProps, error);
       return;
     }
-
+    showLoading(setPopupProps, true);
     try {
       const response = await forgotPasswordApi(body);
+      showLoading(setPopupProps, false);
       if (response.data.result === "email_sent" && response.status == 201) {
+        setEmailText("");
         showPopupText(
           setPopupProps,
           `Email sent to ${emailText}, please check your inbox and update password`
@@ -44,6 +46,7 @@ const ForgotPassword = () => {
         return;
       } else throw new Error();
     } catch (error) {
+      showLoading(setPopupProps, false);
       if (axios.isAxiosError(error)) {
         if (error.code === "ERR_NETWORK") {
           showPopupText(setPopupProps, "Server isn't available");
