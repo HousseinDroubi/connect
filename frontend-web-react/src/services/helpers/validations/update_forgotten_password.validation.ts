@@ -11,6 +11,13 @@ const showValidationForUpdateForgottenPasswordRequest = (
   error: updateForgottenPasswordRequestValidationError
 ) => {
   switch (error) {
+    case "token_is_required":
+    case "token_is_not_allowed_to_be_empty":
+      showPopupText(setPopupProps, "Token is required");
+      break;
+    case "token_must_be_of_type_string":
+      showPopupText(setPopupProps, "Token must be of type text");
+      break;
     case "password_is_required":
     case "password_is_not_allowed_to_be_empty":
       showPopupText(setPopupProps, "Password is required");
