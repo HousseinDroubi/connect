@@ -6,13 +6,13 @@ import { useParams } from "react-router-dom";
 
 const UpdateForgottenPassword = () => {
   const { token } = useParams();
-  const [password, setPasswordText] = useState<string>("");
+  const [passwordText, setPasswordText] = useState<string>("");
   const [confrimationPasswordText, setConfrimationPasswordText] =
     useState<string>("");
 
   const changePassword = () => {
     console.log(`token is ${token}`);
-    console.log(`password is ${password}`);
+    console.log(`password is ${passwordText}`);
     console.log(`confirmation password is ${confrimationPasswordText}`);
   };
 
@@ -25,6 +25,7 @@ const UpdateForgottenPassword = () => {
           hint="Enter your email or pin"
           setText={setPasswordText}
           is_password
+          value={passwordText}
         />
         <div className="mt-5">
           <TextField
@@ -32,6 +33,7 @@ const UpdateForgottenPassword = () => {
             hint="Re-enter your password"
             setText={setConfrimationPasswordText}
             is_password
+            value={confrimationPasswordText}
           />
         </div>
         <div className="mt-5">

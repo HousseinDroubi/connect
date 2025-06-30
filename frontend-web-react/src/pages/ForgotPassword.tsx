@@ -18,6 +18,7 @@ const ForgotPassword = () => {
           title="Email"
           hint="Enter your email"
           setText={setEmailText}
+          value={emailText}
         />
         <div className="mt-7">
           <Button button_text="Send email" fn={forgotPassowrd} />

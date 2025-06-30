@@ -27,6 +27,7 @@ const Login = () => {
           title="Email or pin"
           hint="Enter your email or pin"
           setText={setEmailText}
+          value={emailText}
         />
         <div className="mt-5">
           <TextField
@@ -34,6 +35,7 @@ const Login = () => {
             hint="Enter your password"
             setText={setPasswordText}
             is_password
+            value={passwordText}
           />
         </div>
         <div className="mt-7 flex justify-end w-full">

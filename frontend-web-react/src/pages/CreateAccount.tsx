@@ -97,16 +97,23 @@ const CreateNewAccount = () => {
           title="Email"
           hint="Enter your email"
           setText={setEmailText}
+          value={emailText}
         />
         <div className="mt-5">
           <TextField
             title="Username"
             hint="Enter your username"
             setText={setUsernameText}
+            value={usernameText}
           />
         </div>
         <div className="mt-5">
-          <TextField title="Pin" hint="Enter your pin" setText={setPinText} />
+          <TextField
+            title="Pin"
+            hint="Enter your pin"
+            setText={setPinText}
+            value={pinText}
+          />
         </div>
         <div className="mt-5">
           <TextField
@@ -114,6 +121,7 @@ const CreateNewAccount = () => {
             hint="Enter your password"
             setText={setPasswordText}
             is_password
+            value={passwordText}
           />
         </div>
         <div className="mt-5">
@@ -122,6 +130,7 @@ const CreateNewAccount = () => {
             hint="Re-enter your password"
             setText={setConfirmationPasswordText}
             is_password
+            value={confirmationPasswordText}
           />
         </div>
         <div className="mt-5">

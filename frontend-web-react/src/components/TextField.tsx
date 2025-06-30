@@ -7,7 +7,7 @@ const TextField: React.FC<textFieldComponentInterface> = ({
   title,
   hint,
   is_password,
-  default_text,
+  value,
   setText,
 }) => {
   const [isClosed, setIsClosed] = useState<boolean>(true);
@@ -20,7 +20,7 @@ const TextField: React.FC<textFieldComponentInterface> = ({
       <div className="pl-3 pr-2 w-112 h-12 bg-ice_blue mt-2 flex items-center rounded-md">
         <input
           className="bg-ice_blue h-full w-full border-none focus:border-none focus:outline-none text-dusty_blue font-semibold"
-          value={default_text}
+          value={value}
           type={is_password && isClosed ? "password" : "text"}
           placeholder={hint}
           onChange={(event) => {
