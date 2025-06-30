@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import TextField from "../components/TextField";
 import TitleBig from "../components/TitleBig";
@@ -10,6 +10,8 @@ import {
 import { createAccountBodyInterface } from "../interfaces/requests/create_account_request";
 import { createAccountRequestValidationError } from "../interfaces/validations_responses/create_account_validtion_responses";
 import Popup from "../components/Popup";
+import { popupComponentInterface } from "../interfaces/components/components.interfaces";
+import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 
 const CreateNewAccount = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -19,13 +21,9 @@ const CreateNewAccount = () => {
   const [passwordText, setPasswordText] = useState<string>("");
   const [confirmationPasswordText, setConfirmationPasswordText] =
     useState<string>("");
-  const [seen, setSeen] = useState<boolean>(false);
-  const [popupText, setPopupText] = useState("");
-
-  const showPopup = (text: string) => {
-    setSeen(true);
-    setPopupText(text);
-  };
+  const [popupProps, setPopupProps] = useState<popupComponentInterface | null>(
+    null
+  );
 
   const createNewAccount = () => {
     if (image) {
@@ -42,12 +40,12 @@ const CreateNewAccount = () => {
       ) as createAccountRequestValidationError;
 
       if (error) {
-        showValidationForCreateAccountRequest(error, showPopup);
+        showValidationForCreateAccountRequest(setPopupProps, error);
       } else {
         // Send request
       }
     } else {
-      showPopup("Image is required");
+      showPopupText(setPopupProps, "Image is required");
     }
   };
 
@@ -93,7 +91,7 @@ const CreateNewAccount = () => {
           <Button button_text="Create new account" fn={createNewAccount} />
         </div>
       </section>
-      <Popup seen={seen} setSeen={setSeen} for="alert" content={popupText} />
+      {popupProps && <Popup {...popupProps} />}
     </div>
   );
 };
