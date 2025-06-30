@@ -15,7 +15,6 @@ import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import { objectToFormData } from "../utils/functions";
 import { createAccountApi } from "../services/apis/create_account";
 import axios from "axios";
-import { createAccountResponseInterface } from "../interfaces/responses/create_account_response";
 
 const CreateNewAccount = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -69,12 +68,17 @@ const CreateNewAccount = () => {
           }
         } catch (error) {
           if (axios.isAxiosError(error)) {
+            showLoading(setPopupProps, false);
             if (error.status === 405) {
               showPopupText(setPopupProps, "Pin or email is taken");
+              return;
             }
-          } else {
-            showPopupText(setPopupProps, "Something went wrong");
+            if (error.code === "ERR_NETWORK") {
+              showPopupText(setPopupProps, "Server isn't available");
+              return;
+            }
           }
+          showPopupText(setPopupProps, "Something went wrong");
         }
       }
     } else {
