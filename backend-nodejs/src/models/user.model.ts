@@ -13,7 +13,6 @@ const schema = new mongoose.Schema<userModelInterface>({
   username: {
     type: String,
     required: true,
-    unique: true,
   },
   pin: {
     type: Number,
