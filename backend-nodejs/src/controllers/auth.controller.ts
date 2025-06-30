@@ -356,15 +356,15 @@ const updateForgottenPassword = async (
   // Find user
   const user = await User.findById(token.user_id);
   if (!user)
-    return response.status(410).json({
-      result: "user_account_deleted",
+    return response.status(404).json({
+      result: "user_not_found",
     });
 
   if (!user.is_verified)
     return response.status(405).json({ error: "user_not_verified" });
 
   if (user.deleted_at) {
-    return response.status(403).json({
+    return response.status(405).json({
       error: "user_account_deleted",
     });
   }
