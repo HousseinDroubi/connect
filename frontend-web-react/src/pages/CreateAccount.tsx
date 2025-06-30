@@ -15,8 +15,10 @@ import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import { objectToFormData } from "../utils/functions";
 import { createAccountApi } from "../services/apis/create_account";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const CreateNewAccount = () => {
+  const navigate = useNavigate();
   const [image, setImage] = useState<File | null>(null);
   const [emailText, setEmailText] = useState<string>("");
   const [usernameText, setUsernameText] = useState<string>("");
@@ -55,7 +57,10 @@ const CreateNewAccount = () => {
           if (data.result === "account_created" && response.status === 201) {
             showPopupText(
               setPopupProps,
-              `Email sent to ${emailText}, please open your inbox and verify it`
+              `Email sent to ${emailText}, please open your inbox and verify it`,
+              () => {
+                navigate("/");
+              }
             );
             setImage(null);
             setEmailText("");
