@@ -1,10 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import {
-  API_CREATE_ACCOUNT,
-  API_FORGOT_PASSWORD,
-} from "../../constants/urls/auth_urls";
-import { createAccountResponseInterface } from "../../interfaces/responses/create_account_response";
-import { createAccountBodyInterface } from "../../interfaces/requests/create_account_request";
+import { API_FORGOT_PASSWORD } from "../../constants/urls/auth_urls";
 import { forotPasswordResponseInterface } from "../../interfaces/responses/forgot_password_response";
 import { forotPasswordBodyInterface } from "../../interfaces/requests/forgot_password_request";
 
