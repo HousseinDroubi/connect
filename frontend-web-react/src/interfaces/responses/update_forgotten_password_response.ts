@@ -1,5 +1,5 @@
-interface verifyAccountResponseInterface {
+interface updateForgottenPasswordResponseInterface {
   result: "password_updated";
 }
 
-export type { verifyAccountResponseInterface };
+export type { updateForgottenPasswordResponseInterface };
