@@ -12,6 +12,8 @@ import { createAccountRequestValidationError } from "../interfaces/validations_r
 import Popup from "../components/Popup";
 import { popupComponentInterface } from "../interfaces/components/components.interfaces";
 import { showLoading, showPopupText } from "../services/helpers/popup_helper";
+import { objectToFormData } from "../utils/functions";
+import { createAccountApi } from "../services/apis/create_account";
 
 const CreateNewAccount = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -25,7 +27,7 @@ const CreateNewAccount = () => {
     null
   );
 
-  const createNewAccount = () => {
+  const createNewAccount = async () => {
     if (image) {
       const data: createAccountBodyInterface = {
         image,
@@ -42,7 +44,11 @@ const CreateNewAccount = () => {
       if (error) {
         showValidationForCreateAccountRequest(setPopupProps, error);
       } else {
-        // Send request
+        showLoading(setPopupProps, true);
+        const { confirmation_password, ...request_body } = data;
+        const formData = objectToFormData(request_body);
+        const response = await createAccountApi(formData);
+        showLoading(setPopupProps, false);
       }
     } else {
       showPopupText(setPopupProps, "Image is required");
