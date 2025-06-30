@@ -4,7 +4,7 @@ import { showPopupText } from "../popup_helper";
 import { SetPopupType } from "../../../interfaces/general_types";
 import { activateAccountRequestValidationError } from "../../../interfaces/validations_responses/activate_account_validtion_responses";
 
-const showValidationForCreateAccountRequest = (
+const showValidationForActivateAccountRequest = (
   setPopupProps: SetPopupType,
   error: activateAccountRequestValidationError
 ) => {
@@ -30,4 +30,4 @@ const validateActivateAccount = (data: verifyAccountParamInterface) => {
   return schema.validate(data);
 };
 
-export { validateActivateAccount, showValidationForCreateAccountRequest };
+export { validateActivateAccount, showValidationForActivateAccountRequest };
