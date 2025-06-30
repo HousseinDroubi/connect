@@ -34,6 +34,11 @@ type usernameValidationError =
   | "username_must_be_minimum_3_digits"
   | "username_must_be_maximum_10_digits";
 
+type tokenValidationError =
+  | "token_is_required"
+  | "token_must_be_of_type_string"
+  | "token_is_not_allowed_to_be_empty";
+
 export type {
   imageValidationError,
   emailValidationError,
@@ -41,4 +46,5 @@ export type {
   confirmationPasswordValidationError,
   pinValidationError,
   usernameValidationError,
+  tokenValidationError,
 };
