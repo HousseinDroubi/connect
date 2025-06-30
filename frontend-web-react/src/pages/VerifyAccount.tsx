@@ -1,5 +1,5 @@
 import TitleBig from "../components/TitleBig";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DoneIcon from "../assets/done.png";
 import ErrorIcon from "../assets/error.png";
 import WaitingIcon from "../assets/waiting.png";
@@ -15,9 +15,11 @@ import { popupComponentInterface } from "../interfaces/components/components.int
 import Popup from "../components/Popup";
 import { activateAccountRequestValidationError } from "../interfaces/validations_responses/activate_account_validtion_responses";
 import axios from "axios";
+import Button from "../components/Button";
 
 const VerifyAccount = () => {
   const { token } = useParams();
+  const navigate = useNavigate();
   const [pageStyle, setPageStyle] = useState<verifyAccountPageStyleInterface>({
     result: "waiting",
     content: "Verifying token...",
@@ -93,6 +95,16 @@ const VerifyAccount = () => {
           width={150}
         />
         <p className="mt-8">{pageStyle.content}</p>
+        {pageStyle.result == "done" && (
+          <div className="mt-5">
+            <Button
+              button_text="Login"
+              fn={() => {
+                navigate("/");
+              }}
+            />
+          </div>
+        )}
       </section>
       {popupProps && <Popup {...popupProps} />}
     </div>
