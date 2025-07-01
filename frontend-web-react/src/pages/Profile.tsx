@@ -192,7 +192,7 @@ const Profile = () => {
               </div>
               <div className="mt-8">
                 <Button
-                  button_text="Save changes"
+                  button_text="Update password"
                   fn={updateUserPassword}
                   is_disabled={updatePasswordIsPending}
                 />
