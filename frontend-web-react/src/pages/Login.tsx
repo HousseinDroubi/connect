@@ -37,9 +37,6 @@ const Login = () => {
   }, [isPending, isSuccess]);
 
   const login = async () => {
-    console.log(`email is ${emailText}`);
-    console.log(`password is ${passwordText}`);
-
     const body: loginBodyInterface = {
       email: emailText,
       password: passwordText,
