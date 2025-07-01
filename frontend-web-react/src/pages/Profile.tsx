@@ -115,13 +115,13 @@ const Profile = () => {
   };
 
   const updateUserPassword = () => {
-    const temp_date: updatePasswordBodyInterface = {
+    const temp_data: updatePasswordBodyInterface = {
       old_password: currentPasswordText,
       new_password: newPasswordText,
       confirmation_new_password: confirmationPasswordText,
     };
 
-    const error = validateUpdatePassword(temp_date).error?.details[0]
+    const error = validateUpdatePassword(temp_data).error?.details[0]
       .message as updatePasswordRequestValidationError;
 
     if (error) {
@@ -129,7 +129,7 @@ const Profile = () => {
       return;
     }
 
-    const { confirmation_new_password, ...body } = temp_date;
+    const { confirmation_new_password, ...body } = temp_data;
 
     updatePasswordMutate({ body, token: data!.token });
   };
