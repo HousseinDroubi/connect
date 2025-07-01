@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import Logo from "../components/Logo";
 import TextField from "../components/TextField";
@@ -13,6 +13,8 @@ import {
 } from "../services/helpers/validations/login.validation";
 import { loginRequestValidationError } from "../interfaces/validations_responses/login_validtion_responses";
 import useLogin from "../services/hooks/mutations/login_mutation";
+import { showLoading } from "../services/helpers/popup_helper";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [emailText, setEmailText] = useState<string>("");
@@ -21,6 +23,14 @@ const Login = () => {
     null
   );
   const { data, mutate, isPending, isSuccess } = useLogin(setPopupProps);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isPending) showLoading(setPopupProps, true);
+    else if (isSuccess) {
+      navigate("/landing");
+    }
+  }, [isPending, isSuccess]);
 
   const login = async () => {
     console.log(`email is ${emailText}`);
