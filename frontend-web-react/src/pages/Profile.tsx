@@ -150,6 +150,7 @@ const Profile = () => {
             <article className="w-full flex flex-col items-center">
               <div className="mt-5">
                 <TextField
+                  is_password
                   title="Current Password"
                   hint="Enter your current password"
                   value={currentPasswordText}
@@ -158,6 +159,7 @@ const Profile = () => {
               </div>
               <div className="mt-5">
                 <TextField
+                  is_password
                   title="New Password"
                   hint="Enter a new password"
                   value={newPasswordText}
@@ -166,6 +168,7 @@ const Profile = () => {
               </div>
               <div className="mt-5">
                 <TextField
+                  is_password
                   title="Confirmation Password"
                   hint="Re-enter new password"
                   value={confirmationPasswordText}
