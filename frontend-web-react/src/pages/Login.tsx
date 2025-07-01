@@ -17,7 +17,7 @@ import { showLoading } from "../services/helpers/popup_helper";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [emailText, setEmailText] = useState<string>(
+  const [emailOrPinText, setEmailOrPinText] = useState<string>(
     process.env.REACT_APP_EMAIL_TEST!
   );
   const [passwordText, setPasswordText] = useState<string>(
@@ -38,9 +38,12 @@ const Login = () => {
 
   const login = async () => {
     const body: loginBodyInterface = {
-      email: emailText,
       password: passwordText,
     };
+
+    if (emailOrPinText.includes("@")) body.email = emailOrPinText;
+    else body.pin = emailOrPinText;
+
     const error = validateLogin(body) as loginRequestValidationError;
     if (error) {
       showValidationForLoginRequest(setPopupProps, error);
@@ -61,8 +64,8 @@ const Login = () => {
         <TextField
           title="Email or pin"
           hint="Enter your email or pin"
-          setText={setEmailText}
-          value={emailText}
+          setText={setEmailOrPinText}
+          value={emailOrPinText}
         />
         <div className="mt-5">
           <TextField

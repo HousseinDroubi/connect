@@ -1,5 +1,6 @@
 interface loginBodyInterface {
-  email: string;
+  email?: string;
+  pin?: string;
   password: string;
 }
 
