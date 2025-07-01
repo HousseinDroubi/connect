@@ -22,7 +22,7 @@ const Login = () => {
   const [popupProps, setPopupProps] = useState<popupComponentInterface | null>(
     null
   );
-  const { data, mutate, isPending, isSuccess } = useLogin(setPopupProps);
+  const { mutate, isPending, isSuccess } = useLogin(setPopupProps);
   const navigate = useNavigate();
 
   useEffect(() => {
