@@ -36,18 +36,18 @@ const login = async (request: Request, response: Response) => {
   });
 
   if (!user)
-    return response.status(401).json({ error: "wrong_email_or_password" });
+    return response.status(401).json({ result: "wrong_email_or_password" });
 
   const compare_result = await bcrypt.compare(body.password, user.password);
   if (!compare_result)
-    return response.status(401).json({ error: "wrong_email_or_password" });
+    return response.status(401).json({ result: "wrong_email_or_password" });
 
   if (!user.is_verified)
-    return response.status(405).json({ error: "user_not_verified" });
+    return response.status(405).json({ result: "user_not_verified" });
 
   if (user.deleted_at) {
-    return response.status(403).json({
-      error: "user_account_deleted",
+    return response.status(405).json({
+      result: "user_account_deleted",
     });
   }
 
