@@ -24,8 +24,6 @@ import { generateToken } from "../functions/general";
 import { Conversation } from "../models/conversation.model";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import { Message } from "../models/message.model";
-import { conversationDocumentInterface } from "../interfaces/documents/conversation.document.interface";
-import { userInfo } from "os";
 
 dotenv.config();
 
