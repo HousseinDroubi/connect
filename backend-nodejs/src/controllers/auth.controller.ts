@@ -320,7 +320,7 @@ const verifyAccount = async (request: Request, response: Response) => {
     });
 
   if (user.deleted_at)
-    return response.status(410).json({
+    return response.status(405).json({
       result: "user_account_deleted",
     });
 
