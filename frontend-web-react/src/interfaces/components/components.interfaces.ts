@@ -87,6 +87,10 @@ type popupComponentInterface =
   | popupDeleteMessageForUserComponentInterface
   | popupEditMessageForUserComponentInterface;
 
+interface NavComponentInterface {
+  profile_url: string | undefined;
+}
+
 export type {
   buttonComponentInterface,
   titleComponentInterface,
@@ -95,4 +99,5 @@ export type {
   underlinedTextComponentInterface,
   profileComponentInterface,
   popupComponentInterface,
+  NavComponentInterface,
 };

@@ -3,8 +3,9 @@ import Title from "./Title";
 import SearchIcon from "../assets/search.png";
 import MessageIcon from "../assets/message.png";
 import ProfileIcon from "../assets/profile_default.png";
+import { NavComponentInterface } from "../interfaces/components/components.interfaces";
 
-const Nav = () => {
+const Nav: React.FC<NavComponentInterface> = ({ profile_url }) => {
   return (
     <nav className="flex flex-col">
       <article className="flex justify-between pl-8 pr-8 pt-5">
@@ -20,7 +21,11 @@ const Nav = () => {
             <img src={SearchIcon} alt="search" title="Find someone" />
           </div>
           <div className="cursor-pointer size-10 rounded-full">
-            <img src={ProfileIcon} alt="profile" title="Visit profile" />
+            <img
+              src={profile_url || ProfileIcon}
+              alt="profile"
+              title="Visit profile"
+            />
           </div>
         </section>
       </article>
