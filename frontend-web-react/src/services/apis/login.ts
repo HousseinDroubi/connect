@@ -5,9 +5,9 @@ import { loginBodyInterface } from "../../interfaces/requests/login_request";
 
 const loginApi = async (
   data: loginBodyInterface
-): Promise<AxiosResponse<loginResponseInterface, loginBodyInterface>> => {
+): Promise<loginResponseInterface> => {
   const response = await axios.post(API_LOGIN, data);
-  return response;
+  return response.data;
 };
 
 export { loginApi };
