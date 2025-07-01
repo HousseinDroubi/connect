@@ -17,8 +17,12 @@ import { showLoading } from "../services/helpers/popup_helper";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [emailText, setEmailText] = useState<string>("");
-  const [passwordText, setPasswordText] = useState<string>("");
+  const [emailText, setEmailText] = useState<string>(
+    process.env.REACT_APP_EMAIL_TEST!
+  );
+  const [passwordText, setPasswordText] = useState<string>(
+    process.env.REACT_APP_PASSWORD_TEST!
+  );
   const [popupProps, setPopupProps] = useState<popupComponentInterface | null>(
     null
   );
