@@ -15,6 +15,8 @@ import {
   validateUpdateProfileData,
 } from "../services/helpers/validations/update_user_data.validation";
 import { updateProfileDataRequestValidationError } from "../interfaces/validations_responses/update_profile_data_validtion_responses";
+import { objectToFormData } from "../utils/functions";
+import useUpdateProfileData from "../services/hooks/mutations/update_profile_data_mutation";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -29,6 +31,11 @@ const Profile = () => {
   const [popupProps, setPopupProps] = useState<popupComponentInterface | null>(
     null
   );
+
+  const {
+    isPending: updateProfileDataIsPending,
+    mutate: updateProfileDataMutate,
+  } = useUpdateProfileData(setPopupProps, navigate);
 
   useEffect(() => {
     if (data === null) {
@@ -59,6 +66,9 @@ const Profile = () => {
       showValidationForUpdateProfileDataRequest(setPopupProps, error);
       return;
     }
+
+    const formData = objectToFormData(body);
+    updateProfileDataMutate({ formData, token: data!.token });
   };
 
   const updateUserPassword = () => {
