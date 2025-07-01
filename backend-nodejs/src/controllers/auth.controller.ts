@@ -255,6 +255,8 @@ const updateProfileData = async (request: Request, response: Response) => {
     result: "data_updated",
   };
 
+  if (body.username) response_json.new_username = body.user.username;
+
   // Return response
   if (body.file_name)
     response_json.new_profile_url = `http://${process.env.DOMAIN}:${process.env.PORT}/${body.user.profile_url}`;

@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 interface updateProfileResponseInterface {
   result: string;
   new_profile_url?: string;
+  new_username?: string;
 }
 
 interface loginResponseInterface {
