@@ -57,7 +57,7 @@ const showValidationForUpdatePasswordRequest = (
       );
       break;
     case "password_must_equal_to_confirmation_password":
-      showPopupText(setPopupProps, "Password must match confirm password");
+      showPopupText(setPopupProps, "New password must match confirm password");
       break;
   }
 };
