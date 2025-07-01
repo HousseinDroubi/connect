@@ -17,6 +17,12 @@ import {
 import { updateProfileDataRequestValidationError } from "../interfaces/validations_responses/update_profile_data_validtion_responses";
 import { objectToFormData } from "../utils/functions";
 import useUpdateProfileData from "../services/hooks/mutations/update_profile_data_mutation";
+import { updatePasswordBodyInterface } from "../interfaces/requests/update_password_request";
+import {
+  showValidationForUpdatePasswordRequest,
+  validateUpdatePassword,
+} from "../services/helpers/validations/update_password.validation";
+import { updatePasswordRequestValidationError } from "../interfaces/validations_responses/update_password_validtion_responses";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -79,6 +85,20 @@ const Profile = () => {
     console.log(currentPasswordText);
     console.log(newPasswordText);
     console.log(confirmationPasswordText);
+
+    const temp_date: updatePasswordBodyInterface = {
+      old_password: currentPasswordText,
+      new_password: newPasswordText,
+      confirmation_new_password: confirmationPasswordText,
+    };
+
+    const error = validateUpdatePassword(temp_date).error?.details[0]
+      .message as updatePasswordRequestValidationError;
+
+    if (error) {
+      showValidationForUpdatePasswordRequest(setPopupProps, error);
+      return;
+    }
   };
 
   const deleteUserAccount = () => {};
