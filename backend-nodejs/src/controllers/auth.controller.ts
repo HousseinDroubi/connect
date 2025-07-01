@@ -25,6 +25,7 @@ import { Conversation } from "../models/conversation.model";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import { Message } from "../models/message.model";
 import { conversationDocumentInterface } from "../interfaces/documents/conversation.document.interface";
+import { userInfo } from "os";
 
 dotenv.config();
 
@@ -299,6 +300,7 @@ const deleteUserAccount = async (request: Request, response: Response) => {
   if (!body.user) throw new Error("User not found in body");
 
   body.user.deleted_at = new Date();
+  await body.user.save();
   return response.status(202).json({
     result: "user_account_deleted",
   });
