@@ -28,6 +28,7 @@ import {
 } from "../services/helpers/validations/update_password.validation";
 import { updatePasswordRequestValidationError } from "../interfaces/validations_responses/update_password_validtion_responses";
 import useUpdatePassword from "../services/hooks/mutations/update_password_mutation";
+import useDeleteAccount from "../services/hooks/mutations/delete_account_mutation";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -57,6 +58,9 @@ const Profile = () => {
     mutate: updatePasswordMutate,
   } = useUpdatePassword(setPopupProps, navigate);
 
+  const { isPending: deleteAccountIsPending, mutate: deleteAccountMutate } =
+    useDeleteAccount(setPopupProps, navigate);
+
   useEffect(() => {
     if (data === null) {
       navigate("/");
@@ -67,7 +71,11 @@ const Profile = () => {
   }, [data]);
 
   useEffect(() => {
-    if (updatePasswordIsPending || updateProfileDataIsPending)
+    if (
+      updatePasswordIsPending ||
+      updateProfileDataIsPending ||
+      deleteAccountIsPending
+    )
       showLoading(setPopupProps, true);
 
     if (updatePasswordIsSuccess) {
@@ -134,7 +142,9 @@ const Profile = () => {
     updatePasswordMutate({ body, token: data!.token });
   };
 
-  const deleteUserAccount = () => {};
+  const deleteUserAccount = () => {
+    deleteAccountMutate(data!.token);
+  };
 
   return (
     <div className="h-screen w-full flex flex-col">
@@ -199,6 +209,7 @@ const Profile = () => {
               </div>
               <div className="mt-10 mb-10">
                 <Button
+                  is_disabled={deleteAccountIsPending}
                   button_text="Delete Account"
                   fn={() => {
                     confirmPopupAction(
