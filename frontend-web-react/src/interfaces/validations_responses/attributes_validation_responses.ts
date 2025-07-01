@@ -13,6 +13,13 @@ type passwordValidationError =
   | "password_must_be_minimum_5_digits"
   | "password_must_be_maximum_20_digits";
 
+type oldaPassowrdValidationError =
+  | "old_password_must_be_of_type_string"
+  | "old_password_is_required"
+  | "old_password_is_not_allowed_to_be_empty"
+  | "old_password_must_be_minimum_5_digits"
+  | "old_password_must_be_maximum_20_digits";
+
 type confirmationPasswordValidationError =
   | "confirmation_password_must_be_of_type_string"
   | "confirmation_password_is_required"
@@ -47,4 +54,5 @@ export type {
   pinValidationError,
   usernameValidationError,
   tokenValidationError,
+  oldaPassowrdValidationError,
 };
