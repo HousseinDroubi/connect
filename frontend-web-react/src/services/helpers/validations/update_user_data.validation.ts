@@ -1,12 +1,10 @@
 import Joi from "joi";
-import { verifyAccountParamInterface } from "../../../interfaces/requests/verify_token_request";
 import { showPopupText } from "../popup_helper";
 import { SetPopupType } from "../../../interfaces/general_types";
-import { activateAccountRequestValidationError } from "../../../interfaces/validations_responses/activate_account_validtion_responses";
 import { updateProfileDataBodyInterface } from "../../../interfaces/requests/update_profile_data_request";
 import { updateProfileDataRequestValidationError } from "../../../interfaces/validations_responses/update_profile_data_validtion_responses";
 
-const showValidationForActivateAccountRequest = (
+const showValidationForUpdateProfileDataRequest = (
   setPopupProps: SetPopupType,
   error: updateProfileDataRequestValidationError
 ) => {
@@ -33,7 +31,7 @@ const showValidationForActivateAccountRequest = (
   }
 };
 
-const validateActivateAccount = (data: updateProfileDataBodyInterface) => {
+const validateUpdateProfileData = (data: updateProfileDataBodyInterface) => {
   const schema = Joi.object({
     image: Joi.object().label("Image"),
     username: Joi.string().label("Username").min(3).max(10).messages({
@@ -50,4 +48,4 @@ const validateActivateAccount = (data: updateProfileDataBodyInterface) => {
   return schema.validate(data);
 };
 
-export { validateActivateAccount, showValidationForActivateAccountRequest };
+export { validateUpdateProfileData, showValidationForUpdateProfileDataRequest };
