@@ -281,7 +281,7 @@ const updatePassword = async (request: Request, response: Response) => {
     body.user.password
   );
   if (!compare_result)
-    return response.status(401).json({ error: "old_password_wrong" });
+    return response.status(401).json({ result: "old_password_wrong" });
 
   const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUND));
   const hashed_password = await bcrypt.hash(body.new_password, salt);

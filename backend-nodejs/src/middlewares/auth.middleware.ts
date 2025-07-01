@@ -9,7 +9,7 @@ const isUserAuthenticated = (
 ) => {
   const _id = getIdFromToken(request.headers.authorization);
 
-  if (!_id) return response.status(401).json({ error: "invalid_id" });
+  if (!_id) return response.status(401).json({ result: "invalid_id" });
   request.body.user_id = _id;
   next();
 };
