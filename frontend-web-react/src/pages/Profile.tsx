@@ -45,12 +45,15 @@ const Profile = () => {
 
   const {
     isPending: updateProfileDataIsPending,
+    isSuccess: updateProfileDataIsSuccess,
+    isError: updateProfileDataIsError,
     mutate: updateProfileDataMutate,
   } = useUpdateProfileData(setPopupProps, navigate);
 
   const {
     isPending: updatePasswordIsPending,
     isSuccess: updatePasswordIsSuccess,
+    isError: updatePasswordIsError,
     mutate: updatePasswordMutate,
   } = useUpdatePassword(setPopupProps, navigate);
 
@@ -71,12 +74,19 @@ const Profile = () => {
       setCurrentPasswordText("");
       setNewPasswordText("");
       setConfirmationPasswordText("");
+    }
+
+    if (
+      (updatePasswordIsSuccess && !updatePasswordIsError) ||
+      (updateProfileDataIsSuccess && updateProfileDataIsError)
+    ) {
       showLoading(setPopupProps, false);
     }
   }, [
     updateProfileDataIsPending,
     updatePasswordIsPending,
     updatePasswordIsSuccess,
+    updateProfileDataIsSuccess,
   ]);
 
   const updateUserData = () => {
@@ -143,7 +153,11 @@ const Profile = () => {
               />
             </div>
             <div className="mt-8">
-              <Button button_text="Save changes" fn={updateUserData} />
+              <Button
+                button_text="Save changes"
+                fn={updateUserData}
+                is_disabled={updateProfileDataIsPending}
+              />
             </div>
           </article>
           <div className="mt-10">
@@ -177,7 +191,11 @@ const Profile = () => {
                 />
               </div>
               <div className="mt-8">
-                <Button button_text="Save changes" fn={updateUserPassword} />
+                <Button
+                  button_text="Save changes"
+                  fn={updateUserPassword}
+                  is_disabled={updatePasswordIsPending}
+                />
               </div>
               <div className="mt-10 mb-10">
                 <Button
