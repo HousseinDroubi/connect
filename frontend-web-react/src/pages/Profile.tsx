@@ -8,7 +8,11 @@ import TextField from "../components/TextField";
 import Button from "../components/Button";
 import Popup from "../components/Popup";
 import { popupComponentInterface } from "../interfaces/components/components.interfaces";
-import { showLoading, showPopupText } from "../services/helpers/popup_helper";
+import {
+  confirmPopupAction,
+  showLoading,
+  showPopupText,
+} from "../services/helpers/popup_helper";
 import { updateProfileDataBodyInterface } from "../interfaces/requests/update_profile_data_request";
 import {
   showValidationForUpdateProfileDataRequest,
@@ -177,7 +181,15 @@ const Profile = () => {
               <div className="mt-10 mb-10">
                 <Button
                   button_text="Delete Account"
-                  fn={deleteUserAccount}
+                  fn={() => {
+                    confirmPopupAction(
+                      setPopupProps,
+                      "This action will delete your account forever. Confirm?",
+                      () => {
+                        deleteUserAccount();
+                      }
+                    );
+                  }}
                   is_colored_red
                 />
               </div>
