@@ -20,8 +20,9 @@ const Nav: React.FC<NavComponentInterface> = ({ profile_url }) => {
           <div className="cursor-pointer size-9">
             <img src={SearchIcon} alt="search" title="Find someone" />
           </div>
-          <div className="cursor-pointer size-10 rounded-full">
+          <div className="cursor-pointer size-10">
             <img
+              className="rounded-full h-full w-full"
               src={profile_url || ProfileIcon}
               alt="profile"
               title="Visit profile"
