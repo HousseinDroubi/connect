@@ -6,8 +6,9 @@ interface buttonComponentInterface {
   is_colored_red?: boolean;
 }
 
-interface titleBigComponentInterface {
+interface titleComponentInterface {
   title: string;
+  size: "big" | "medium" | "small";
 }
 
 interface logoComponentInterface {
@@ -88,7 +89,7 @@ type popupComponentInterface =
 
 export type {
   buttonComponentInterface,
-  titleBigComponentInterface,
+  titleComponentInterface,
   logoComponentInterface,
   textFieldComponentInterface,
   underlinedTextComponentInterface,

@@ -1,4 +1,4 @@
-import TitleBig from "../components/TitleBig";
+import Title from "../components/Title";
 import { useNavigate, useParams } from "react-router-dom";
 import DoneIcon from "../assets/done.png";
 import ErrorIcon from "../assets/error.png";
@@ -81,7 +81,7 @@ const VerifyAccount = () => {
 
   return (
     <div className="h-screen w-full flex flex-col items-center justify-center">
-      <TitleBig title="Verify your account" />
+      <Title title="Verify your account" size="big" />
       <section className="flex flex-col items-center justify-center w-fit h-80">
         <img
           src={

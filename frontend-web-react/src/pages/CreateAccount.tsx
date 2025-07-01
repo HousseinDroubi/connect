@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import TextField from "../components/TextField";
-import TitleBig from "../components/TitleBig";
+import Title from "../components/Title";
 import Profile from "../components/Profile";
 import {
   showValidationForCreateAccountRequest,
@@ -93,7 +93,7 @@ const CreateNewAccount = () => {
 
   return (
     <div className="h-screen w-full flex flex-col items-center justify-center">
-      <TitleBig title="Create New Account" />
+      <Title title="Create New Account" size="big" />
       <div className="mt-5">
         <Profile image={image} setImage={setImage} />
       </div>

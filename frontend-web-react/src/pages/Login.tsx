@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import Logo from "../components/Logo";
 import TextField from "../components/TextField";
-import TitleBig from "../components/TitleBig";
+import Title from "../components/Title";
 import UnderlinedText from "../components/UnderlinedText";
 import { popupComponentInterface } from "../interfaces/components/components.interfaces";
 import Popup from "../components/Popup";
@@ -51,7 +51,7 @@ const Login = () => {
   return (
     <div className="h-screen w-full flex flex-col items-center justify-center">
       <section className="flex justify-center items-center">
-        <TitleBig title="Welcome to Connect" />
+        <Title title="Welcome to Connect" size="big" />
         <div className="ml-3">
           <Logo />
         </div>

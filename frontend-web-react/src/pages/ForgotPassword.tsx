@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "../components/Button";
 import TextField from "../components/TextField";
-import TitleBig from "../components/TitleBig";
+import Title from "../components/Title";
 import Popup from "../components/Popup";
 import { popupComponentInterface } from "../interfaces/components/components.interfaces";
 import { forgotPasswordBodyInterface } from "../interfaces/requests/forgot_password_request";
@@ -78,7 +78,7 @@ const ForgotPassword = () => {
 
   return (
     <div className="h-screen w-full flex flex-col items-center justify-center">
-      <TitleBig title="Forgot Password" />
+      <Title title="Forgot Password" size="big" />
       <section className="flex flex-col items-center justify-center w-fit h-52">
         <TextField
           title="Email"
