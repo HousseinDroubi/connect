@@ -6,6 +6,8 @@ import Title from "../components/Title";
 import ProfileComponent from "../components/Profile";
 import TextField from "../components/TextField";
 import Button from "../components/Button";
+import Popup from "../components/Popup";
+import { popupComponentInterface } from "../interfaces/components/components.interfaces";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -16,6 +18,10 @@ const Profile = () => {
   const [newPasswordText, setNewPasswordText] = useState<string>("");
   const [confirmationPasswordText, setConfirmationPasswordText] =
     useState<string>("");
+
+  const [popupProps, setPopupProps] = useState<popupComponentInterface | null>(
+    null
+  );
 
   useEffect(() => {
     if (data === null) {
@@ -99,6 +105,7 @@ const Profile = () => {
           </article>
         </section>
       </div>
+      {popupProps && <Popup {...popupProps} />}
     </>
   );
 };
