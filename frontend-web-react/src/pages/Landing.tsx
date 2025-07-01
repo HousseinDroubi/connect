@@ -1,5 +1,5 @@
-const LandingPage = () => {
+const Landing = () => {
   return <></>;
 };
 
-export default LandingPage;
+export default Landing;
