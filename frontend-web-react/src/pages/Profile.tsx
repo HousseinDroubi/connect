@@ -46,9 +46,9 @@ const Profile = () => {
   const deleteUserAccount = () => {};
 
   return (
-    <>
+    <div className="h-screen w-full flex flex-col">
       <Nav profile_url={data?.profile_url} />
-      <div className="w-full h-screen flex justify-center">
+      <div className="w-full h-full flex justify-center">
         <section className="w-3/4 h-full mt-10">
           <Title title="Edit Profile" size="big" />
           <article className="w-full flex flex-col items-center">
@@ -107,7 +107,7 @@ const Profile = () => {
         </section>
       </div>
       {popupProps && <Popup {...popupProps} />}
-    </>
+    </div>
   );
 };
 
