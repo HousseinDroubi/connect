@@ -5,6 +5,7 @@ import { SetPopupType } from "../../../interfaces/general_types";
 import { deleteAccountResponseInterface } from "../../../interfaces/responses/delete_account_response";
 import { deleteAccountApi } from "../../apis/delete_account";
 import { NavigateFunction } from "react-router-dom";
+import { queryClient } from "../../..";
 
 const useDeleteAccount = (
   setPopupProps: SetPopupType,
@@ -13,7 +14,12 @@ const useDeleteAccount = (
   useMutation<deleteAccountResponseInterface, Error, string>({
     mutationFn: deleteAccountApi,
     onSuccess(data) {
-      //
+      if (data.result === "user_account_deleted") {
+        queryClient.clear();
+        navigate("/");
+      } else {
+        throw new Error();
+      }
     },
     onError(error) {
       if (axios.isAxiosError(error)) {
