@@ -40,8 +40,6 @@ const Profile = () => {
   }, [data]);
 
   const updateUserData = () => {
-    console.log(image);
-    console.log(usernameText);
     if (typeof image !== "object" && data!.username == usernameText) {
       showPopupText(
         setPopupProps,
