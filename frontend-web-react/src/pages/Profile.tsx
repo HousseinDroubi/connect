@@ -60,8 +60,9 @@ const Profile = () => {
   }, [data]);
 
   useEffect(() => {
-    showLoading(setPopupProps, updateProfileDataIsPending);
-  }, [updateProfileDataIsPending]);
+    if (updatePasswordIsPending || updateProfileDataIsPending)
+      showLoading(setPopupProps, true);
+  }, [updateProfileDataIsPending, updatePasswordIsPending]);
 
   const updateUserData = () => {
     if (typeof image !== "object" && data!.username == usernameText) {
