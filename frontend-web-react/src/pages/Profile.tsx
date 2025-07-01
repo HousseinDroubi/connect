@@ -65,44 +65,45 @@ const Profile = () => {
               <Button button_text="Save changes" fn={updateUserData} />
             </div>
           </article>
-
-          <Title title="Update Password" size="big" />
-          <article className="w-full flex flex-col items-center">
-            <div className="mt-5">
-              <TextField
-                title="Current Password"
-                hint="Enter your current password"
-                value={currentPasswordText}
-                setText={setCurrentPasswordText}
-              />
-            </div>
-            <div className="mt-5">
-              <TextField
-                title="New Password"
-                hint="Enter a new password"
-                value={newPasswordText}
-                setText={setNewPasswordText}
-              />
-            </div>
-            <div className="mt-5">
-              <TextField
-                title="Confirmation Password"
-                hint="Re-enter new password"
-                value={confirmationPasswordText}
-                setText={setConfirmationPasswordText}
-              />
-            </div>
-            <div className="mt-8">
-              <Button button_text="Save changes" fn={updateUserPassword} />
-            </div>
-            <div className="mt-10 mb-10">
-              <Button
-                button_text="Delete Account"
-                fn={deleteUserAccount}
-                is_colored_red
-              />
-            </div>
-          </article>
+          <div className="mt-10">
+            <Title title="Update Password" size="big" />
+            <article className="w-full flex flex-col items-center">
+              <div className="mt-5">
+                <TextField
+                  title="Current Password"
+                  hint="Enter your current password"
+                  value={currentPasswordText}
+                  setText={setCurrentPasswordText}
+                />
+              </div>
+              <div className="mt-5">
+                <TextField
+                  title="New Password"
+                  hint="Enter a new password"
+                  value={newPasswordText}
+                  setText={setNewPasswordText}
+                />
+              </div>
+              <div className="mt-5">
+                <TextField
+                  title="Confirmation Password"
+                  hint="Re-enter new password"
+                  value={confirmationPasswordText}
+                  setText={setConfirmationPasswordText}
+                />
+              </div>
+              <div className="mt-8">
+                <Button button_text="Save changes" fn={updateUserPassword} />
+              </div>
+              <div className="mt-10 mb-10">
+                <Button
+                  button_text="Delete Account"
+                  fn={deleteUserAccount}
+                  is_colored_red
+                />
+              </div>
+            </article>
+          </div>
         </section>
       </div>
       {popupProps && <Popup {...popupProps} />}
