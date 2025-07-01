@@ -8,7 +8,7 @@ import TextField from "../components/TextField";
 import Button from "../components/Button";
 import Popup from "../components/Popup";
 import { popupComponentInterface } from "../interfaces/components/components.interfaces";
-import { showPopupText } from "../services/helpers/popup_helper";
+import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import { updateProfileDataBodyInterface } from "../interfaces/requests/update_profile_data_request";
 import {
   showValidationForUpdateProfileDataRequest,
@@ -45,6 +45,10 @@ const Profile = () => {
       setUsernameText(data?.username || "");
     }
   }, [data]);
+
+  useEffect(() => {
+    showLoading(setPopupProps, updateProfileDataIsPending);
+  }, [updateProfileDataIsPending]);
 
   const updateUserData = () => {
     if (typeof image !== "object" && data!.username == usernameText) {
