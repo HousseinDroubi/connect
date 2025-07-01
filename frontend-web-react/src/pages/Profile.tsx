@@ -23,6 +23,7 @@ import {
   validateUpdatePassword,
 } from "../services/helpers/validations/update_password.validation";
 import { updatePasswordRequestValidationError } from "../interfaces/validations_responses/update_password_validtion_responses";
+import useUpdatePassword from "../services/hooks/mutations/update_password_mutation";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -42,6 +43,12 @@ const Profile = () => {
     isPending: updateProfileDataIsPending,
     mutate: updateProfileDataMutate,
   } = useUpdateProfileData(setPopupProps, navigate);
+
+  const {
+    isPending: updatePasswordIsPending,
+    isSuccess: updatePasswordIsSuccess,
+    mutate: updatePasswordMutate,
+  } = useUpdatePassword(setPopupProps, navigate);
 
   useEffect(() => {
     if (data === null) {
@@ -94,11 +101,14 @@ const Profile = () => {
 
     const error = validateUpdatePassword(temp_date).error?.details[0]
       .message as updatePasswordRequestValidationError;
-
     if (error) {
       showValidationForUpdatePasswordRequest(setPopupProps, error);
       return;
     }
+
+    const { confirmation_new_password, ...body } = temp_date;
+
+    updatePasswordMutate({ body, token: data!.token });
   };
 
   const deleteUserAccount = () => {};
