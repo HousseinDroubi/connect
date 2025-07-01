@@ -41,8 +41,9 @@ const Login = () => {
       password: passwordText,
     };
 
-    if (emailOrPinText.includes("@")) body.email = emailOrPinText;
-    else body.pin = emailOrPinText;
+    if (emailOrPinText.length !== 0)
+      if (emailOrPinText.includes("@")) body.email = emailOrPinText;
+      else body.pin = emailOrPinText;
 
     const error = validateLogin(body) as loginRequestValidationError;
     if (error) {
