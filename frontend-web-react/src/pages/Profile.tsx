@@ -9,6 +9,12 @@ import Button from "../components/Button";
 import Popup from "../components/Popup";
 import { popupComponentInterface } from "../interfaces/components/components.interfaces";
 import { showPopupText } from "../services/helpers/popup_helper";
+import { updateProfileDataBodyInterface } from "../interfaces/requests/update_profile_data_request";
+import {
+  showValidationForUpdateProfileDataRequest,
+  validateUpdateProfileData,
+} from "../services/helpers/validations/update_user_data.validation";
+import { updateProfileDataRequestValidationError } from "../interfaces/validations_responses/update_profile_data_validtion_responses";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -37,11 +43,22 @@ const Profile = () => {
     console.log(image);
     console.log(usernameText);
     if (typeof image !== "object" && data!.username == usernameText) {
-      console.log(1);
       showPopupText(
         setPopupProps,
         "Please update image and/or username to continue."
       );
+      return;
+    }
+
+    const body: updateProfileDataBodyInterface = {};
+    if (typeof image === "object") body.image = image as File;
+    if (data!.username != usernameText) body.username = usernameText;
+
+    const error = validateUpdateProfileData(body).error?.details[0]
+      .message as updateProfileDataRequestValidationError;
+
+    if (error) {
+      showValidationForUpdateProfileDataRequest(setPopupProps, error);
       return;
     }
   };
