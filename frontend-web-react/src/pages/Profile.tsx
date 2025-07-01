@@ -62,7 +62,18 @@ const Profile = () => {
   useEffect(() => {
     if (updatePasswordIsPending || updateProfileDataIsPending)
       showLoading(setPopupProps, true);
-  }, [updateProfileDataIsPending, updatePasswordIsPending]);
+
+    if (updatePasswordIsSuccess) {
+      setCurrentPasswordText("");
+      setNewPasswordText("");
+      setConfirmationPasswordText("");
+      showLoading(setPopupProps, false);
+    }
+  }, [
+    updateProfileDataIsPending,
+    updatePasswordIsPending,
+    updatePasswordIsSuccess,
+  ]);
 
   const updateUserData = () => {
     if (typeof image !== "object" && data!.username == usernameText) {
