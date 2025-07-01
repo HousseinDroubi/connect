@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 
 const CreateNewAccount = () => {
   const navigate = useNavigate();
-  const [image, setImage] = useState<File | null>(null);
+  const [image, setImage] = useState<File | string | null>(null);
   const [emailText, setEmailText] = useState<string>("");
   const [usernameText, setUsernameText] = useState<string>("");
   const [pinText, setPinText] = useState<string>("");
@@ -33,7 +33,7 @@ const CreateNewAccount = () => {
   const createNewAccount = async () => {
     if (image) {
       const data: createAccountBodyInterface = {
-        image,
+        image: image as File,
         email: emailText,
         pin: pinText,
         username: usernameText,

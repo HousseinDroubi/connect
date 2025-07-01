@@ -16,8 +16,17 @@ const Profile: React.FC<profileComponentInterface> = ({ image, setImage }) => {
       <label className="relative cursor-pointer" htmlFor="input_image">
         <section className="size-28 rounded-full border-[0.5px] border-blue flex items-center justify-center">
           <img
-            src={image && previewURL ? previewURL : DefaultImageIcon}
-            className={`${image && previewURL && "rounded-full w-full h-full"}`}
+            src={
+              typeof image === "string"
+                ? image
+                : image && previewURL
+                ? previewURL
+                : DefaultImageIcon
+            }
+            className={`${
+              ((image && previewURL) || typeof image === "string") &&
+              "rounded-full w-full h-full"
+            }`}
           />
         </section>
         <section className="absolute right-0 bottom-2">

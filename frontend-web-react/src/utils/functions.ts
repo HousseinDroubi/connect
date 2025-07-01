@@ -5,7 +5,7 @@ const handleImage = ({
   setImage,
   setPreviewURL,
 }: handleImageFunctionInterface) => {
-  if (image && image.type.startsWith("image/")) {
+  if (image && typeof image === "object" && image.type.startsWith("image/")) {
     setImage(image);
 
     const preview = URL.createObjectURL(image);

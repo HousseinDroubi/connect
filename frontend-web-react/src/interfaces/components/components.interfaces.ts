@@ -29,8 +29,8 @@ interface underlinedTextComponentInterface {
 }
 
 interface profileComponentInterface {
-  image: File | null;
-  setImage: React.Dispatch<React.SetStateAction<File | null>>;
+  image: File | string | null;
+  setImage: React.Dispatch<React.SetStateAction<File | string | null>>;
 }
 
 interface popupBasicComponentInterface {
