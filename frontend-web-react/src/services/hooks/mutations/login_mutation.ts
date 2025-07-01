@@ -11,7 +11,7 @@ const useLogin = (setPopupProps: SetPopupType) =>
   useMutation<loginResponseInterface, Error, loginBodyInterface>({
     mutationFn: loginApi,
     onSuccess(data) {
-      queryClient.setQueryData(["login"], data);
+      queryClient.setQueryData(["user_data"], data);
     },
     onError(error) {
       if (axios.isAxiosError(error)) {
