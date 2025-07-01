@@ -62,7 +62,7 @@ const VerifyAccount = () => {
         } else if (error.status === 406) {
           setPageStyle({ result: "error", content: "User already verified" });
           return;
-        } else if (error.status === 410) {
+        } else if (error.status === 405) {
           setPageStyle({ result: "error", content: "User account deleted" });
           return;
         }
