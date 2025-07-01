@@ -88,7 +88,7 @@ const validateUpdatePassword = (data: updatePasswordBodyInterface) => {
         "string.min": "password_must_be_minimum_5_digits",
         "string.max": "password_must_be_maximum_20_digits",
       }),
-    confirmation_password: Joi.string()
+    confirmation_new_password: Joi.string()
       .required()
       .label("Confirmation Password")
       .valid(Joi.ref("new_password"))
