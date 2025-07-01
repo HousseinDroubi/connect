@@ -4,10 +4,15 @@ import Logo from "../components/Logo";
 import TextField from "../components/TextField";
 import TitleBig from "../components/TitleBig";
 import UnderlinedText from "../components/UnderlinedText";
+import { popupComponentInterface } from "../interfaces/components/components.interfaces";
+import Popup from "../components/Popup";
 
 const Login = () => {
   const [emailText, setEmailText] = useState<string>("");
   const [passwordText, setPasswordText] = useState<string>("");
+  const [popupProps, setPopupProps] = useState<popupComponentInterface | null>(
+    null
+  );
 
   const login = () => {
     console.log(`email is ${emailText}`);
@@ -51,6 +56,7 @@ const Login = () => {
           />
         </div>
       </section>
+      {popupProps && <Popup {...popupProps} />}
     </div>
   );
 };
