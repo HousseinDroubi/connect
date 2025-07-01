@@ -6,6 +6,12 @@ import TitleBig from "../components/TitleBig";
 import UnderlinedText from "../components/UnderlinedText";
 import { popupComponentInterface } from "../interfaces/components/components.interfaces";
 import Popup from "../components/Popup";
+import { loginBodyInterface } from "../interfaces/requests/login_request";
+import {
+  showValidationForLoginRequest,
+  validateLogin,
+} from "../services/helpers/validations/login.validation";
+import { loginRequestValidationError } from "../interfaces/validations_responses/login_validtion_responses";
 
 const Login = () => {
   const [emailText, setEmailText] = useState<string>("");
@@ -17,6 +23,16 @@ const Login = () => {
   const login = () => {
     console.log(`email is ${emailText}`);
     console.log(`password is ${passwordText}`);
+
+    const body: loginBodyInterface = {
+      email: emailText,
+      password: passwordText,
+    };
+    const error = validateLogin(body) as loginRequestValidationError;
+    if (error) {
+      showValidationForLoginRequest(setPopupProps, error);
+      return;
+    }
   };
 
   return (
