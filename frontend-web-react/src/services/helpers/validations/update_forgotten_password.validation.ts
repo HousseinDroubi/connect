@@ -30,7 +30,7 @@ const showValidationForUpdateForgottenPasswordRequest = (
       );
       break;
     case "password_must_be_of_type_string":
-      showPopupText(setPopupProps, "Password password must be of type text");
+      showPopupText(setPopupProps, "Password must be of type text");
       break;
     case "confirmation_password_is_required":
     case "confirmation_password_is_not_allowed_to_be_empty":

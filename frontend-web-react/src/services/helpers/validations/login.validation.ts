@@ -33,7 +33,7 @@ const showValidationForLoginRequest = (
       );
       break;
     case "password_must_be_of_type_string":
-      showPopupText(setPopupProps, "Password password must be of type text");
+      showPopupText(setPopupProps, "Password must be of type text");
       break;
   }
 };
