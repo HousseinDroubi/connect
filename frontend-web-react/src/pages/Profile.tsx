@@ -101,10 +101,6 @@ const Profile = () => {
   };
 
   const updateUserPassword = () => {
-    console.log(currentPasswordText);
-    console.log(newPasswordText);
-    console.log(confirmationPasswordText);
-
     const temp_date: updatePasswordBodyInterface = {
       old_password: currentPasswordText,
       new_password: newPasswordText,
