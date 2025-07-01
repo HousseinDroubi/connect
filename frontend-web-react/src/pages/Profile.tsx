@@ -12,6 +12,10 @@ const Profile = () => {
   const { data } = useUserData();
   const [image, setImage] = useState<File | string | null>(null);
   const [usernameText, setUsernameText] = useState<string>("");
+  const [currentPasswordText, setCurrentPasswordText] = useState<string>("");
+  const [newPasswordText, setNewPasswordText] = useState<string>("");
+  const [confirmationPasswordText, setConfirmationPasswordText] =
+    useState<string>("");
 
   useEffect(() => {
     if (data === null) {
@@ -26,6 +30,14 @@ const Profile = () => {
     console.log(image);
     console.log(usernameText);
   };
+
+  const updateUserPassword = () => {
+    console.log(currentPasswordText);
+    console.log(newPasswordText);
+    console.log(confirmationPasswordText);
+  };
+
+  const deleteUserAccount = () => {};
 
   return (
     <>
@@ -45,6 +57,44 @@ const Profile = () => {
             </div>
             <div className="mt-8">
               <Button button_text="Save changes" fn={updateUserData} />
+            </div>
+          </article>
+
+          <Title title="Update Password" size="big" />
+          <article className="w-full flex flex-col items-center">
+            <div className="mt-5">
+              <TextField
+                title="Current Password"
+                hint="Enter your current password"
+                value={currentPasswordText}
+                setText={setCurrentPasswordText}
+              />
+            </div>
+            <div className="mt-5">
+              <TextField
+                title="New Password"
+                hint="Enter a new password"
+                value={newPasswordText}
+                setText={setNewPasswordText}
+              />
+            </div>
+            <div className="mt-5">
+              <TextField
+                title="Confirmation Password"
+                hint="Re-enter new password"
+                value={confirmationPasswordText}
+                setText={setConfirmationPasswordText}
+              />
+            </div>
+            <div className="mt-8">
+              <Button button_text="Save changes" fn={updateUserPassword} />
+            </div>
+            <div className="mt-10 mb-10">
+              <Button
+                button_text="Delete Account"
+                fn={deleteUserAccount}
+                is_colored_red
+              />
             </div>
           </article>
         </section>
