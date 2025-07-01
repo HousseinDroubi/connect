@@ -113,6 +113,7 @@ const Profile = () => {
 
     const error = validateUpdatePassword(temp_date).error?.details[0]
       .message as updatePasswordRequestValidationError;
+
     if (error) {
       showValidationForUpdatePasswordRequest(setPopupProps, error);
       return;
