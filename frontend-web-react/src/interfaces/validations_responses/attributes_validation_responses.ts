@@ -14,6 +14,7 @@ type passwordValidationError =
   | "password_must_be_maximum_20_digits";
 
 type oldaPassowrdValidationError =
+  | "same_password_as_new_one"
   | "old_password_must_be_of_type_string"
   | "old_password_is_required"
   | "old_password_is_not_allowed_to_be_empty"

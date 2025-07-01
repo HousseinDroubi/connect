@@ -24,7 +24,12 @@ const showValidationForUpdatePasswordRequest = (
     case "old_password_must_be_of_type_string":
       showPopupText(setPopupProps, "Old password must be of type text");
       break;
-
+    case "same_password_as_new_one":
+      showPopupText(
+        setPopupProps,
+        "Old password must be different than new one!"
+      );
+      break;
     case "password_is_required":
     case "password_is_not_allowed_to_be_empty":
       showPopupText(setPopupProps, "New password is required");
@@ -67,11 +72,13 @@ const validateUpdatePassword = (data: updatePasswordBodyInterface) => {
     old_password: Joi.string()
       .required()
       .label("Password")
+      .invalid(Joi.ref("new_password"))
       .min(5)
       .max(20)
       .messages({
         "string.base": "password_must_be_of_type_string",
         "any.required": "password_is_required",
+        "any.invalid": "same_password_as_new_one",
         "string.empty": "password_is_not_allowed_to_be_empty",
         "string.min": "password_must_be_minimum_5_digits",
         "string.max": "password_must_be_maximum_20_digits",
