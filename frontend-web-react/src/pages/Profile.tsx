@@ -8,6 +8,7 @@ import TextField from "../components/TextField";
 import Button from "../components/Button";
 import Popup from "../components/Popup";
 import { popupComponentInterface } from "../interfaces/components/components.interfaces";
+import { showPopupText } from "../services/helpers/popup_helper";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -35,6 +36,14 @@ const Profile = () => {
   const updateUserData = () => {
     console.log(image);
     console.log(usernameText);
+    if (typeof image !== "object" && data!.username == usernameText) {
+      console.log(1);
+      showPopupText(
+        setPopupProps,
+        "Please update image and/or username to continue."
+      );
+      return;
+    }
   };
 
   const updateUserPassword = () => {
