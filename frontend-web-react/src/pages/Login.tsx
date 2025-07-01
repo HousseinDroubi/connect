@@ -12,6 +12,7 @@ import {
   validateLogin,
 } from "../services/helpers/validations/login.validation";
 import { loginRequestValidationError } from "../interfaces/validations_responses/login_validtion_responses";
+import useLogin from "../services/hooks/mutations/login_mutation";
 
 const Login = () => {
   const [emailText, setEmailText] = useState<string>("");
@@ -19,8 +20,9 @@ const Login = () => {
   const [popupProps, setPopupProps] = useState<popupComponentInterface | null>(
     null
   );
+  const { data, mutate, isPending, isSuccess } = useLogin(setPopupProps);
 
-  const login = () => {
+  const login = async () => {
     console.log(`email is ${emailText}`);
     console.log(`password is ${passwordText}`);
 
@@ -33,6 +35,7 @@ const Login = () => {
       showValidationForLoginRequest(setPopupProps, error);
       return;
     }
+    mutate(body);
   };
 
   return (
@@ -63,7 +66,7 @@ const Login = () => {
           <UnderlinedText text="Forgot password?" href="/forgot_password" />
         </div>
         <div className="mt-5">
-          <Button button_text="Login" fn={login} />
+          <Button button_text="Login" fn={login} is_disabled={isPending} />
         </div>
         <div className="mt-7 flex w-full justify-center">
           <UnderlinedText
