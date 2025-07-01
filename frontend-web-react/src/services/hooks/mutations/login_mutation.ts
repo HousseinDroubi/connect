@@ -5,12 +5,13 @@ import { loginResponseInterface } from "../../../interfaces/responses/login_resp
 import axios from "axios";
 import { showPopupText } from "../../helpers/popup_helper";
 import { SetPopupType } from "../../../interfaces/general_types";
+import { queryClient } from "../../..";
 
 const useLogin = (setPopupProps: SetPopupType) =>
   useMutation<loginResponseInterface, Error, loginBodyInterface>({
     mutationFn: loginApi,
     onSuccess(data) {
-      console.log(data);
+      queryClient.setQueryData(["login"], data);
     },
     onError(error) {
       if (axios.isAxiosError(error)) {
