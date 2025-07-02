@@ -1,4 +1,4 @@
-import { titleComponentInterface } from "../interfaces/components/components.interfaces";
+import { titleComponentInterface } from "../interfaces/components/title_interface";
 
 const Title: React.FC<titleComponentInterface> = ({ title, size }) => {
   return (

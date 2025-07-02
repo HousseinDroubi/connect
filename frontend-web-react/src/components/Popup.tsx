@@ -1,5 +1,5 @@
 import { Comment } from "react-loader-spinner";
-import { popupComponentInterface } from "../interfaces/components/components.interfaces";
+import { popupComponentInterface } from "../interfaces/components/popup_interface";
 import Button from "./Button";
 
 const Popup: React.FC<popupComponentInterface> = (props) => {

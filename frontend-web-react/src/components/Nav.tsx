@@ -3,8 +3,8 @@ import Title from "./Title";
 import SearchIcon from "../assets/search.png";
 import MessageIcon from "../assets/message.png";
 import ProfileIcon from "../assets/profile_default.png";
-import { NavComponentInterface } from "../interfaces/components/components.interfaces";
 import { useNavigate } from "react-router-dom";
+import { NavComponentInterface } from "../interfaces/components/nav_interface";
 
 const Nav: React.FC<NavComponentInterface> = ({ profile_url }) => {
   const navigate = useNavigate();

@@ -7,7 +7,7 @@ import ProfileComponent from "../components/Profile";
 import TextField from "../components/TextField";
 import Button from "../components/Button";
 import Popup from "../components/Popup";
-import { popupComponentInterface } from "../interfaces/components/components.interfaces";
+import { popupComponentInterface } from "../interfaces/components/popup_interface";
 import {
   confirmPopupAction,
   showLoading,

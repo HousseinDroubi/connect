@@ -1,38 +1,3 @@
-interface buttonComponentInterface {
-  button_text: string;
-  fn: () => void;
-  is_small?: boolean;
-  is_disabled?: boolean;
-  is_colored_red?: boolean;
-}
-
-interface titleComponentInterface {
-  title: string;
-  size: "big" | "medium" | "small";
-}
-
-interface logoComponentInterface {
-  is_small?: boolean;
-}
-
-interface textFieldComponentInterface {
-  title: string;
-  hint: string;
-  is_password?: boolean;
-  value: string;
-  setText: React.Dispatch<React.SetStateAction<string>>;
-}
-
-interface underlinedTextComponentInterface {
-  text: string;
-  href: string;
-}
-
-interface profileComponentInterface {
-  image: File | string | null;
-  setImage: React.Dispatch<React.SetStateAction<File | string | null>>;
-}
-
 interface popupBasicComponentInterface {
   seen: boolean;
   setSeen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -87,17 +52,4 @@ type popupComponentInterface =
   | popupDeleteMessageForUserComponentInterface
   | popupEditMessageForUserComponentInterface;
 
-interface NavComponentInterface {
-  profile_url: string | undefined;
-}
-
-export type {
-  buttonComponentInterface,
-  titleComponentInterface,
-  logoComponentInterface,
-  textFieldComponentInterface,
-  underlinedTextComponentInterface,
-  profileComponentInterface,
-  popupComponentInterface,
-  NavComponentInterface,
-};
+export type { popupComponentInterface };

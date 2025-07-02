@@ -4,7 +4,7 @@ import Logo from "../components/Logo";
 import TextField from "../components/TextField";
 import Title from "../components/Title";
 import UnderlinedText from "../components/UnderlinedText";
-import { popupComponentInterface } from "../interfaces/components/components.interfaces";
+import { popupComponentInterface } from "../interfaces/components/popup_interface";
 import Popup from "../components/Popup";
 import { loginBodyInterface } from "../interfaces/requests/login_request";
 import {

@@ -1,6 +1,6 @@
 import React from "react";
-import { logoComponentInterface } from "../interfaces/components/components.interfaces";
 import LogoImage from "../assets/logo.png";
+import { logoComponentInterface } from "../interfaces/components/logo_interface";
 
 const Logo: React.FC<logoComponentInterface> = ({ is_small }) => {
   return (

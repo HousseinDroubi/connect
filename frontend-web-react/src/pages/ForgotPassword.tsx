@@ -3,7 +3,7 @@ import Button from "../components/Button";
 import TextField from "../components/TextField";
 import Title from "../components/Title";
 import Popup from "../components/Popup";
-import { popupComponentInterface } from "../interfaces/components/components.interfaces";
+import { popupComponentInterface } from "../interfaces/components/popup_interface";
 import { forgotPasswordBodyInterface } from "../interfaces/requests/forgot_password_request";
 import {
   showValidationForForgotPasswordRequest,

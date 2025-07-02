@@ -11,7 +11,7 @@ import {
   validateActivateAccount,
 } from "../services/helpers/validations/verify_account.validation";
 import { showPopupText } from "../services/helpers/popup_helper";
-import { popupComponentInterface } from "../interfaces/components/components.interfaces";
+import { popupComponentInterface } from "../interfaces/components/popup_interface";
 import Popup from "../components/Popup";
 import { activateAccountRequestValidationError } from "../interfaces/validations_responses/activate_account_validtion_responses";
 import axios from "axios";

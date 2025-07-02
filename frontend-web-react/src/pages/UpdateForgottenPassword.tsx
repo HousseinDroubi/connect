@@ -3,7 +3,7 @@ import Button from "../components/Button";
 import TextField from "../components/TextField";
 import Title from "../components/Title";
 import { useNavigate, useParams } from "react-router-dom";
-import { popupComponentInterface } from "../interfaces/components/components.interfaces";
+import { popupComponentInterface } from "../interfaces/components/popup_interface";
 import Popup from "../components/Popup";
 import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import {

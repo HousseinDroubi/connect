@@ -10,7 +10,7 @@ import {
 import { createAccountBodyInterface } from "../interfaces/requests/create_account_request";
 import { createAccountRequestValidationError } from "../interfaces/validations_responses/create_account_validtion_responses";
 import Popup from "../components/Popup";
-import { popupComponentInterface } from "../interfaces/components/components.interfaces";
+import { popupComponentInterface } from "../interfaces/components/popup_interface";
 import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import { objectToFormData } from "../utils/functions";
 import { createAccountApi } from "../services/apis/create_account";

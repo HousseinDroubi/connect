@@ -1,5 +1,5 @@
 import React from "react";
-import { underlinedTextComponentInterface } from "../interfaces/components/components.interfaces";
+import { underlinedTextComponentInterface } from "../interfaces/components/underlined_text_interface";
 
 const UnderlinedText: React.FC<underlinedTextComponentInterface> = ({
   text,

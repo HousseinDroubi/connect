@@ -1,4 +1,4 @@
-import { buttonComponentInterface } from "../interfaces/components/components.interfaces";
+import { buttonComponentInterface } from "../interfaces/components/button_interface";
 
 const Button: React.FC<buttonComponentInterface> = ({
   fn,
