@@ -9,7 +9,7 @@ import { verifyAccountApi } from "../services/apis/verify_account";
 import {
   showValidationForActivateAccountRequest,
   validateActivateAccount,
-} from "../services/helpers/validations/verify_account.validation";
+} from "../services/validations/verify_account_validation";
 import { showPopupText } from "../services/helpers/popup_helper";
 import { popupComponentInterface } from "../interfaces/components/popup_interface";
 import Popup from "../components/Popup";

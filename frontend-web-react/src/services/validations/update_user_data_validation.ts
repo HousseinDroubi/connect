@@ -1,8 +1,8 @@
 import Joi from "joi";
-import { showPopupText } from "../popup_helper";
-import { SetPopupType } from "../../../interfaces/general_types";
-import { updateProfileDataBodyInterface } from "../../../interfaces/requests/update_profile_data_request";
-import { updateProfileDataRequestValidationError } from "../../../interfaces/validations_responses/update_profile_data_validtion_responses";
+import { showPopupText } from "../helpers/popup_helper";
+import { SetPopupType } from "../../interfaces/general_types";
+import { updateProfileDataBodyInterface } from "../../interfaces/requests/update_profile_data_request";
+import { updateProfileDataRequestValidationError } from "../../interfaces/validations_responses/update_profile_data_validtion_responses";
 
 const showValidationForUpdateProfileDataRequest = (
   setPopupProps: SetPopupType,

@@ -1,8 +1,8 @@
 import Joi from "joi";
-import { showPopupText } from "../popup_helper";
-import { SetPopupType } from "../../../interfaces/general_types";
-import { loginBodyInterface } from "../../../interfaces/requests/login_request";
-import { loginRequestValidationError } from "../../../interfaces/validations_responses/login_validtion_responses";
+import { showPopupText } from "../helpers/popup_helper";
+import { SetPopupType } from "../../interfaces/general_types";
+import { loginBodyInterface } from "../../interfaces/requests/login_request";
+import { loginRequestValidationError } from "../../interfaces/validations_responses/login_validtion_responses";
 
 const showValidationForLoginRequest = (
   setPopupProps: SetPopupType,

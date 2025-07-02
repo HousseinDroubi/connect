@@ -6,7 +6,7 @@ import Profile from "../components/Profile";
 import {
   showValidationForCreateAccountRequest,
   validateCreateAccount,
-} from "../services/helpers/validations/create_account.validation";
+} from "../services/validations/create_account_validation";
 import { createAccountBodyInterface } from "../interfaces/requests/create_account_request";
 import { createAccountRequestValidationError } from "../interfaces/validations_responses/create_account_validtion_responses";
 import Popup from "../components/Popup";

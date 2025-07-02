@@ -5,15 +5,15 @@ import Title from "../components/Title";
 import Popup from "../components/Popup";
 import { popupComponentInterface } from "../interfaces/components/popup_interface";
 import { forgotPasswordBodyInterface } from "../interfaces/requests/forgot_password_request";
-import {
-  showValidationForForgotPasswordRequest,
-  validateForgotPassword,
-} from "../services/helpers/validations/forgot_password.validation";
 import { forgotPasswordRequestValidationError } from "../interfaces/validations_responses/forgot_password_validtion_responses";
 import { forgotPasswordApi } from "../services/apis/forgot_password";
 import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {
+  showValidationForForgotPasswordRequest,
+  validateForgotPassword,
+} from "../services/validations/forgot_password_validation";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();

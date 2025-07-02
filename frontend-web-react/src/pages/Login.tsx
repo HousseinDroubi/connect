@@ -10,7 +10,7 @@ import { loginBodyInterface } from "../interfaces/requests/login_request";
 import {
   showValidationForLoginRequest,
   validateLogin,
-} from "../services/helpers/validations/login.validation";
+} from "../services/validations/login_validation";
 import { loginRequestValidationError } from "../interfaces/validations_responses/login_validtion_responses";
 import useLogin from "../services/hooks/mutations/login_mutation";
 import { showLoading } from "../services/helpers/popup_helper";

@@ -17,7 +17,7 @@ import { updateProfileDataBodyInterface } from "../interfaces/requests/update_pr
 import {
   showValidationForUpdateProfileDataRequest,
   validateUpdateProfileData,
-} from "../services/helpers/validations/update_user_data.validation";
+} from "../services/validations/update_user_data_validation";
 import { updateProfileDataRequestValidationError } from "../interfaces/validations_responses/update_profile_data_validtion_responses";
 import { objectToFormData } from "../utils/functions";
 import useUpdateProfileData from "../services/hooks/mutations/update_profile_data_mutation";
@@ -25,7 +25,7 @@ import { updatePasswordBodyInterface } from "../interfaces/requests/update_passw
 import {
   showValidationForUpdatePasswordRequest,
   validateUpdatePassword,
-} from "../services/helpers/validations/update_password.validation";
+} from "../services/validations/update_password_validation";
 import { updatePasswordRequestValidationError } from "../interfaces/validations_responses/update_password_validtion_responses";
 import useUpdatePassword from "../services/hooks/mutations/update_password_mutation";
 import useDeleteAccount from "../services/hooks/mutations/delete_account_mutation";

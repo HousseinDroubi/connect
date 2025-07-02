@@ -1,10 +1,10 @@
 import Joi from "joi";
-import { createAccountBodyInterface } from "../../../interfaces/requests/create_account_request";
-import { showPopupText } from "../popup_helper";
-import { SetPopupType } from "../../../interfaces/general_types";
-import { createAccountRequestValidationError } from "../../../interfaces/validations_responses/create_account_validtion_responses";
-import { updateForgottenPasswordRequestValidationError } from "../../../interfaces/validations_responses/update_forgotten_password_validtion_responses";
-import { updateForgottenPasswordBodyInterface } from "../../../interfaces/requests/update_forgotten_password_request";
+import { createAccountBodyInterface } from "../../interfaces/requests/create_account_request";
+import { showPopupText } from "../helpers/popup_helper";
+import { SetPopupType } from "../../interfaces/general_types";
+import { createAccountRequestValidationError } from "../../interfaces/validations_responses/create_account_validtion_responses";
+import { updateForgottenPasswordRequestValidationError } from "../../interfaces/validations_responses/update_forgotten_password_validtion_responses";
+import { updateForgottenPasswordBodyInterface } from "../../interfaces/requests/update_forgotten_password_request";
 
 const showValidationForUpdateForgottenPasswordRequest = (
   setPopupProps: SetPopupType,

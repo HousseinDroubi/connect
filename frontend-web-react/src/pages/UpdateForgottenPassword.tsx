@@ -9,7 +9,7 @@ import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import {
   showValidationForUpdateForgottenPasswordRequest,
   validateUpdateForgottenPassword,
-} from "../services/helpers/validations/update_forgotten_password.validation";
+} from "../services/validations/update_forgotten_password_validation";
 import { updateForgottenPasswordRequestValidationError } from "../interfaces/validations_responses/update_forgotten_password_validtion_responses";
 import { updateForgottenPasswordApi } from "../services/apis/update_forgotten_password";
 import axios from "axios";

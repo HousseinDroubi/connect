@@ -1,8 +1,8 @@
 import Joi from "joi";
-import { verifyAccountParamInterface } from "../../../interfaces/requests/verify_token_request";
-import { showPopupText } from "../popup_helper";
-import { SetPopupType } from "../../../interfaces/general_types";
-import { activateAccountRequestValidationError } from "../../../interfaces/validations_responses/activate_account_validtion_responses";
+import { verifyAccountParamInterface } from "../../interfaces/requests/verify_token_request";
+import { showPopupText } from "../helpers/popup_helper";
+import { SetPopupType } from "../../interfaces/general_types";
+import { activateAccountRequestValidationError } from "../../interfaces/validations_responses/activate_account_validtion_responses";
 
 const showValidationForActivateAccountRequest = (
   setPopupProps: SetPopupType,
