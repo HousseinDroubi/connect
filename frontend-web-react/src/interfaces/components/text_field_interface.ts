@@ -5,5 +5,6 @@ interface textFieldComponentInterface {
   value: string;
   setText: React.Dispatch<React.SetStateAction<string>>;
   is_full?: boolean;
+  doNextFunction: (() => any) | null;
 }
 export type { textFieldComponentInterface };

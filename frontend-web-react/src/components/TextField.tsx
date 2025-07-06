@@ -10,6 +10,7 @@ const TextField: React.FC<textFieldComponentInterface> = ({
   value,
   setText,
   is_full,
+  doNextFunction,
 }) => {
   const [isClosed, setIsClosed] = useState<boolean>(true);
   const toggleEyeIcon = () => {
@@ -30,6 +31,9 @@ const TextField: React.FC<textFieldComponentInterface> = ({
           placeholder={hint}
           onChange={(event) => {
             setText(event.target.value);
+          }}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" && doNextFunction) doNextFunction();
           }}
         />
         {is_password !== undefined && (

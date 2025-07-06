@@ -103,6 +103,7 @@ const UpdateForgottenPassword = () => {
           setText={setPasswordText}
           is_password
           value={passwordText}
+          doNextFunction={changePassword}
         />
         <div className="mt-5">
           <TextField
@@ -111,6 +112,7 @@ const UpdateForgottenPassword = () => {
             setText={setConfrimationPasswordText}
             is_password
             value={confrimationPasswordText}
+            doNextFunction={changePassword}
           />
         </div>
         <div className="mt-5">

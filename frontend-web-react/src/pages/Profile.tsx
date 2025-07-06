@@ -160,6 +160,9 @@ const Profile = () => {
                 hint="Enter your username"
                 value={usernameText}
                 setText={setUsernameText}
+                doNextFunction={
+                  updateProfileDataIsPending ? null : updateUserData
+                }
               />
             </div>
             <div className="mt-8">
@@ -180,6 +183,9 @@ const Profile = () => {
                   hint="Enter your current password"
                   value={currentPasswordText}
                   setText={setCurrentPasswordText}
+                  doNextFunction={
+                    updatePasswordIsPending ? null : updateUserPassword
+                  }
                 />
               </div>
               <div className="mt-5">
@@ -189,6 +195,9 @@ const Profile = () => {
                   hint="Enter a new password"
                   value={newPasswordText}
                   setText={setNewPasswordText}
+                  doNextFunction={
+                    updatePasswordIsPending ? null : updateUserPassword
+                  }
                 />
               </div>
               <div className="mt-5">
@@ -198,6 +207,9 @@ const Profile = () => {
                   hint="Re-enter new password"
                   value={confirmationPasswordText}
                   setText={setConfirmationPasswordText}
+                  doNextFunction={
+                    updatePasswordIsPending ? null : updateUserPassword
+                  }
                 />
               </div>
               <div className="mt-8">

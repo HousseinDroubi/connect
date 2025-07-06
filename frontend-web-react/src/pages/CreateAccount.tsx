@@ -103,6 +103,7 @@ const CreateNewAccount = () => {
           hint="Enter your email"
           setText={setEmailText}
           value={emailText}
+          doNextFunction={createNewAccount}
         />
         <div className="mt-5">
           <TextField
@@ -110,6 +111,7 @@ const CreateNewAccount = () => {
             hint="Enter your username"
             setText={setUsernameText}
             value={usernameText}
+            doNextFunction={createNewAccount}
           />
         </div>
         <div className="mt-5">
@@ -118,6 +120,7 @@ const CreateNewAccount = () => {
             hint="Enter your pin"
             setText={setPinText}
             value={pinText}
+            doNextFunction={createNewAccount}
           />
         </div>
         <div className="mt-5">
@@ -127,6 +130,7 @@ const CreateNewAccount = () => {
             setText={setPasswordText}
             is_password
             value={passwordText}
+            doNextFunction={createNewAccount}
           />
         </div>
         <div className="mt-5">
@@ -136,6 +140,7 @@ const CreateNewAccount = () => {
             setText={setConfirmationPasswordText}
             is_password
             value={confirmationPasswordText}
+            doNextFunction={createNewAccount}
           />
         </div>
         <div className="mt-5">

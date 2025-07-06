@@ -67,6 +67,7 @@ const Login = () => {
           hint="Enter your email or pin"
           setText={setEmailOrPinText}
           value={emailOrPinText}
+          doNextFunction={isPending ? null : login}
         />
         <div className="mt-5">
           <TextField
@@ -75,6 +76,7 @@ const Login = () => {
             setText={setPasswordText}
             is_password
             value={passwordText}
+            doNextFunction={isPending ? null : login}
           />
         </div>
         <div className="mt-7 flex justify-end w-full">
