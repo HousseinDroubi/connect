@@ -4,7 +4,7 @@ import Title from "./Title";
 
 const ConnectUser: React.FC<connectUserComponentInterface> = (props) => {
   return (
-    <div className="flex h-32 items-center w-full bg-violet-100">
+    <div className="flex h-32 items-center w-full">
       <section className={`size-24 ml-4 ${!props.is_group && "rounded-full"}`}>
         <img
           src={props.is_group ? GroupIcon : props.profile_url}
