@@ -51,7 +51,7 @@ const deleteConversationValidationMiddleware = (
 
   if (body.user!.pin == Number(pin))
     return response.status(400).json({
-      result: "same user",
+      result: "same_user",
     });
 
   next();
