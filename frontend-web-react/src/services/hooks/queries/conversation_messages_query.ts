@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { loginResponseInterface } from "../../../interfaces/responses/login_response";
+import { getConversationMessagesResponseInterface } from "../../../interfaces/responses/get_conversation_message_response";
 
 const useGetConversationMessagesQuery = (conversation_id: string | undefined) =>
-  useQuery<loginResponseInterface | null>({
+  useQuery<getConversationMessagesResponseInterface | null>({
     queryKey: ["conversations", conversation_id],
     queryFn: () => null,
     staleTime: Infinity,
