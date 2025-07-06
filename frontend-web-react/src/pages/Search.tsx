@@ -63,6 +63,10 @@ const Search = () => {
     }
   };
 
+  const getConversationMessagesApi = (pin: string) => {
+    console.log(`Searching for ${pin}`);
+  };
+
   return (
     <div className="h-screen w-full flex flex-col">
       <Nav profile_url={data?.profile_url} />
@@ -87,6 +91,9 @@ const Search = () => {
                 username={user.username}
                 for="search"
                 is_group={false}
+                getConversationMessagesFunction={() =>
+                  getConversationMessagesApi(user.pin)
+                }
               />
             ))}
           </div>
