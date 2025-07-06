@@ -91,6 +91,17 @@ const login = async (request: Request, response: Response) => {
     delete conversations[index].between;
   }
 
+  conversations.sort((a: any, b: any) => {
+    if (!a.last_message && !b.last_message) return 0;
+    if (!a.last_message) return 1;
+    if (!b.last_message) return -1;
+
+    return (
+      new Date(b.last_message.created_at).getTime() -
+      new Date(a.last_message.created_at).getTime()
+    );
+  });
+
   const response_json: loginResponseInterface = {
     result: "logged_in",
     _id: user._id,
