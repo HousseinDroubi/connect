@@ -6,6 +6,9 @@ import Title from "../components/Title";
 import TextField from "../components/TextField";
 import { searchForUsersApi } from "../services/apis/search_for_users";
 import { searchForUsersResponseInterface } from "../interfaces/responses/search_for_users";
+import { showLoading } from "../services/helpers/popup_helper";
+import { popupComponentInterface } from "../interfaces/components/popup_interface";
+import Popup from "../components/Popup";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -13,6 +16,9 @@ const Search = () => {
   const [searchText, setSearchText] = useState<string>("");
   const [usersSearch, setUsersSearch] =
     useState<searchForUsersResponseInterface>({ users: [] });
+  const [popupProps, setPopupProps] = useState<popupComponentInterface | null>(
+    null
+  );
 
   useEffect(() => {
     if (data === null) navigate("/");
@@ -20,9 +26,13 @@ const Search = () => {
 
   const searchForUsers = async () => {
     try {
+      showLoading(setPopupProps, true);
       const { data } = await searchForUsersApi(searchText);
       setUsersSearch(data);
-    } catch (error) {}
+      showLoading(setPopupProps, false);
+    } catch (error) {
+      showLoading(setPopupProps, false);
+    }
   };
 
   return (
@@ -44,6 +54,7 @@ const Search = () => {
           </div>
         </section>
       </div>
+      {popupProps && <Popup {...popupProps} />}
     </div>
   );
 };
