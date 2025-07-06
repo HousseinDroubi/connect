@@ -11,7 +11,7 @@ import { popupComponentInterface } from "../interfaces/components/popup_interfac
 import Popup from "../components/Popup";
 import axios from "axios";
 import ConnectUser from "../components/ConnectUser";
-import useConversationMessages from "../services/hooks/mutations/converstaion_messages_mutations";
+import useConversationMessages from "../services/hooks/mutations/conversation_messages_mutations";
 
 const Search = () => {
   const navigate = useNavigate();

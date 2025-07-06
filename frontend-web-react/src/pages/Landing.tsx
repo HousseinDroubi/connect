@@ -4,7 +4,7 @@ import useUserData from "../services/hooks/queries/user_data_query";
 import { useNavigate } from "react-router-dom";
 import ConnectUser from "../components/ConnectUser";
 import Title from "../components/Title";
-import useConversationMessages from "../services/hooks/mutations/converstaion_messages_mutations";
+import useConversationMessages from "../services/hooks/mutations/conversation_messages_mutations";
 import { popupComponentInterface } from "../interfaces/components/popup_interface";
 import Popup from "../components/Popup";
 import { showLoading } from "../services/helpers/popup_helper";
