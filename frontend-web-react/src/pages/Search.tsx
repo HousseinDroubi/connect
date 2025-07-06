@@ -9,6 +9,7 @@ import { searchForUsersResponseInterface } from "../interfaces/responses/search_
 import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import { popupComponentInterface } from "../interfaces/components/popup_interface";
 import Popup from "../components/Popup";
+import axios from "axios";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -41,7 +42,23 @@ const Search = () => {
       setUsersSearch(responseData);
       showLoading(setPopupProps, false);
     } catch (error) {
-      showLoading(setPopupProps, false);
+      if (axios.isAxiosError(error)) {
+        if (error.code === "ERR_NETWORK") {
+          showPopupText(setPopupProps, "Server isn't available");
+          return;
+        }
+        if (error.status === 401) {
+          showPopupText(
+            setPopupProps,
+            "Session ended. Please login again.",
+            () => {
+              navigate("/");
+            }
+          );
+          return;
+        }
+      }
+      showPopupText(setPopupProps, "Something went wrong");
     }
   };
 
