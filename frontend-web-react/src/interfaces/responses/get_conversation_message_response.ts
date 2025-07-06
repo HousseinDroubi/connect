@@ -1,4 +1,5 @@
 interface getConversationMessagesResponseInterface {
+  conversation_id: string;
   messages: Array<{
     _id: string;
     sender: string;
