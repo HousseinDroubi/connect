@@ -6,7 +6,10 @@ dotenv.config();
 
 const searchForUsers = async (request: Request, response: Response) => {
   const { content } = request.params;
-  const users = await User.find({
+  const { user_id } = request.body;
+  if (!user_id) throw new Error("user id wasn't found");
+
+  let users = await User.find({
     $or: [
       { username: { $regex: content, $options: "i" } },
       { email: { $regex: content, $options: "i" } },
@@ -25,6 +28,8 @@ const searchForUsers = async (request: Request, response: Response) => {
   users.forEach((user) => {
     user.profile_url = `http://${process.env.DOMAIN}:${process.env.PORT}/${user.profile_url}`;
   });
+
+  users = users.filter((user) => String(user._id) !== String(user_id));
 
   return response.status(200).json({
     users,
