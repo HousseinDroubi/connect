@@ -4,18 +4,25 @@ import useUserData from "../services/hooks/queries/user_data_query";
 import { useNavigate } from "react-router-dom";
 import Title from "../components/Title";
 import TextField from "../components/TextField";
+import { searchForUsersApi } from "../services/apis/search_for_users";
+import { searchForUsersResponseInterface } from "../interfaces/responses/search_for_users";
 
 const Search = () => {
   const navigate = useNavigate();
   const { data } = useUserData();
   const [searchText, setSearchText] = useState<string>("");
+  const [usersSearch, setUsersSearch] =
+    useState<searchForUsersResponseInterface>({ users: [] });
 
   useEffect(() => {
     if (data === null) navigate("/");
   }, [data]);
 
-  const searchForUsers = () => {
-    console.log("Searching...");
+  const searchForUsers = async () => {
+    try {
+      const { data } = await searchForUsersApi(searchText);
+      setUsersSearch(data);
+    } catch (error) {}
   };
 
   return (
