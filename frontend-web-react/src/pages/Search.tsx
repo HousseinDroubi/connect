@@ -38,7 +38,6 @@ const Search = () => {
     if (dataConversationMessages && !isError) {
       showLoading(setPopupProps, false);
       navigate(`/conversation/${dataConversationMessages.conversation_id}`);
-      console.log(dataConversationMessages);
     }
   }, [dataConversationMessages, isError]);
 
