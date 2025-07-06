@@ -27,7 +27,7 @@ const getConversationMessages = async (
       return response.status(405).json({ error: "other_user_not_verified" });
 
     if (other_user.deleted_at)
-      return response.status(410).json({
+      return response.status(405).json({
         result: "other_user_account_deleted",
       });
   }
