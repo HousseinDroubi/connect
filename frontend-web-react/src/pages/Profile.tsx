@@ -86,7 +86,7 @@ const Profile = () => {
 
     if (
       (updatePasswordIsSuccess && !updatePasswordIsError) ||
-      (updateProfileDataIsSuccess && updateProfileDataIsError)
+      (updateProfileDataIsSuccess && !updateProfileDataIsError)
     ) {
       showLoading(setPopupProps, false);
     }
