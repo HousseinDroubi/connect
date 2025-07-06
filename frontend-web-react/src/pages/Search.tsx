@@ -11,6 +11,7 @@ import { popupComponentInterface } from "../interfaces/components/popup_interfac
 import Popup from "../components/Popup";
 import axios from "axios";
 import ConnectUser from "../components/ConnectUser";
+import useConversationMessages from "../services/hooks/mutations/converstaion_messages_mutations";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -21,6 +22,25 @@ const Search = () => {
   const [popupProps, setPopupProps] = useState<popupComponentInterface | null>(
     null
   );
+
+  const {
+    data: dataConversationMessages,
+    mutate,
+    isPending,
+    isError,
+  } = useConversationMessages(setPopupProps, navigate);
+
+  useEffect(() => {
+    if (isPending) showLoading(setPopupProps, true);
+  }, [isPending]);
+
+  useEffect(() => {
+    if (dataConversationMessages && !isError) {
+      showLoading(setPopupProps, false);
+      navigate(`/conversation/${dataConversationMessages.conversation_id}`);
+      console.log(dataConversationMessages);
+    }
+  }, [dataConversationMessages, isError]);
 
   useEffect(() => {
     if (data === null) navigate("/");
@@ -64,7 +84,7 @@ const Search = () => {
   };
 
   const getConversationMessagesApi = (pin: string) => {
-    console.log(`Searching for ${pin}`);
+    mutate({ token: data!.token, pin });
   };
 
   return (
