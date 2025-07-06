@@ -6,6 +6,7 @@ const useGetConversationMessagesQuery = (conversation_id: string | undefined) =>
     queryKey: ["conversations", conversation_id],
     queryFn: () => null,
     staleTime: Infinity,
+    enabled: typeof conversation_id === "string",
   });
 
 export default useGetConversationMessagesQuery;

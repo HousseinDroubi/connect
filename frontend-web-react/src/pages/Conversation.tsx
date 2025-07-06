@@ -3,13 +3,14 @@ import Nav from "../components/Nav";
 import useUserData from "../services/hooks/queries/user_data_query";
 import { useNavigate, useParams } from "react-router-dom";
 import useGetConversationMessagesQuery from "../services/hooks/queries/conversation_messages_query";
+import ConnectUser from "../components/ConnectUser";
 
 const Conversation = () => {
   const navigate = useNavigate();
   const { data } = useUserData();
-  const { conversation_id } = useParams();
+  const { id } = useParams();
   const { data: getConversationMessagesData, isSuccess } =
-    useGetConversationMessagesQuery(conversation_id);
+    useGetConversationMessagesQuery(id);
 
   useEffect(() => {
     if (data === null) navigate("/");
@@ -17,6 +18,7 @@ const Conversation = () => {
 
   useEffect(() => {
     if (!getConversationMessagesData && !isSuccess) navigate("/landing");
+    console.log(getConversationMessagesData);
   }, [getConversationMessagesData, isSuccess]);
 
   return (
