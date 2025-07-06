@@ -73,6 +73,7 @@ const login = async (request: Request, response: Response) => {
       recipient.profile_url = `http://${process.env.DOMAIN}:${process.env.PORT}/${recipient.profile_url}`;
 
     const last_message: any = await Message.findOne({
+      conversation_id: conversations[index]._id,
       $or: [{ receiver: user._id }, { sender: user._id }],
       deleted_for: { $nin: [user._id] },
     })
