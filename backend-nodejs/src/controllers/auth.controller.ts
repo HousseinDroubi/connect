@@ -55,7 +55,7 @@ const login = async (request: Request, response: Response) => {
   })
     .populate({
       path: "between",
-      select: "_id profile_url username",
+      select: "_id profile_url username pin",
     })
     .select("-deleted_for -__v")
     .populate("last_message")
