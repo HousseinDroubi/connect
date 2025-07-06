@@ -4,7 +4,7 @@ import useUserData from "../services/hooks/queries/user_data_query";
 import { useNavigate } from "react-router-dom";
 import Title from "../components/Title";
 import TextField from "../components/TextField";
-import { searchForUsersApi } from "../services/apis/search_for_users";
+import { searchForUsersApi } from "../services/apis/user/search_for_users";
 import { searchForUsersResponseInterface } from "../interfaces/responses/search_for_users";
 import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import { popupComponentInterface } from "../interfaces/components/popup_interface";

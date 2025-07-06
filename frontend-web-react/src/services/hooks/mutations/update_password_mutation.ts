@@ -5,7 +5,7 @@ import { SetPopupType } from "../../../interfaces/general_types";
 import { NavigateFunction } from "react-router-dom";
 import { updatePasswordResponseInterface } from "../../../interfaces/responses/update_password_response";
 import { updatePasswordApiParamInterface } from "../../../interfaces/services/apis/update_password_api_param";
-import { updatePasswordApi } from "../../apis/update_password";
+import { updatePasswordApi } from "../../apis/auth/update_password";
 
 const useUpdatePassword = (
   setPopupProps: SetPopupType,

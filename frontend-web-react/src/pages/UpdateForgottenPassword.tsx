@@ -11,7 +11,7 @@ import {
   validateUpdateForgottenPassword,
 } from "../services/validations/update_forgotten_password_validation";
 import { updateForgottenPasswordRequestValidationError } from "../interfaces/validations_responses/update_forgotten_password_validtion_responses";
-import { updateForgottenPasswordApi } from "../services/apis/update_forgotten_password";
+import { updateForgottenPasswordApi } from "../services/apis/auth/update_forgotten_password";
 import axios from "axios";
 
 const UpdateForgottenPassword = () => {

@@ -13,7 +13,7 @@ import Popup from "../components/Popup";
 import { popupComponentInterface } from "../interfaces/components/popup_interface";
 import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import { objectToFormData } from "../utils/functions";
-import { createAccountApi } from "../services/apis/create_account";
+import { createAccountApi } from "../services/apis/auth/create_account";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 

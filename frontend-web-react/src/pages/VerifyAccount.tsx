@@ -5,7 +5,7 @@ import ErrorIcon from "../assets/error.png";
 import WaitingIcon from "../assets/waiting.png";
 import { useEffect, useState } from "react";
 import { verifyAccountPageStyleInterface } from "../interfaces/pages/verify_account";
-import { verifyAccountApi } from "../services/apis/verify_account";
+import { verifyAccountApi } from "../services/apis/auth/verify_account";
 import {
   showValidationForActivateAccountRequest,
   validateActivateAccount,

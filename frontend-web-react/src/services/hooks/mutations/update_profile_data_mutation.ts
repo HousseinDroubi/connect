@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { loginApi } from "../../apis/login";
+import { loginApi } from "../../apis/auth/login";
 import { loginBodyInterface } from "../../../interfaces/requests/login_request";
 import { loginResponseInterface } from "../../../interfaces/responses/login_response";
 import axios from "axios";
@@ -8,7 +8,7 @@ import { SetPopupType } from "../../../interfaces/general_types";
 import { queryClient } from "../../..";
 import { updateProfileDataResponseInterface } from "../../../interfaces/responses/update_profile_data_response";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { updateProfileDataApi } from "../../apis/update_profile_data";
+import { updateProfileDataApi } from "../../apis/auth/update_profile_data";
 import { updateProfileDataApiParamInterface } from "../../../interfaces/services/apis/update_profile_data_api_param";
 
 const useUpdateProfileData = (

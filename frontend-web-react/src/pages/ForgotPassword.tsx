@@ -6,7 +6,7 @@ import Popup from "../components/Popup";
 import { popupComponentInterface } from "../interfaces/components/popup_interface";
 import { forgotPasswordBodyInterface } from "../interfaces/requests/forgot_password_request";
 import { forgotPasswordRequestValidationError } from "../interfaces/validations_responses/forgot_password_validtion_responses";
-import { forgotPasswordApi } from "../services/apis/forgot_password";
+import { forgotPasswordApi } from "../services/apis/auth/forgot_password";
 import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";

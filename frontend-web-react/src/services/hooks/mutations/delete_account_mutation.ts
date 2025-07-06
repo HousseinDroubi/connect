@@ -3,7 +3,7 @@ import axios from "axios";
 import { showPopupText } from "../../helpers/popup_helper";
 import { SetPopupType } from "../../../interfaces/general_types";
 import { deleteAccountResponseInterface } from "../../../interfaces/responses/delete_account_response";
-import { deleteAccountApi } from "../../apis/delete_account";
+import { deleteAccountApi } from "../../apis/auth/delete_account";
 import { NavigateFunction } from "react-router-dom";
 import { queryClient } from "../../..";
 

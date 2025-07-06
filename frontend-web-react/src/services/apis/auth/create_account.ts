@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
-import { API_CREATE_ACCOUNT } from "../../constants/urls/auth_urls";
-import { createAccountResponseInterface } from "../../interfaces/responses/create_account_response";
-import { createAccountBodyInterface } from "../../interfaces/requests/create_account_request";
+import { API_CREATE_ACCOUNT } from "../../../constants/urls/auth_urls";
+import { createAccountResponseInterface } from "../../../interfaces/responses/create_account_response";
+import { createAccountBodyInterface } from "../../../interfaces/requests/create_account_request";
 
 const createAccountApi = async (
   formData: FormData

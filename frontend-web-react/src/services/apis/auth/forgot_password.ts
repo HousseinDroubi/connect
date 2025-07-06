@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
-import { API_FORGOT_PASSWORD } from "../../constants/urls/auth_urls";
-import { forgotPasswordResponseInterface } from "../../interfaces/responses/forgot_password_response";
-import { forgotPasswordBodyInterface } from "../../interfaces/requests/forgot_password_request";
+import { API_FORGOT_PASSWORD } from "../../../constants/urls/auth_urls";
+import { forgotPasswordResponseInterface } from "../../../interfaces/responses/forgot_password_response";
+import { forgotPasswordBodyInterface } from "../../../interfaces/requests/forgot_password_request";
 
 const forgotPasswordApi = async (
   data: forgotPasswordBodyInterface
