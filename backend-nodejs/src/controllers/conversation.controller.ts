@@ -70,6 +70,7 @@ const getConversationMessages = async (
 
   const data_respones: any = {
     result: "got_messages",
+    conversation_id: conversation!._id,
     messages,
   };
 
