@@ -1,7 +1,7 @@
 interface connectUserBasicInterface {
   username?: string;
   profile_url?: string;
-  is_group: boolean;
+  is_group?: boolean;
 }
 
 interface connectUserStatusInterface extends connectUserBasicInterface {
