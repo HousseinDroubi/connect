@@ -1,4 +1,4 @@
-import { connectUserComponentInterface } from "../interfaces/components/other_user_interface";
+import { connectUserComponentInterface } from "../interfaces/components/connect_user_interface";
 import GroupIcon from "../assets/group.png";
 import Title from "./Title";
 
