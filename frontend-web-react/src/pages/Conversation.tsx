@@ -8,12 +8,16 @@ const Conversation = () => {
   const navigate = useNavigate();
   const { data } = useUserData();
   const { conversation_id } = useParams();
-  const { data: getConversationMessagesData } =
+  const { data: getConversationMessagesData, isSuccess } =
     useGetConversationMessagesQuery(conversation_id);
 
   useEffect(() => {
     if (data === null) navigate("/");
   }, [data]);
+
+  useEffect(() => {
+    if (!getConversationMessagesData && !isSuccess) navigate("/landing");
+  }, [getConversationMessagesData, isSuccess]);
 
   return (
     <div className="h-screen w-full flex flex-col">
