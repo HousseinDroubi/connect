@@ -6,7 +6,7 @@ import Title from "../components/Title";
 import TextField from "../components/TextField";
 import { searchForUsersApi } from "../services/apis/search_for_users";
 import { searchForUsersResponseInterface } from "../interfaces/responses/search_for_users";
-import { showLoading } from "../services/helpers/popup_helper";
+import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import { popupComponentInterface } from "../interfaces/components/popup_interface";
 import Popup from "../components/Popup";
 
@@ -25,6 +25,13 @@ const Search = () => {
   }, [data]);
 
   const searchForUsers = async () => {
+    if (searchText === "") {
+      showPopupText(
+        setPopupProps,
+        "Add pin, email or username then enter to search"
+      );
+      return;
+    }
     try {
       showLoading(setPopupProps, true);
       const { data: responseData } = await searchForUsersApi({
