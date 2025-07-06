@@ -8,6 +8,12 @@ interface getConversationMessagesResponseInterface {
     conversation_id: string;
     created_at: Date;
   }>;
+  recipient?: {
+    profile_url: string;
+    _id: string;
+    pin: string;
+    is_online: boolean;
+  };
 }
 
 export { getConversationMessagesResponseInterface };
