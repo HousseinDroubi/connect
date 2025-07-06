@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { viewOtherUserProfile } from "../controllers/user.controller";
+import {
+  searchForUsers,
+  viewOtherUserProfile,
+} from "../controllers/user.controller";
 import {
   isUserAccountUnverifiedOrDeleted,
   isUserAuthenticated,
@@ -15,5 +18,7 @@ router.get(
   viewOtherUserProfileValidationMiddleware,
   viewOtherUserProfile
 );
+
+router.get("/search/:content", searchForUsers);
 
 export default router;

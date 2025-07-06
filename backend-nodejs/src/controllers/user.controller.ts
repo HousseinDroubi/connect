@@ -30,4 +30,6 @@ const viewOtherUserProfile = async (request: Request, response: Response) => {
   });
 };
 
-export { viewOtherUserProfile };
+const searchForUsers = async () => {};
+
+export { viewOtherUserProfile, searchForUsers };
