@@ -15,7 +15,7 @@ import {
 const router = Router();
 
 router.get(
-  "/get_conversation_messages/:pin",
+  "/get_messages/:pin",
   isUserAuthenticated,
   isUserAccountUnverifiedOrDeleted,
   getConversationMessagesValidationMiddleware,
