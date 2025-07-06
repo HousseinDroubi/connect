@@ -62,15 +62,15 @@ const login = async (request: Request, response: Response) => {
     .lean();
 
   for (let index = 0; index < conversations.length; index++) {
-    const receipt: any =
+    const recipient: any =
       conversations[index].between === null
         ? null
         : String(conversations[index].between[0]._id) == String(user._id)
         ? conversations[index].between[1]
         : conversations[index].between[0];
 
-    if (receipt)
-      receipt.profile_url = `http://${process.env.DOMAIN}:${process.env.PORT}/${receipt.profile_url}`;
+    if (recipient)
+      recipient.profile_url = `http://${process.env.DOMAIN}:${process.env.PORT}/${recipient.profile_url}`;
 
     const last_message: any = await Message.findOne({
       $or: [{ receiver: user._id }, { sender: user._id }],
@@ -85,7 +85,7 @@ const login = async (request: Request, response: Response) => {
       delete last_message.deleted_for_others_at;
     }
 
-    conversations[index].receipt = receipt;
+    conversations[index].recipient = recipient;
     conversations[index].last_message = last_message;
     delete conversations[index].between;
   }
