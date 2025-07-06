@@ -17,6 +17,7 @@ interface connectUserConversationInterface extends connectUserBasicInterface {
 interface connectUserSearchInterface extends connectUserBasicInterface {
   for: "search";
   pin: string;
+  getConversationMessagesFunction: () => void;
 }
 
 type connectUserComponentInterface =
