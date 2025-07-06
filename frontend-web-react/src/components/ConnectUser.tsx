@@ -4,7 +4,14 @@ import Title from "./Title";
 
 const ConnectUser: React.FC<connectUserComponentInterface> = (props) => {
   return (
-    <article className="flex flex-col cursor-pointer">
+    <article
+      className="flex flex-col cursor-pointer"
+      onClick={
+        props.for === "search"
+          ? props.getConversationMessagesFunction
+          : undefined
+      }
+    >
       <div className="flex h-32 items-center w-full">
         <section
           className={`size-24 ml-4 ${!props.is_group && "rounded-full"}`}
