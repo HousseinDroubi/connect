@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { viewOtherUserProfileValidation } from "../../validations/user.validation";
+import { validateViewOtherUserProfile } from "../../validations/user.validation";
 import { isObjectIdValid } from "../../functions/general";
 
 const viewOtherUserProfileValidationMiddleware = (
@@ -8,11 +8,11 @@ const viewOtherUserProfileValidationMiddleware = (
   next: NextFunction
 ) => {
   // Get request body
-  const {user_id} = request.params;
+  const { user_id } = request.params;
 
   // Validate request params
-  const error = viewOtherUserProfileValidation(user_id).error?.details[0].message;
-  
+  const error = validateViewOtherUserProfile(user_id).error?.details[0].message;
+
   if (error) {
     return response.status(400).json({
       result: "validation_error",
@@ -20,11 +20,12 @@ const viewOtherUserProfileValidationMiddleware = (
     });
   }
 
-  if(!isObjectIdValid(user_id)) return response.status(400).json({
-    result:"invalid_user_id"
-  });
+  if (!isObjectIdValid(user_id))
+    return response.status(400).json({
+      result: "invalid_user_id",
+    });
 
   next();
 };
 
-export {viewOtherUserProfileValidationMiddleware}
+export { viewOtherUserProfileValidationMiddleware };
