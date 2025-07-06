@@ -27,8 +27,11 @@ const Search = () => {
   const searchForUsers = async () => {
     try {
       showLoading(setPopupProps, true);
-      const { data } = await searchForUsersApi(searchText);
-      setUsersSearch(data);
+      const { data: responseData } = await searchForUsersApi({
+        content: searchText,
+        token: data!.token,
+      });
+      setUsersSearch(responseData);
       showLoading(setPopupProps, false);
     } catch (error) {
       showLoading(setPopupProps, false);
