@@ -81,6 +81,7 @@ const Search = () => {
             <hr />
             {usersSearch.users.map((user) => (
               <ConnectUser
+                key={user.pin}
                 profile_url={user.profile_url}
                 pin={user.pin}
                 username={user.username}
