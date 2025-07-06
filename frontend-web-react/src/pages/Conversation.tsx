@@ -2,11 +2,14 @@ import { useEffect } from "react";
 import Nav from "../components/Nav";
 import useUserData from "../services/hooks/queries/user_data_query";
 import { useNavigate, useParams } from "react-router-dom";
+import useGetConversationMessagesQuery from "../services/hooks/queries/conversation_messages_query";
 
 const Conversation = () => {
   const navigate = useNavigate();
   const { data } = useUserData();
   const { conversation_id } = useParams();
+  const { data: getConversationMessagesData } =
+    useGetConversationMessagesQuery(conversation_id);
 
   useEffect(() => {
     if (data === null) navigate("/");
