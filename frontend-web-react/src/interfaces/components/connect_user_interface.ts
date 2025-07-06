@@ -6,7 +6,7 @@ interface connectUserBasicInterface {
 
 interface connectUserStatusInterface extends connectUserBasicInterface {
   for: "status";
-  status: boolean;
+  status?: boolean;
 }
 
 interface connectUserConversationInterface extends connectUserBasicInterface {
