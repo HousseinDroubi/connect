@@ -19,6 +19,11 @@ router.get(
   viewOtherUserProfile
 );
 
-router.get("/search/:content", searchForUsers);
+router.get(
+  "/search/:content",
+  isUserAuthenticated,
+  isUserAccountUnverifiedOrDeleted,
+  searchForUsers
+);
 
 export default router;
