@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { loginApi } from "../../apis/login";
+import { loginApi } from "../../apis/auth/login";
 import { loginBodyInterface } from "../../../interfaces/requests/login_request";
 import { loginResponseInterface } from "../../../interfaces/responses/login_response";
 import axios from "axios";
