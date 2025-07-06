@@ -3,7 +3,7 @@ import { loginResponseInterface } from "../../../interfaces/responses/login_resp
 
 const useGetConversationMessagesQuery = (conversation_id: string | undefined) =>
   useQuery<loginResponseInterface | null>({
-    queryKey: ["converstaions", conversation_id],
+    queryKey: ["conversations", conversation_id],
     queryFn: () => null,
     staleTime: Infinity,
   });
