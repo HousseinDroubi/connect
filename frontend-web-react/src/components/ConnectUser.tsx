@@ -7,7 +7,7 @@ const ConnectUser: React.FC<connectUserComponentInterface> = (props) => {
     <article
       className="flex flex-col cursor-pointer"
       onClick={
-        props.for === "search"
+        props.for === "search" || props.for === "conversation"
           ? props.getConversationMessagesFunction
           : undefined
       }
