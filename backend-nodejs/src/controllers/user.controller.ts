@@ -30,6 +30,31 @@ const viewOtherUserProfile = async (request: Request, response: Response) => {
   });
 };
 
-const searchForUsers = async () => {};
+const searchForUsers = async (request: Request, response: Response) => {
+  const { content } = request.params;
+  const users = await User.find({
+    $or: [
+      { username: { $regex: content, $options: "i" } },
+      { email: { $regex: content, $options: "i" } },
+      {
+        $expr: {
+          $regexMatch: {
+            input: { $toString: "$pin" },
+            regex: content,
+            options: "i",
+          },
+        },
+      },
+    ],
+  }).select("_id username pin profile_url");
+
+  users.forEach((user) => {
+    user.profile_url = `http://${process.env.DOMAIN}:${process.env.PORT}/${user.profile_url}`;
+  });
+
+  return response.status(200).json({
+    users,
+  });
+};
 
 export { viewOtherUserProfile, searchForUsers };
