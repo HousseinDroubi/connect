@@ -14,6 +14,7 @@ interface getConversationMessagesResponseInterface {
     _id: string;
     pin: string;
     is_online: boolean;
+    username: string;
   };
 }
 
