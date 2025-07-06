@@ -3,6 +3,7 @@ import { userDocumentInterface } from "../interfaces/documents/user.document.int
 import { Message } from "../models/message.model";
 import { Conversation } from "../models/conversation.model";
 import User from "../models/user.model";
+import { messageDocumentInterface } from "../interfaces/documents/message.document.interface";
 
 const getConversationMessages = async (
   request: Request,
@@ -67,10 +68,23 @@ const getConversationMessages = async (
     deleted_for: { $nin: [body.user!._id] },
   });
 
-  return response.status(200).json({
+  const data_respones: any = {
     result: "got_messages",
     messages,
-  });
+  };
+
+  if (pin !== "broadcast") {
+    data_respones.recipient = {
+      _id: other_user!._id,
+      profile_url: `http://${process.env.DOMAIN}:${process.env.PORT}/${
+        other_user!.profile_url
+      }`,
+      username: other_user!.username,
+      is_online: other_user!.is_online,
+    };
+  }
+
+  return response.status(200).json(data_respones);
 };
 
 const deleteConversation = async (request: Request, response: Response) => {
