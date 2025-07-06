@@ -10,6 +10,7 @@ import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import { popupComponentInterface } from "../interfaces/components/popup_interface";
 import Popup from "../components/Popup";
 import axios from "axios";
+import ConnectUser from "../components/ConnectUser";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -78,6 +79,15 @@ const Search = () => {
           <div className="mt-10 flex flex-col">
             <Title title="Results" size="big" />
             <hr />
+            {usersSearch.users.map((user) => (
+              <ConnectUser
+                profile_url={user.profile_url}
+                pin={user.pin}
+                username={user.username}
+                for="search"
+                is_group={false}
+              />
+            ))}
           </div>
         </section>
       </div>
