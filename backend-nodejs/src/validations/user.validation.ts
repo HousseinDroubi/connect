@@ -5,4 +5,9 @@ const validateViewOtherUserProfile = (data: string) => {
   return schema.validate(data);
 };
 
-export { validateViewOtherUserProfile };
+const validateSearchForUsers = (data: string) => {
+  const schema = joi.string().required();
+  return schema.validate(data);
+};
+
+export { validateViewOtherUserProfile, validateSearchForUsers };
