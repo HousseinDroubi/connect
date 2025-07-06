@@ -1,24 +1,27 @@
-interface otherUserBasicInterface {
-  username: string;
-  profile_url: string;
+interface connectUserBasicInterface {
+  username?: string;
+  profile_url?: string;
   is_group: boolean;
 }
 
-interface otherUserStatusInterface extends otherUserBasicInterface {
-  status: boolean | null;
+interface connectUserStatusInterface extends connectUserBasicInterface {
+  for: "status";
+  status: boolean;
 }
 
-interface otherUserConversationInterface extends otherUserBasicInterface {
+interface connectUserConversationInterface extends connectUserBasicInterface {
+  for: "conversation";
   last_message_text: string | null;
 }
 
-interface otherUserSearchInterface extends otherUserBasicInterface {
+interface connectUserSearchInterface extends connectUserBasicInterface {
+  for: "search";
   pin: string;
 }
 
-type otherUserComponentInterface =
-  | otherUserStatusInterface
-  | otherUserConversationInterface
-  | otherUserSearchInterface;
+type connectUserComponentInterface =
+  | connectUserStatusInterface
+  | connectUserConversationInterface
+  | connectUserSearchInterface;
 
-export type { otherUserComponentInterface };
+export type { connectUserComponentInterface };

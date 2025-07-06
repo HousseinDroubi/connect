@@ -1,6 +1,6 @@
-import { otherUserComponentInterface } from "../interfaces/components/other_user_interface";
+import { connectUserComponentInterface } from "../interfaces/components/other_user_interface";
 
-const OtherUser: React.FC<otherUserComponentInterface> = (props) => {
+const OtherUser: React.FC<connectUserComponentInterface> = (props) => {
   return <></>;
 };
 
