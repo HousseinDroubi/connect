@@ -12,7 +12,6 @@ interface connectUserStatusInterface extends connectUserBasicInterface {
 interface connectUserConversationInterface extends connectUserBasicInterface {
   for: "conversation";
   last_message_text: string | null;
-  last_message_receipt?: string;
 }
 
 interface connectUserSearchInterface extends connectUserBasicInterface {
