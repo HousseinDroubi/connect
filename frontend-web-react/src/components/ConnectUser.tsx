@@ -6,7 +6,7 @@ const ConnectUser: React.FC<connectUserComponentInterface> = (props) => {
   return (
     <article
       className={`flex flex-col cursor-pointer ${
-        props.for === "status" && "fixed"
+        props.for === "status" && "fixed w-3/4"
       }`}
       onClick={
         props.for === "search" || props.for === "conversation"
