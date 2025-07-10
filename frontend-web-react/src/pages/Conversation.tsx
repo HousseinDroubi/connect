@@ -35,19 +35,19 @@ const Conversation = () => {
         <section className="w-3/4 h-full">
           <ConnectUser
             for="status"
-            is_group={getConversationMessagesData?.recipient === undefined}
+            is_group={getConversationMessagesData?.is_group}
             profile_url={
-              !getConversationMessagesData?.recipient
+              getConversationMessagesData?.is_group
                 ? undefined
                 : getConversationMessagesData?.recipient?.profile_url
             }
             username={
-              !getConversationMessagesData?.recipient
+              getConversationMessagesData?.is_group
                 ? undefined
-                : getConversationMessagesData.recipient.username
+                : getConversationMessagesData?.recipient?.username
             }
             status={
-              !getConversationMessagesData?.recipient
+              getConversationMessagesData?.is_group
                 ? undefined
                 : getConversationMessagesData?.recipient?.is_online
             }
