@@ -1,5 +1,6 @@
 interface getConversationMessagesResponseInterface {
   conversation_id: string;
+  is_group: boolean;
   messages: Array<{
     _id: string;
     sender: {
