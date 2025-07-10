@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import useGetConversationMessagesQuery from "../services/hooks/queries/conversation_messages_query";
 import ConnectUser from "../components/ConnectUser";
 import TextField from "../components/TextField";
+import Message from "../components/Message";
 
 const Conversation = () => {
   const navigate = useNavigate();
@@ -52,6 +53,28 @@ const Conversation = () => {
                 : getConversationMessagesData?.recipient?.is_online
             }
           />
+          {getConversationMessagesData?.messages.length !== 0 && (
+            <article className="flex flex-col mt-36">
+              {getConversationMessagesData?.messages.map((message) => (
+                <Message
+                  is_left={message.sender._id !== data!._id}
+                  is_text={message.is_text}
+                  message_id={message._id}
+                  token={data!.token}
+                  content={message.content}
+                  group_user={
+                    message.sender._id !== data!._id &&
+                    !getConversationMessagesData.is_group
+                      ? {
+                          username: message.sender.username,
+                          profile_url: message.sender.profile_url,
+                        }
+                      : undefined
+                  }
+                />
+              ))}
+            </article>
+          )}
           <TextField
             hint="Type your message..."
             value={messageText}
