@@ -5,7 +5,9 @@ import Title from "./Title";
 const ConnectUser: React.FC<connectUserComponentInterface> = (props) => {
   return (
     <article
-      className="flex flex-col cursor-pointer"
+      className={`flex flex-col cursor-pointer ${
+        props.for === "status" && "fixed"
+      }`}
       onClick={
         props.for === "search" || props.for === "conversation"
           ? props.getConversationMessagesFunction
