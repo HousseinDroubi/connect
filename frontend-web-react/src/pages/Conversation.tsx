@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import useUserData from "../services/hooks/queries/user_data_query";
 import { useNavigate, useParams } from "react-router-dom";
 import useGetConversationMessagesQuery from "../services/hooks/queries/conversation_messages_query";
 import ConnectUser from "../components/ConnectUser";
+import TextField from "../components/TextField";
 
 const Conversation = () => {
   const navigate = useNavigate();
@@ -11,6 +12,8 @@ const Conversation = () => {
   const { id } = useParams();
   const { data: getConversationMessagesData, isSuccess } =
     useGetConversationMessagesQuery(id);
+  const [messageText, setMessageText] = useState<string>("");
+  const [messageImage, setMessageImage] = useState<File | null>(null);
 
   useEffect(() => {
     if (data === null) navigate("/");
@@ -20,6 +23,10 @@ const Conversation = () => {
     if (!getConversationMessagesData && !isSuccess) navigate("/landing");
     console.log(getConversationMessagesData);
   }, [getConversationMessagesData, isSuccess]);
+
+  const sendMessage = () => {
+    console.log("Sending message...");
+  };
 
   return (
     <div className="h-screen w-full flex flex-col">
@@ -44,6 +51,15 @@ const Conversation = () => {
                 ? undefined
                 : getConversationMessagesData?.recipient?.is_online
             }
+          />
+          <TextField
+            hint="Type your message..."
+            value={messageText}
+            setText={setMessageText}
+            doNextFunction={sendMessage}
+            is_for_message
+            is_full
+            setImage={setMessageImage}
           />
         </section>
       </div>
