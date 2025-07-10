@@ -1,13 +1,29 @@
+import { useEffect, useState } from "react";
+import { viewImageApi } from "../services/apis/message/view_image";
+import logo from "../assets/logo.png";
+
 const Message: React.FC<messageComponentInterface> = ({
   is_left,
   is_text,
   content,
   group_user,
+  token,
+  message_id,
 }) => {
-  const getImageSource = (content: string): string => {
-    return "Returning some path";
+  const [imageSource, setImageSource] = useState<string>(logo);
+  const getImageSource = async () => {
+    const response = await viewImageApi({
+      token,
+      message_id,
+    });
+    setImageSource(response.data);
   };
 
+  useEffect(() => {
+    if (!is_text) {
+      getImageSource();
+    }
+  }, []);
   return (
     <article
       className={`flex items-end  ${
@@ -28,11 +44,7 @@ const Message: React.FC<messageComponentInterface> = ({
         {is_text ? (
           <p>{content}</p>
         ) : (
-          <img
-            src={getImageSource(content)}
-            alt="img"
-            className="w-full h-60"
-          />
+          <img src={imageSource} alt="img" className="w-full h-60" />
         )}
       </section>
     </article>
