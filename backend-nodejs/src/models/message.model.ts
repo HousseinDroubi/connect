@@ -2,8 +2,14 @@ import mongoose from "mongoose";
 import { messageModelInterface } from "../interfaces/models/model.interface";
 
 const schema = new mongoose.Schema<messageModelInterface>({
-  sender: mongoose.Schema.Types.ObjectId,
-  receiver: mongoose.Schema.Types.ObjectId,
+  sender: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
+  },
+  receiver: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
+  },
   created_at: {
     type: Date,
     required: false,
