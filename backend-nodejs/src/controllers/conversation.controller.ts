@@ -66,6 +66,24 @@ const getConversationMessages = async (
     conversation_id: conversation!._id,
     deleted_for_others_at: null,
     deleted_for: { $nin: [body.user!._id] },
+  })
+    .populate({
+      path: "receiver",
+      select: "_id username profile_url",
+    })
+    .populate({
+      path: "sender",
+      select: "_id username profile_url",
+    });
+
+  messages.forEach((message: messageDocumentInterface["message"]) => {
+    (message!.sender as any).profile_url = `http://${process.env.DOMAIN}:${
+      process.env.PORT
+    }/${(message!.sender as any).profile_url}`;
+
+    (message!.receiver as any).profile_url = `http://${process.env.DOMAIN}:${
+      process.env.PORT
+    }/${(message!.receiver as any).profile_url}`;
   });
 
   const data_respones: any = {
@@ -73,17 +91,6 @@ const getConversationMessages = async (
     conversation_id: conversation!._id,
     messages,
   };
-
-  if (pin !== "broadcast") {
-    data_respones.recipient = {
-      _id: other_user!._id,
-      profile_url: `http://${process.env.DOMAIN}:${process.env.PORT}/${
-        other_user!.profile_url
-      }`,
-      username: other_user!.username,
-      is_online: other_user!.is_online,
-    };
-  }
 
   return response.status(200).json(data_respones);
 };
