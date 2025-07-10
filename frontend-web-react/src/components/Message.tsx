@@ -34,7 +34,7 @@ const Message: React.FC<messageComponentInterface> = ({
         <img src={group_user.profile_url} className="h-10 w-10 rounded-full" />
       )}
       <section
-        className={`w-full flex flex-col items-start ${
+        className={`rounded-lg w-full flex flex-col items-start ${
           is_left ? "ml-2" : "mr-2"
         } ${is_text ? "min-h-20" : "h-72"} ${
           is_left ? "bg-ice_blue" : "bg-blue"
