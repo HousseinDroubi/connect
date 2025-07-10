@@ -90,6 +90,7 @@ const getConversationMessages = async (
     result: "got_messages",
     conversation_id: conversation!._id,
     messages,
+    is_group: pin === "broadcast",
   };
 
   return response.status(200).json(data_respones);
