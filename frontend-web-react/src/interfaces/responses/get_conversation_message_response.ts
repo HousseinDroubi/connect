@@ -2,8 +2,16 @@ interface getConversationMessagesResponseInterface {
   conversation_id: string;
   messages: Array<{
     _id: string;
-    sender: string;
-    receiver: string;
+    sender: {
+      _id: string;
+      username: string;
+      profile_url: string;
+    };
+    receiver: {
+      _id: string;
+      username: string;
+      profile_url: string;
+    };
     is_text: boolean;
     content: string;
     conversation_id: string;
