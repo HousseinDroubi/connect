@@ -36,13 +36,23 @@ const Message: React.FC<messageComponentInterface> = ({
       <section
         className={`w-full flex flex-col items-start ${
           is_left ? "ml-2" : "mr-2"
-        } ${is_text ? "min-h-20" : "h-72"} bg-ice_blue p-2`}
+        } ${is_text ? "min-h-20" : "h-72"} ${
+          is_left ? "bg-ice_blue" : "bg-blue"
+        } p-2`}
       >
         {group_user && (
-          <p className="text-lg font-bold">{group_user.username}</p>
+          <p
+            className={`text-lg font-bold ${
+              is_left ? "text-black" : "text-white"
+            }`}
+          >
+            {group_user.username}
+          </p>
         )}
         {is_text ? (
-          <p>{content}</p>
+          <p className={`${is_left ? "text-black" : "text-white"}`}>
+            {content}
+          </p>
         ) : (
           <img src={imageSource} alt="img" className="w-full h-60" />
         )}
