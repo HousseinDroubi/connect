@@ -6,7 +6,7 @@ const viewImageApi = async ({
   message_id,
   token,
 }: viewImageApiParamInterface): Promise<
-  AxiosResponse<viewImageApiParamInterface, string>
+  AxiosResponse<string, viewImageApiParamInterface>
 > => {
   const response = await axios.get(`${API_VIEW_IMAGE}/${message_id}`, {
     headers: { Authorization: `Bearer ${token}` },
