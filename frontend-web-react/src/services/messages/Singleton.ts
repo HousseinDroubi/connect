@@ -1,15 +1,28 @@
+import { queryClient } from "../..";
+import { updateUserStatus } from "../ws/ws_requests";
+
 class Singleton {
   private static instance: Singleton;
   private static websocket: WebSocket;
 
   private constructor(token: string) {
     this.launchWsConnection(token);
+    this.launchWsListeners();
   }
 
   private launchWsConnection(token: string) {
     Singleton.websocket = new WebSocket(
-      `${process.env.REACT_APP_API_BASE_URL}?token=${token}`
+      `${process.env.REACT_APP_WS_BASE_URL}?token=${token}`
     );
+  }
+
+  private launchWsListeners() {
+    Singleton.websocket.onopen = () => {
+      updateUserStatus(true);
+    };
+    Singleton.websocket.onclose = () => {
+      updateUserStatus(false);
+    };
   }
 
   public static getInstance(token: string): Singleton {
