@@ -8,6 +8,7 @@ import useConversationMessages from "../services/hooks/mutations/conversation_me
 import { popupComponentInterface } from "../interfaces/components/popup_interface";
 import Popup from "../components/Popup";
 import { showLoading } from "../services/helpers/popup_helper";
+import Singleton from "../services/messages/Singleton";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ const Landing = () => {
 
   useEffect(() => {
     if (data === null) navigate("/");
+    if (data && data.token) Singleton.getInstance(data.token);
   }, [data]);
 
   const getConversationMessagesFunction = (pin: string) => {
