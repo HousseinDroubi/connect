@@ -19,3 +19,5 @@ class Singleton {
     return Singleton.instance;
   }
 }
+
+export default Singleton;
