@@ -31,10 +31,12 @@ const toggleUserStatusIntoDB = async (
 
 const saveWebSocketIntoWebSocketsMap = (
   data: saveWebSocketIntoWebSocketsMapInterface
-): void => {
+): boolean => {
   if (!data.websockets_map.get(data.user_id)) {
     data.websockets_map.set(data.user_id, data.websocket);
+    return true;
   }
+  return false;
 };
 
 const sendMessage = (

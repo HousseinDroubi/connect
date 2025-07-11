@@ -51,11 +51,16 @@ class Singleton {
       if (!user) return;
 
       // Get user id in map
-      saveWebSocketIntoWebSocketsMap({
+      const is_user_saved_into_ws_map = saveWebSocketIntoWebSocketsMap({
         user_id: String(user._id),
         websocket: websocket,
         websockets_map: Singleton.websockets_map,
       });
+
+      if (!is_user_saved_into_ws_map) {
+        websocket.close();
+        return;
+      }
 
       // Toggle user status to online in DB
       await toggleUserStatusIntoDB(user, true);
