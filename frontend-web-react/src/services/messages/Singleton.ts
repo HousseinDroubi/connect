@@ -7,7 +7,7 @@ class Singleton {
 
   private constructor(token: string) {
     this.launchWsConnection(token);
-    this.launchWsListeners();
+    this.launchWsRequests();
   }
 
   private launchWsConnection(token: string) {
@@ -16,7 +16,7 @@ class Singleton {
     );
   }
 
-  private launchWsListeners() {
+  private launchWsRequests() {
     Singleton.websocket.onopen = () => {
       updateUserStatus(true);
     };
