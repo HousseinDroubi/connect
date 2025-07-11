@@ -22,7 +22,6 @@ const Conversation = () => {
 
   useEffect(() => {
     if (!getConversationMessagesData && !isSuccess) navigate("/landing");
-    console.log(getConversationMessagesData);
   }, [getConversationMessagesData, isSuccess]);
 
   const sendMessage = () => {
