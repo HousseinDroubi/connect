@@ -50,7 +50,7 @@ class Singleton {
         await getUserFromWebsocketUrl(request.url);
       if (!user) return;
 
-      // Get user id in map
+      // Save user id into map
       const is_user_saved_into_ws_map = saveWebSocketIntoWebSocketsMap({
         user_id: String(user._id),
         websocket: websocket,
