@@ -26,7 +26,7 @@ const Message: React.FC<messageComponentInterface> = ({
   }, []);
   return (
     <article
-      className={`flex items-end w-7/12 ${
+      className={`mt-3 flex items-end w-7/12 ${
         is_left ? "self-start flex-row" : "self-end flex-row-reverse"
       }`}
     >
