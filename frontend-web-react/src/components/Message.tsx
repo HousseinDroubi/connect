@@ -16,7 +16,7 @@ const Message: React.FC<messageComponentInterface> = ({
       token,
       message_id,
     });
-    setImageSource(response.data);
+    setImageSource(URL.createObjectURL(response.data));
   };
 
   useEffect(() => {

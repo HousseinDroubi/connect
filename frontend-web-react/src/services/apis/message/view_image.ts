@@ -6,11 +6,13 @@ const viewImageApi = async ({
   message_id,
   token,
 }: viewImageApiParamInterface): Promise<
-  AxiosResponse<string, viewImageApiParamInterface>
+  AxiosResponse<Blob, viewImageApiParamInterface>
 > => {
   const response = await axios.get(`${API_VIEW_IMAGE}/${message_id}`, {
     headers: { Authorization: `Bearer ${token}` },
+    responseType: "blob",
   });
+
   return response;
 };
 
