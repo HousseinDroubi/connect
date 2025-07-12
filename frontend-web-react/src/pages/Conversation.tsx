@@ -54,8 +54,13 @@ const Conversation = () => {
           />
           {getConversationMessagesData?.messages.length !== 0 && (
             <article className="flex flex-col mt-36">
-              {getConversationMessagesData?.messages.map((message) => (
+              {getConversationMessagesData?.messages.map((message, index) => (
                 <Message
+                  is_first_message={index === 0}
+                  is_last_image={
+                    getConversationMessagesData.messages.length - 1 === index &&
+                    getConversationMessagesData.messages.length !== 0
+                  }
                   is_left={message.sender._id !== data!._id}
                   is_text={message.is_text}
                   message_id={message._id}

@@ -8,4 +8,6 @@ interface messageComponentInterface {
     profile_url: string;
     username: string;
   };
+  is_first_message: boolean;
+  is_last_image: boolean;
 }
