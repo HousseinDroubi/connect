@@ -56,6 +56,7 @@ const Conversation = () => {
             <article className="flex flex-col mt-36">
               {getConversationMessagesData?.messages.map((message, index) => (
                 <Message
+                  key={message._id}
                   is_first_message={index === 0}
                   is_last_image={
                     getConversationMessagesData.messages.length - 1 === index &&
