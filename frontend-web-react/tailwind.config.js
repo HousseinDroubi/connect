@@ -9,6 +9,7 @@ module.exports = {
         ice_blue: "#E7EDF4",
         dusty_blue: "#49739C",
         white: "#F8FAFC",
+        body: "#f5f5f5",
       },
       width: {
         100: "25rem",
