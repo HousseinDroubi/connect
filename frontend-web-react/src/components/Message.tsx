@@ -11,6 +11,7 @@ const Message: React.FC<messageComponentInterface> = ({
   message_id,
   is_first_message,
   is_last_image,
+  is_deleted_for_all,
 }) => {
   const [imageSource, setImageSource] = useState<string>(logo);
   const getImageSource = async () => {
@@ -54,7 +55,11 @@ const Message: React.FC<messageComponentInterface> = ({
           </p>
         )}
         {is_text ? (
-          <p className={`${is_left ? "text-black" : "text-white"}`}>
+          <p
+            className={`${is_left ? "text-black" : "text-white"} ${
+              is_deleted_for_all && "italic"
+            }`}
+          >
             {content}
           </p>
         ) : (

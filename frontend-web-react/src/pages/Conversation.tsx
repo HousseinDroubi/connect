@@ -76,6 +76,7 @@ const Conversation = () => {
                         }
                       : undefined
                   }
+                  is_deleted_for_all={message.deleted_for_others_at !== null}
                 />
               ))}
             </article>
