@@ -80,9 +80,10 @@ const getConversationMessages = async (
       process.env.PORT
     }/${(message!.sender as any).profile_url}`;
 
-    (message!.receiver as any).profile_url = `http://${process.env.DOMAIN}:${
-      process.env.PORT
-    }/${(message!.receiver as any).profile_url}`;
+    if (message!.receiver)
+      (message!.receiver as any).profile_url = `http://${process.env.DOMAIN}:${
+        process.env.PORT
+      }/${(message!.receiver as any).profile_url}`;
   });
 
   const data_respones: any = {

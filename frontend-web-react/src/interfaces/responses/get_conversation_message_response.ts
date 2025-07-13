@@ -8,7 +8,7 @@ interface getConversationMessagesResponseInterface {
       username: string;
       profile_url: string;
     };
-    receiver: {
+    receiver?: {
       _id: string;
       username: string;
       profile_url: string;
