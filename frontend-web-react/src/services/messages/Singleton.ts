@@ -35,6 +35,7 @@ class Singleton {
         console.log(data);
         if (data.event_name === "toggle_user_status") {
           toggleUserStatus(data);
+        } else if (data.event_name === "") {
         }
       } catch (error) {}
     };
