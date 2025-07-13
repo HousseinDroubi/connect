@@ -4,6 +4,23 @@ interface wsToggleUserStatusResponseInterface {
   is_online: boolean;
 }
 
-type wsResponsesInterface = wsToggleUserStatusResponseInterface;
+interface wsNewMessageResponseInterface {
+  event_name: "new_message";
+  from: string;
+  message: {
+    _id: string;
+    is_text: boolean;
+    to: string;
+    content: string;
+    conversation_id: string;
+    sender_username: string;
+    sender_profile_url: string;
+    sender_pin: number;
+  };
+}
+
+type wsResponsesInterface =
+  | wsToggleUserStatusResponseInterface
+  | wsNewMessageResponseInterface;
 
 export default wsResponsesInterface;
