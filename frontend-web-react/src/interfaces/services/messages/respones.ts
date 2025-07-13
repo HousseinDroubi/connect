@@ -16,6 +16,7 @@ interface wsNewMessageResponseInterface {
     sender_username: string;
     sender_profile_url: string;
     sender_pin: number;
+    created_at: Date;
   };
 }
 
