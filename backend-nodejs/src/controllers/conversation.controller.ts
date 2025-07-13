@@ -64,7 +64,6 @@ const getConversationMessages = async (
       { receiver: null },
     ],
     conversation_id: conversation!._id,
-    deleted_for_others_at: null,
     deleted_for: { $nin: [body.user!._id] },
   })
     .populate({
