@@ -198,6 +198,7 @@ class Singleton {
                   sender_username: user.username,
                   sender_profile_url: user.profile_url,
                   sender_pin: user.pin,
+                  created_at: message.created_at,
                 },
               },
               Singleton.websockets_map,
