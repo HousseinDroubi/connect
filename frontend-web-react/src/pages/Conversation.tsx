@@ -69,7 +69,7 @@ const Conversation = () => {
                   content={message.content}
                   group_user={
                     message.sender._id !== data!._id &&
-                    !getConversationMessagesData.is_group
+                    getConversationMessagesData.is_group
                       ? {
                           username: message.sender.username,
                           profile_url: message.sender.profile_url,
