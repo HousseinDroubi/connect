@@ -74,7 +74,7 @@ const login = async (request: Request, response: Response) => {
 
     const last_message: any = await Message.findOne({
       conversation_id: conversations[index]._id,
-      $or: [{ receiver: user._id }, { sender: user._id }],
+      $or: [{ receiver: user._id }, { receiver: null }, { sender: user._id }],
       deleted_for: { $nin: [user._id] },
     })
       .select("-deleted_for -__v")
