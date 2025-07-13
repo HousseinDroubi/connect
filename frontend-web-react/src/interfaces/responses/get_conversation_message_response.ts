@@ -17,6 +17,7 @@ interface getConversationMessagesResponseInterface {
     content: string;
     conversation_id: string;
     created_at: Date;
+    deleted_for_others_at: Date | null;
   }>;
   recipient?: {
     profile_url: string;
