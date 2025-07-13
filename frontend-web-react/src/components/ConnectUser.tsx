@@ -8,7 +8,6 @@ const ConnectUser: React.FC<connectUserComponentInterface> = (props) => {
 
   const handleScroll = () => {
     const scrollTop = window.scrollY;
-    console.log("Scroll position:", scrollTop);
     if (scrollTop >= 75) {
       setTopValue(0);
     } else if (scrollTop == 0) {
