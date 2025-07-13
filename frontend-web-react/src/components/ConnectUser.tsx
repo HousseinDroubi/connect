@@ -1,13 +1,36 @@
 import { connectUserComponentInterface } from "../interfaces/components/connect_user_interface";
 import GroupIcon from "../assets/group.png";
 import Title from "./Title";
+import { useEffect, useState } from "react";
 
 const ConnectUser: React.FC<connectUserComponentInterface> = (props) => {
+  const [topValue, setTopValue] = useState<number>(0);
+
+  const handleScroll = () => {
+    const scrollTop = window.scrollY;
+    console.log("Scroll position:", scrollTop);
+    if (scrollTop >= 75) {
+      setTopValue(0);
+    } else if (scrollTop == 0) {
+      setTopValue(18 * 0.25);
+    }
+  };
+
+  useEffect(() => {
+    if (props.for === "status") {
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, []);
+
   return (
     <article
-      className={`bg-body flex flex-col cursor-pointer ${
-        props.for === "status" && "fixed w-3/4"
+      className={`bg-body flex flex-col cursor-pointer transition-all duration-100 ease-in-out ${
+        props.for === "status" && `fixed w-3/4 `
       }`}
+      style={props.for === "status" ? { top: `${topValue}rem` } : {}}
       onClick={
         props.for === "search" || props.for === "conversation"
           ? props.getConversationMessagesFunction
