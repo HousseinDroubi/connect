@@ -1,7 +1,7 @@
 import { queryClient } from "../..";
 import wsResponsesInterface from "../../interfaces/services/messages/respones";
 import { updateUserStatus } from "../ws/ws_requests";
-import { toggleUserStatus } from "../ws/ws_responses";
+import { receiveNewMessage, toggleUserStatus } from "../ws/ws_responses";
 
 class Singleton {
   private static instance: Singleton;
@@ -35,7 +35,8 @@ class Singleton {
         console.log(data);
         if (data.event_name === "toggle_user_status") {
           toggleUserStatus(data);
-        } else if (data.event_name === "") {
+        } else if (data.event_name === "new_message") {
+          receiveNewMessage(data);
         }
       } catch (error) {}
     };
