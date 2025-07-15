@@ -20,8 +20,17 @@ interface wsNewMessageResponseInterface {
   };
 }
 
+interface wsEditMessageResponseInterface {
+  event_name: "edit_message";
+  from: string;
+  is_online: boolean;
+  message_id: string;
+  message_new_content: string;
+}
+
 type wsResponsesInterface =
   | wsToggleUserStatusResponseInterface
-  | wsNewMessageResponseInterface;
+  | wsNewMessageResponseInterface
+  | wsEditMessageResponseInterface;
 
 export default wsResponsesInterface;
