@@ -222,6 +222,8 @@ class Singleton {
 
             if (!message) return;
 
+            if (!message.is_text) return;
+
             if (
               String(message.sender) !== String(user._id) ||
               message.deleted_for_others_at ||
