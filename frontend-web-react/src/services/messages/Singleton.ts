@@ -33,10 +33,12 @@ class Singleton {
       try {
         const data = JSON.parse(event.data) as wsResponsesInterface;
         console.log(data);
-        if (data.event_name === "toggle_user_status") {
-          toggleUserStatus(data);
-        } else if (data.event_name === "new_message") {
-          receiveNewMessage(data);
+        switch (data.event_name) {
+          case "toggle_user_status":
+            toggleUserStatus(data);
+            break;
+          case "new_message":
+            receiveNewMessage(data);
         }
       } catch (error) {}
     };
