@@ -239,6 +239,7 @@ class Singleton {
               {
                 from: String(user._id),
                 event_name: "edit_message",
+                message_conversation_id: String(message.conversation_id),
                 message_id: String(message._id),
                 message_new_content: edit_message.message_new_content,
               },

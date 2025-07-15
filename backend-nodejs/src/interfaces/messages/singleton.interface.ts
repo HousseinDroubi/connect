@@ -45,6 +45,7 @@ interface sentMessageEventInterface {
 
 interface editMessageEventInterface extends editMessageInterface {
   from: string;
+  message_conversation_id: string;
 }
 
 interface deleteMessageEventInterface extends deleteMessageInterface {
