@@ -1,7 +1,11 @@
 import { queryClient } from "../..";
 import wsResponsesInterface from "../../interfaces/services/messages/respones";
 import { updateUserStatus } from "../ws/ws_requests";
-import { receiveNewMessage, toggleUserStatus } from "../ws/ws_responses";
+import {
+  editMessage,
+  receiveNewMessage,
+  toggleUserStatus,
+} from "../ws/ws_responses";
 
 class Singleton {
   private static instance: Singleton;
@@ -39,6 +43,10 @@ class Singleton {
             break;
           case "new_message":
             receiveNewMessage(data);
+            break;
+          case "edit_message":
+            editMessage(data);
+            break;
         }
       } catch (error) {}
     };

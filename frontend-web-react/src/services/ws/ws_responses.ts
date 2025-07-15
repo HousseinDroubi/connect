@@ -1,6 +1,7 @@
 import { queryClient } from "../..";
 import { getConversationMessagesResponseInterface } from "../../interfaces/responses/get_conversation_message_response";
 import wsResponsesInterface from "../../interfaces/services/messages/respones";
+import { cloneDeep } from "lodash";
 
 const toggleUserStatus = (params: wsResponsesInterface) => {
   if (params.event_name !== "toggle_user_status") {
@@ -117,4 +118,54 @@ const receiveNewMessage = (params: wsResponsesInterface) => {
   });
 };
 
-export { toggleUserStatus, receiveNewMessage };
+const editMessage = (params: wsResponsesInterface) => {
+  if (params.event_name !== "edit_message") {
+    throw new Error("Invalid event");
+  }
+  const user_data: any = queryClient.getQueryData(["user_data"]);
+
+  if (!user_data || !user_data.conversations) {
+    return;
+  }
+
+  const user_data_conversation_index = user_data.conversations.findIndex(
+    (conversation: any) => conversation._id === params.message_conversation_id
+  );
+
+  if (user_data_conversation_index !== -1) {
+    if (
+      user_data.conversations[user_data_conversation_index].last_message &&
+      user_data.conversations[user_data_conversation_index].last_message._id ===
+        params.message_id
+    ) {
+      const updated_user_data = cloneDeep(user_data);
+      updated_user_data.conversations[
+        user_data_conversation_index
+      ].last_message.content = params.message_new_content;
+
+      queryClient.setQueryData(["user_data"], updated_user_data);
+    }
+  }
+
+  const conversations = queryClient.getQueriesData({
+    queryKey: ["conversations"],
+    exact: false,
+  });
+
+  conversations.map(([queryKey, data]) => {
+    const conversation = data as getConversationMessagesResponseInterface;
+    if (conversation.recipient && conversation.recipient._id === params.from) {
+      const index = conversation.messages.findIndex(
+        (message) => message._id === params.message_id
+      );
+      conversation.messages[index].content = params.message_new_content;
+
+      const updated_conversation = {
+        ...conversation,
+      };
+      queryClient.setQueryData(queryKey, updated_conversation);
+    }
+  });
+};
+
+export { toggleUserStatus, receiveNewMessage, editMessage };
