@@ -4,7 +4,7 @@ import Title from "./Title";
 import { useEffect, useState } from "react";
 
 const ConnectUser: React.FC<connectUserComponentInterface> = (props) => {
-  const [topValue, setTopValue] = useState<number>(0);
+  const [topValue, setTopValue] = useState<number>(4.5);
 
   const handleScroll = () => {
     const scrollTop = window.scrollY;
