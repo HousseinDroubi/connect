@@ -28,9 +28,16 @@ interface wsEditMessageResponseInterface {
   message_new_content: string;
 }
 
+interface wsDeleteMessageResponseInterface {
+  event_name: "deleted_message";
+  from: string;
+  message_id: string;
+}
+
 type wsResponsesInterface =
   | wsToggleUserStatusResponseInterface
   | wsNewMessageResponseInterface
-  | wsEditMessageResponseInterface;
+  | wsEditMessageResponseInterface
+  | wsDeleteMessageResponseInterface;
 
 export default wsResponsesInterface;
