@@ -29,7 +29,7 @@ interface wsEditMessageResponseInterface {
 }
 
 interface wsDeleteMessageResponseInterface {
-  event_name: "deleted_message";
+  event_name: "delete_message";
   from: string;
   message_id: string;
   message_conversation_id: string;
