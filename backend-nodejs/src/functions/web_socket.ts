@@ -61,11 +61,21 @@ const sendEventMessage = (
 ) => {
   if (receiver === null) {
     websockets_map.forEach((websocket: WebSocket, user_id: string) => {
-      if (user_id !== event.from) sendMessage(websocket, event);
+      sendMessage(websocket, event);
     });
   } else {
-    const websocket: WebSocket | undefined = websockets_map.get(receiver);
-    if (websocket) sendMessage(websocket, event);
+    const sender_websocket: WebSocket | undefined = websockets_map.get(
+      event.from
+    );
+    const receiver_websocket: WebSocket | undefined =
+      websockets_map.get(receiver);
+
+    if (sender_websocket) {
+      sendMessage(sender_websocket, event);
+    }
+    if (receiver_websocket) {
+      sendMessage(receiver_websocket, event);
+    }
   }
 };
 
