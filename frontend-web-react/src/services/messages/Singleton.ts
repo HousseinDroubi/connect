@@ -1,4 +1,9 @@
 import { queryClient } from "../..";
+import {
+  wsDeleteMessageRequestInterface,
+  wsEditMessageRequestInterface,
+  wsSendMessageRequestInterface,
+} from "../../interfaces/services/messages/requests";
 import wsResponsesInterface from "../../interfaces/services/messages/respones";
 import { updateUserStatus } from "../ws/ws_requests";
 import {
@@ -22,6 +27,27 @@ class Singleton {
     Singleton.websocket = new WebSocket(
       `${process.env.REACT_APP_WS_BASE_URL}?token=${token}`
     );
+  }
+
+  public static sendMessageWsRequest(data: wsSendMessageRequestInterface) {
+    Singleton.wsSendMessage(data);
+  }
+
+  public static editMessageWsRequest(data: wsSendMessageRequestInterface) {
+    Singleton.wsSendMessage(data);
+  }
+
+  public static deleteMessageWsRequest(data: wsSendMessageRequestInterface) {
+    Singleton.wsSendMessage(data);
+  }
+
+  private static wsSendMessage(
+    data:
+      | wsSendMessageRequestInterface
+      | wsEditMessageRequestInterface
+      | wsDeleteMessageRequestInterface
+  ) {
+    Singleton.websocket.send(JSON.stringify(data));
   }
 
   private launchWsRequests() {
