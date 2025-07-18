@@ -70,6 +70,12 @@ const receiveNewMessage = (params: wsResponsesInterface) => {
     const newConversation = {
       _id: params.message.conversation_id,
       last_message: new_message,
+      recipient: {
+        _id: params.message.sender_id,
+        profile_url: params.message.sender_profile_url,
+        username: params.message.sender_username,
+        pin: params.message.sender_pin,
+      },
     };
 
     updatedConversations = [newConversation, ...user_data.conversations];
