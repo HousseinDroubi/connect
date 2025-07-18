@@ -36,6 +36,7 @@ interface sentMessageEventInterface {
     to: string | null;
     content: string;
     conversation_id: string;
+    sender_id: string;
     sender_username: string;
     sender_profile_url: string;
     sender_pin: number;
