@@ -2,7 +2,7 @@ interface newMessageInterface {
   event_name: "new_message";
   is_text: boolean;
   content: string;
-  to: string;
+  to: string | null;
 }
 
 interface editMessageInterface {
@@ -33,7 +33,7 @@ interface sentMessageEventInterface {
   message: {
     _id: string;
     is_text: boolean;
-    to: string;
+    to: string | null;
     content: string;
     conversation_id: string;
     sender_username: string;

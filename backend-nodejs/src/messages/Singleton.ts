@@ -148,7 +148,7 @@ class Singleton {
             if (!conversation) {
               conversation = await Conversation.create({
                 between: [
-                  new mongoose.Types.ObjectId(new_message.to),
+                  new mongoose.Types.ObjectId(new_message.to!),
                   user._id,
                 ],
                 last_message: null,
