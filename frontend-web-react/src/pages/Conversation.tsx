@@ -18,6 +18,17 @@ const Conversation = () => {
   const [messageText, setMessageText] = useState<string>("");
   const [messageImage, setMessageImage] = useState<File | null>(null);
 
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [getConversationMessagesData?.messages.length]);
+
   useEffect(() => {
     if (data === null) navigate("/");
   }, [data]);
