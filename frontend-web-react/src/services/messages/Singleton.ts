@@ -2,6 +2,7 @@ import { queryClient } from "../..";
 import wsResponsesInterface from "../../interfaces/services/messages/respones";
 import { updateUserStatus } from "../ws/ws_requests";
 import {
+  deleteMessage,
   editMessage,
   receiveNewMessage,
   toggleUserStatus,
@@ -36,7 +37,6 @@ class Singleton {
     Singleton.websocket.onmessage = (event: MessageEvent) => {
       try {
         const data = JSON.parse(event.data) as wsResponsesInterface;
-        console.log(data);
         switch (data.event_name) {
           case "toggle_user_status":
             toggleUserStatus(data);
@@ -46,6 +46,9 @@ class Singleton {
             break;
           case "edit_message":
             editMessage(data);
+            break;
+          case "delete_message":
+            deleteMessage(data);
             break;
         }
       } catch (error) {}

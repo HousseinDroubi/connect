@@ -168,4 +168,58 @@ const editMessage = (params: wsResponsesInterface) => {
   });
 };
 
-export { toggleUserStatus, receiveNewMessage, editMessage };
+const deleteMessage = (params: wsResponsesInterface) => {
+  if (params.event_name !== "delete_message") {
+    throw new Error("Invalid event");
+  }
+
+  const user_data: any = queryClient.getQueryData(["user_data"]);
+
+  if (!user_data || !user_data.conversations) {
+    return;
+  }
+
+  const user_data_conversation_index = user_data.conversations.findIndex(
+    (conversation: any) => conversation._id === params.message_conversation_id
+  );
+
+  if (user_data_conversation_index !== -1) {
+    if (
+      user_data.conversations[user_data_conversation_index].last_message &&
+      user_data.conversations[user_data_conversation_index].last_message._id ===
+        params.message_id
+    ) {
+      const updated_user_data = cloneDeep(user_data);
+      updated_user_data.conversations[
+        user_data_conversation_index
+      ].last_message.content = "This message has been deleted";
+      updated_user_data.conversations[
+        user_data_conversation_index
+      ].last_message.deleted = true;
+      queryClient.setQueryData(["user_data"], updated_user_data);
+    }
+  }
+
+  const conversations = queryClient.getQueriesData({
+    queryKey: ["conversations"],
+    exact: false,
+  });
+
+  conversations.map(([queryKey, data]) => {
+    const conversation = data as getConversationMessagesResponseInterface;
+    if (conversation.conversation_id === params.message_conversation_id) {
+      const index = conversation.messages.findIndex(
+        (message) => message._id === params.message_id
+      );
+      conversation.messages[index].content = "This message has been deleted";
+      conversation.messages[index].deleted_for_others_at = new Date();
+
+      const updated_conversation = {
+        ...conversation,
+      };
+      queryClient.setQueryData(queryKey, updated_conversation);
+    }
+  });
+};
+
+export { toggleUserStatus, receiveNewMessage, editMessage, deleteMessage };
