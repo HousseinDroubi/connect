@@ -32,6 +32,7 @@ interface wsDeleteMessageResponseInterface {
   event_name: "deleted_message";
   from: string;
   message_id: string;
+  message_conversation_id: string;
 }
 
 type wsResponsesInterface =
