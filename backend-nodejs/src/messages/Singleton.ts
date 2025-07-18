@@ -280,6 +280,7 @@ class Singleton {
                 from: String(user._id),
                 event_name: "delete_message",
                 message_id: String(message._id),
+                message_conversation_id: String(message.conversation_id),
               },
               Singleton.websockets_map,
               message.receiver === null ? null : String(message.receiver)
