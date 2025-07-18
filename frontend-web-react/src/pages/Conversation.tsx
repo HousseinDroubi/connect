@@ -6,6 +6,8 @@ import useGetConversationMessagesQuery from "../services/hooks/queries/conversat
 import ConnectUser from "../components/ConnectUser";
 import TextField from "../components/TextField";
 import Message from "../components/Message";
+import { wsSendMessageRequestInterface } from "../interfaces/services/messages/requests";
+import Singleton from "../services/messages/Singleton";
 
 const Conversation = () => {
   const navigate = useNavigate();
@@ -24,8 +26,17 @@ const Conversation = () => {
     if (!getConversationMessagesData && !isSuccess) navigate("/landing");
   }, [getConversationMessagesData, isSuccess]);
 
-  const sendMessage = () => {
-    console.log("Sending message...");
+  const sendMessage = (is_text: boolean, content: string) => {
+    const message_data: wsSendMessageRequestInterface = {
+      event_name: "new_message",
+      is_text,
+      content,
+      to: getConversationMessagesData!.recipient
+        ? getConversationMessagesData!.recipient._id
+        : null,
+    };
+    Singleton.sendMessageWsRequest(message_data);
+    setMessageText("");
   };
 
   return (
@@ -85,7 +96,9 @@ const Conversation = () => {
             hint="Type your message..."
             value={messageText}
             setText={setMessageText}
-            doNextFunction={sendMessage}
+            doNextFunction={() => {
+              sendMessage(true, messageText);
+            }}
             is_for_message
             is_full
             setImage={setMessageImage}

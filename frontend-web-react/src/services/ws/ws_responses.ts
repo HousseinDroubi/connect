@@ -84,10 +84,13 @@ const receiveNewMessage = (params: wsResponsesInterface) => {
     queryKey: ["conversations"],
     exact: false,
   });
-
   conversations.map(([queryKey, data]) => {
     const conversation = data as getConversationMessagesResponseInterface;
-    if (conversation.recipient && conversation.recipient._id === params.from) {
+    if (
+      (conversation.recipient && conversation.recipient._id === params.from) ||
+      (conversation.is_group && params.message.to === null) ||
+      user_data._id === params.from
+    ) {
       const updated_messages = conversation.messages;
       updated_messages.push({
         _id: params.message._id,
