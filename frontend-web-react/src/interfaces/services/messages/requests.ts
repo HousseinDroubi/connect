@@ -2,7 +2,7 @@ interface wsSendMessageRequestInterface {
   event_name: "new_message";
   is_text: boolean;
   content: string;
-  to: string;
+  to: string | null;
 }
 
 interface wsEditMessageRequestInterface {
