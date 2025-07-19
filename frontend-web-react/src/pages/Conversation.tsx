@@ -60,25 +60,6 @@ const Conversation = () => {
       <Nav profile_url={data?.profile_url} />
       <div className="w-full h-full flex justify-center">
         <section className="w-3/4 h-full">
-          <ConnectUser
-            for="status"
-            is_group={getConversationMessagesData?.is_group}
-            profile_url={
-              getConversationMessagesData?.is_group
-                ? undefined
-                : getConversationMessagesData?.recipient?.profile_url
-            }
-            username={
-              getConversationMessagesData?.is_group
-                ? undefined
-                : getConversationMessagesData?.recipient?.username
-            }
-            status={
-              getConversationMessagesData?.is_group
-                ? undefined
-                : getConversationMessagesData?.recipient?.is_online
-            }
-          />
           {getConversationMessagesData?.messages.length !== 0 && (
             <article className="flex flex-col mt-36">
               {getConversationMessagesData?.messages.map((message, index) => (
@@ -120,6 +101,25 @@ const Conversation = () => {
             setImage={setMessageImage}
           />
         </section>
+        <ConnectUser
+          for="status"
+          is_group={getConversationMessagesData?.is_group}
+          profile_url={
+            getConversationMessagesData?.is_group
+              ? undefined
+              : getConversationMessagesData?.recipient?.profile_url
+          }
+          username={
+            getConversationMessagesData?.is_group
+              ? undefined
+              : getConversationMessagesData?.recipient?.username
+          }
+          status={
+            getConversationMessagesData?.is_group
+              ? undefined
+              : getConversationMessagesData?.recipient?.is_online
+          }
+        />
       </div>
       {popupProps && <Popup {...popupProps} />}
     </div>
