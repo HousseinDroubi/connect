@@ -33,6 +33,12 @@ const Message: React.FC<messageComponentInterface> = ({
   }, []);
   return (
     <article
+      onMouseEnter={() => {
+        setIsControlShown(true);
+      }}
+      onMouseLeave={() => {
+        setIsControlShown(false);
+      }}
       className={`${!is_first_message && "mt-3"} ${
         is_last_image && "mb-20"
       } flex items-end w-7/12 ${
@@ -43,9 +49,13 @@ const Message: React.FC<messageComponentInterface> = ({
         <img src={group_user.profile_url} className="h-10 w-10 rounded-full" />
       )}
       <section
-        className={`rounded-lg w-full flex flex-col items-start ${
-          group_user ? "justify-around" : "justify-center"
-        } ${is_left ? "ml-2" : "mr-2"} ${
+        className={`
+          ${group_user && is_left && "ml-5"}
+              ${isControlShown ? "translate-x-0" : "-translate-x-2"} 
+    pointer-events-none
+          transition-all duration-200 ease-in-out rounded-lg w-full flex flex-col items-start ${
+            group_user ? "justify-around" : "justify-center"
+          } ${is_left ? "ml-2" : "mr-2"} ${
           is_text ? (group_user ? "min-h-20" : "min-h-16") : "h-72"
         } ${is_left ? "bg-ice_blue" : "bg-blue"} p-2`}
       >
@@ -70,22 +80,24 @@ const Message: React.FC<messageComponentInterface> = ({
           <img src={imageSource} alt="img" className="w-full h-60" />
         )}
       </section>
-      <section className={`flex ${!is_left && "flex-row-reverse"}`}>
-        {!is_left && (
+      {isControlShown && (
+        <section className={`flex ${!is_left && "flex-row-reverse"}`}>
+          {!is_left && (
+            <img
+              src={EditIcon}
+              width={30}
+              height={30}
+              className={`${is_left ? "ml-2" : "mr-2"} cursor-pointer`}
+            />
+          )}
           <img
-            src={EditIcon}
+            src={DeleteIcon}
             width={30}
             height={30}
-            className={`${is_left ? "ml-2" : "mr-2"} cursor-pointer`}
+            className={`${is_left ? "ml-2" : "mr-4"} cursor-pointer`}
           />
-        )}
-        <img
-          src={DeleteIcon}
-          width={30}
-          height={30}
-          className={`${is_left ? "ml-2" : "mr-4"} cursor-pointer`}
-        />
-      </section>
+        </section>
+      )}
     </article>
   );
 };
