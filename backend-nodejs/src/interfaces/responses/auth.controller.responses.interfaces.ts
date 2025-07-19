@@ -14,7 +14,7 @@ interface loginResponseInterface {
   pin: number;
   profile_url: string;
   token: string;
-  is_online: false;
+  is_online: boolean;
   conversations: Array<{
     _id: mongoose.Types.ObjectId;
     recipient: {

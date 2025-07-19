@@ -110,7 +110,7 @@ const login = async (request: Request, response: Response) => {
     pin: user.pin,
     profile_url: `http://${process.env.DOMAIN}:${process.env.PORT}/${user.profile_url}`,
     token: generateToken(user._id),
-    is_online: false,
+    is_online: user.is_online,
     conversations: conversations,
   };
 
