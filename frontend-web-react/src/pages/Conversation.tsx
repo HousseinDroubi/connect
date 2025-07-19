@@ -8,6 +8,8 @@ import TextField from "../components/TextField";
 import Message from "../components/Message";
 import { wsSendMessageRequestInterface } from "../interfaces/services/messages/requests";
 import Singleton from "../services/messages/Singleton";
+import Popup from "../components/Popup";
+import { popupComponentInterface } from "../interfaces/components/popup_interface";
 
 const Conversation = () => {
   const navigate = useNavigate();
@@ -17,6 +19,9 @@ const Conversation = () => {
     useGetConversationMessagesQuery(id);
   const [messageText, setMessageText] = useState<string>("");
   const [messageImage, setMessageImage] = useState<File | null>(null);
+  const [popupProps, setPopupProps] = useState<popupComponentInterface | null>(
+    null
+  );
 
   const scrollToBottom = () => {
     window.scrollTo({
@@ -116,6 +121,7 @@ const Conversation = () => {
           />
         </section>
       </div>
+      {popupProps && <Popup {...popupProps} />}
     </div>
   );
 };
