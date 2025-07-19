@@ -230,6 +230,9 @@ const deleteMessage = (params: wsResponsesInterface) => {
       ].last_message.content = "This message has been deleted";
       updated_user_data.conversations[
         user_data_conversation_index
+      ].last_message.is_text = true;
+      updated_user_data.conversations[
+        user_data_conversation_index
       ].last_message.deleted = true;
       queryClient.setQueryData(["user_data"], updated_user_data);
     }
@@ -252,6 +255,7 @@ const deleteMessage = (params: wsResponsesInterface) => {
         updatedMessages[index] = {
           ...updatedMessages[index],
           content: "This message has been deleted",
+          is_text: true,
           deleted_for_others_at: new Date(),
         };
 
