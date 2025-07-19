@@ -105,7 +105,6 @@ const Conversation = () => {
         () => {
           deleteConversationMessageForMe(message_id);
         },
-
         () => {
           deleteConversationMessageForEveryone(message_id);
         }
