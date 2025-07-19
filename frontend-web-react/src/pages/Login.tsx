@@ -13,8 +13,9 @@ import {
 } from "../services/validations/login_validation";
 import { loginRequestValidationError } from "../interfaces/validations_responses/login_validtion_responses";
 import useLogin from "../services/hooks/mutations/login_mutation";
-import { showLoading } from "../services/helpers/popup_helper";
+import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import { useNavigate } from "react-router-dom";
+import Singleton from "../services/messages/Singleton";
 
 const Login = () => {
   const [emailOrPinText, setEmailOrPinText] = useState<string>(
@@ -26,12 +27,19 @@ const Login = () => {
   const [popupProps, setPopupProps] = useState<popupComponentInterface | null>(
     null
   );
-  const { mutate, isPending, isSuccess } = useLogin(setPopupProps);
+  const { data, mutate, isPending, isSuccess } = useLogin(setPopupProps);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isPending) showLoading(setPopupProps, true);
     else if (isSuccess) {
+      if (data.is_online) {
+        showPopupText(
+          setPopupProps,
+          "This account is used on other tab, either continue using it over there or close it to use it here."
+        );
+        return;
+      }
       navigate("/landing");
     }
   }, [isPending, isSuccess]);
