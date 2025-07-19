@@ -151,7 +151,6 @@ const editMessage = (params: wsResponsesInterface) => {
   if (!user_data || !user_data.conversations) {
     return;
   }
-
   const user_data_conversation_index = user_data.conversations.findIndex(
     (conversation: any) => conversation._id === params.message_conversation_id
   );
@@ -175,19 +174,31 @@ const editMessage = (params: wsResponsesInterface) => {
     queryKey: ["conversations"],
     exact: false,
   });
-
   conversations.map(([queryKey, data]) => {
     const conversation = data as getConversationMessagesResponseInterface;
-    if (conversation.recipient && conversation.recipient._id === params.from) {
+    if (
+      (conversation.recipient && conversation.recipient._id === params.from) ||
+      conversation.is_group ||
+      user_data._id === params.from
+    ) {
       const index = conversation.messages.findIndex(
         (message) => message._id === params.message_id
       );
-      conversation.messages[index].content = params.message_new_content;
 
-      const updated_conversation = {
-        ...conversation,
-      };
-      queryClient.setQueryData(queryKey, updated_conversation);
+      if (index !== -1) {
+        const updatedMessages = [...conversation.messages];
+        updatedMessages[index] = {
+          ...updatedMessages[index],
+          content: params.message_new_content,
+        };
+
+        const updated_conversation = {
+          ...conversation,
+          messages: updatedMessages,
+        };
+
+        queryClient.setQueryData(queryKey, updated_conversation);
+      }
     }
   });
 };
