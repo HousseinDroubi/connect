@@ -10,7 +10,7 @@ const deleteMessageApi = async ({
   message_id,
   token,
 }: deleteMessageApiParamInterface): Promise<deleteMessageResponseInterface> => {
-  const response = await axios.get(`${API_DELETE_MESSAGE}/${message_id}`, {
+  const response = await axios.delete(`${API_DELETE_MESSAGE}/${message_id}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
