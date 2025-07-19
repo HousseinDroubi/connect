@@ -16,6 +16,7 @@ import useLogin from "../services/hooks/mutations/login_mutation";
 import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import { useNavigate } from "react-router-dom";
 import Singleton from "../services/messages/Singleton";
+import { queryClient } from "..";
 
 const Login = () => {
   const [emailOrPinText, setEmailOrPinText] = useState<string>(
@@ -29,6 +30,10 @@ const Login = () => {
   );
   const { data, mutate, isPending, isSuccess } = useLogin(setPopupProps);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    queryClient.clear();
+  }, []);
 
   useEffect(() => {
     if (isPending) showLoading(setPopupProps, true);
