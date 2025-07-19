@@ -13,10 +13,18 @@ interface wsNewMessageResponseInterface {
     to: string;
     content: string;
     conversation_id: string;
-    sender_id: string;
-    sender_username: string;
-    sender_profile_url: string;
-    sender_pin: number;
+    sender: {
+      _id: string;
+      username: string;
+      profile_url: string;
+      pin: number;
+    };
+    receiver?: {
+      _id: string;
+      username: string;
+      profile_url: string;
+      pin: number;
+    };
     created_at: Date;
   };
 }
