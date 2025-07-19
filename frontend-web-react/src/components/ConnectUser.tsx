@@ -68,7 +68,15 @@ const ConnectUser: React.FC<connectUserComponentInterface> = (props) => {
             (!props.last_message_text ? (
               <p className="italic">No messages yet</p>
             ) : (
-              <p className="mt-2 font-medium">{props.last_message_text}</p>
+              <p
+                className={`mt-2 ${
+                  props.last_message_text && props.is_last_message_deleted
+                    ? "italic"
+                    : "font-medium"
+                }`}
+              >
+                {props.last_message_text}
+              </p>
             ))}
           {props.for === "search" && (
             <p className="mt-2 font-medium">{`pin: #${props.pin}`}</p>

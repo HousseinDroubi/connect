@@ -81,6 +81,11 @@ const Landing = () => {
                       ? conversation.last_message.content
                       : "Photo"
                   }
+                  is_last_message_deleted={
+                    !conversation.last_message
+                      ? false
+                      : conversation.last_message.deleted
+                  }
                 />
               ))}
           </div>

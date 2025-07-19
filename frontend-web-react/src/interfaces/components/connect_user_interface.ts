@@ -12,6 +12,7 @@ interface connectUserStatusInterface extends connectUserBasicInterface {
 interface connectUserConversationInterface extends connectUserBasicInterface {
   for: "conversation";
   last_message_text: string | null;
+  is_last_message_deleted: boolean;
   getConversationMessagesFunction: () => void;
 }
 
