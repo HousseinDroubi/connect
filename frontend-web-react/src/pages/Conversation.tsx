@@ -30,6 +30,13 @@ const Conversation = () => {
     });
   };
 
+  const editConversationMessage = () => {
+    console.log("Editing message");
+  };
+  const deleteConversationMessage = (is_for_all: boolean) => {
+    console.log(`Delete message  - ${is_for_all}`);
+  };
+
   useEffect(() => {
     scrollToBottom();
   }, [getConversationMessagesData?.messages.length]);
@@ -65,6 +72,12 @@ const Conversation = () => {
               {getConversationMessagesData?.messages.map((message, index) => (
                 <Message
                   key={message._id}
+                  onEdit={() => {
+                    editConversationMessage();
+                  }}
+                  onDelete={() => {
+                    deleteConversationMessage(message.sender._id === data!._id);
+                  }}
                   is_first_message={index === 0}
                   is_last_image={
                     getConversationMessagesData.messages.length - 1 === index &&
