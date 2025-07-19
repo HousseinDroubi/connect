@@ -86,9 +86,10 @@ const Conversation = () => {
 
   const deleteConversationMessage = (
     is_for_all: boolean,
-    message_id: string
+    message_id: string,
+    is_message_deleted_for_all: boolean
   ) => {
-    if (is_for_all) {
+    if (is_for_all && !is_message_deleted_for_all) {
       deleteMessageForAll(
         setPopupProps,
         () => {
@@ -148,7 +149,8 @@ const Conversation = () => {
                   onDelete={() => {
                     deleteConversationMessage(
                       message.sender._id === data!._id,
-                      message._id
+                      message._id,
+                      message.deleted_for_others_at !== null
                     );
                   }}
                   is_first_message={index === 0}
