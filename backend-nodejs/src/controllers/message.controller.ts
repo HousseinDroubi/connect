@@ -3,6 +3,7 @@ import { uploadImageBodyInterface } from "../interfaces/controllers/message.cont
 import { messageDocumentInterface } from "../interfaces/documents/message.document.interface";
 import { userDocumentInterface } from "../interfaces/documents/user.document.interface";
 import path from "path";
+import { deleteFile } from "../functions/server_file_system";
 
 const uploadImage = (request: Request, response: Response) => {
   const body: uploadImageBodyInterface = request.body;
@@ -47,6 +48,19 @@ const deleteMessage = async (request: Request, response: Response) => {
 
   body.message.deleted_for.push(body.user._id);
   await body.message.save();
+
+  if (
+    body.message.receiver !== null &&
+    !body.message.is_text &&
+    body.message.deleted_for.length === 2
+  ) {
+    await deleteFile(
+      path.join(
+        __dirname,
+        `../conversations/${body.message.conversation_id}/${body.message.content}`
+      )
+    );
+  }
 
   return response.status(200).json({
     result: "message_deleted",
