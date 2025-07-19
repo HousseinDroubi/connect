@@ -198,6 +198,7 @@ const Conversation = () => {
   }, [getConversationMessagesData, isSuccess]);
 
   const sendMessage = (is_text: boolean, content: string) => {
+    if (content.trim().length === 0) return;
     const message_data: wsSendMessageRequestInterface = {
       event_name: "new_message",
       is_text,
