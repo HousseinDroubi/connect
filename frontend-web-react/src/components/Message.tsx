@@ -40,7 +40,7 @@ const Message: React.FC<messageComponentInterface> = ({
       )}
       <section
         className={`rounded-lg w-full flex flex-col items-start ${
-          !group_user && "justify-center"
+          group_user ? "justify-around" : "justify-center"
         } ${is_left ? "ml-2" : "mr-2"} ${
           is_text ? (group_user ? "min-h-20" : "min-h-16") : "h-72"
         } ${is_left ? "bg-ice_blue" : "bg-blue"} p-2`}
