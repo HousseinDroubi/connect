@@ -11,4 +11,6 @@ interface messageComponentInterface {
   is_first_message: boolean;
   is_last_image: boolean;
   is_deleted_for_all: boolean;
+  onEdit: () => void;
+  onDelete: () => void;
 }
