@@ -1,6 +1,7 @@
 import { Comment } from "react-loader-spinner";
 import { popupComponentInterface } from "../interfaces/components/popup_interface";
 import Button from "./Button";
+import TextField from "./TextField";
 
 const Popup: React.FC<popupComponentInterface> = (props) => {
   if (!props.seen) return <></>;
@@ -44,6 +45,20 @@ const Popup: React.FC<popupComponentInterface> = (props) => {
                 <p className="cursor-pointer text-black font-bold">X</p>
               </div>
             </header>
+            {props.for === "edit_message_for_user" && (
+              <div className="flex flex-col items-center mt-10">
+                <TextField
+                  title="Edit Message"
+                  hint="Update your message"
+                  setText={props.setText}
+                  value={props.text}
+                  doNextFunction={props.nextFunction}
+                />
+                <div className="mt-10">
+                  <Button button_text="Edit" fn={props.nextFunction} />
+                </div>
+              </div>
+            )}
             {(props.for === "alert" || props.for === "confirmation") && (
               <div className="mt-10">
                 <p>{props.content}</p>
