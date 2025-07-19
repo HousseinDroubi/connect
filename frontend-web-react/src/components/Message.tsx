@@ -16,6 +16,8 @@ const Message: React.FC<messageComponentInterface> = ({
   is_deleted_for_all,
 }) => {
   const [imageSource, setImageSource] = useState<string>(logo);
+  const [isControlShown, setIsControlShown] = useState<boolean>(false);
+
   const getImageSource = async () => {
     const response = await viewImageApi({
       token,
@@ -67,6 +69,22 @@ const Message: React.FC<messageComponentInterface> = ({
         ) : (
           <img src={imageSource} alt="img" className="w-full h-60" />
         )}
+      </section>
+      <section className={`flex ${!is_left && "flex-row-reverse"}`}>
+        {!is_left && (
+          <img
+            src={EditIcon}
+            width={30}
+            height={30}
+            className={`${is_left ? "ml-2" : "mr-2"} cursor-pointer`}
+          />
+        )}
+        <img
+          src={DeleteIcon}
+          width={30}
+          height={30}
+          className={`${is_left ? "ml-2" : "mr-4"} cursor-pointer`}
+        />
       </section>
     </article>
   );
