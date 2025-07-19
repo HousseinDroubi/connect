@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { viewImageApi } from "../services/apis/message/view_image";
 import logo from "../assets/logo.png";
+import DeleteIcon from "../assets/delete.png";
+import EditIcon from "../assets/edit.png";
 
 const Message: React.FC<messageComponentInterface> = ({
   is_left,
