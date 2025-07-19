@@ -184,6 +184,10 @@ class Singleton {
             conversation.last_message = message._id;
             await conversation.save();
 
+            let receiver: userDocumentInterface["user"] | null = null;
+            if (new_message.to !== null) {
+              receiver = await User.findById(new_message.to);
+            }
             // Send message
             sendEventMessage(
               {
@@ -195,10 +199,23 @@ class Singleton {
                   to: new_message.to,
                   content: new_message.content,
                   conversation_id: String(conversation._id),
-                  sender_id: String(user._id),
-                  sender_username: user.username,
-                  sender_profile_url: `http://${process.env.DOMAIN}:${process.env.PORT}/${user.profile_url}`,
-                  sender_pin: user.pin,
+                  sender: {
+                    _id: String(user._id),
+                    username: user.username,
+                    profile_url: `http://${process.env.DOMAIN}:${process.env.PORT}/${user.profile_url}`,
+                    pin: user.pin,
+                  },
+                  receiver:
+                    new_message.to === null
+                      ? undefined
+                      : {
+                          _id: String(receiver!._id),
+                          username: user.username,
+                          profile_url: `http://${process.env.DOMAIN}:${
+                            process.env.PORT
+                          }/${receiver!.profile_url}`,
+                          pin: receiver!.pin,
+                        },
                   created_at: message.created_at,
                 },
               },
