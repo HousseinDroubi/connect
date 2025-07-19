@@ -33,11 +33,11 @@ class Singleton {
     Singleton.wsSendMessage(data);
   }
 
-  public static editMessageWsRequest(data: wsSendMessageRequestInterface) {
+  public static editMessageWsRequest(data: wsEditMessageRequestInterface) {
     Singleton.wsSendMessage(data);
   }
 
-  public static deleteMessageWsRequest(data: wsSendMessageRequestInterface) {
+  public static deleteMessageWsRequest(data: wsDeleteMessageRequestInterface) {
     Singleton.wsSendMessage(data);
   }
 
