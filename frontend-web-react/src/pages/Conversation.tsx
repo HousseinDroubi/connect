@@ -6,7 +6,10 @@ import useGetConversationMessagesQuery from "../services/hooks/queries/conversat
 import ConnectUser from "../components/ConnectUser";
 import TextField from "../components/TextField";
 import Message from "../components/Message";
-import { wsSendMessageRequestInterface } from "../interfaces/services/messages/requests";
+import {
+  wsDeleteMessageRequestInterface,
+  wsSendMessageRequestInterface,
+} from "../interfaces/services/messages/requests";
 import Singleton from "../services/messages/Singleton";
 import Popup from "../components/Popup";
 import { popupComponentInterface } from "../interfaces/components/popup_interface";
@@ -73,7 +76,12 @@ const Conversation = () => {
   };
 
   const deleteConversationMessageForEveryone = (message_id: string) => {
-    console.log(`Deleting message for all ${message_id}`);
+    const data: wsDeleteMessageRequestInterface = {
+      event_name: "delete_message",
+      message_id,
+    };
+    Singleton.deleteMessageWsRequest(data);
+    setPopupProps(null);
   };
 
   const deleteConversationMessage = (
