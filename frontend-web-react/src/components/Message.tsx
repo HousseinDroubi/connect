@@ -84,7 +84,7 @@ const Message: React.FC<messageComponentInterface> = ({
       </section>
       {isControlShown && (
         <section className={`flex ${!is_left && "flex-row-reverse"}`}>
-          {!is_left && (
+          {!is_left && is_text && !is_deleted_for_all && (
             <img
               onClick={onEdit}
               src={EditIcon}
