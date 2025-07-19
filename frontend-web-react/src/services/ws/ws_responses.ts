@@ -70,12 +70,27 @@ const receiveNewMessage = (params: wsResponsesInterface) => {
     const newConversation = {
       _id: params.message.conversation_id,
       last_message: new_message,
-      recipient: {
-        _id: params.message.sender_id,
-        profile_url: params.message.sender_profile_url,
-        username: params.message.sender_username,
-        pin: params.message.sender_pin,
-      },
+      recipient:
+        params.message.to === null
+          ? undefined
+          : {
+              _id:
+                params.message.sender._id === user_data._id
+                  ? params.message.receiver?._id
+                  : params.message.sender._id,
+              profile_url:
+                params.message.sender._id === user_data._id
+                  ? params.message.receiver?.profile_url
+                  : params.message.sender.profile_url,
+              username:
+                params.message.sender._id === user_data._id
+                  ? params.message.receiver?.username
+                  : params.message.sender.username,
+              pin:
+                params.message.sender._id === user_data._id
+                  ? params.message.receiver?.pin
+                  : params.message.sender.pin,
+            },
     };
 
     updatedConversations = [newConversation, ...user_data.conversations];
@@ -102,8 +117,8 @@ const receiveNewMessage = (params: wsResponsesInterface) => {
         _id: params.message._id,
         sender: {
           _id: params.from,
-          username: params.message.sender_username,
-          profile_url: params.message.sender_profile_url,
+          username: params.message.sender.username,
+          profile_url: params.message.sender.profile_url,
         },
         receiver: params.message.to
           ? {
