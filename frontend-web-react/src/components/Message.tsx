@@ -14,6 +14,8 @@ const Message: React.FC<messageComponentInterface> = ({
   is_first_message,
   is_last_image,
   is_deleted_for_all,
+  onEdit,
+  onDelete,
 }) => {
   const [imageSource, setImageSource] = useState<string>(logo);
   const [isControlShown, setIsControlShown] = useState<boolean>(false);
@@ -84,6 +86,7 @@ const Message: React.FC<messageComponentInterface> = ({
         <section className={`flex ${!is_left && "flex-row-reverse"}`}>
           {!is_left && (
             <img
+              onClick={onEdit}
               src={EditIcon}
               width={30}
               height={30}
@@ -91,6 +94,7 @@ const Message: React.FC<messageComponentInterface> = ({
             />
           )}
           <img
+            onClick={onDelete}
             src={DeleteIcon}
             width={30}
             height={30}
