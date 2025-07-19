@@ -42,6 +42,8 @@ interface popupEditMessageForUserComponentInterface
   extends popupBasicComponentInterface {
   for: "edit_message_for_user";
   setText: React.Dispatch<React.SetStateAction<string>>;
+  text: string;
+  nextFunction: () => void;
 }
 
 type popupComponentInterface =

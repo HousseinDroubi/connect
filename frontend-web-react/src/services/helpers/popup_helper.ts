@@ -64,13 +64,17 @@ const deleteMessageForAll = (
 
 const editMessage = (
   setPopup: SetPopupType,
-  setTextFn: React.Dispatch<React.SetStateAction<string>>
+  setTextFn: React.Dispatch<React.SetStateAction<string>>,
+  text: string,
+  nextFunction: () => void
 ) => {
   setPopup({
     for: "edit_message_for_user",
     seen: true,
     setText: setTextFn,
     setSeen: createSetSeen(setPopup),
+    text,
+    nextFunction,
   });
 };
 
