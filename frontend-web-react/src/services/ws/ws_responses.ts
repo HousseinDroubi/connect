@@ -246,13 +246,22 @@ const deleteMessage = (params: wsResponsesInterface) => {
       const index = conversation.messages.findIndex(
         (message) => message._id === params.message_id
       );
-      conversation.messages[index].content = "This message has been deleted";
-      conversation.messages[index].deleted_for_others_at = new Date();
 
-      const updated_conversation = {
-        ...conversation,
-      };
-      queryClient.setQueryData(queryKey, updated_conversation);
+      if (index !== -1) {
+        const updatedMessages = [...conversation.messages];
+        updatedMessages[index] = {
+          ...updatedMessages[index],
+          content: "This message has been deleted",
+          deleted_for_others_at: new Date(),
+        };
+
+        const updated_conversation = {
+          ...conversation,
+          messages: updatedMessages,
+        };
+
+        queryClient.setQueryData(queryKey, updated_conversation);
+      }
     }
   });
 };
