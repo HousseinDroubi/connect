@@ -4,6 +4,7 @@ import ClosedEye from "../assets/closed_eye.png";
 import SendMessageIcon from "../assets/send_message.png";
 import GalleryIcon from "../assets/gallery.png";
 import { useState } from "react";
+import { handleImage } from "../utils/functions";
 
 const TextField: React.FC<textFieldComponentInterface> = ({
   title,
@@ -11,6 +12,7 @@ const TextField: React.FC<textFieldComponentInterface> = ({
   is_password,
   value,
   setText,
+  setImage,
   is_full,
   is_for_message,
   doNextFunction,
@@ -19,6 +21,20 @@ const TextField: React.FC<textFieldComponentInterface> = ({
   const toggleEyeIcon = () => {
     setIsClosed(!isClosed);
   };
+
+  const setImageSrc = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files !== null ? event.target.files[0] : null;
+
+    if (
+      file &&
+      typeof file === "object" &&
+      file.type.startsWith("image/") &&
+      setImage
+    ) {
+      setImage(file);
+    }
+  };
+
   return (
     <section
       className={`flex flex-col justify-between items-start ${
@@ -60,7 +76,12 @@ const TextField: React.FC<textFieldComponentInterface> = ({
                 title="Send image"
                 className="cursor-pointer"
               />
-              <input type="file" id="gallery" className="hidden" />
+              <input
+                type="file"
+                id="gallery"
+                className="hidden"
+                onChange={setImageSrc}
+              />
             </label>
           ) : (
             <img
