@@ -99,6 +99,7 @@ const Conversation = () => {
         showPopupText(setPopupProps, "Something went wrong");
       }
     }
+    setMessageImage(null);
   };
 
   useEffect(() => {
