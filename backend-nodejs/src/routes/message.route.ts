@@ -43,7 +43,6 @@ router.delete(
   isUserAccountUnverifiedOrDeleted,
   isMessageExisted,
   haveUserDeletedMessage,
-  isMessageDeletedForOthers,
   deleteMessage
 );
 
