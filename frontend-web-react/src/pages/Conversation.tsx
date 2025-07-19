@@ -10,7 +10,12 @@ import { wsSendMessageRequestInterface } from "../interfaces/services/messages/r
 import Singleton from "../services/messages/Singleton";
 import Popup from "../components/Popup";
 import { popupComponentInterface } from "../interfaces/components/popup_interface";
-import { editMessage, showPopupText } from "../services/helpers/popup_helper";
+import {
+  deleteMessageForAll,
+  deleteMessageForMe,
+  editMessage,
+  showPopupText,
+} from "../services/helpers/popup_helper";
 
 const Conversation = () => {
   const navigate = useNavigate();
@@ -63,9 +68,34 @@ const Conversation = () => {
     );
   };
 
-  const deleteConversationMessage = (is_for_all: boolean) => {
-    showPopupText(setPopupProps, "Hi");
-    console.log(`Delete message  - ${is_for_all}`);
+  const deleteConversationMessageForMe = (message_id: string) => {
+    console.log(`Deleting message for me ${message_id}`);
+  };
+
+  const deleteConversationMessageForEveryone = (message_id: string) => {
+    console.log(`Deleting message for all ${message_id}`);
+  };
+
+  const deleteConversationMessage = (
+    is_for_all: boolean,
+    message_id: string
+  ) => {
+    if (is_for_all) {
+      deleteMessageForAll(
+        setPopupProps,
+        () => {
+          deleteConversationMessageForMe(message_id);
+        },
+
+        () => {
+          deleteConversationMessageForEveryone(message_id);
+        }
+      );
+    } else {
+      deleteMessageForMe(setPopupProps, () => {
+        deleteConversationMessageForMe(message_id);
+      });
+    }
   };
 
   useEffect(() => {
@@ -108,7 +138,10 @@ const Conversation = () => {
                     setEditedMessageId(message._id);
                   }}
                   onDelete={() => {
-                    deleteConversationMessage(message.sender._id === data!._id);
+                    deleteConversationMessage(
+                      message.sender._id === data!._id,
+                      message._id
+                    );
                   }}
                   is_first_message={index === 0}
                   is_last_image={
