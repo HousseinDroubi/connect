@@ -34,11 +34,8 @@ const Conversation = () => {
   );
   const [editedMessageContent, setEditedMessageContent] = useState<string>("");
   const [editedMessageId, setEditedMessageId] = useState<string>("");
-  const navaite = useNavigate();
-  const { data: deleteMessageForMeData, mutate } = useDeleteMessage(
-    setPopupProps,
-    navigate
-  );
+  const { mutate } = useDeleteMessage(setPopupProps, navigate);
+
   useEffect(() => {
     if (editedMessageContent !== "" && editedMessageId !== "") {
       editConversationMessage();
