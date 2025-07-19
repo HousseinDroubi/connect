@@ -19,6 +19,7 @@ import {
   editMessage,
   showPopupText,
 } from "../services/helpers/popup_helper";
+import useDeleteMessage from "../services/hooks/mutations/delete_message_mutation";
 
 const Conversation = () => {
   const navigate = useNavigate();
@@ -33,7 +34,11 @@ const Conversation = () => {
   );
   const [editedMessageContent, setEditedMessageContent] = useState<string>("");
   const [editedMessageId, setEditedMessageId] = useState<string>("");
-
+  const navaite = useNavigate();
+  const { data: deleteMessageForMeData, mutate } = useDeleteMessage(
+    setPopupProps,
+    navigate
+  );
   useEffect(() => {
     if (editedMessageContent !== "" && editedMessageId !== "") {
       editConversationMessage();
@@ -72,7 +77,12 @@ const Conversation = () => {
   };
 
   const deleteConversationMessageForMe = (message_id: string) => {
-    console.log(`Deleting message for me ${message_id}`);
+    if (!data) return;
+    mutate({
+      token: data.token,
+      message_id,
+    });
+    setPopupProps(null);
   };
 
   const deleteConversationMessageForEveryone = (message_id: string) => {
