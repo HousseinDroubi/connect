@@ -50,6 +50,8 @@ const deleteMessage = async (request: Request, response: Response) => {
 
   return response.status(200).json({
     result: "message_deleted",
+    message_id: String(body.message._id),
+    message_conversation_id: String(body.message.conversation_id),
   });
 };
 
