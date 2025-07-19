@@ -121,11 +121,7 @@ const useDeleteMessage = (
           );
           return;
         } else if (error.status === 403) {
-          if (error.response?.data === "message_deleted") {
-            showPopupText(setPopupProps, "Message deleted");
-          } else if (error.response?.data === "message_deleted_for_others") {
-            showPopupText(setPopupProps, "Message deleted for others");
-          }
+          showPopupText(setPopupProps, "Message deleted");
           return;
         } else if (error.status === 404) {
           if (error.response?.data.result === "user_not_found") {
