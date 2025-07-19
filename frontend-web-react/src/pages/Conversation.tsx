@@ -20,6 +20,8 @@ import {
   showPopupText,
 } from "../services/helpers/popup_helper";
 import useDeleteMessage from "../services/hooks/mutations/delete_message_mutation";
+import { uploadImageApi } from "../services/apis/message/upload_image";
+import axios from "axios";
 
 const Conversation = () => {
   const navigate = useNavigate();
@@ -35,6 +37,75 @@ const Conversation = () => {
   const [editedMessageContent, setEditedMessageContent] = useState<string>("");
   const [editedMessageId, setEditedMessageId] = useState<string>("");
   const { mutate } = useDeleteMessage(setPopupProps, navigate);
+
+  const uploadImage = async () => {
+    if (messageImage !== null) {
+      const formData = new FormData();
+      formData.append("image", messageImage);
+      try {
+        const response = await uploadImageApi({
+          data: formData,
+          token: data!.token,
+        });
+        const response_data = response.data;
+
+        if (response_data.result === "image_uploaded") {
+          Singleton.sendMessageWsRequest({
+            event_name: "new_message",
+            is_text: false,
+            content: response_data.file_name,
+            to: getConversationMessagesData!.is_group
+              ? null
+              : getConversationMessagesData!.recipient!._id,
+          });
+          return;
+        }
+        throw new Error();
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          if (error.code === "ERR_NETWORK") {
+            showPopupText(setPopupProps, "Server isn't available");
+            return;
+          }
+
+          if (error.status === 401) {
+            showPopupText(
+              setPopupProps,
+              "Session ended. Please login again.",
+              () => {
+                navigate("/");
+              }
+            );
+            return;
+          } else if (error.status === 404) {
+            if (error.response?.data.result === "user_not_found") {
+              showPopupText(setPopupProps, "User not found");
+            } else if (error.response?.data.result === "message_not_found") {
+              showPopupText(setPopupProps, "Message not found");
+            }
+            return;
+          } else if (error.status === 405) {
+            if (error.response?.data.result === "user_not_verified") {
+              showPopupText(
+                setPopupProps,
+                "You are not verified yet. Please open your inbox and activate your account"
+              );
+            } else if (error.response?.data.result === "user_account_deleted") {
+              showPopupText(setPopupProps, "Use account deleted");
+            }
+            return;
+          }
+        }
+        showPopupText(setPopupProps, "Something went wrong");
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (messageImage !== null && data && getConversationMessagesData) {
+      uploadImage();
+    }
+  }, [messageImage]);
 
   useEffect(() => {
     if (editedMessageContent !== "" && editedMessageId !== "") {
