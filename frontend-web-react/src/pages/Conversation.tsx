@@ -10,6 +10,7 @@ import { wsSendMessageRequestInterface } from "../interfaces/services/messages/r
 import Singleton from "../services/messages/Singleton";
 import Popup from "../components/Popup";
 import { popupComponentInterface } from "../interfaces/components/popup_interface";
+import { editMessage, showPopupText } from "../services/helpers/popup_helper";
 
 const Conversation = () => {
   const navigate = useNavigate();
@@ -22,6 +23,14 @@ const Conversation = () => {
   const [popupProps, setPopupProps] = useState<popupComponentInterface | null>(
     null
   );
+  const [editedMessageContent, setEditedMessageContent] = useState<string>("");
+  const [editedMessageId, setEditedMessageId] = useState<string>("");
+
+  useEffect(() => {
+    if (editedMessageContent !== "" && editedMessageId !== "") {
+      editConversationMessage();
+    }
+  }, [editedMessageContent, editedMessageId]);
 
   const scrollToBottom = () => {
     window.scrollTo({
@@ -31,9 +40,31 @@ const Conversation = () => {
   };
 
   const editConversationMessage = () => {
-    console.log("Editing message");
+    editMessage(
+      setPopupProps,
+      setEditedMessageContent,
+      editedMessageContent,
+      () => {
+        if (editedMessageContent === "") {
+          setPopupProps(null);
+          return;
+        }
+
+        Singleton.editMessageWsRequest({
+          event_name: "edit_message",
+          message_id: editedMessageId,
+          message_new_content: editedMessageContent,
+        });
+
+        setEditedMessageContent("");
+        setEditedMessageId("");
+        setPopupProps(null);
+      }
+    );
   };
+
   const deleteConversationMessage = (is_for_all: boolean) => {
+    showPopupText(setPopupProps, "Hi");
     console.log(`Delete message  - ${is_for_all}`);
   };
 
@@ -73,7 +104,8 @@ const Conversation = () => {
                 <Message
                   key={message._id}
                   onEdit={() => {
-                    editConversationMessage();
+                    setEditedMessageContent(message.content);
+                    setEditedMessageId(message._id);
                   }}
                   onDelete={() => {
                     deleteConversationMessage(message.sender._id === data!._id);
@@ -134,7 +166,15 @@ const Conversation = () => {
           }
         />
       </div>
-      {popupProps && <Popup {...popupProps} />}
+      {popupProps?.for === "edit_message_for_user" ? (
+        <Popup
+          {...popupProps}
+          text={editedMessageContent}
+          setText={setEditedMessageContent}
+        />
+      ) : popupProps ? (
+        <Popup {...popupProps} />
+      ) : null}
     </div>
   );
 };
