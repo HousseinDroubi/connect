@@ -6,14 +6,12 @@ import { deleteMessageResponseInterface } from "../../../interfaces/responses/de
 const deleteMessageApi = async ({
   message_id,
   token,
-}: deleteMessageApiParamInterface): Promise<
-  AxiosResponse<deleteMessageResponseInterface, deleteMessageApiParamInterface>
-> => {
+}: deleteMessageApiParamInterface): Promise<deleteMessageResponseInterface> => {
   const response = await axios.get(`${API_VIEW_IMAGE}/${message_id}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
-  return response;
+  return response.data;
 };
 
 export { deleteMessageApi };
