@@ -299,12 +299,13 @@ class Singleton {
               )
             )
               return;
-            await deleteFile(
-              path.join(
-                __dirname,
-                `../conversations/${message.conversation_id}/${message.content}`
-              )
-            );
+            if (!message.is_text)
+              await deleteFile(
+                path.join(
+                  __dirname,
+                  `../conversations/${message.conversation_id}/${message.content}`
+                )
+              );
             message.deleted_for_others_at = new Date();
             message.is_text = true;
             message.content = "This message has been deleted";
