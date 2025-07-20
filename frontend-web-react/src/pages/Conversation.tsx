@@ -215,9 +215,9 @@ const Conversation = () => {
     <div className="h-screen w-full flex flex-col">
       <Nav profile_url={data?.profile_url} />
       <div className="w-full h-full flex justify-center">
-        <section className="w-3/4 h-full">
+        <section className="w-full md:w-3/4 h-full">
           {getConversationMessagesData?.messages.length !== 0 && (
-            <article className="flex flex-col mt-36">
+            <article className="flex flex-col mt-36 pl-2 pr-2 md:pl-0 md:pr-0">
               {getConversationMessagesData?.messages.map((message, index) => (
                 <Message
                   key={message._id}
@@ -256,17 +256,19 @@ const Conversation = () => {
               ))}
             </article>
           )}
-          <TextField
-            hint="Type your message..."
-            value={messageText}
-            setText={setMessageText}
-            doNextFunction={() => {
-              sendMessage(true, messageText);
-            }}
-            is_for_message
-            is_full
-            setImage={setMessageImage}
-          />
+          <div className="flex justify-center">
+            <TextField
+              hint="Type your message..."
+              value={messageText}
+              setText={setMessageText}
+              doNextFunction={() => {
+                sendMessage(true, messageText);
+              }}
+              is_for_message
+              is_full
+              setImage={setMessageImage}
+            />
+          </div>
         </section>
         <ConnectUser
           for="status"

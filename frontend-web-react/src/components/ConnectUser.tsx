@@ -36,9 +36,11 @@ const ConnectUser: React.FC<connectUserComponentInterface> = (props) => {
           : undefined
       }
     >
-      <div className="flex h-32 items-center w-full">
+      <div className="flex h-24 md:h-32 items-center w-full">
         <section
-          className={`size-24 ml-4 ${!props.is_group && "rounded-full"}`}
+          className={`size-20 md:size-24 ml-4 ${
+            !props.is_group && "rounded-full"
+          }`}
         >
           <img
             src={props.is_group ? GroupIcon : props.profile_url}

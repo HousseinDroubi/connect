@@ -18,7 +18,7 @@ const Popup: React.FC<popupComponentInterface> = (props) => {
         )}
         {props.for !== "loading" && (
           <div
-            className={`w-[500px] bg-white rounded-md flex flex-col p-5 ${
+            className={`w-[330px] sm:w-[400px] md:w-[500px] bg-white rounded-md flex flex-col p-5 ${
               props.for === "delete_message_for_user"
                 ? "h-48"
                 : props.for === "delete_message_for_other_user"

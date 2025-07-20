@@ -90,16 +90,18 @@ const Search = () => {
     <div className="h-screen w-full flex flex-col">
       <Nav profile_url={data?.profile_url} />
       <div className="w-full h-full flex justify-center">
-        <section className="w-3/4 h-full mt-10 flex flex-col">
-          <TextField
-            title="Search"
-            hint="Search by pin, email or even username then enter"
-            setText={setSearchText}
-            value={searchText}
-            is_full
-            doNextFunction={searchForUsers}
-          />
-          <div className="mt-10 flex flex-col">
+        <section className="w-full md:w-3/4 h-full mt-10 flex flex-col">
+          <div className="pl-3 pr-3 md:pl-0 md:pr-0">
+            <TextField
+              title="Search"
+              hint="Search by pin, email or even username then enter"
+              setText={setSearchText}
+              value={searchText}
+              is_full
+              doNextFunction={searchForUsers}
+            />
+          </div>
+          <div className="ml-3 md:ml-0 mt-10 flex flex-col">
             <Title title="Results" size="big" />
             <hr />
             {usersSearch.users.map((user) => (

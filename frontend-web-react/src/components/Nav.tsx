@@ -15,25 +15,25 @@ const Nav: React.FC<NavComponentInterface> = ({ profile_url }) => {
   return (
     <nav className="flex flex-col">
       <article className="flex justify-between pl-8 pr-8 pt-5">
-        <section className="flex items-center w-36 justify-between">
+        <section className="flex items-center w-24 sm:w-36 justify-between">
           <Title title="Connect" size="medium" />
           <Logo />
         </section>
-        <section className="flex items-center w-40 justify-between">
+        <section className="flex items-center w-32 md:w-40 justify-between">
           <div
-            className="cursor-pointer size-9"
+            className="cursor-pointer size-6 md:size-9"
             onClick={() => navigateTo("landing")}
           >
             <img src={MessageIcon} alt="message" title="conversations" />
           </div>
           <div
-            className="cursor-pointer size-9"
+            className="cursor-pointer size-6 md:size-9"
             onClick={() => navigateTo("search")}
           >
             <img src={SearchIcon} alt="search" title="Find someone" />
           </div>
           <div
-            className="cursor-pointer size-10"
+            className="cursor-pointer size-6 md:size-10"
             onClick={() => navigateTo("profile")}
           >
             <img

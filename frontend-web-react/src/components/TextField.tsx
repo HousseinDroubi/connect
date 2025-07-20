@@ -38,17 +38,17 @@ const TextField: React.FC<textFieldComponentInterface> = ({
   return (
     <section
       className={`flex flex-col justify-between items-start ${
-        is_for_message && "fixed bottom-3 w-3/4"
+        is_for_message && "fixed bottom-3 w-11/12 md:w-3/4"
       }`}
     >
       <p className="text-black font-medium text-base">{title}</p>
       <div
         className={`pl-3 pr-2 ${
-          is_full ? `w-full` : `w-112`
+          is_full ? `w-full` : `w-72 sm:w-96 md:w-112`
         } h-12 bg-ice_blue mt-2 flex items-center rounded-md`}
       >
         <input
-          className="bg-ice_blue h-full w-full border-none focus:border-none focus:outline-none text-dusty_blue font-semibold"
+          className="bg-ice_blue h-full w-full border-none focus:border-none focus:outline-none text-dusty_blue font-semibold placeholder:text-xs md:placeholder:text-base"
           value={value}
           type={is_password && isClosed ? "password" : "text"}
           placeholder={hint}
@@ -74,7 +74,7 @@ const TextField: React.FC<textFieldComponentInterface> = ({
                 src={GalleryIcon}
                 alt="gallery"
                 title="Send image"
-                className="cursor-pointer"
+                className="cursor-pointer size-6 md:size-10"
               />
               <input
                 type="file"
@@ -86,7 +86,7 @@ const TextField: React.FC<textFieldComponentInterface> = ({
           ) : (
             <img
               src={SendMessageIcon}
-              className="cursor-pointer w-8 h-8"
+              className="cursor-pointer size-6 md:size-10"
               onClick={() => doNextFunction}
             />
           ))}

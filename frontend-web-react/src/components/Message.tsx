@@ -43,7 +43,7 @@ const Message: React.FC<messageComponentInterface> = ({
       }}
       className={`${!is_first_message && "mt-3"} ${
         is_last_image && "mb-20"
-      } flex items-end w-7/12 ${
+      } flex items-end w-9/12 md:w-7/12 ${
         is_left ? "self-start flex-row" : "self-end flex-row-reverse"
       }`}
     >

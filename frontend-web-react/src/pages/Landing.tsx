@@ -48,8 +48,10 @@ const Landing = () => {
     <div className="h-screen w-full flex flex-col">
       <Nav profile_url={data?.profile_url} />
       <div className="w-full h-full flex justify-center">
-        <section className="w-3/4 h-full mt-10">
-          <Title title="All conversations" size="big" />
+        <section className="w-full md:w-3/4 h-full mt-10">
+          <div className="ml-3 md:ml-0">
+            <Title title="All conversations" size="big" />
+          </div>
           <div className="mt-6">
             {data &&
               data.conversations.map((conversation) => (
