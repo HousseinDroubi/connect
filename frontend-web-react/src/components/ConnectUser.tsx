@@ -72,7 +72,7 @@ const ConnectUser: React.FC<connectUserComponentInterface> = (props) => {
                 className={`mt-2 ${
                   props.last_message_text && props.is_last_message_deleted
                     ? "italic"
-                    : "font-medium"
+                    : " font-medium"
                 }`}
               >
                 {props.last_message_text}
