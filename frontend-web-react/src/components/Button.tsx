@@ -10,9 +10,14 @@ const Button: React.FC<buttonComponentInterface> = ({
   return (
     <button
       onClick={fn}
-      className={`${is_colored_red ? "bg-red-600" : "bg-blue"} ${
-        is_disabled && "bg-gray-300 cursor-not-allowed"
-      } ${
+      className={`${
+        is_disabled
+          ? "bg-gray-300 cursor-not-allowed"
+          : is_colored_red
+          ? "bg-red-600"
+          : "bg-blue"
+      }
+      ${
         is_small ? "w-28" : "w-44"
       } h-10 rounded-md cursor-pointer text-white font-medium`}
     >
