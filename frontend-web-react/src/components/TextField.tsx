@@ -4,7 +4,6 @@ import ClosedEye from "../assets/closed_eye.png";
 import SendMessageIcon from "../assets/send_message.png";
 import GalleryIcon from "../assets/gallery.png";
 import { useState } from "react";
-import { handleImage } from "../utils/functions";
 
 const TextField: React.FC<textFieldComponentInterface> = ({
   title,

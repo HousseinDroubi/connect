@@ -15,7 +15,6 @@ import { loginRequestValidationError } from "../interfaces/validations_responses
 import useLogin from "../services/hooks/mutations/login_mutation";
 import { showLoading, showPopupText } from "../services/helpers/popup_helper";
 import { useNavigate } from "react-router-dom";
-import Singleton from "../services/messages/Singleton";
 import { queryClient } from "..";
 
 const Login = () => {

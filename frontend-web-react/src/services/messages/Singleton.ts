@@ -1,4 +1,3 @@
-import { queryClient } from "../..";
 import {
   wsDeleteMessageRequestInterface,
   wsEditMessageRequestInterface,

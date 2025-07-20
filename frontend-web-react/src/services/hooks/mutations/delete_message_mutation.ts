@@ -7,7 +7,7 @@ import axios from "axios";
 import { showPopupText } from "../../helpers/popup_helper";
 import { NavigateFunction } from "react-router-dom";
 import { queryClient } from "../../..";
-import { cloneDeep, update } from "lodash";
+import { cloneDeep } from "lodash";
 import { getConversationMessagesResponseInterface } from "../../../interfaces/responses/get_conversation_message_response";
 
 const useDeleteMessage = (

@@ -1,8 +1,5 @@
 import axios from "axios";
-import {
-  API_UPDATE_PASSWORD,
-  API_UPDATE_PROFILE_DATA,
-} from "../../../constants/urls/auth_urls";
+import { API_UPDATE_PASSWORD } from "../../../constants/urls/auth_urls";
 import { updatePasswordApiParamInterface } from "../../../interfaces/services/apis/update_password_api_param";
 import { updatePasswordResponseInterface } from "../../../interfaces/responses/update_password_response";
 

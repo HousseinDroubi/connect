@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { API_LOGIN } from "../../../constants/urls/auth_urls";
 import { loginResponseInterface } from "../../../interfaces/responses/login_response";
 import { loginBodyInterface } from "../../../interfaces/requests/login_request";

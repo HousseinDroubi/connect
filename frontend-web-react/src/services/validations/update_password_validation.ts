@@ -1,7 +1,6 @@
 import Joi from "joi";
 import { showPopupText } from "../helpers/popup_helper";
 import { SetPopupType } from "../../interfaces/general_types";
-import { updateForgottenPasswordRequestValidationError } from "../../interfaces/validations_responses/update_forgotten_password_validtion_responses";
 import { updatePasswordBodyInterface } from "../../interfaces/requests/update_password_request";
 import { updatePasswordRequestValidationError } from "../../interfaces/validations_responses/update_password_validtion_responses";
 
