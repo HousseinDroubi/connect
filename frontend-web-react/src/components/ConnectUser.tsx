@@ -35,7 +35,7 @@ const ConnectUser: React.FC<connectUserComponentInterface> = (props) => {
     <article
       onMouseEnter={() => setIsDeleteShown(true)}
       onMouseLeave={() => setIsDeleteShown(false)}
-      className={`bg-body flex flex-col cursor-pointer transition-all duration-100 ease-in-out ${
+      className={`bg-body flex cursor-pointer transition-all duration-100 ease-in-out ${
         props.for === "status" && `fixed w-3/4`
       }`}
       style={props.for === "status" ? { top: `${topValue}rem` } : {}}
@@ -45,8 +45,16 @@ const ConnectUser: React.FC<connectUserComponentInterface> = (props) => {
           : undefined
       }
     >
-      <div className={`flex justify-between h-24 md:h-32 items-center w-full`}>
-        <div className="flex items-center w-full">
+      <div
+        className={`flex flex-col flex-grow  ${
+          props.for === "conversation" &&
+          !props.is_group &&
+          isDeleteShown &&
+          "-translate-x-4"
+        }`}
+      >
+        <div className={`flex justify-start h-24 md:h-32 items-center w-full`}>
+          {/* Image*/}
           <section
             className={`size-20 md:size-24 ml-4 ${
               !props.is_group && "rounded-full"
@@ -58,6 +66,8 @@ const ConnectUser: React.FC<connectUserComponentInterface> = (props) => {
               className={`size-full ${!props.is_group && "rounded-full"}`}
             />
           </section>
+
+          {/* Title and last message */}
           <section className="flex flex-col items-start justify-center h-full ml-4">
             <Title
               size="medium"
@@ -95,21 +105,19 @@ const ConnectUser: React.FC<connectUserComponentInterface> = (props) => {
             )}
           </section>
         </div>
-        <div>
-          {props.for === "conversation" && !props.is_group && isDeleteShown && (
-            <section
-              className="self-end"
-              onClick={(event) => {
-                event.stopPropagation();
-                deleteConverstaion();
-              }}
-            >
-              <img src={DeleteIcon} alt="Delete" className="size-10" />
-            </section>
-          )}
-        </div>
+        <hr className="bg-black" />
       </div>
-      <hr className="bg-black" />
+      {props.for === "conversation" && !props.is_group && isDeleteShown && (
+        <section
+          className="self-end"
+          onClick={(event) => {
+            event.stopPropagation();
+            deleteConverstaion();
+          }}
+        >
+          <img src={DeleteIcon} alt="Delete" className="size-10" />
+        </section>
+      )}
     </article>
   );
 };
