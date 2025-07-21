@@ -24,6 +24,10 @@ const Landing = () => {
     isError,
   } = useConversationMessages(setPopupProps, navigate);
 
+  const deleteConversationApi = (conversation_id: string) => {
+    console.warn(`Deleting ${conversation_id} conversation`);
+  };
+
   useEffect(() => {
     if (isPending) showLoading(setPopupProps, true);
   }, [isPending]);
@@ -64,6 +68,9 @@ const Landing = () => {
                     )
                   }
                   conversation_id={conversation._id}
+                  deleteConversationFunction={() =>
+                    deleteConversationApi(conversation._id)
+                  }
                   key={conversation._id}
                   for="conversation"
                   username={
