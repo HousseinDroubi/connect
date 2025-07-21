@@ -13,6 +13,7 @@ interface connectUserConversationInterface extends connectUserBasicInterface {
   for: "conversation";
   last_message_text: string | null;
   is_last_message_deleted: boolean;
+  conversation_id: string;
   getConversationMessagesFunction: () => void;
 }
 
