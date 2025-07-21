@@ -4,15 +4,12 @@ import { deleteConversationApiParamInterface } from "../../../interfaces/service
 import { deleteConversationResponseInterface } from "../../../interfaces/responses/delete_conversation_response";
 
 const deleteConversationApi = async ({
-  conversation_id,
+  pin,
   token,
 }: deleteConversationApiParamInterface): Promise<deleteConversationResponseInterface> => {
-  const response = await axios.delete(
-    `${API_DELETE_CONVERSATION}/${conversation_id}`,
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
+  const response = await axios.delete(`${API_DELETE_CONVERSATION}/${pin}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   return response.data;
 };
 

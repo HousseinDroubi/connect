@@ -1,5 +1,5 @@
 interface deleteConversationApiParamInterface {
-  conversation_id: string;
+  pin: string;
   token: string;
 }
 

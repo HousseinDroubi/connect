@@ -69,7 +69,11 @@ const Landing = () => {
                   }
                   conversation_id={conversation._id}
                   deleteConversationFunction={() =>
-                    deleteConversationApi(conversation._id)
+                    deleteConversationApi(
+                      conversation.recipient
+                        ? String(conversation.recipient.pin)
+                        : "broadcast"
+                    )
                   }
                   key={conversation._id}
                   for="conversation"
