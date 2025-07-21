@@ -163,6 +163,12 @@ const deleteConversation = async (request: Request, response: Response) => {
     });
 
   conversation.deleted_for.push(body.user!._id);
+
+  await Message.updateMany(
+    { conversation_id: conversation._id },
+    { $addToSet: { deleted_for: body.user!._id } }
+  );
+
   await conversation.save();
 
   return response.status(200).json({
