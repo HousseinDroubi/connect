@@ -4,6 +4,7 @@ import { Message } from "../models/message.model";
 import { Conversation } from "../models/conversation.model";
 import User from "../models/user.model";
 import { messageDocumentInterface } from "../interfaces/documents/message.document.interface";
+import mongoose from "mongoose";
 
 const getConversationMessages = async (
   request: Request,
@@ -94,6 +95,14 @@ const getConversationMessages = async (
       message!.receiver = receiverObj;
     }
   });
+  const index = conversation!.deleted_for.findIndex(
+    (user_id: mongoose.Types.ObjectId) =>
+      String(user_id) === String(body.user!._id)
+  );
+  if (index !== -1) {
+    conversation!.deleted_for.splice(index, 1);
+    await conversation!.save();
+  }
 
   const data_respones: any = {
     result: "got_messages",
