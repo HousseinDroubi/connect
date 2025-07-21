@@ -24,8 +24,8 @@ const Landing = () => {
     isError,
   } = useConversationMessages(setPopupProps, navigate);
 
-  const deleteConversationApi = (conversation_id: string) => {
-    console.warn(`Deleting ${conversation_id} conversation`);
+  const deleteConversationApi = (pin: string) => {
+    console.warn(`Deleting ${pin} conversation`);
   };
 
   useEffect(() => {
