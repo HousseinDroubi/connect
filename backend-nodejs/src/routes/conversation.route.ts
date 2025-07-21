@@ -23,7 +23,7 @@ router.get(
 );
 
 router.delete(
-  "/delete_conversation/:pin",
+  "/delete/:pin",
   isUserAuthenticated,
   isUserAccountUnverifiedOrDeleted,
   deleteConversationValidationMiddleware,
