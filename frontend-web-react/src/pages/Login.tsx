@@ -18,12 +18,8 @@ import { useNavigate } from "react-router-dom";
 import { queryClient } from "..";
 
 const Login = () => {
-  const [emailOrPinText, setEmailOrPinText] = useState<string>(
-    process.env.REACT_APP_EMAIL_TEST!
-  );
-  const [passwordText, setPasswordText] = useState<string>(
-    process.env.REACT_APP_PASSWORD_TEST!
-  );
+  const [emailOrPinText, setEmailOrPinText] = useState<string>("");
+  const [passwordText, setPasswordText] = useState<string>("");
   const [popupProps, setPopupProps] = useState<popupComponentInterface | null>(
     null
   );
