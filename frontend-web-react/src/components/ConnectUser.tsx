@@ -9,7 +9,8 @@ const ConnectUser: React.FC<connectUserComponentInterface> = (props) => {
   const [isDeleteShown, setIsDeleteShown] = useState<boolean>(false);
 
   const deleteConverstaion = () => {
-    console.log(`Deleting converstaion`);
+    if (props.for !== "conversation") return;
+    props.deleteConversationFunction();
   };
 
   const handleScroll = () => {

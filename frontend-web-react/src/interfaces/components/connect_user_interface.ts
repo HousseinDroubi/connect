@@ -14,6 +14,7 @@ interface connectUserConversationInterface extends connectUserBasicInterface {
   last_message_text: string | null;
   is_last_message_deleted: boolean;
   conversation_id: string;
+  deleteConversationFunction: () => void;
   getConversationMessagesFunction: () => void;
 }
 
