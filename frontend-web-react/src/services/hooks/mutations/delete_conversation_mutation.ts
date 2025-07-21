@@ -23,7 +23,7 @@ const useDeleteConversation = (
     deleteConversationApiParamInterface
   >({
     mutationFn: deleteConversationApi,
-    onSuccess(data, params) {
+    onSuccess(data) {
       if (data.result === "deleted") {
         //  Delete conversation from cache
         const user_data: any = queryClient.getQueryData(["user_data"]);
@@ -35,13 +35,13 @@ const useDeleteConversation = (
         const updated_user_data = cloneDeep(user_data);
 
         updated_user_data.conversations.filter(
-          (conversation: any) => conversation._id !== params.conversation_id
+          (conversation: any) => conversation._id !== data.conversation_id
         );
 
         queryClient.setQueryData(["user_data"], updated_user_data);
 
         queryClient.removeQueries({
-          queryKey: ["conversations", params.conversation_id],
+          queryKey: ["conversations", data.conversation_id],
         });
       }
       throw new Error();
