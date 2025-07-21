@@ -9,6 +9,7 @@ import { popupComponentInterface } from "../interfaces/components/popup_interfac
 import Popup from "../components/Popup";
 import { showLoading } from "../services/helpers/popup_helper";
 import Singleton from "../services/messages/Singleton";
+import useDeleteConversation from "../services/hooks/mutations/delete_conversation_mutation";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -24,13 +25,24 @@ const Landing = () => {
     isError,
   } = useConversationMessages(setPopupProps, navigate);
 
+  const {
+    mutate: deleteConversationMutate,
+    isPending: isPendingDeleteConversationMessages,
+    isSuccess,
+  } = useDeleteConversation(setPopupProps, navigate);
+
   const deleteConversationApi = (pin: string) => {
-    console.warn(`Deleting ${pin} conversation`);
+    deleteConversationMutate({
+      pin,
+      token: data!.token,
+    });
   };
 
   useEffect(() => {
-    if (isPending) showLoading(setPopupProps, true);
-  }, [isPending]);
+    if (isPending || isPendingDeleteConversationMessages)
+      showLoading(setPopupProps, true);
+    if (isSuccess) showLoading(setPopupProps, false);
+  }, [isPending, isPendingDeleteConversationMessages, isSuccess]);
 
   useEffect(() => {
     if (dataConversationMessages && !isError) {
