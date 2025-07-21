@@ -76,14 +76,23 @@ const getConversationMessages = async (
     });
 
   messages.forEach((message: messageDocumentInterface["message"]) => {
-    (message!.sender as any).profile_url = `http://${process.env.DOMAIN}:${
-      process.env.PORT
-    }/${(message!.sender as any).profile_url}`;
+    // Convert sender to plain object before modifying
+    if (message!.sender) {
+      const senderObj = (message!.sender as any).toObject
+        ? (message!.sender as any).toObject()
+        : message!.sender;
+      senderObj.profile_url = `http://${process.env.DOMAIN}:${process.env.PORT}/${senderObj.profile_url}`;
+      message!.sender = senderObj;
+    }
 
-    if (message!.receiver)
-      (message!.receiver as any).profile_url = `http://${process.env.DOMAIN}:${
-        process.env.PORT
-      }/${(message!.receiver as any).profile_url}`;
+    // Convert receiver to plain object before modifying
+    if (message!.receiver) {
+      const receiverObj = (message!.receiver as any).toObject
+        ? (message!.receiver as any).toObject()
+        : message!.receiver;
+      receiverObj.profile_url = `http://${process.env.DOMAIN}:${process.env.PORT}/${receiverObj.profile_url}`;
+      message!.receiver = receiverObj;
+    }
   });
 
   const data_respones: any = {
