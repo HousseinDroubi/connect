@@ -34,9 +34,10 @@ const useDeleteConversation = (
 
         const updated_user_data = cloneDeep(user_data);
 
-        updated_user_data.conversations.filter(
-          (conversation: any) => conversation._id !== data.conversation_id
-        );
+        updated_user_data.conversations =
+          updated_user_data.conversations.filter(
+            (conversation: any) => conversation._id !== data.conversation_id
+          );
 
         queryClient.setQueryData(["user_data"], updated_user_data);
 

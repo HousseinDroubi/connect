@@ -51,7 +51,14 @@ const login = async (request: Request, response: Response) => {
   }
 
   const conversations: any = await Conversation.find({
-    $or: [{ between: null }, { between: { $in: [user._id] } }],
+    $and: [
+      {
+        $or: [{ between: null }, { between: { $in: [user._id] } }],
+      },
+      {
+        deleted_for: { $nin: [user._id] },
+      },
+    ],
   })
     .populate({
       path: "between",
