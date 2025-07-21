@@ -43,6 +43,7 @@ const useDeleteConversation = (
         queryClient.removeQueries({
           queryKey: ["conversations", data.conversation_id],
         });
+        return;
       }
       throw new Error();
     },
