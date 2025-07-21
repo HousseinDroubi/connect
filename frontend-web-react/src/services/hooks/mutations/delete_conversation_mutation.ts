@@ -1,8 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
 import { SetPopupType } from "../../../interfaces/general_types";
+import { deleteMessageResponseInterface } from "../../../interfaces/responses/delete_message_response";
+import { deleteMessageApi } from "../../apis/message/delete_message";
+import { deleteMessageApiParamInterface } from "../../../interfaces/services/apis/delete_message_api_param";
 import axios from "axios";
 import { showPopupText } from "../../helpers/popup_helper";
 import { NavigateFunction, useFetcher } from "react-router-dom";
+import { queryClient } from "../../..";
+import { cloneDeep } from "lodash";
+import { getConversationMessagesResponseInterface } from "../../../interfaces/responses/get_conversation_message_response";
 import { deleteConversationApi } from "../../apis/conversations/delete_conversation";
 import { deleteConversationResponseInterface } from "../../../interfaces/responses/delete_conversation_response";
 import { deleteConversationApiParamInterface } from "../../../interfaces/services/apis/delete_conversation_api_param";
@@ -17,9 +23,26 @@ const useDeleteConversation = (
     deleteConversationApiParamInterface
   >({
     mutationFn: deleteConversationApi,
-    onSuccess(data) {
+    onSuccess(data, params) {
       if (data.result === "deleted") {
-        // Delete conversation from cache
+        //  Delete conversation from cache
+        const user_data: any = queryClient.getQueryData(["user_data"]);
+
+        if (!user_data || !user_data.conversations) {
+          return;
+        }
+
+        const updated_user_data = cloneDeep(user_data);
+
+        updated_user_data.conversations.filter(
+          (conversation: any) => conversation._id !== params.conversation_id
+        );
+
+        queryClient.setQueryData(["user_data"], updated_user_data);
+
+        queryClient.removeQueries({
+          queryKey: ["conversations", params.conversation_id],
+        });
       }
       throw new Error();
     },
