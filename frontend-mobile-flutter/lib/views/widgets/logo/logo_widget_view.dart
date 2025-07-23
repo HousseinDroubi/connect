@@ -3,10 +3,10 @@ import 'package:connect/views/widgets/logo/logo_widget_view_model.dart';
 import 'package:flutter/material.dart';
 
 class LogoView extends StatelessWidget {
-  final LogoWidgetModel logoWidgetModel;
-  final LogoWidgetViewModel logoViewModel;
-  LogoView({super.key, required this.logoWidgetModel})
-    : logoViewModel = LogoWidgetViewModel(logoWidgetModel: logoWidgetModel);
+  final LogoWidgetModel model;
+  final LogoWidgetViewModel viewModel;
+  LogoView({super.key, required this.model})
+    : viewModel = LogoWidgetViewModel(model: model);
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +15,12 @@ class LogoView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            logoViewModel.title,
+            viewModel.title,
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
           ),
           Container(
             margin: EdgeInsets.only(left: 10),
-            child: Image.asset(logoViewModel.logoPath, width: 26, height: 26),
+            child: Image.asset(viewModel.logoPath, width: 26, height: 26),
           ),
         ],
       ),

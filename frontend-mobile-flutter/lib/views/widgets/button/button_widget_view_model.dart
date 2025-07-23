@@ -1,11 +1,11 @@
 import 'package:connect/views/widgets/button/button_widget_model.dart';
 
 class ButtonWidgetViewModel {
-  ButtonWidgetModel buttonWidgetModel;
-  ButtonWidgetViewModel({required this.buttonWidgetModel});
+  ButtonWidgetModel model;
+  ButtonWidgetViewModel({required this.model});
 
-  String get buttonText => buttonWidgetModel.buttonText;
-  Function get buttonFn => buttonWidgetModel.buttonFn;
-  bool get isColoredRed => buttonWidgetModel.isColoredRed!;
-  bool get isDisabled => buttonWidgetModel.isDisabled!;
+  String get buttonText => model.buttonText;
+  Function get buttonFn => model.buttonFn;
+  bool get isColoredRed => model.isColoredRed!;
+  bool get isDisabled => model.isDisabled!;
 }
