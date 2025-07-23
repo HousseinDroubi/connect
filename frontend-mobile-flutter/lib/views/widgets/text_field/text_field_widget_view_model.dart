@@ -1,7 +1,7 @@
 import 'package:connect/views/widgets/text_field/text_field_widget_model.dart';
 
 class TextFieldWidgetViewModel {
-  TextFieldModel model;
+  TextFieldWidgetModel model;
   TextFieldWidgetViewModel({required this.model});
 
   String get title => model.title;

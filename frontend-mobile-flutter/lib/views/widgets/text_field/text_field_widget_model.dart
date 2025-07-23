@@ -1,4 +1,4 @@
-class TextFieldModel {
+class TextFieldWidgetModel {
   String title;
   String hint;
   Function nextFunction;
@@ -7,7 +7,7 @@ class TextFieldModel {
   bool? isFull;
   bool? isForMessages;
 
-  TextFieldModel({
+  TextFieldWidgetModel({
     required this.title,
     required this.hint,
     required this.nextFunction,
