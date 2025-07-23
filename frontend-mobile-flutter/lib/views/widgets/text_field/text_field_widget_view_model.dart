@@ -13,4 +13,8 @@ class TextFieldWidgetViewModel {
   bool get isPassword => model.isPassword ?? false;
   bool get isFull => model.isFull ?? false;
   bool get isForMessages => model.isForMessages ?? false;
+
+  set value(String newValue) {
+    model.defaultValue = newValue;
+  }
 }
