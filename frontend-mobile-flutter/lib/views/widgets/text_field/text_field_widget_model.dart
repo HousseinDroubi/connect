@@ -1,8 +1,10 @@
+import 'package:flutter/widgets.dart';
+
 class TextFieldWidgetModel {
   String title;
   String hint;
   Function nextFunction;
-  String defaultValue;
+  TextEditingController textEditingController;
   bool? isPassword;
   bool? isFull;
   bool? isForMessages;
@@ -11,7 +13,7 @@ class TextFieldWidgetModel {
     required this.title,
     required this.hint,
     required this.nextFunction,
-    required this.defaultValue,
+    required this.textEditingController,
     this.isPassword,
     this.isFull,
     this.isForMessages,
