@@ -1,3 +1,4 @@
+import 'package:connect/constants/my_colors.dart';
 import 'package:connect/views/widgets/text_field/text_field_widget_model.dart';
 import 'package:connect/views/widgets/text_field/text_field_widget_view_model.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class _TextFieldWidgetViewState extends State<TextFieldWidgetView> {
         Text(
           widget.viewModel.title,
           style: TextStyle(
-            color: Color(0xFF0D141C),
+            color: MyColors.black.value,
             fontSize: 14,
             fontWeight: FontWeight.bold,
           ),
@@ -42,14 +43,14 @@ class _TextFieldWidgetViewState extends State<TextFieldWidgetView> {
             controller: widget.viewModel.textEditingController,
             cursorHeight: 15,
             style: TextStyle(
-              color: Color(0xFF49739C),
+              color: MyColors.dustyBlue.value,
               fontWeight: FontWeight.w500,
             ),
             obscureText: widget.viewModel.isPassword && !seen,
-            cursorColor: Color(0xFF49739C),
+            cursorColor: MyColors.dustyBlue.value,
             decoration: InputDecoration(
               filled: true,
-              fillColor: Color(0xFFE7EDF4),
+              fillColor: MyColors.iceBlue.value,
               border: InputBorder.none,
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(4),

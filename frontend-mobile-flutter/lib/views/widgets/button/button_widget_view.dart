@@ -1,3 +1,4 @@
+import 'package:connect/constants/my_colors.dart';
 import 'package:connect/views/widgets/button/button_widget_model.dart';
 import 'package:connect/views/widgets/button/button_widget_view_model.dart';
 import 'package:flutter/material.dart';
@@ -21,14 +22,17 @@ class ButtonWidgetView extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(3),
           color: model.isDisabled == true
-              ? Colors.grey
+              ? MyColors.grey.value
               : model.isColoredRed == true
-              ? Colors.red
-              : Colors.blue,
+              ? MyColors.red.value
+              : MyColors.blue.value,
         ),
         child: Text(
           model.buttonText,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+          style: TextStyle(
+            color: MyColors.white.value,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
     );
