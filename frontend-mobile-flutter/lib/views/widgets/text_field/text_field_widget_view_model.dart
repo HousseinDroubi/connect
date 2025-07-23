@@ -1,6 +1,8 @@
 import 'package:connect/views/widgets/text_field/text_field_widget_model.dart';
 
 class TextFieldWidgetViewModel {
+  String openedEyeIconPath = "assets/icons/opened_eye.png";
+  String closedEyeIconPath = "assets/icons/closed_eye.png";
   TextFieldWidgetModel model;
   TextFieldWidgetViewModel({required this.model});
 
