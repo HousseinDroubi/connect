@@ -1,4 +1,4 @@
-class LogoModel {
+class LogoWidgetModel {
   String title;
-  LogoModel({required this.title});
+  LogoWidgetModel({required this.title});
 }

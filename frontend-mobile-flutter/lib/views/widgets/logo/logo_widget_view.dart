@@ -3,10 +3,10 @@ import 'package:connect/views/widgets/logo/logo_widget_view_model.dart';
 import 'package:flutter/material.dart';
 
 class LogoView extends StatelessWidget {
-  final LogoModel logoModel;
-  final LogoViewModel logoViewModel;
-  LogoView({super.key, required this.logoModel})
-    : logoViewModel = LogoViewModel(logoModel: logoModel);
+  final LogoWidgetModel logoWidgetModel;
+  final LogoWidgetViewModel logoViewModel;
+  LogoView({super.key, required this.logoWidgetModel})
+    : logoViewModel = LogoWidgetViewModel(logoWidgetModel: logoWidgetModel);
 
   @override
   Widget build(BuildContext context) {
