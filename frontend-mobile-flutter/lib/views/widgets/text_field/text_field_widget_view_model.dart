@@ -4,6 +4,9 @@ import 'package:flutter/widgets.dart';
 class TextFieldWidgetViewModel {
   String openedEyeIconPath = "assets/icons/opened_eye.png";
   String closedEyeIconPath = "assets/icons/closed_eye.png";
+  String sendMessageIconPath = "assets/icons/send_message.png";
+  String galleryIconPath = "assets/icons/gallery.png";
+
   TextFieldWidgetModel model;
   TextFieldWidgetViewModel({required this.model});
 
