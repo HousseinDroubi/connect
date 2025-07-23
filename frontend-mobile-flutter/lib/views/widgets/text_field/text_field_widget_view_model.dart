@@ -8,7 +8,7 @@ class TextFieldWidgetViewModel {
   String get hint => model.hint;
   String get defaultValue => model.defaultValue;
   Function get nextFunction => model.nextFunction;
-  bool get isPassword => model.isPassword!;
-  bool get isFull => model.isFull!;
-  bool get isForMessages => model.isForMessages!;
+  bool get isPassword => model.isPassword ?? false;
+  bool get isFull => model.isFull ?? false;
+  bool get isForMessages => model.isForMessages ?? false;
 }
