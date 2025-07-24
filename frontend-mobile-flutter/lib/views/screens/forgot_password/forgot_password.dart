@@ -1,3 +1,9 @@
+import 'package:connect/views/widgets/button/button_widget.dart';
+import 'package:connect/views/widgets/button/button_widget_config.dart';
+import 'package:connect/views/widgets/text_field/text_field_widget_config.dart';
+import 'package:connect/views/widgets/text_field/text_field_widget_view.dart';
+import 'package:connect/views/widgets/title/title_widget.dart';
+import 'package:connect/views/widgets/title/title_widget_config.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -8,8 +14,35 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
+  final TextEditingController _emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TitleWidget(config: TitleWidgetConfig(title: "Forgot Password")),
+            SizedBox(height: 20),
+            TextFieldWidget(
+              config: TextFieldWidgetConfig(
+                title: "Email",
+                hint: "Enter your email",
+                nextFunction: () {},
+                textEditingController: _emailController,
+              ),
+            ),
+            SizedBox(height: 20),
+            ButtonWidget(
+              config: ButtonWidgetConifg(
+                buttonText: "Send email",
+                buttonFn: () {},
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
