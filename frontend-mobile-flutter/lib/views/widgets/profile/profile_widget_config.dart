@@ -20,4 +20,8 @@ class ProfileWidgetConfig {
   set imageSource(String? imageSource) {
     _imageSource = imageSource;
   }
+
+  void pickUpImage() {
+    // Todo
+  }
 }
