@@ -13,7 +13,7 @@ class ButtonWidget extends StatelessWidget {
         config.buttonFn();
       },
       child: Container(
-        width: 100,
+        width: 150,
         height: 35,
         alignment: Alignment.center,
         decoration: BoxDecoration(
