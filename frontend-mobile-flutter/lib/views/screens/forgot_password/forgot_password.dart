@@ -1,3 +1,4 @@
+import 'package:connect/views/screens/forgot_password/forgot_password_view_model.dart';
 import 'package:connect/views/widgets/button/button_widget.dart';
 import 'package:connect/views/widgets/button/button_widget_config.dart';
 import 'package:connect/views/widgets/text_field/text_field_widget_config.dart';
@@ -14,7 +15,7 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  final TextEditingController _emailController = TextEditingController();
+  final ForgotPasswordViewModel viewModel = ForgotPasswordViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 title: "Email",
                 hint: "Enter your email",
                 nextFunction: () {},
-                textEditingController: _emailController,
+                textEditingController: viewModel.emailController,
               ),
             ),
             SizedBox(height: 20),
