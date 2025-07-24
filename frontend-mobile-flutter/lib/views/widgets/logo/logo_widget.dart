@@ -1,4 +1,6 @@
 import 'package:connect/views/widgets/logo/logo_widget_config.dart';
+import 'package:connect/views/widgets/title/title_widget.dart';
+import 'package:connect/views/widgets/title/title_widget_config.dart';
 import 'package:flutter/material.dart';
 
 class LogoWidget extends StatelessWidget {
@@ -11,10 +13,7 @@ class LogoWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            config.title,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-          ),
+          TitleWidget(config: TitleWidgetConfig(title: config.title)),
           Container(
             margin: EdgeInsets.only(left: 10),
             child: Image.asset(
