@@ -21,63 +21,69 @@ class _CreateAccountState extends State<CreateAccount> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TitleWidget(config: TitleWidgetConfig(title: "Create New Account")),
-            SizedBox(height: 5),
-            TextFieldWidget(
-              config: TextFieldWidgetConfig(
-                title: "Email",
-                hint: "Enter your email",
-                nextFunction: () {},
-                textEditingController: viewModel.emailController,
+        child: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TitleWidget(
+                config: TitleWidgetConfig(title: "Create New Account"),
               ),
-            ),
-            SizedBox(height: 15),
-            TextFieldWidget(
-              config: TextFieldWidgetConfig(
-                title: "username",
-                hint: "Enter your username",
-                nextFunction: () {},
-                textEditingController: viewModel.usernameController,
+              SizedBox(height: 5),
+              TextFieldWidget(
+                config: TextFieldWidgetConfig(
+                  title: "Email",
+                  hint: "Enter your email",
+                  nextFunction: () {},
+                  textEditingController: viewModel.emailController,
+                ),
               ),
-            ),
-            SizedBox(height: 15),
-            TextFieldWidget(
-              config: TextFieldWidgetConfig(
-                title: "Pin",
-                hint: "Enter your pin",
-                nextFunction: () {},
-                textEditingController: viewModel.pinController,
+              SizedBox(height: 15),
+              TextFieldWidget(
+                config: TextFieldWidgetConfig(
+                  title: "username",
+                  hint: "Enter your username",
+                  nextFunction: () {},
+                  textEditingController: viewModel.usernameController,
+                ),
               ),
-            ),
-            SizedBox(height: 15),
-            TextFieldWidget(
-              config: TextFieldWidgetConfig(
-                title: "Password",
-                hint: "Enter your password",
-                nextFunction: () {},
-                textEditingController: viewModel.passwordController,
+              SizedBox(height: 15),
+              TextFieldWidget(
+                config: TextFieldWidgetConfig(
+                  title: "Pin",
+                  hint: "Enter your pin",
+                  nextFunction: () {},
+                  textEditingController: viewModel.pinController,
+                ),
               ),
-            ),
-            SizedBox(height: 15),
-            TextFieldWidget(
-              config: TextFieldWidgetConfig(
-                title: "Confirmation Password",
-                hint: "Re-enter your password",
-                nextFunction: () {},
-                textEditingController: viewModel.confirmationPasswordController,
+              SizedBox(height: 15),
+              TextFieldWidget(
+                config: TextFieldWidgetConfig(
+                  title: "Password",
+                  hint: "Enter your password",
+                  nextFunction: () {},
+                  textEditingController: viewModel.passwordController,
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            ButtonWidget(
-              config: ButtonWidgetConifg(
-                buttonText: "Create new account",
-                buttonFn: () {},
+              SizedBox(height: 15),
+              TextFieldWidget(
+                config: TextFieldWidgetConfig(
+                  title: "Confirmation Password",
+                  hint: "Re-enter your password",
+                  nextFunction: () {},
+                  textEditingController:
+                      viewModel.confirmationPasswordController,
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: 20),
+              ButtonWidget(
+                config: ButtonWidgetConifg(
+                  buttonText: "Create new account",
+                  buttonFn: () {},
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
