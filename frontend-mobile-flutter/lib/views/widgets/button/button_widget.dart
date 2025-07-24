@@ -1,19 +1,16 @@
 import 'package:connect/constants/my_colors.dart';
-import 'package:connect/views/widgets/button/button_widget_model.dart';
-import 'package:connect/views/widgets/button/button_widget_view_model.dart';
+import 'package:connect/views/widgets/button/button_widget_config.dart';
 import 'package:flutter/material.dart';
 
-class ButtonWidgetView extends StatelessWidget {
-  ButtonWidgetModel model;
-  ButtonWidgetViewModel viewModel;
-  ButtonWidgetView({super.key, required this.model})
-    : viewModel = ButtonWidgetViewModel(model: model);
+class ButtonWidget extends StatelessWidget {
+  final ButtonWidgetConifg config;
+  const ButtonWidget({super.key, required this.config});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        model.buttonFn();
+        config.buttonFn();
       },
       child: Container(
         width: 100,
@@ -21,14 +18,14 @@ class ButtonWidgetView extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(3),
-          color: model.isDisabled == true
+          color: config.isDisabled == true
               ? MyColors.grey.value
-              : model.isColoredRed == true
+              : config.isColoredRed == true
               ? MyColors.red.value
               : MyColors.blue.value,
         ),
         child: Text(
-          model.buttonText,
+          config.buttonText,
           style: TextStyle(
             color: MyColors.white.value,
             fontWeight: FontWeight.w500,

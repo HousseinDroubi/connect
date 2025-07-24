@@ -1,24 +1,21 @@
 import 'package:connect/constants/my_colors.dart';
-import 'package:connect/views/widgets/text_field/text_field_widget_model.dart';
-import 'package:connect/views/widgets/text_field/text_field_widget_view_model.dart';
+import 'package:connect/views/widgets/text_field/text_field_widget_config.dart';
 import 'package:flutter/material.dart';
 
-class TextFieldWidgetView extends StatefulWidget {
-  TextFieldWidgetModel model;
-  TextFieldWidgetViewModel viewModel;
-  TextFieldWidgetView({super.key, required this.model})
-    : viewModel = TextFieldWidgetViewModel(model: model);
+class TextFieldWidget extends StatefulWidget {
+  final TextFieldWidgetConfig config;
+  const TextFieldWidget({super.key, required this.config});
 
   @override
-  State<TextFieldWidgetView> createState() => _TextFieldWidgetViewState();
+  State<TextFieldWidget> createState() => _TextFieldWidgetState();
 }
 
-class _TextFieldWidgetViewState extends State<TextFieldWidgetView> {
+class _TextFieldWidgetState extends State<TextFieldWidget> {
   bool seen = false;
 
   @override
   void dispose() {
-    widget.viewModel.textEditingController.dispose();
+    widget.config.textEditingController.dispose();
     super.dispose();
   }
 
@@ -29,7 +26,7 @@ class _TextFieldWidgetViewState extends State<TextFieldWidgetView> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          widget.viewModel.title,
+          widget.config.title,
           style: TextStyle(
             color: MyColors.black.value,
             fontSize: 14,
@@ -37,16 +34,16 @@ class _TextFieldWidgetViewState extends State<TextFieldWidgetView> {
           ),
         ),
         SizedBox(
-          width: widget.viewModel.isFull ? double.infinity : 260,
+          width: widget.config.isFull ? double.infinity : 260,
           height: 40,
           child: TextField(
-            controller: widget.viewModel.textEditingController,
+            controller: widget.config.textEditingController,
             cursorHeight: 15,
             style: TextStyle(
               color: MyColors.dustyBlue.value,
               fontWeight: FontWeight.w500,
             ),
-            obscureText: widget.viewModel.isPassword && !seen,
+            obscureText: widget.config.isPassword && !seen,
             cursorColor: MyColors.dustyBlue.value,
             decoration: InputDecoration(
               filled: true,
@@ -57,14 +54,14 @@ class _TextFieldWidgetViewState extends State<TextFieldWidgetView> {
                 borderSide: BorderSide.none,
               ),
               focusedBorder: InputBorder.none,
-              hintText: widget.viewModel.hint,
+              hintText: widget.config.hint,
               hintStyle: TextStyle(fontSize: 12),
-              suffixIcon: widget.viewModel.isPassword
+              suffixIcon: widget.config.isPassword
                   ? IconButton(
                       icon: Image.asset(
                         seen
-                            ? widget.viewModel.openedEyeIconPath
-                            : widget.viewModel.closedEyeIconPath,
+                            ? TextFieldWidgetConfig.openedEyeIconPath
+                            : TextFieldWidgetConfig.closedEyeIconPath,
                       ),
                       onPressed: () {
                         setState(() {
@@ -72,17 +69,17 @@ class _TextFieldWidgetViewState extends State<TextFieldWidgetView> {
                         });
                       },
                     )
-                  : widget.viewModel.isForMessages
+                  : widget.config.isForMessages
                   ? IconButton(
                       icon: Image.asset(
-                        widget.viewModel.textEditingController.text.isEmpty
-                            ? widget.viewModel.galleryIconPath
-                            : widget.viewModel.sendMessageIconPath,
+                        widget.config.textEditingController.text.isEmpty
+                            ? TextFieldWidgetConfig.galleryIconPath
+                            : TextFieldWidgetConfig.sendMessageIconPath,
                       ),
                       onPressed: () {
-                        widget.viewModel.textEditingController.text.isEmpty
-                            ? widget.viewModel.sendMessage()
-                            : widget.viewModel.pickUpImage();
+                        widget.config.textEditingController.text.isEmpty
+                            ? widget.config.sendMessage()
+                            : widget.config.pickUpImage();
                       },
                     )
                   : null,
