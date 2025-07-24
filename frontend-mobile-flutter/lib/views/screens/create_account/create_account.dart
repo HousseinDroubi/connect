@@ -70,7 +70,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 textEditingController: viewModel.confirmationPasswordController,
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 20),
             ButtonWidget(
               config: ButtonWidgetConifg(
                 buttonText: "Create new account",
