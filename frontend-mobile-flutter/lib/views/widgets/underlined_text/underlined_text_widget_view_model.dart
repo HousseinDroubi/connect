@@ -1,10 +1,10 @@
-import 'package:connect/views/widgets/underlined_text/underlined_text_model.dart';
+import 'package:connect/views/widgets/underlined_text/underlined_text_widget_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class UnderlinedTextViewModel {
-  UnderlinedTextModel model;
-  UnderlinedTextViewModel({required this.model});
+class UnderlinedTextWidgetViewModel {
+  UnderlinedTextWidgetModel model;
+  UnderlinedTextWidgetViewModel({required this.model});
 
   String get text => model.text;
   Widget get to => model.to;
