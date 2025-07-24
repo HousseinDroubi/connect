@@ -1,5 +1,6 @@
 import 'package:connect/views/screens/create_account/create_account_screen.dart';
 import 'package:connect/views/screens/forgot_password/forgot_password.dart';
+import 'package:connect/views/screens/login/login_screen_view_model.dart';
 import 'package:connect/views/widgets/button/button_widget.dart';
 import 'package:connect/views/widgets/button/button_widget_config.dart';
 import 'package:connect/views/widgets/logo/logo_widget.dart';
@@ -18,8 +19,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _controller1 = TextEditingController();
-  final TextEditingController _controller2 = TextEditingController();
+  final LoginScreenViewModel viewModel = LoginScreenViewModel();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   title: "Email or pin",
                   hint: "Enter your email or pin",
                   nextFunction: () {},
-                  textEditingController: _controller1,
+                  textEditingController: viewModel.emailController,
                 ),
               ),
               SizedBox(height: 20),
@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   title: "Password",
                   hint: "Enter your password",
                   nextFunction: () {},
-                  textEditingController: _controller2,
+                  textEditingController: viewModel.emailController,
                   isPassword: true,
                 ),
               ),
@@ -63,8 +63,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 config: ButtonWidgetConifg(
                   buttonText: "Login",
                   buttonFn: () {
-                    print("Email is ${_controller1.text}");
-                    print("Password is ${_controller2.text}");
+                    print("Email is ${viewModel.emailController.text}");
+                    print("Password is ${viewModel.emailController.text}");
                   },
                 ),
               ),
