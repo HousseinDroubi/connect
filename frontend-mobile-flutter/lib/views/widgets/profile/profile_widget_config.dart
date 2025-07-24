@@ -1,7 +1,7 @@
 import 'dart:io';
 
 class ProfileWidgetConfig {
-  static const String imageDefaultSoucre = "assets/icons/profile_default.png";
+  static const String imageDefaultSource = "assets/icons/profile_default.png";
   File? _imageFile;
   String? _imageSource;
 
