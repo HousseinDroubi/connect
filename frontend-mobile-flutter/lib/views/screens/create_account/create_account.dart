@@ -1,6 +1,8 @@
 import 'package:connect/views/screens/create_account/create_account_view_model.dart';
 import 'package:connect/views/widgets/button/button_widget.dart';
 import 'package:connect/views/widgets/button/button_widget_config.dart';
+import 'package:connect/views/widgets/profile/profile_widget.dart';
+import 'package:connect/views/widgets/profile/profile_widget_config.dart';
 import 'package:connect/views/widgets/text_field/text_field_widget_config.dart';
 import 'package:connect/views/widgets/text_field/text_field_widget_view.dart';
 import 'package:connect/views/widgets/title/title_widget.dart';
@@ -30,6 +32,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 config: TitleWidgetConfig(title: "Create New Account"),
               ),
               SizedBox(height: 5),
+              ProfileWidget(config: ProfileWidgetConfig()),
               TextFieldWidget(
                 config: TextFieldWidgetConfig(
                   title: "Email",
