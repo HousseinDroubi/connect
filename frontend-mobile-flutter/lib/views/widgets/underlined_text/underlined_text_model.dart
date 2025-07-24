@@ -1,6 +1,8 @@
+import 'package:flutter/widgets.dart';
+
 class UnderlinedTextModel {
   String text;
-  Function navigateTo;
+  Widget to;
 
-  UnderlinedTextModel({required this.text, required this.navigateTo});
+  UnderlinedTextModel({required this.text, required this.to});
 }
