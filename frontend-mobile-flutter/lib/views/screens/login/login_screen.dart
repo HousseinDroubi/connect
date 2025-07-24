@@ -1,4 +1,4 @@
-import 'package:connect/views/screens/create_account/create_account_screen.dart';
+import 'package:connect/views/screens/create_account/create_account.dart';
 import 'package:connect/views/screens/forgot_password/forgot_password.dart';
 import 'package:connect/views/screens/login/login_screen_view_model.dart';
 import 'package:connect/views/widgets/button/button_widget.dart';
