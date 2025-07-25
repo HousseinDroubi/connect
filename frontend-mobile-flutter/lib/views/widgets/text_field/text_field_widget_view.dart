@@ -33,60 +33,63 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(
-          width: widget.config.isFull ? double.infinity : 260,
-          height: 40,
-          child: TextField(
-            controller: widget.config.textEditingController,
-            cursorHeight: 15,
-            style: TextStyle(
-              color: MyColors.dustyBlue.value,
-              fontWeight: FontWeight.w500,
-            ),
-            obscureText: widget.config.isPassword && !seen,
-            cursorColor: MyColors.dustyBlue.value,
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: MyColors.iceBlue.value,
-              border: InputBorder.none,
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
-                borderSide: BorderSide.none,
+        Container(
+          margin: EdgeInsets.only(top: 4),
+          child: SizedBox(
+            width: widget.config.isFull ? double.infinity : 260,
+            height: 40,
+            child: TextField(
+              controller: widget.config.textEditingController,
+              cursorHeight: 15,
+              style: TextStyle(
+                color: MyColors.dustyBlue.value,
+                fontWeight: FontWeight.w500,
               ),
-              focusedBorder: InputBorder.none,
-              hintText: widget.config.hint,
-              hintStyle: TextStyle(fontSize: 12),
-              suffixIcon: widget.config.isPassword
-                  ? IconButton(
-                      icon: Image.asset(
-                        seen
-                            ? TextFieldWidgetConfig.openedEyeIconPath
-                            : TextFieldWidgetConfig.closedEyeIconPath,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          seen = !seen;
-                        });
-                      },
-                    )
-                  : widget.config.isForMessages
-                  ? IconButton(
-                      icon: Image.asset(
-                        widget.config.textEditingController.text.isEmpty
-                            ? TextFieldWidgetConfig.galleryIconPath
-                            : TextFieldWidgetConfig.sendMessageIconPath,
-                      ),
-                      onPressed: () {
-                        widget.config.textEditingController.text.isEmpty
-                            ? widget.config.sendMessage()
-                            : widget.config.pickUpImage();
-                      },
-                    )
-                  : null,
+              obscureText: widget.config.isPassword && !seen,
+              cursorColor: MyColors.dustyBlue.value,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: MyColors.iceBlue.value,
+                border: InputBorder.none,
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(4),
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: InputBorder.none,
+                hintText: widget.config.hint,
+                hintStyle: TextStyle(fontSize: 12),
+                suffixIcon: widget.config.isPassword
+                    ? IconButton(
+                        icon: Image.asset(
+                          seen
+                              ? TextFieldWidgetConfig.openedEyeIconPath
+                              : TextFieldWidgetConfig.closedEyeIconPath,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            seen = !seen;
+                          });
+                        },
+                      )
+                    : widget.config.isForMessages
+                    ? IconButton(
+                        icon: Image.asset(
+                          widget.config.textEditingController.text.isEmpty
+                              ? TextFieldWidgetConfig.galleryIconPath
+                              : TextFieldWidgetConfig.sendMessageIconPath,
+                        ),
+                        onPressed: () {
+                          widget.config.textEditingController.text.isEmpty
+                              ? widget.config.sendMessage()
+                              : widget.config.pickUpImage();
+                        },
+                      )
+                    : null,
+              ),
+              onChanged: (newValue) {
+                if (newValue.length <= 1) setState(() {});
+              },
             ),
-            onChanged: (newValue) {
-              if (newValue.length <= 1) setState(() {});
-            },
           ),
         ),
       ],
