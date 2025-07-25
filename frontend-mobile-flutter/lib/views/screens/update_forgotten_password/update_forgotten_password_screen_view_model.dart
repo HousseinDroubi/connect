@@ -8,4 +8,8 @@ class UpdateForgottenPasswordScreenViewModel {
   TextEditingController get newPasswordController => _newPasswordController;
   TextEditingController get confirmationNewPasswordController =>
       _confirmationNewPasswordController;
+
+  void changePassword() {
+    // Todo
+  }
 }
