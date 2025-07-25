@@ -55,8 +55,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           bottom: 8,
           right: 0,
           child: InkWell(
-            onTap: () {
-              widget.config.pickUpImage();
+            onTap: () async {
+              await widget.config.pickUpImage();
+              setState(() {});
             },
             child: Image.asset(
               ProfileWidgetConfig.addIconPath,

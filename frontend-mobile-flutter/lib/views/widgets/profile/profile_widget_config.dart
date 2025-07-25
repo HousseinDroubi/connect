@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:connect/utils/functions.dart';
+
 class ProfileWidgetConfig {
   static const String imageDefaultPath = "assets/icons/profile_default.png";
   static const String addIconPath = "assets/icons/add_image.png";
@@ -21,7 +23,7 @@ class ProfileWidgetConfig {
     _imageSource = imageSource;
   }
 
-  void pickUpImage() {
-    // Todo
+  Future<void> pickUpImage() async {
+    _imageFile = await pickUpImageFromGallery();
   }
 }
