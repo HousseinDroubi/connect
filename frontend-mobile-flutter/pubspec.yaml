@@ -66,6 +66,9 @@ flutter:
     - assets/icons/logo.png
     - assets/icons/profile_default.png
     - assets/icons/add_image.png
+    - assets/icons/done.png
+    - assets/icons/error.png
+    - assets/icons/waiting.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
