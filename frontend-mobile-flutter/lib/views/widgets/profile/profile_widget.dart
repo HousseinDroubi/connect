@@ -1,7 +1,6 @@
 import 'package:connect/constants/my_colors.dart';
 import 'package:connect/views/widgets/profile/profile_widget_config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ProfileWidget extends StatefulWidget {
   final ProfileWidgetConfig config;
