@@ -1,4 +1,4 @@
-import 'package:connect/views/screens/update_forgotten_password/update_forgotten_password_screen_view_model.dart';
+import 'package:connect/views/screens/update_forgotten_password/update_forgotten_password_view_model.dart';
 import 'package:connect/views/widgets/button/button_widget.dart';
 import 'package:connect/views/widgets/button/button_widget_config.dart';
 import 'package:connect/views/widgets/text_field/text_field_widget_config.dart';
@@ -7,18 +7,17 @@ import 'package:connect/views/widgets/title/title_widget.dart';
 import 'package:connect/views/widgets/title/title_widget_config.dart';
 import 'package:flutter/material.dart';
 
-class UpdateForgottenPasswordScreen extends StatefulWidget {
-  const UpdateForgottenPasswordScreen({super.key});
+class UpdateForgottenPassword extends StatefulWidget {
+  const UpdateForgottenPassword({super.key});
 
   @override
-  State<UpdateForgottenPasswordScreen> createState() =>
-      _UpdateForgottenPasswordScreenState();
+  State<UpdateForgottenPassword> createState() =>
+      _UpdateForgottenPasswordState();
 }
 
-class _UpdateForgottenPasswordScreenState
-    extends State<UpdateForgottenPasswordScreen> {
-  final UpdateForgottenPasswordScreenViewModel viewModel =
-      UpdateForgottenPasswordScreenViewModel();
+class _UpdateForgottenPasswordState extends State<UpdateForgottenPassword> {
+  final UpdateForgottenPasswordViewModel viewModel =
+      UpdateForgottenPasswordViewModel();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

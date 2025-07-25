@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class UpdateForgottenPasswordScreenViewModel {
+class UpdateForgottenPasswordViewModel {
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmationNewPasswordController =
       TextEditingController();
