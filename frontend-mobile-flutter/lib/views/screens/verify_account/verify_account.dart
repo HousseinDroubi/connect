@@ -1,19 +1,19 @@
 import 'package:connect/constants/my_colors.dart';
-import 'package:connect/views/screens/verify_account/verify_account_screen_view_model.dart';
+import 'package:connect/views/screens/verify_account/verify_account_view_model.dart';
 import 'package:connect/views/widgets/button/button_widget.dart';
 import 'package:connect/views/widgets/button/button_widget_config.dart';
 import 'package:connect/views/widgets/title/title_widget.dart';
 import 'package:flutter/material.dart';
 
-class VerifyAccountScreen extends StatefulWidget {
-  const VerifyAccountScreen({super.key});
+class VerifyAccount extends StatefulWidget {
+  const VerifyAccount({super.key});
 
   @override
-  State<VerifyAccountScreen> createState() => _VerifyAccountScreenState();
+  State<VerifyAccount> createState() => _VerifyAccountState();
 }
 
-class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
-  final VerifyAccountScreenViewModel viewModel = VerifyAccountScreenViewModel();
+class _VerifyAccountState extends State<VerifyAccount> {
+  final VerifyAccountViewModel viewModel = VerifyAccountViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +24,10 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
           children: [
             Image.asset(
               viewModel.isError
-                  ? VerifyAccountScreenViewModel.errorIconPath
+                  ? VerifyAccountViewModel.errorIconPath
                   : viewModel.isDone
-                  ? VerifyAccountScreenViewModel.doneIconPath
-                  : VerifyAccountScreenViewModel.waitingIconPath,
+                  ? VerifyAccountViewModel.doneIconPath
+                  : VerifyAccountViewModel.waitingIconPath,
               width: 150,
               height: 150,
             ),
