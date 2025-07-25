@@ -2,7 +2,6 @@ import 'package:connect/constants/my_colors.dart';
 import 'package:connect/views/screens/verify_account/verify_account_view_model.dart';
 import 'package:connect/views/widgets/button/button_widget.dart';
 import 'package:connect/views/widgets/button/button_widget_config.dart';
-import 'package:connect/views/widgets/title/title_widget.dart';
 import 'package:flutter/material.dart';
 
 class VerifyAccount extends StatefulWidget {
