@@ -86,7 +86,7 @@ const TextField: React.FC<textFieldComponentInterface> = ({
             <img
               src={SendMessageIcon}
               className="cursor-pointer size-6 md:size-10"
-              onClick={() => doNextFunction}
+              onClick={() => doNextFunction!()}
             />
           ))}
       </div>
