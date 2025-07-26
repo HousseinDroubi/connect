@@ -8,7 +8,8 @@ import 'package:connect/views/widgets/title/title_widget_config.dart';
 import 'package:flutter/material.dart';
 
 class UpdateForgottenPassword extends StatefulWidget {
-  const UpdateForgottenPassword({super.key});
+  final String? token;
+  const UpdateForgottenPassword({super.key, this.token});
 
   @override
   State<UpdateForgottenPassword> createState() =>

@@ -5,7 +5,8 @@ import 'package:connect/views/widgets/button/button_widget_config.dart';
 import 'package:flutter/material.dart';
 
 class VerifyAccount extends StatefulWidget {
-  const VerifyAccount({super.key});
+  final String? token;
+  const VerifyAccount({super.key, this.token});
 
   @override
   State<VerifyAccount> createState() => _VerifyAccountState();
