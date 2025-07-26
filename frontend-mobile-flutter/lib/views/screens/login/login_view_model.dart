@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-class LoginScreenViewModel {
+class LoginViewModel {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 

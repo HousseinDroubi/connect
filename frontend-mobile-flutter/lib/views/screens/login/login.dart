@@ -1,6 +1,6 @@
 import 'package:connect/views/screens/create_account/create_account.dart';
 import 'package:connect/views/screens/forgot_password/forgot_password.dart';
-import 'package:connect/views/screens/login/login_screen_view_model.dart';
+import 'package:connect/views/screens/login/login_view_model.dart';
 import 'package:connect/views/widgets/button/button_widget.dart';
 import 'package:connect/views/widgets/button/button_widget_config.dart';
 import 'package:connect/views/widgets/logo/logo_widget.dart';
@@ -11,15 +11,15 @@ import 'package:connect/views/widgets/underlined_text/underlined_text_widget_con
 import 'package:connect/views/widgets/underlined_text/underlined_text_widget_view.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<Login> createState() => _LoginState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final LoginScreenViewModel viewModel = LoginScreenViewModel();
+class _LoginState extends State<Login> {
+  final LoginViewModel viewModel = LoginViewModel();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

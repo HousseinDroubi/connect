@@ -1,4 +1,4 @@
-import 'package:connect/views/screens/login/login_screen.dart';
+import 'package:connect/views/screens/login/login.dart';
 import 'package:flutter/material.dart';
 
 class VerifyAccountViewModel {
@@ -15,7 +15,7 @@ class VerifyAccountViewModel {
   void navigateToLogin(BuildContext context) {
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
+      MaterialPageRoute(builder: (context) => Login()),
       (Route<dynamic> route) => false,
     );
   }
