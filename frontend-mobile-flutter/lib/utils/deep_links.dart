@@ -25,6 +25,7 @@ Map<String, String>? handleUri(Uri uri) {
     } else if (uri.pathSegments.last == "update_forgotten_password") {
       map["to"] = "update_forgotten_password";
     }
+    return map;
   }
   return null;
 }
