@@ -15,9 +15,9 @@ class _DeepLinkingState extends State<DeepLinking> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       try {
-        viewModel.getTokenAndPageFromDeepLinking();
+        viewModel.getTokenAndPageFromDeepLinking(context);
       } catch (e) {
         debugPrint("error: ${e.toString()}");
       }
