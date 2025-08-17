@@ -17,6 +17,10 @@ String? validateCreateAccountRequest({
     validatePin(pin: pin),
     validatePassword(password: password),
     validatePassword(password: confirmationPassword),
+    validatePasswordAndConfirmationPassword(
+      password: confirmationPassword,
+      confirmationPassword: confirmationPassword,
+    ),
   ];
 
   for (String? validationResult in validations) {
