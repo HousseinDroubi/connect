@@ -1,3 +1,4 @@
+import 'package:connect/views/widgets/profile/profile_widget_config.dart';
 import 'package:flutter/widgets.dart';
 
 class CreateAccountViewModel {
@@ -14,4 +15,5 @@ class CreateAccountViewModel {
   TextEditingController get passwordController => _passwordController;
   TextEditingController get confirmationPasswordController =>
       _confirmationPasswordController;
+  ProfileWidgetConfig profileWidgetConfig = ProfileWidgetConfig();
 }

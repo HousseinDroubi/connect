@@ -32,7 +32,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 config: TitleWidgetConfig(title: "Create New Account"),
               ),
               SizedBox(height: 5),
-              ProfileWidget(config: ProfileWidgetConfig()),
+              ProfileWidget(config: viewModel.profileWidgetConfig),
               TextFieldWidget(
                 config: TextFieldWidgetConfig(
                   title: "Email",
