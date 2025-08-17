@@ -8,7 +8,7 @@ String? validateCreateAccountRequest({
   required String username,
   required String pin,
   required String password,
-  required String confirmationPassowrd,
+  required String confirmationPassword,
 }) {
   List<String?> validations = [
     validateImage(imageFile: imageFile),
@@ -16,7 +16,7 @@ String? validateCreateAccountRequest({
     validateUsername(username: username),
     validatePin(pin: pin),
     validatePassword(password: password),
-    validatePassword(password: confirmationPassowrd),
+    validatePassword(password: confirmationPassword),
   ];
 
   for (String? validationResult in validations) {
