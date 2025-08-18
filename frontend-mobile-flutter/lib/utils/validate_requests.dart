@@ -18,7 +18,7 @@ String? validateCreateAccountRequest({
     validatePassword(password: password),
     validatePassword(password: confirmationPassword),
     validatePasswordAndConfirmationPassword(
-      password: confirmationPassword,
+      password: password,
       confirmationPassword: confirmationPassword,
     ),
   ];
