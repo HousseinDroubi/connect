@@ -1,6 +1,8 @@
 import 'package:connect/constants/my_colors.dart';
 import 'package:connect/views/widgets/button/button_widget.dart';
 import 'package:connect/views/widgets/button/button_widget_config.dart';
+import 'package:connect/views/widgets/text_field/text_field_widget_config.dart';
+import 'package:connect/views/widgets/text_field/text_field_widget_view.dart';
 import 'package:flutter/material.dart';
 
 class PopupCase {
@@ -10,6 +12,16 @@ class PopupCase {
 
 class PopupLoading extends PopupCase {
   const PopupLoading({required super.context});
+}
+
+class PopupEditMessage extends PopupCase {
+  final TextEditingController controller;
+  final Function nextFunction;
+  const PopupEditMessage({
+    required super.context,
+    required this.controller,
+    required this.nextFunction,
+  });
 }
 
 class PopupDialog extends PopupCase {
@@ -146,6 +158,37 @@ void showPopup({required PopupCase popupCase}) {
           },
           child: Text("Cancel", style: TextStyle(color: MyColors.black.value)),
         ),
+      ),
+    ];
+  } else {
+    title = "Edit Message";
+    PopupEditMessage popupEditMessage = popupCase as PopupEditMessage;
+    content = Container(
+      height: 70,
+      alignment: Alignment.center,
+      child: TextFieldWidget(
+        config: TextFieldWidgetConfig(
+          title: "Edit Message",
+          hint: "Edit your message",
+          nextFunction: popupEditMessage.nextFunction,
+          textEditingController: popupEditMessage.controller,
+        ),
+      ),
+    );
+
+    actions = [
+      TextButton(
+        onPressed: () async {
+          await popupEditMessage.nextFunction();
+          Navigator.pop(popupEditMessage.context);
+        },
+        child: Text("Yes", style: TextStyle(color: MyColors.black.value)),
+      ),
+      TextButton(
+        onPressed: () {
+          Navigator.pop(popupEditMessage.context);
+        },
+        child: Text("No", style: TextStyle(color: MyColors.black.value)),
       ),
     ];
   }
