@@ -42,6 +42,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               controller: widget.config.textEditingController,
               cursorHeight: 15,
               style: TextStyle(
+                fontSize: 13,
                 color: MyColors.dustyBlue.value,
                 fontWeight: FontWeight.w500,
               ),
