@@ -160,3 +160,7 @@ void showPopup({required PopupCase popupCase}) {
     ),
   );
 }
+
+void hidePopup(BuildContext context) {
+  Navigator.pop(context);
+}
