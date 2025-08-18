@@ -1,4 +1,8 @@
+import 'package:connect/constants/my_colors.dart';
+import 'package:connect/utils/dialog.dart';
+import 'package:connect/utils/validate_requests.dart';
 import 'package:connect/views/widgets/profile/profile_widget_config.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class CreateAccountViewModel {
@@ -16,4 +20,20 @@ class CreateAccountViewModel {
   TextEditingController get confirmationPasswordController =>
       _confirmationPasswordController;
   ProfileWidgetConfig profileWidgetConfig = ProfileWidgetConfig();
+
+  void createAccountRequest(BuildContext context) {
+    String? validationResult = validateCreateAccountRequest(
+      imageFile: profileWidgetConfig.imageFile,
+      email: emailController.text,
+      username: usernameController.text,
+      pin: pinController.text,
+      password: passwordController.text,
+      confirmationPassword: confirmationPasswordController.text,
+    );
+    if (validationResult != null) {
+      showPopup(
+        popupCase: PopupAlert(context: context, popupContent: validationResult),
+      );
+    }
+  }
 }

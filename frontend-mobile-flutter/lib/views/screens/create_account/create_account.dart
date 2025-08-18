@@ -1,3 +1,4 @@
+import 'package:connect/utils/dialog.dart';
 import 'package:connect/views/screens/create_account/create_account_view_model.dart';
 import 'package:connect/views/widgets/button/button_widget.dart';
 import 'package:connect/views/widgets/button/button_widget_config.dart';
@@ -82,7 +83,9 @@ class _CreateAccountState extends State<CreateAccount> {
               ButtonWidget(
                 config: ButtonWidgetConifg(
                   buttonText: "Create new account",
-                  buttonFn: () {},
+                  buttonFn: () {
+                    viewModel.createAccountRequest(context);
+                  },
                 ),
               ),
             ],
