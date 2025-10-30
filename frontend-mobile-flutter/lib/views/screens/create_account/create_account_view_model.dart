@@ -34,6 +34,7 @@ class CreateAccountViewModel {
       showPopup(
         popupCase: PopupAlert(context: context, popupContent: validationResult),
       );
+      return;
     }
   }
 }
