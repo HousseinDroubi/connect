@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   image_picker: ^1.1.2
   app_links: ^6.4.0
+  dio: ^5.9.0
 
 dev_dependencies:
   flutter_test:
