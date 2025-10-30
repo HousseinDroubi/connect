@@ -66,6 +66,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   title: "Password",
                   hint: "Enter your password",
                   nextFunction: () {},
+                  isPassword: true,
                   textEditingController: viewModel.passwordController,
                 ),
               ),
@@ -75,6 +76,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   title: "Confirmation Password",
                   hint: "Re-enter your password",
                   nextFunction: () {},
+                  isPassword: true,
                   textEditingController:
                       viewModel.confirmationPasswordController,
                 ),
