@@ -54,8 +54,6 @@ class CreateAccountViewModel {
       }else if(response.result=="email_or_pin_taken"){
         popup_alert_message = "email or pin is taken";
       }else{
-        print(response.result);
-        print(response.error);
         popup_alert_message = "Something went wrong";
       }
     }else{
