@@ -23,7 +23,7 @@ class CreateAccountViewModel {
       _confirmationPasswordController;
   ProfileWidgetConfig profileWidgetConfig = ProfileWidgetConfig();
 
-  void createAccountRequest(BuildContext context) async{
+  Future<void> createAccountRequest(BuildContext context) async{
     File? imageFile = profileWidgetConfig.imageFile;
     String email = emailController.text;
     String username = usernameController.text;
@@ -57,7 +57,8 @@ class CreateAccountViewModel {
         popup_alert_message = "Something went wrong";
       }
     }else{
-      imageFile = null;
+      profileWidgetConfig.imageFile = null;
+      profileWidgetConfig.imageSource = null;
       emailController.text = "";
       usernameController.text = "";
       pinController.text = "";

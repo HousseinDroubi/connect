@@ -85,8 +85,9 @@ class _CreateAccountState extends State<CreateAccount> {
               ButtonWidget(
                 config: ButtonWidgetConifg(
                   buttonText: "Create new account",
-                  buttonFn: () {
-                    viewModel.createAccountRequest(context);
+                  buttonFn: () async{
+                    await viewModel.createAccountRequest(context);
+                    setState(() {});
                   },
                 ),
               ),
