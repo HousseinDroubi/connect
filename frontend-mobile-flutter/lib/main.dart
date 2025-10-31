@@ -5,8 +5,11 @@ import 'package:connect/views/screens/login/login.dart';
 import 'package:connect/views/screens/update_forgotten_password/update_forgotten_password.dart';
 import 'package:connect/views/screens/verify_account/verify_account.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future<void> main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
