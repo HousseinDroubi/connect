@@ -12,27 +12,7 @@ class DeepLinkingViewModel {
   StreamSubscription<Uri>? _sub;
 
   void getTokenAndPageFromDeepLinking(BuildContext context) async {
-    Map<String, String>? map = await initDeepLinks(_appLinks, _sub);
-    if (map != null) {
-      if (map["to"] == "verify_account") {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => VerifyAccount(token: map["token"]),
-          ),
-        );
-        return;
-      } else if (map["to"] == "update_forgotten_password") {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => UpdateForgottenPassword(token: map["token"]),
-          ),
-        );
-        return;
-      }
-    }
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+    await initDeepLinks(_appLinks, _sub,context);
   }
 
   AppLinks get appLinks => _appLinks;
