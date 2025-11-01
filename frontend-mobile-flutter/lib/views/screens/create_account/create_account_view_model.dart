@@ -23,7 +23,7 @@ class CreateAccountViewModel {
       _confirmationPasswordController;
   ProfileWidgetConfig profileWidgetConfig = ProfileWidgetConfig();
 
-  Future<void> createAccountRequest(BuildContext context) async{
+  Future<void> createAccountRequest(BuildContext context) async {
     File? imageFile = profileWidgetConfig.imageFile;
     String email = emailController.text;
     String username = usernameController.text;
@@ -45,18 +45,25 @@ class CreateAccountViewModel {
       return;
     }
     showPopup(popupCase: PopupLoading(context: context));
-    final CreateAccountModel response = await AuthService().createAccount(imageFile: imageFile!, email: email, username: username, pin: pin, password: password);
+    final CreateAccountModel response = await AuthService().createAccount(
+      imageFile: imageFile!,
+      email: email,
+      username: username,
+      pin: pin,
+      password: password,
+    );
     hidePopup(context);
     String popup_alert_message;
-    if(response.result!="account_created"){
-      if(response.result=="validation_error" && response.error=="invalid_email"){
+    if (response.result != "account_created") {
+      if (response.result == "validation_error" &&
+          response.error == "invalid_email") {
         popup_alert_message = "Invalid email";
-      }else if(response.result=="email_or_pin_taken"){
+      } else if (response.result == "email_or_pin_taken") {
         popup_alert_message = "email or pin is taken";
-      }else{
+      } else {
         popup_alert_message = "Something went wrong";
       }
-    }else{
+    } else {
       profileWidgetConfig.imageFile = null;
       profileWidgetConfig.imageSource = null;
       emailController.text = "";
@@ -64,8 +71,14 @@ class CreateAccountViewModel {
       pinController.text = "";
       passwordController.text = "";
       confirmationPasswordController.text = "";
-      popup_alert_message = "Account created. Please go to your inbox and activate it.";
+      popup_alert_message =
+          "Account created. Please go to your inbox and activate it.";
     }
-    showPopup(popupCase: PopupAlert(context: context, popupContent: popup_alert_message));
+    showPopup(
+      popupCase: PopupAlert(
+        context: context,
+        popupContent: popup_alert_message,
+      ),
+    );
   }
 }
