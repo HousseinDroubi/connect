@@ -160,9 +160,9 @@ void showPopup({required PopupCase popupCase}) {
         ),
       ),
     ];
-  } else {
+  } else if (popupCase is PopupEditMessage) {
     title = "Edit Message";
-    PopupEditMessage popupEditMessage = popupCase as PopupEditMessage;
+    PopupEditMessage popupEditMessage = popupCase;
     content = Container(
       height: 70,
       alignment: Alignment.center,
