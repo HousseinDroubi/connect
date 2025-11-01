@@ -44,10 +44,8 @@ class VerifyAccountViewModel {
   }
 
   void navigateToLogin(BuildContext context) {
-    Navigator.pushAndRemoveUntil(
+    Navigator.of(
       context,
-      MaterialPageRoute(builder: (context) => Login()),
-      (Route<dynamic> route) => false,
-    );
+    ).pushNamedAndRemoveUntil("/login", (Route<dynamic> route) => false);
   }
 }
