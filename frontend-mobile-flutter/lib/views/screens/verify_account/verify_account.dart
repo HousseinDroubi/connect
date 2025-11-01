@@ -16,6 +16,22 @@ class _VerifyAccountState extends State<VerifyAccount> {
   final VerifyAccountViewModel viewModel = VerifyAccountViewModel();
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (widget.token == null) {
+        Navigator.of(
+          context,
+        ).pushNamedAndRemoveUntil("/login", (Route<dynamic> route) => false);
+      } else {
+        await viewModel.verifyAccount(widget.token!, context);
+        setState(() {});
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

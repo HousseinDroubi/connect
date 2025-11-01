@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:connect/constants/urls.dart';
 import 'package:connect/views/screens/create_account/create_account_model.dart';
+import 'package:connect/views/screens/verify_account/verify_account_model.dart';
 import 'package:dio/dio.dart';
 
 class AuthService {
@@ -39,6 +40,22 @@ class AuthService {
       final String error = e.response?.data["error"] ?? e.message;
 
       return CreateAccountModel.fromJson({"result": result, "error": error});
+    }
+  }
+
+  Future<VerifyAccountModel> verifyAccount(String token) async {
+    try {
+      final String url = "$_base_url/verify_account/$token";
+      final response = await _dio.get(
+        url,
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
+      return VerifyAccountModel.fromJson(response.data);
+    } on DioException catch (e) {
+      final String result = e.response?.data["result"] ?? "failed";
+      final String error = e.response?.data["error"] ?? e.message;
+
+      return VerifyAccountModel.fromJson({"result": result, "error": error});
     }
   }
 }
