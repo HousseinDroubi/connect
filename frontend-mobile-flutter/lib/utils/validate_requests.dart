@@ -29,3 +29,7 @@ String? validateCreateAccountRequest({
 
   return null;
 }
+
+String? validateForgotPasswordRequest({required String email}) {
+  return validateEmail(email: email);
+}
