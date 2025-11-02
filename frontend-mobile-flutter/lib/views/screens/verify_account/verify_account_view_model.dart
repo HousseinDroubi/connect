@@ -1,6 +1,5 @@
 import 'package:connect/utils/apis/auth_service.dart';
 import 'package:connect/utils/dialog.dart';
-import 'package:connect/views/screens/login/login.dart';
 import 'package:connect/views/screens/verify_account/verify_account_model.dart';
 import 'package:flutter/material.dart';
 
