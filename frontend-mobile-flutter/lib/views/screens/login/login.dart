@@ -57,7 +57,7 @@ class _LoginState extends State<Login> {
                   nextFunction: () async {
                     await loginButtonFunction();
                   },
-                  textEditingController: viewModel.emailController,
+                  textEditingController: viewModel.passwordController,
                   isPassword: true,
                 ),
               ),
