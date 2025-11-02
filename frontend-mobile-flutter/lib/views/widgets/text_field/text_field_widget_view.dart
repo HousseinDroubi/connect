@@ -39,6 +39,13 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             width: widget.config.isFull ? double.infinity : 260,
             height: 40,
             child: TextField(
+              focusNode: widget.config.getFocusNode,
+              onSubmitted: (String value) {
+                if (value != "") {
+                  widget.config.nextFunction();
+                }
+              },
+
               controller: widget.config.textEditingController,
               cursorHeight: 15,
               style: TextStyle(

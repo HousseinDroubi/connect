@@ -13,7 +13,7 @@ class UpdateForgottenPasswordViewModel {
   TextEditingController get confirmationNewPasswordController =>
       _confirmationNewPasswordController;
 
-  void changePassword(String token, BuildContext context) async {
+  Future<void> changePassword(String token, BuildContext context) async {
     String new_password = _newPasswordController.text;
     String confirmation_password = _confirmationNewPasswordController.text;
     String? validationResult = validateChangeForgottenPasswordRequest(

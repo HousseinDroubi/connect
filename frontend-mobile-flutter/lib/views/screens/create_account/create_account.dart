@@ -17,6 +17,16 @@ class CreateAccount extends StatefulWidget {
 
 class _CreateAccountState extends State<CreateAccount> {
   CreateAccountViewModel viewModel = CreateAccountViewModel();
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _usernameFocusNode = FocusNode();
+  final FocusNode _pinFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
+  final FocusNode _confirmationPasswordFocusNode = FocusNode();
+
+  Future<void> createAccountButtonFuction(BuildContext context) async {
+    await viewModel.createAccountRequest(context);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,36 +44,50 @@ class _CreateAccountState extends State<CreateAccount> {
               ProfileWidget(config: viewModel.profileWidgetConfig),
               TextFieldWidget(
                 config: TextFieldWidgetConfig(
+                  focusNode: _emailFocusNode,
                   title: "Email",
                   hint: "Enter your email",
-                  nextFunction: () {},
+                  nextFunction: () {
+                    FocusScope.of(context).requestFocus(_usernameFocusNode);
+                  },
                   textEditingController: viewModel.emailController,
                 ),
               ),
               SizedBox(height: 15),
               TextFieldWidget(
                 config: TextFieldWidgetConfig(
+                  focusNode: _usernameFocusNode,
                   title: "username",
                   hint: "Enter your username",
-                  nextFunction: () {},
+                  nextFunction: () {
+                    FocusScope.of(context).requestFocus(_pinFocusNode);
+                  },
                   textEditingController: viewModel.usernameController,
                 ),
               ),
               SizedBox(height: 15),
               TextFieldWidget(
                 config: TextFieldWidgetConfig(
+                  focusNode: _pinFocusNode,
                   title: "Pin",
                   hint: "Enter your pin",
-                  nextFunction: () {},
+                  nextFunction: () {
+                    FocusScope.of(context).requestFocus(_passwordFocusNode);
+                  },
                   textEditingController: viewModel.pinController,
                 ),
               ),
               SizedBox(height: 15),
               TextFieldWidget(
                 config: TextFieldWidgetConfig(
+                  focusNode: _passwordFocusNode,
                   title: "Password",
                   hint: "Enter your password",
-                  nextFunction: () {},
+                  nextFunction: () {
+                    FocusScope.of(
+                      context,
+                    ).requestFocus(_confirmationPasswordFocusNode);
+                  },
                   isPassword: true,
                   textEditingController: viewModel.passwordController,
                 ),
@@ -71,9 +95,12 @@ class _CreateAccountState extends State<CreateAccount> {
               SizedBox(height: 15),
               TextFieldWidget(
                 config: TextFieldWidgetConfig(
+                  focusNode: _confirmationPasswordFocusNode,
                   title: "Confirmation Password",
                   hint: "Re-enter your password",
-                  nextFunction: () {},
+                  nextFunction: () async {
+                    await createAccountButtonFuction(context);
+                  },
                   isPassword: true,
                   textEditingController:
                       viewModel.confirmationPasswordController,
@@ -84,8 +111,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 config: ButtonWidgetConifg(
                   buttonText: "Create new account",
                   buttonFn: () async {
-                    await viewModel.createAccountRequest(context);
-                    setState(() {});
+                    await createAccountButtonFuction(context);
                   },
                 ),
               ),

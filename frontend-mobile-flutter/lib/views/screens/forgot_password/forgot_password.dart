@@ -17,6 +17,10 @@ class ForgotPassword extends StatefulWidget {
 class _ForgotPasswordState extends State<ForgotPassword> {
   final ForgotPasswordViewModel viewModel = ForgotPasswordViewModel();
 
+  Future<void> sendEmailButtonFunction() async {
+    await viewModel.sendEmail(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +34,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               config: TextFieldWidgetConfig(
                 title: "Email",
                 hint: "Enter your email",
-                nextFunction: () {},
+                nextFunction: () {
+                  sendEmailButtonFunction();
+                },
                 textEditingController: viewModel.emailController,
               ),
             ),
@@ -39,7 +45,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               config: ButtonWidgetConifg(
                 buttonText: "Send email",
                 buttonFn: () {
-                  viewModel.sendEmail(context);
+                  sendEmailButtonFunction();
                 },
               ),
             ),

@@ -6,6 +6,7 @@ class TextFieldWidgetConfig {
   static const String sendMessageIconPath = "assets/icons/send_message.png";
   static const String galleryIconPath = "assets/icons/gallery.png";
 
+  final FocusNode? _focusNode;
   final String _title;
   final String _hint;
   final Function _nextFunction;
@@ -15,6 +16,7 @@ class TextFieldWidgetConfig {
   final bool? _isForMessages;
 
   const TextFieldWidgetConfig({
+    FocusNode? focusNode,
     required String title,
     required String hint,
     required Function nextFunction,
@@ -22,7 +24,8 @@ class TextFieldWidgetConfig {
     bool? isPassword,
     bool? isFull,
     bool? isForMessages,
-  }) : _title = title,
+  }) : _focusNode = focusNode,
+       _title = title,
        _hint = hint,
        _nextFunction = nextFunction,
        _textEditingController = textEditingController,
@@ -37,6 +40,7 @@ class TextFieldWidgetConfig {
   bool get isPassword => _isPassword ?? false;
   bool get isFull => _isFull ?? false;
   bool get isForMessages => _isForMessages ?? false;
+  FocusNode? get getFocusNode => _focusNode;
 
   void sendMessage() {
     // Todo

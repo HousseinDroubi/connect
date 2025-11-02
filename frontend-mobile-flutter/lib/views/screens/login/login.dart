@@ -20,6 +20,14 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final LoginViewModel viewModel = LoginViewModel();
+
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
+
+  Future<void> loginButtonFunction() async {
+    // TODO
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +40,12 @@ class _LoginState extends State<Login> {
               SizedBox(height: 30),
               TextFieldWidget(
                 config: TextFieldWidgetConfig(
+                  focusNode: _emailFocusNode,
                   title: "Email or pin",
                   hint: "Enter your email or pin",
-                  nextFunction: () {},
+                  nextFunction: () {
+                    FocusScope.of(context).requestFocus(_passwordFocusNode);
+                  },
                   textEditingController: viewModel.emailController,
                 ),
               ),
@@ -43,7 +54,9 @@ class _LoginState extends State<Login> {
                 config: TextFieldWidgetConfig(
                   title: "Password",
                   hint: "Enter your password",
-                  nextFunction: () {},
+                  nextFunction: () async {
+                    await loginButtonFunction();
+                  },
                   textEditingController: viewModel.emailController,
                   isPassword: true,
                 ),
@@ -62,9 +75,8 @@ class _LoginState extends State<Login> {
               ButtonWidget(
                 config: ButtonWidgetConifg(
                   buttonText: "Login",
-                  buttonFn: () {
-                    print("Email is ${viewModel.emailController.text}");
-                    print("Password is ${viewModel.emailController.text}");
+                  buttonFn: () async {
+                    await loginButtonFunction();
                   },
                 ),
               ),
