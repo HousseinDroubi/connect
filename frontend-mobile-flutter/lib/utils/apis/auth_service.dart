@@ -8,7 +8,7 @@ class AuthService {
   final Dio _dio = Dio(
     BaseOptions(headers: {'Content-Type': 'application/json'}),
   );
-  final String _base_url = "${api_base_url}/auth";
+  final String _baseUrl = "$apiBaseUrl/auth";
   Future<AuthModel> createAccount({
     required File imageFile,
     required String email,
@@ -17,7 +17,7 @@ class AuthService {
     required String password,
   }) async {
     try {
-      final String url = "$_base_url/create_new_account";
+      final String url = "$_baseUrl/create_new_account";
       final formData = FormData.fromMap({
         'email': email,
         'username': username,
@@ -44,7 +44,7 @@ class AuthService {
 
   Future<AuthModel> verifyAccount(String token) async {
     try {
-      final String url = "$_base_url/verify_account/$token";
+      final String url = "$_baseUrl/verify_account/$token";
       final response = await _dio.get(
         url,
         options: Options(headers: {'Content-Type': 'application/json'}),
@@ -60,7 +60,7 @@ class AuthService {
 
   Future<AuthModel> forgotPassword(String email) async {
     try {
-      final String url = "$_base_url/forgot_password";
+      final String url = "$_baseUrl/forgot_password";
       final response = await _dio.post(
         url,
         data: {"email": email},
@@ -80,7 +80,7 @@ class AuthService {
     required String token,
   }) async {
     try {
-      final String url = "$_base_url/update_forgotten_password";
+      final String url = "$_baseUrl/update_forgotten_password";
       final response = await _dio.put(
         url,
         data: {"password": password, "token": token},

@@ -29,14 +29,14 @@ class CreateAccountScreenViewModel {
     String username = usernameController.text;
     String pin = pinController.text;
     String password = passwordController.text;
-    String confirmation_password = confirmationPasswordController.text;
+    String confirmationPassword = confirmationPasswordController.text;
     String? validationResult = validateCreateAccountRequest(
       imageFile: imageFile,
       email: email,
       username: username,
       pin: pin,
       password: password,
-      confirmationPassword: confirmation_password,
+      confirmationPassword: confirmationPassword,
     );
     if (validationResult != null) {
       showPopup(
@@ -53,15 +53,15 @@ class CreateAccountScreenViewModel {
       password: password,
     );
     hidePopup(context);
-    String popup_alert_message;
+    String popupAlertMessage;
     if (response.result != "account_created") {
       if (response.result == "validation_error" &&
           response.error == "invalid_email") {
-        popup_alert_message = "Invalid email";
+        popupAlertMessage = "Invalid email";
       } else if (response.result == "email_or_pin_taken") {
-        popup_alert_message = "email or pin is taken";
+        popupAlertMessage = "email or pin is taken";
       } else {
-        popup_alert_message = "Something went wrong";
+        popupAlertMessage = "Something went wrong";
       }
     } else {
       profileWidgetViewModel.imageFile = null;
@@ -71,14 +71,11 @@ class CreateAccountScreenViewModel {
       pinController.text = "";
       passwordController.text = "";
       confirmationPasswordController.text = "";
-      popup_alert_message =
+      popupAlertMessage =
           "Account created. Please go to your inbox and activate it.";
     }
     showPopup(
-      popupCase: PopupAlert(
-        context: context,
-        popupContent: popup_alert_message,
-      ),
+      popupCase: PopupAlert(context: context, popupContent: popupAlertMessage),
     );
   }
 }

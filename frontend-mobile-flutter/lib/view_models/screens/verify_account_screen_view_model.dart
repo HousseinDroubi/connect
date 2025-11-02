@@ -12,33 +12,33 @@ class VerifyAccountScreenViewModel {
 
   Future<void> verifyAccount(String token, BuildContext context) async {
     AuthModel response = await AuthService().verifyAccount(token);
-    String popup_text;
+    String popupText;
     if (response.result != "user_verified") {
       isDone = false;
       isError = true;
       switch (response.result) {
         case "token_not_found":
-          popup_text = "Token not found";
+          popupText = "Token not found";
           break;
         case "user_not_found":
-          popup_text = "User not found";
+          popupText = "User not found";
           break;
         case "user_account_found":
-          popup_text = "User account deleted";
+          popupText = "User account deleted";
           break;
         case "user_already_verified":
-          popup_text = "User already verified";
+          popupText = "User already verified";
           break;
         default:
-          popup_text = "Something went wrong";
+          popupText = "Something went wrong";
           break;
       }
     } else {
-      popup_text = "Account account successfully";
+      popupText = "Account account successfully";
       isDone = true;
     }
     showPopup(
-      popupCase: PopupAlert(context: context, popupContent: popup_text),
+      popupCase: PopupAlert(context: context, popupContent: popupText),
     );
   }
 

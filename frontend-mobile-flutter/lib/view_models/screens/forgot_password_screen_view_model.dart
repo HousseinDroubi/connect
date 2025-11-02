@@ -10,15 +10,12 @@ class ForgotPasswordScreenViewModel {
   TextEditingController get emailController => _emailController;
 
   Future<void> sendEmail(BuildContext context) async {
-    final String? validation_result = validateForgotPasswordRequest(
+    final String? validationResult = validateForgotPasswordRequest(
       email: _emailController.text,
     );
-    if (validation_result != null) {
+    if (validationResult != null) {
       showPopup(
-        popupCase: PopupAlert(
-          context: context,
-          popupContent: validation_result,
-        ),
+        popupCase: PopupAlert(context: context, popupContent: validationResult),
       );
       return;
     }

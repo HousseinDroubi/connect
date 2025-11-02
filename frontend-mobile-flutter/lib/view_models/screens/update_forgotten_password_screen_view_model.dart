@@ -14,11 +14,11 @@ class UpdateForgottenPasswordScreenViewModel {
       _confirmationNewPasswordController;
 
   Future<void> changePassword(String token, BuildContext context) async {
-    String new_password = _newPasswordController.text;
-    String confirmation_password = _confirmationNewPasswordController.text;
+    String newPassword = _newPasswordController.text;
+    String confirmationPassword = _confirmationNewPasswordController.text;
     String? validationResult = validateChangeForgottenPasswordRequest(
-      new_password: new_password,
-      confirmation_password: confirmation_password,
+      newPassword: newPassword,
+      confirmationPassword: confirmationPassword,
     );
 
     if (validationResult != null) {

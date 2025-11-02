@@ -35,15 +35,15 @@ String? validateForgotPasswordRequest({required String email}) {
 }
 
 String? validateChangeForgottenPasswordRequest({
-  required String new_password,
-  required String confirmation_password,
+  required String newPassword,
+  required String confirmationPassword,
 }) {
   List<String?> validations = [
-    validatePassword(password: new_password),
-    validatePassword(password: confirmation_password),
+    validatePassword(password: newPassword),
+    validatePassword(password: confirmationPassword),
     validatePasswordAndConfirmationPassword(
-      password: new_password,
-      confirmationPassword: confirmation_password,
+      password: newPassword,
+      confirmationPassword: confirmationPassword,
     ),
   ];
 
