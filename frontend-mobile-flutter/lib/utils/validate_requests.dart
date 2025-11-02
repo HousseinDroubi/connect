@@ -33,3 +33,23 @@ String? validateCreateAccountRequest({
 String? validateForgotPasswordRequest({required String email}) {
   return validateEmail(email: email);
 }
+
+String? validateChangeForgottenPasswordRequest({
+  required String new_password,
+  required String confirmation_password,
+}) {
+  List<String?> validations = [
+    validatePassword(password: new_password),
+    validatePassword(password: confirmation_password),
+    validatePasswordAndConfirmationPassword(
+      password: new_password,
+      confirmationPassword: confirmation_password,
+    ),
+  ];
+
+  for (String? validationResult in validations) {
+    if (validationResult != null) return validationResult;
+  }
+
+  return null;
+}
