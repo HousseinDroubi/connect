@@ -22,10 +22,11 @@ class ForgotPasswordViewModel {
       );
       return;
     }
-
+    showPopup(popupCase: PopupLoading(context: context));
     final ForgotPasswordModel response = await AuthService().forgotPassword(
       _emailController.text,
     );
+    hidePopup(context);
 
     final String popupText;
     if (response.result != "email_sent") {
