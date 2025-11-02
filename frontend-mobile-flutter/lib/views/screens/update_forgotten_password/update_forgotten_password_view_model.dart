@@ -60,5 +60,8 @@ class UpdateForgottenPasswordViewModel {
       _confirmationNewPasswordController.text = "";
       popupText = "Password updated successfully, please login";
     }
+    showPopup(
+      popupCase: PopupAlert(context: context, popupContent: popupText),
+    );
   }
 }
