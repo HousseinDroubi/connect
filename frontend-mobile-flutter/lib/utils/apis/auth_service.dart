@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:connect/constants/urls.dart';
 import 'package:connect/views/screens/create_account/create_account_model.dart';
 import 'package:connect/views/screens/forgot_password/forgot_password_model.dart';
+import 'package:connect/views/screens/update_forgotten_password/update_forgotten_password_model.dart';
 import 'package:connect/views/screens/verify_account/verify_account_model.dart';
 import 'package:dio/dio.dart';
 
@@ -74,6 +75,29 @@ class AuthService {
       final String error = e.response?.data["error"] ?? e.message;
 
       return ForgotPasswordModel.fromJson({"result": result, "error": error});
+    }
+  }
+
+  Future<UpdateForgottenPasswordModel> updateForgottenPassoword({
+    required String password,
+    required String token,
+  }) async {
+    try {
+      final String url = "$_base_url/update_forgotten_password";
+      final response = await _dio.put(
+        url,
+        data: {"password": password, "token": token},
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
+      return UpdateForgottenPasswordModel.fromJson(response.data);
+    } on DioException catch (e) {
+      final String result = e.response?.data["result"] ?? "failed";
+      final String error = e.response?.data["error"] ?? e.message;
+
+      return UpdateForgottenPasswordModel.fromJson({
+        "result": result,
+        "error": error,
+      });
     }
   }
 }
