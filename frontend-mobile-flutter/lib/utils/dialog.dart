@@ -1,8 +1,8 @@
 import 'package:connect/constants/my_colors.dart';
-import 'package:connect/views/widgets/button/button_widget.dart';
-import 'package:connect/views/widgets/button/button_widget_config.dart';
-import 'package:connect/views/widgets/text_field/text_field_widget_config.dart';
-import 'package:connect/views/widgets/text_field/text_field_widget_view.dart';
+import 'package:connect/views/widgets/button_widget.dart';
+import 'package:connect/view_models/widgets/button_widget_view_model.dart';
+import 'package:connect/view_models/widgets/text_field_widget_view_model.dart';
+import 'package:connect/views/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 
 class PopupCase {
@@ -128,7 +128,7 @@ void showPopup({required PopupCase popupCase}) {
         children: [
           if (popupCase is PopupDeleteMessageForAll)
             ButtonWidget(
-              config: ButtonWidgetConifg(
+              viewModel: ButtonWidgetViewModel(
                 buttonText: "Delete for all",
                 isColoredRed: true,
                 buttonFn: () async {
@@ -137,7 +137,7 @@ void showPopup({required PopupCase popupCase}) {
               ),
             ),
           ButtonWidget(
-            config: ButtonWidgetConifg(
+            viewModel: ButtonWidgetViewModel(
               buttonText: "Delete for me",
               isColoredRed: true,
               buttonFn: () async {
@@ -167,7 +167,7 @@ void showPopup({required PopupCase popupCase}) {
       height: 70,
       alignment: Alignment.center,
       child: TextFieldWidget(
-        config: TextFieldWidgetConfig(
+        viewModel: TextFieldWidgetViewModel(
           title: "Edit Message",
           hint: "Edit your message",
           nextFunction: popupEditMessage.nextFunction,

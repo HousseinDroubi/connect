@@ -1,13 +1,13 @@
-import 'package:connect/views/screens/create_account/create_account.dart';
-import 'package:connect/views/screens/deep_linking/deep_linking.dart';
-import 'package:connect/views/screens/forgot_password/forgot_password.dart';
-import 'package:connect/views/screens/login/login.dart';
-import 'package:connect/views/screens/update_forgotten_password/update_forgotten_password.dart';
-import 'package:connect/views/screens/verify_account/verify_account.dart';
+import 'package:connect/views/screens/create_account_screen.dart';
+import 'package:connect/views/screens/deep_linking_screen.dart';
+import 'package:connect/views/screens/forgot_password_screen.dart';
+import 'package:connect/views/screens/login_screen.dart';
+import 'package:connect/views/screens/update_forgotten_password_screen.dart';
+import 'package:connect/views/screens/verify_account_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-Future<void> main()async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
   runApp(const MyApp());
@@ -27,12 +27,13 @@ class _MyAppState extends State<MyApp> {
       title: "Connect",
       initialRoute: "/",
       routes: {
-        "/": (context) => DeepLinking(),
-        "/login": (context) => Login(),
-        "/create_account": (context) => CreateAccount(),
-        "/forgot_password": (context) => ForgotPassword(),
-        "/verify_account": (context) => VerifyAccount(),
-        "/update_forgotten_password": (context) => UpdateForgottenPassword(),
+        "/": (context) => DeepLinkingScreen(),
+        "/login": (context) => LoginScreen(),
+        "/create_account": (context) => CreateAccountScreen(),
+        "/forgot_password": (context) => ForgotPasswordScreen(),
+        "/verify_account": (context) => VerifyAccountScreen(),
+        "/update_forgotten_password": (context) =>
+            UpdateForgottenPasswordScreen(),
       },
     );
   }

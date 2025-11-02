@@ -1,10 +1,7 @@
 import 'dart:io';
 
 import 'package:connect/constants/urls.dart';
-import 'package:connect/views/screens/create_account/create_account_model.dart';
-import 'package:connect/views/screens/forgot_password/forgot_password_model.dart';
-import 'package:connect/views/screens/update_forgotten_password/update_forgotten_password_model.dart';
-import 'package:connect/views/screens/verify_account/verify_account_model.dart';
+import 'package:connect/models/auth_model.dart';
 import 'package:dio/dio.dart';
 
 class AuthService {
@@ -12,7 +9,7 @@ class AuthService {
     BaseOptions(headers: {'Content-Type': 'application/json'}),
   );
   final String _base_url = "${api_base_url}/auth";
-  Future<CreateAccountModel> createAccount({
+  Future<AuthModel> createAccount({
     required File imageFile,
     required String email,
     required String username,
@@ -36,32 +33,32 @@ class AuthService {
         data: formData,
         options: Options(headers: {'Content-Type': 'multipart/form-data'}),
       );
-      return CreateAccountModel.fromJson(response.data);
+      return AuthModel.fromJson(response.data);
     } on DioException catch (e) {
       final String result = e.response?.data["result"] ?? "failed";
       final String error = e.response?.data["error"] ?? e.message;
 
-      return CreateAccountModel.fromJson({"result": result, "error": error});
+      return AuthModel.fromJson({"result": result, "error": error});
     }
   }
 
-  Future<VerifyAccountModel> verifyAccount(String token) async {
+  Future<AuthModel> verifyAccount(String token) async {
     try {
       final String url = "$_base_url/verify_account/$token";
       final response = await _dio.get(
         url,
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
-      return VerifyAccountModel.fromJson(response.data);
+      return AuthModel.fromJson(response.data);
     } on DioException catch (e) {
       final String result = e.response?.data["result"] ?? "failed";
       final String error = e.response?.data["error"] ?? e.message;
 
-      return VerifyAccountModel.fromJson({"result": result, "error": error});
+      return AuthModel.fromJson({"result": result, "error": error});
     }
   }
 
-  Future<ForgotPasswordModel> forgotPassword(String email) async {
+  Future<AuthModel> forgotPassword(String email) async {
     try {
       final String url = "$_base_url/forgot_password";
       final response = await _dio.post(
@@ -69,16 +66,16 @@ class AuthService {
         data: {"email": email},
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
-      return ForgotPasswordModel.fromJson(response.data);
+      return AuthModel.fromJson(response.data);
     } on DioException catch (e) {
       final String result = e.response?.data["result"] ?? "failed";
       final String error = e.response?.data["error"] ?? e.message;
 
-      return ForgotPasswordModel.fromJson({"result": result, "error": error});
+      return AuthModel.fromJson({"result": result, "error": error});
     }
   }
 
-  Future<UpdateForgottenPasswordModel> updateForgottenPassoword({
+  Future<AuthModel> updateForgottenPassoword({
     required String password,
     required String token,
   }) async {
@@ -89,15 +86,12 @@ class AuthService {
         data: {"password": password, "token": token},
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
-      return UpdateForgottenPasswordModel.fromJson(response.data);
+      return AuthModel.fromJson(response.data);
     } on DioException catch (e) {
       final String result = e.response?.data["result"] ?? "failed";
       final String error = e.response?.data["error"] ?? e.message;
 
-      return UpdateForgottenPasswordModel.fromJson({
-        "result": result,
-        "error": error,
-      });
+      return AuthModel.fromJson({"result": result, "error": error});
     }
   }
 }
