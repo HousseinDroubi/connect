@@ -38,7 +38,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             ButtonWidget(
               config: ButtonWidgetConifg(
                 buttonText: "Send email",
-                buttonFn: () {},
+                buttonFn: () {
+                  viewModel.sendEmail(context);
+                },
               ),
             ),
           ],
