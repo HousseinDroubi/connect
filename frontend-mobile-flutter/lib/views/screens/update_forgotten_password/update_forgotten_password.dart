@@ -36,6 +36,7 @@ class _UpdateForgottenPasswordState extends State<UpdateForgottenPassword> {
                   hint: "Enter new password",
                   nextFunction: () {},
                   textEditingController: viewModel.newPasswordController,
+                  isPassword: true,
                 ),
               ),
               SizedBox(height: 20),
@@ -44,6 +45,7 @@ class _UpdateForgottenPasswordState extends State<UpdateForgottenPassword> {
                   title: "Confirmation Password",
                   hint: "Re-enter your new password",
                   nextFunction: () {},
+                  isPassword: true,
                   textEditingController:
                       viewModel.confirmationNewPasswordController,
                 ),
