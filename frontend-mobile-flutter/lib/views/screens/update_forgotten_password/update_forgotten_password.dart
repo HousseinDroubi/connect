@@ -19,6 +19,7 @@ class UpdateForgottenPassword extends StatefulWidget {
 class _UpdateForgottenPasswordState extends State<UpdateForgottenPassword> {
   final UpdateForgottenPasswordViewModel viewModel =
       UpdateForgottenPasswordViewModel();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +53,7 @@ class _UpdateForgottenPasswordState extends State<UpdateForgottenPassword> {
                 config: ButtonWidgetConifg(
                   buttonText: "Change Password",
                   buttonFn: () {
-                    viewModel.changePassword();
+                    viewModel.changePassword(widget.token!, context);
                   },
                 ),
               ),
