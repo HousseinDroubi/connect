@@ -12,7 +12,7 @@ class DeepLinkingViewModel {
   StreamSubscription<Uri>? _sub;
 
   void getTokenAndPageFromDeepLinking(BuildContext context) async {
-    await initDeepLinks(_appLinks, _sub,context);
+    await initDeepLinks(_appLinks, _sub, context);
   }
 
   AppLinks get appLinks => _appLinks;
