@@ -9,7 +9,7 @@ class TextFieldWidgetViewModel {
   final FocusNode? _focusNode;
   final String _title;
   final String _hint;
-  final Function _nextFunction;
+  final VoidCallback _nextFunction;
   final TextEditingController _textEditingController;
   final bool? _isPassword;
   final bool? _isFull;
@@ -19,7 +19,7 @@ class TextFieldWidgetViewModel {
     FocusNode? focusNode,
     required String title,
     required String hint,
-    required Function nextFunction,
+    required VoidCallback nextFunction,
     required TextEditingController textEditingController,
     bool? isPassword,
     bool? isFull,

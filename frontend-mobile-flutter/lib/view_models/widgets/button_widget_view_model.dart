@@ -1,12 +1,14 @@
+import 'package:flutter/material.dart';
+
 class ButtonWidgetViewModel {
   final String _buttonText;
-  final Function _buttonFn;
+  final VoidCallback _buttonFn;
   final bool? _isColoredRed;
   final bool? _isDisabled;
 
   const ButtonWidgetViewModel({
     required String buttonText,
-    required Function buttonFn,
+    required VoidCallback buttonFn,
     bool? isColoredRed,
     bool? isDisabled,
   }) : _buttonText = buttonText,

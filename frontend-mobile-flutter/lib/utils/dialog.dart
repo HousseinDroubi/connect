@@ -16,7 +16,7 @@ class PopupLoading extends PopupCase {
 
 class PopupEditMessage extends PopupCase {
   final TextEditingController controller;
-  final Function nextFunction;
+  final VoidCallback nextFunction;
   const PopupEditMessage({
     required super.context,
     required this.controller,
@@ -179,7 +179,7 @@ void showPopup({required PopupCase popupCase}) {
     actions = [
       TextButton(
         onPressed: () async {
-          await popupEditMessage.nextFunction();
+          await popupEditMessage.nextFunction;
           Navigator.pop(popupEditMessage.context);
         },
         child: Text("Yes", style: TextStyle(color: MyColors.black.value)),
