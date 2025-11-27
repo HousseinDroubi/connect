@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'package:app_links/app_links.dart';
-import 'package:connect/features/auth/views/screens/login_screen.dart';
-import 'package:connect/features/auth/views/screens/update_forgotten_password_screen.dart';
-import 'package:connect/features/auth/views/screens/verify_account_screen.dart';
+import 'package:connect/core/utils/app_nav.dart';
 import 'package:flutter/material.dart';
 
 Future<void> initDeepLinks(
@@ -12,10 +10,7 @@ Future<void> initDeepLinks(
 ) async {
   final initialLink = await appLinks.getInitialLink();
   if (initialLink == null) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-    );
+    AppNav.push(context, "login");
   }
 
   sub = appLinks.uriLinkStream.listen((uri) {
@@ -30,27 +25,15 @@ void navigateToDeepLinksOrLogin(
 ) {
   if (map != null) {
     if (map["to"] == "verify_account") {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => VerifyAccountScreen(token: map["token"]),
-        ),
-      );
+      // TODO: add token to the state
+      AppNav.push(context, "verify_account");
     } else if (map["to"] == "update_forgotten_password") {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-              UpdateForgottenPasswordScreen(token: map["token"]),
-        ),
-      );
+      // TODO: add token to the state
+      AppNav.push(context, "update_forgotten_password");
     }
     return;
   }
-  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => LoginScreen()),
-  );
+  AppNav.push(context, "login");
 }
 
 Map<String, String>? handleUri(Uri uri) {

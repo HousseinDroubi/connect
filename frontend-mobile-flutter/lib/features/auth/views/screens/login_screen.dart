@@ -1,6 +1,4 @@
 import 'package:connect/core/utils/utils.dart';
-import 'package:connect/features/auth/views/screens/create_account_screen.dart';
-import 'package:connect/features/auth/views/screens/forgot_password_screen.dart';
 import 'package:connect/features/auth/view_models/screens/login_screen_view_model.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:connect/features/auth/views/widgets/logo_widget.dart';
@@ -60,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.centerRight,
                 child: UnderlinedTextWidget(
                   text: "Forgot Password?",
-                  to: ForgotPasswordScreen(),
+                  to: "forgot_password",
                 ),
               ),
               SizedBox(height: 13),
@@ -73,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 10),
               UnderlinedTextWidget(
                 text: "Don’t have an account? Sign up",
-                to: CreateAccountScreen(),
+                to: "create_account",
               ),
             ],
           ),

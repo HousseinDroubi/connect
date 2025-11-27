@@ -1,4 +1,5 @@
 import 'package:connect/core/constants/app_colors.dart';
+import 'package:connect/core/utils/app_nav.dart';
 import 'package:connect/features/auth/view_models/screens/verify_account_screen_view_model.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,7 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (widget.token == null) {
-        Navigator.of(
-          context,
-        ).pushNamedAndRemoveUntil("/login", (Route<dynamic> route) => false);
+        AppNav.pushAndRemoveUntil(context, "login");
       } else {
         await viewModel.verifyAccount(widget.token!, context);
         setState(() {});

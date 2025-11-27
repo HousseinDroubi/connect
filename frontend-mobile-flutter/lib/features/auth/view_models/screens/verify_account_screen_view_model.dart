@@ -1,3 +1,4 @@
+import 'package:connect/core/utils/app_nav.dart';
 import 'package:connect/features/auth/models/auth_model.dart';
 import 'package:connect/features/auth/repositories/auth_service.dart';
 import 'package:connect/core/utils/dialog.dart';
@@ -43,8 +44,6 @@ class VerifyAccountScreenViewModel {
   }
 
   void navigateToLogin(BuildContext context) {
-    Navigator.of(
-      context,
-    ).pushNamedAndRemoveUntil("/login", (Route<dynamic> route) => false);
+    AppNav.pushAndRemoveUntil(context, "login");
   }
 }

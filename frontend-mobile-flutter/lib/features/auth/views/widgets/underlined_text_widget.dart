@@ -1,13 +1,14 @@
 import 'package:connect/core/constants/app_colors.dart';
+import 'package:connect/core/utils/app_nav.dart';
 import 'package:flutter/material.dart';
 
 class UnderlinedTextWidget extends StatelessWidget {
   final String text;
-  final Widget to;
+  final String to;
   const UnderlinedTextWidget({super.key, required this.text, required this.to});
 
   void navigateTo(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => to));
+    AppNav.push(context, to);
   }
 
   @override

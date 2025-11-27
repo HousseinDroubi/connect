@@ -1,4 +1,5 @@
 import 'package:connect/core/constants/app_colors.dart';
+import 'package:connect/core/utils/app_nav.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +72,7 @@ void showPopup({required PopupCase popupCase}) {
       actions = [
         TextButton(
           onPressed: () {
-            Navigator.pop(popupAlert.context);
+            AppNav.pop(popupAlert.context);
           },
           child: Center(
             child: Text(
@@ -91,13 +92,13 @@ void showPopup({required PopupCase popupCase}) {
         TextButton(
           onPressed: () async {
             await popupConfirmation.confirmationFunction();
-            Navigator.pop(popupConfirmation.context);
+            AppNav.pop(popupConfirmation.context);
           },
           child: Text("Yes", style: TextStyle(color: AppColors.black)),
         ),
         TextButton(
           onPressed: () {
-            Navigator.pop(popupConfirmation.context);
+            AppNav.pop(popupConfirmation.context);
           },
           child: Text("No", style: TextStyle(color: AppColors.black)),
         ),
@@ -148,7 +149,7 @@ void showPopup({required PopupCase popupCase}) {
       Center(
         child: TextButton(
           onPressed: () {
-            Navigator.pop(popupCase.context);
+            AppNav.pop(popupCase.context);
           },
           child: Text("Cancel", style: TextStyle(color: AppColors.black)),
         ),
@@ -172,13 +173,13 @@ void showPopup({required PopupCase popupCase}) {
       TextButton(
         onPressed: () async {
           await popupEditMessage.nextFunction;
-          Navigator.pop(popupEditMessage.context);
+          AppNav.pop(popupEditMessage.context);
         },
         child: Text("Yes", style: TextStyle(color: AppColors.black)),
       ),
       TextButton(
         onPressed: () {
-          Navigator.pop(popupEditMessage.context);
+          AppNav.pop(popupEditMessage.context);
         },
         child: Text("No", style: TextStyle(color: AppColors.black)),
       ),
@@ -197,5 +198,5 @@ void showPopup({required PopupCase popupCase}) {
 }
 
 void hidePopup(BuildContext context) {
-  Navigator.pop(context);
+  AppNav.pop(context);
 }
