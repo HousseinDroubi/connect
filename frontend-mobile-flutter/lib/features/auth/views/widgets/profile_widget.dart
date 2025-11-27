@@ -6,15 +6,17 @@ import 'package:connect/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatefulWidget {
-  final File? imageFile;
   final String? imageSource;
-  const ProfileWidget({super.key, this.imageFile, this.imageSource});
+  final void Function(File imageFile) onChange;
+  const ProfileWidget({super.key, required this.onChange, this.imageSource});
 
   @override
   State<ProfileWidget> createState() => _ProfileWidgetState();
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
+  File? imageFile;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -28,11 +30,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             border: Border.all(color: AppColors.blue),
           ),
         ),
-        widget.imageFile != null
+        imageFile != null
             ? ClipRRect(
                 borderRadius: BorderRadiusGeometry.circular(50),
                 child: Image.file(
-                  widget.imageFile!,
+                  imageFile!,
                   width: 100,
                   height: 100,
                   fit: BoxFit.cover,
@@ -54,8 +56,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           right: 0,
           child: InkWell(
             onTap: () async {
-              await AppFiles.pickUpImageFromGallery();
-              setState(() {});
+              imageFile = await AppFiles.pickUpImageFromGallery();
+              if (imageFile != null) {
+                widget.onChange(imageFile!);
+              }
             },
             child: Image.asset(AppIcons.addIconPath, width: 22, height: 22),
           ),

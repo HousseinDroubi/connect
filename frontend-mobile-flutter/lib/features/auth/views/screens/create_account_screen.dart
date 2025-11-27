@@ -23,7 +23,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   AuthViewModel viewModel = AuthViewModel();
 
   File? imageFile;
-  String? imageSource;
 
   // Nodes
   final FocusNode _emailFocusNode = FocusNode();
@@ -76,7 +75,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
         ]);
 
         imageFile = null;
-        imageSource = null;
         break;
     }
 
@@ -94,7 +92,14 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
             children: [
               TitleWidget(title: "Create New Account"),
               SizedBox(height: 5),
-              ProfileWidget(imageFile: imageFile, imageSource: imageSource),
+              ProfileWidget(
+                onChange: (File imageFile) {
+                  setState(() {
+                    imageFile = imageFile;
+                  });
+                },
+                imageSource: imageFile?.path,
+              ),
               TextFieldWidget(
                 focusNode: _emailFocusNode,
                 title: "Email",
