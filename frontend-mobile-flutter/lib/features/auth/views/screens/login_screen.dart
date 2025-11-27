@@ -1,3 +1,4 @@
+import 'package:connect/core/utils/utils.dart';
 import 'package:connect/features/auth/views/screens/create_account_screen.dart';
 import 'package:connect/features/auth/views/screens/forgot_password_screen.dart';
 import 'package:connect/features/auth/view_models/screens/login_screen_view_model.dart';
@@ -39,12 +40,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 title: "Email or pin",
                 hint: "Enter your email or pin",
                 nextFunction: () {
-                  FocusScope.of(context).requestFocus(_passwordFocusNode);
+                  focusOn(context, _passwordFocusNode);
                 },
                 textEditingController: viewModel.emailController,
               ),
               SizedBox(height: 20),
               TextFieldWidget(
+                focusNode: _passwordFocusNode,
                 title: "Password",
                 hint: "Enter your password",
                 nextFunction: () async {

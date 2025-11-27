@@ -1,3 +1,4 @@
+import 'package:connect/core/utils/utils.dart';
 import 'package:connect/features/auth/view_models/screens/update_forgotten_password_screen_view_model.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
@@ -40,9 +41,7 @@ class _UpdateForgottenPasswordScreenState
                 title: "New Password",
                 hint: "Enter new password",
                 nextFunction: () {
-                  FocusScope.of(
-                    context,
-                  ).requestFocus(_confirmationPasswordFocusNode);
+                  focusOn(context, _confirmationPasswordFocusNode);
                 },
                 textEditingController: viewModel.newPasswordController,
                 isPassword: true,

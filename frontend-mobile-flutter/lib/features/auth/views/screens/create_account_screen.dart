@@ -1,3 +1,4 @@
+import 'package:connect/core/utils/utils.dart';
 import 'package:connect/features/auth/view_models/screens/create_account_screen_view_model.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:connect/features/auth/views/widgets/profile_widget.dart';
@@ -42,7 +43,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 title: "Email",
                 hint: "Enter your email",
                 nextFunction: () {
-                  FocusScope.of(context).requestFocus(_usernameFocusNode);
+                  focusOn(context, _usernameFocusNode);
                 },
                 textEditingController: viewModel.emailController,
               ),
@@ -52,7 +53,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 title: "username",
                 hint: "Enter your username",
                 nextFunction: () {
-                  FocusScope.of(context).requestFocus(_pinFocusNode);
+                  focusOn(context, _pinFocusNode);
                 },
                 textEditingController: viewModel.usernameController,
               ),
@@ -62,7 +63,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 title: "Pin",
                 hint: "Enter your pin",
                 nextFunction: () {
-                  FocusScope.of(context).requestFocus(_passwordFocusNode);
+                  focusOn(context, _passwordFocusNode);
                 },
                 textEditingController: viewModel.pinController,
               ),
@@ -72,9 +73,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 title: "Password",
                 hint: "Enter your password",
                 nextFunction: () {
-                  FocusScope.of(
-                    context,
-                  ).requestFocus(_confirmationPasswordFocusNode);
+                  focusOn(context, _confirmationPasswordFocusNode);
                 },
                 isPassword: true,
                 textEditingController: viewModel.passwordController,
