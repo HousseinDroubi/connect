@@ -2,13 +2,10 @@ import 'dart:io';
 import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/features/auth/repositories/auth_repository.dart';
 import 'package:connect/core/utils/validate_requests.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fpdart/fpdart.dart';
 
 class AuthViewModel {
   Future<Either<AppFailure, AppSuccess>> createAccountRequest({
-    required BuildContext context,
     required String email,
     required String username,
     required String pin,

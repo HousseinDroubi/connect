@@ -45,7 +45,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
     final fpdart.Either<AppFailure, AppSuccess> result = await viewModel
         .createAccountRequest(
-          context: context,
           email: emailController.text,
           username: usernameController.text,
           pin: pinController.text,
