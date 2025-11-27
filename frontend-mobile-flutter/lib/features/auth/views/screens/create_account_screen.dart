@@ -11,17 +11,17 @@ import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
 import 'package:connect/features/auth/views/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart' as fpdart;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CreateAccountScreen extends StatefulWidget {
+class CreateAccountScreen extends ConsumerStatefulWidget {
   const CreateAccountScreen({super.key});
 
   @override
-  State<CreateAccountScreen> createState() => _CreateAccountScreenState();
+  ConsumerState<CreateAccountScreen> createState() =>
+      _CreateAccountScreenState();
 }
 
-class _CreateAccountScreenState extends State<CreateAccountScreen> {
-  AuthViewModel viewModel = AuthViewModel();
-
+class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
   File? imageFile;
 
   // Nodes
@@ -43,7 +43,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   Future<void> createAccountButtonFuction(BuildContext context) async {
     showPopup(popupCase: PopupLoading(context: context));
 
-    final fpdart.Either<AppFailure, AppSuccess> result = await viewModel
+    final fpdart.Either<AppFailure, AppSuccess> result = await ref
+        .read(authViewModelProvider.notifier)
         .createAccountRequest(
           email: emailController.text,
           username: usernameController.text,

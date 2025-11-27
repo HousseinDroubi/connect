@@ -6,26 +6,26 @@ import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
 import 'package:connect/features/auth/views/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart' as fpdart;
 
-class ForgotPasswordScreen extends StatefulWidget {
+class ForgotPasswordScreen extends ConsumerStatefulWidget {
   const ForgotPasswordScreen({super.key});
 
   @override
-  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+  ConsumerState<ForgotPasswordScreen> createState() =>
+      _ForgotPasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  final AuthViewModel viewModel = AuthViewModel();
-
+class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
   final TextEditingController emailController = TextEditingController();
 
   Future<void> sendEmailButtonFunction() async {
     showPopup(popupCase: PopupLoading(context: context));
 
-    fpdart.Either<AppFailure, AppSuccess> result = await viewModel.sendEmail(
-      emailController.text,
-    );
+    fpdart.Either<AppFailure, AppSuccess> result = await ref
+        .read(authViewModelProvider.notifier)
+        .sendEmail(emailController.text);
 
     hidePopup(context);
 
