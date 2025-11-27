@@ -3,8 +3,17 @@ import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/features/auth/repositories/auth_repository.dart';
 import 'package:connect/core/utils/validate_requests.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class AuthViewModel {
+part 'auth_view_model.g.dart';
+
+@riverpod
+class AuthViewModel extends _$AuthViewModel {
+  @override
+  AsyncValue<String?> build() {
+    return AsyncData(null);
+  }
+
   Future<Either<AppFailure, AppSuccess>> createAccountRequest({
     required String email,
     required String username,

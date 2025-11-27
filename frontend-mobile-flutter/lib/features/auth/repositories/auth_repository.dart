@@ -5,6 +5,14 @@ import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/features/auth/models/auth_model.dart';
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'auth_repository.g.dart';
+
+@riverpod
+AuthRepository authRepository(AuthRepositoryRef ref) {
+  return AuthRepository();
+}
 
 class AuthRepository {
   final Dio _dio = Dio(
