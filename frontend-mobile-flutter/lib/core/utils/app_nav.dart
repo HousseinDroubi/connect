@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class AppNav {
   static void push(BuildContext context, String to) {
-    Navigator.pushNamed(context, to);
+    Navigator.pushNamed(context, "/$to");
   }
 
   static void pushAndRemoveUntil(BuildContext context, String to) {
     Navigator.pushNamedAndRemoveUntil(
       context,
-      to,
+      "/$to",
       (Route<dynamic> route) => false,
     );
   }
