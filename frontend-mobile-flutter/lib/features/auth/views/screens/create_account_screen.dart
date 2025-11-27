@@ -1,10 +1,16 @@
+import 'dart:io';
+
+import 'package:connect/core/utils/app_responses.dart';
+import 'package:connect/core/utils/dialog.dart';
 import 'package:connect/core/utils/utils.dart';
+import 'package:connect/core/utils/widgets.dart';
 import 'package:connect/features/auth/view_models/screens/create_account_screen_view_model.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:connect/features/auth/views/widgets/profile_widget.dart';
 import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
 import 'package:connect/features/auth/views/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart' as fpdart;
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({super.key});
@@ -15,14 +21,65 @@ class CreateAccountScreen extends StatefulWidget {
 
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
   CreateAccountScreenViewModel viewModel = CreateAccountScreenViewModel();
+
+  File? imageFile;
+  String? imageSource;
+
+  // Nodes
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _usernameFocusNode = FocusNode();
   final FocusNode _pinFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
   final FocusNode _confirmationPasswordFocusNode = FocusNode();
 
+  // Text controllers
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController pinController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmationPasswordController =
+      TextEditingController();
+
+  // Create Account function
   Future<void> createAccountButtonFuction(BuildContext context) async {
-    await viewModel.createAccountRequest(context);
+    showPopup(popupCase: PopupLoading(context: context));
+
+    final fpdart.Either<AppFailure, AppSuccess> result = await viewModel
+        .createAccountRequest(
+          context: context,
+          email: emailController.text,
+          username: usernameController.text,
+          pin: pinController.text,
+          password: passwordController.text,
+          confirmationPassword: confirmationPasswordController.text,
+          imageFile: imageFile!,
+        );
+
+    hidePopup(context);
+
+    switch (result) {
+      case fpdart.Left(value: AppFailure(message: String message)):
+        showPopup(
+          popupCase: PopupAlert(context: context, popupContent: message),
+        );
+        break;
+      case fpdart.Right(value: AppSuccess(message: String message)):
+        showPopup(
+          popupCase: PopupAlert(context: context, popupContent: message),
+        );
+        clearTextEditingControllers([
+          emailController,
+          usernameController,
+          pinController,
+          passwordController,
+          confirmationPasswordController,
+        ]);
+
+        imageFile = null;
+        imageSource = null;
+        break;
+    }
+
     setState(() {});
   }
 
@@ -37,7 +94,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
             children: [
               TitleWidget(title: "Create New Account"),
               SizedBox(height: 5),
-              ProfileWidget(),
+              ProfileWidget(imageFile: imageFile, imageSource: imageSource),
               TextFieldWidget(
                 focusNode: _emailFocusNode,
                 title: "Email",
@@ -45,7 +102,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 nextFunction: () {
                   focusOn(context, _usernameFocusNode);
                 },
-                textEditingController: viewModel.emailController,
+                textEditingController: emailController,
               ),
               SizedBox(height: 15),
               TextFieldWidget(
@@ -55,7 +112,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 nextFunction: () {
                   focusOn(context, _pinFocusNode);
                 },
-                textEditingController: viewModel.usernameController,
+                textEditingController: usernameController,
               ),
               SizedBox(height: 15),
               TextFieldWidget(
@@ -65,7 +122,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 nextFunction: () {
                   focusOn(context, _passwordFocusNode);
                 },
-                textEditingController: viewModel.pinController,
+                textEditingController: pinController,
               ),
               SizedBox(height: 15),
               TextFieldWidget(
@@ -76,7 +133,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   focusOn(context, _confirmationPasswordFocusNode);
                 },
                 isPassword: true,
-                textEditingController: viewModel.passwordController,
+                textEditingController: passwordController,
               ),
               SizedBox(height: 15),
               TextFieldWidget(
@@ -87,7 +144,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   await createAccountButtonFuction(context);
                 },
                 isPassword: true,
-                textEditingController: viewModel.confirmationPasswordController,
+                textEditingController: confirmationPasswordController,
               ),
               SizedBox(height: 20),
               ButtonWidget(

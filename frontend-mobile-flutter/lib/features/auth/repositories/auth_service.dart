@@ -1,15 +1,19 @@
 import 'dart:io';
 
 import 'package:connect/core/constants/server_urls.dart';
+import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/features/auth/models/auth_model.dart';
 import 'package:dio/dio.dart';
+import 'package:fpdart/fpdart.dart';
 
 class AuthService {
   final Dio _dio = Dio(
     BaseOptions(headers: {'Content-Type': 'application/json'}),
   );
+
   final String _baseUrl = "${ServerUrls.apiBaseUrl}/auth";
-  Future<AuthModel> createAccount({
+
+  Future<Either<AppFailure, AppSuccess>> createAccount({
     required File imageFile,
     required String email,
     required String username,
@@ -28,17 +32,27 @@ class AuthService {
           filename: imageFile.path.split('/').last,
         ),
       });
-      final response = await _dio.post(
+
+      await _dio.post(
         url,
         data: formData,
         options: Options(headers: {'Content-Type': 'multipart/form-data'}),
       );
-      return AuthModel.fromJson(response.data);
+
+      return Right(AppSuccess());
     } on DioException catch (e) {
       final String result = e.response?.data["result"] ?? "failed";
       final String error = e.response?.data["error"] ?? e.message;
 
-      return AuthModel.fromJson({"result": result, "error": error});
+      String message = "Something went wrong";
+
+      if (result == "validation_error" && error == "invalid_email") {
+        message = "Invalid email";
+      } else if (result == "email_or_pin_taken") {
+        message = "Email or pin is taken";
+      }
+
+      return Left(AppFailure(message: message));
     }
   }
 
