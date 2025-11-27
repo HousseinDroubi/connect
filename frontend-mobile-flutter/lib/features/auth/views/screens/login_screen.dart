@@ -1,5 +1,5 @@
 import 'package:connect/core/utils/utils.dart';
-import 'package:connect/features/auth/view_models/screens/login_screen_view_model.dart';
+import 'package:connect/features/auth/view_models/login_screen_view_model.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:connect/features/auth/views/widgets/logo_widget.dart';
 import 'package:connect/features/auth/views/widgets/text_field_widget.dart';

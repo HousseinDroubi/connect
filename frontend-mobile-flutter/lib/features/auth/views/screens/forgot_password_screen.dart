@@ -1,4 +1,4 @@
-import 'package:connect/features/auth/view_models/screens/forgot_password_screen_view_model.dart';
+import 'package:connect/features/auth/view_models/forgot_password_screen_view_model.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
 import 'package:connect/features/auth/views/widgets/title_widget.dart';

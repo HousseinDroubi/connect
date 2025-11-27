@@ -4,7 +4,7 @@ import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/core/utils/dialog.dart';
 import 'package:connect/core/utils/utils.dart';
 import 'package:connect/core/utils/widgets.dart';
-import 'package:connect/features/auth/view_models/screens/auth_view_model.dart';
+import 'package:connect/features/auth/view_models/auth_view_model.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:connect/features/auth/views/widgets/profile_widget.dart';
 import 'package:connect/features/auth/views/widgets/text_field_widget.dart';

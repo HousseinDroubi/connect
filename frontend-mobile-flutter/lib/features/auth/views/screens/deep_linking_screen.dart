@@ -1,4 +1,4 @@
-import 'package:connect/features/auth/view_models/screens/deep_linking_screen_view_model.dart';
+import 'package:connect/features/auth/view_models/deep_linking_screen_view_model.dart';
 import 'package:flutter/material.dart';
 
 class DeepLinkingScreen extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:connect/core/constants/app_colors.dart';
 import 'package:connect/core/utils/app_nav.dart';
-import 'package:connect/features/auth/view_models/screens/verify_account_screen_view_model.dart';
+import 'package:connect/features/auth/view_models/verify_account_screen_view_model.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 
