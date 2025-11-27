@@ -46,4 +46,27 @@ class AuthViewModel {
         );
     }
   }
+
+  Future<Either<AppFailure, AppSuccess>> sendEmail(String email) async {
+    final String? validationResult = validateForgotPasswordRequest(
+      email: email,
+    );
+    if (validationResult != null) {
+      return Left(AppFailure(message: validationResult));
+    }
+
+    Either<AppFailure, AppSuccess> response = await AuthRepository()
+        .forgotPassword(email);
+
+    switch (response) {
+      case Left(value: AppFailure(message: final message)):
+        return Left(AppFailure(message: message));
+      case Right(value: AppSuccess()):
+        return Right(
+          AppSuccess(
+            message: "Email sent successfully, please check your inbox!",
+          ),
+        );
+    }
+  }
 }

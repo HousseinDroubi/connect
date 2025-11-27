@@ -72,20 +72,35 @@ class AuthRepository {
     }
   }
 
-  Future<AuthModel> forgotPassword(String email) async {
+  Future<Either<AppFailure, AppSuccess>> forgotPassword(String email) async {
     try {
       final String url = "$_baseUrl/forgot_password";
-      final response = await _dio.post(
+      await _dio.post(
         url,
         data: {"email": email},
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
-      return AuthModel.fromJson(response.data);
+
+      return Right(AppSuccess());
     } on DioException catch (e) {
       final String result = e.response?.data["result"] ?? "failed";
       final String error = e.response?.data["error"] ?? e.message;
 
-      return AuthModel.fromJson({"result": result, "error": error});
+      String message = "Something went wrong";
+
+      if (result == "validation_error" && error == "invalid_email") {
+        message = "Invalid email";
+      } else if (result == "user_not_found") {
+        message = "User not found";
+      } else if (result == "user_is_not_verified") {
+        message = "Please verify your account first.";
+      } else if (result == "user_account_deleted") {
+        message = "User account deleted";
+      } else if (result == "token_already_sent") {
+        message = "Uoken already sent to this email";
+      }
+
+      return Left(AppFailure(message: message));
     }
   }
 
