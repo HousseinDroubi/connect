@@ -1,6 +1,6 @@
 import 'package:connect/core/utils/app_nav.dart';
 import 'package:connect/features/auth/models/auth_model.dart';
-import 'package:connect/features/auth/repositories/auth_service.dart';
+import 'package:connect/features/auth/repositories/auth_repository.dart';
 import 'package:connect/core/utils/dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +12,7 @@ class VerifyAccountScreenViewModel {
   bool isError = false;
 
   Future<void> verifyAccount(String token, BuildContext context) async {
-    AuthModel response = await AuthService().verifyAccount(token);
+    AuthModel response = await AuthRepository().verifyAccount(token);
     String popupText;
     if (response.result != "user_verified") {
       isDone = false;

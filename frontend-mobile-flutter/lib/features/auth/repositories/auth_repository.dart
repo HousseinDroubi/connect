@@ -6,7 +6,7 @@ import 'package:connect/features/auth/models/auth_model.dart';
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 
-class AuthService {
+class AuthRepository {
   final Dio _dio = Dio(
     BaseOptions(headers: {'Content-Type': 'application/json'}),
   );

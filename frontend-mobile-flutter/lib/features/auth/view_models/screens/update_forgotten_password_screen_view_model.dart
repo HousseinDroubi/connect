@@ -1,5 +1,5 @@
 import 'package:connect/features/auth/models/auth_model.dart';
-import 'package:connect/features/auth/repositories/auth_service.dart';
+import 'package:connect/features/auth/repositories/auth_repository.dart';
 import 'package:connect/core/utils/dialog.dart';
 import 'package:connect/core/utils/validate_requests.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class UpdateForgottenPasswordScreenViewModel {
     }
 
     showPopup(popupCase: PopupLoading(context: context));
-    final AuthModel response = await AuthService().updateForgottenPassoword(
+    final AuthModel response = await AuthRepository().updateForgottenPassoword(
       password: _newPasswordController.text,
       token: token,
     );

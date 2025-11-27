@@ -1,5 +1,5 @@
 import 'package:connect/features/auth/models/auth_model.dart';
-import 'package:connect/features/auth/repositories/auth_service.dart';
+import 'package:connect/features/auth/repositories/auth_repository.dart';
 import 'package:connect/core/utils/dialog.dart';
 import 'package:connect/core/utils/validate_requests.dart';
 import 'package:flutter/widgets.dart';
@@ -20,7 +20,7 @@ class ForgotPasswordScreenViewModel {
       return;
     }
     showPopup(popupCase: PopupLoading(context: context));
-    final AuthModel response = await AuthService().forgotPassword(
+    final AuthModel response = await AuthRepository().forgotPassword(
       _emailController.text,
     );
     hidePopup(context);
