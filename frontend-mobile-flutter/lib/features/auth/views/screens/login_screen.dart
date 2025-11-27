@@ -1,0 +1,82 @@
+import 'package:connect/features/auth/views/screens/create_account_screen.dart';
+import 'package:connect/features/auth/views/screens/forgot_password_screen.dart';
+import 'package:connect/features/auth/view_models/screens/login_screen_view_model.dart';
+import 'package:connect/features/auth/views/widgets/button_widget.dart';
+import 'package:connect/features/auth/views/widgets/logo_widget.dart';
+import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
+import 'package:connect/features/auth/views/widgets/underlined_text_widget.dart';
+import 'package:flutter/material.dart';
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final LoginScreenViewModel viewModel = LoginScreenViewModel();
+
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
+
+  Future<void> loginButtonFunction() async {
+    // TODO
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: IntrinsicWidth(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              LogoWidget(title: "Welcome to Connect"),
+              SizedBox(height: 30),
+              TextFieldWidget(
+                focusNode: _emailFocusNode,
+                title: "Email or pin",
+                hint: "Enter your email or pin",
+                nextFunction: () {
+                  FocusScope.of(context).requestFocus(_passwordFocusNode);
+                },
+                textEditingController: viewModel.emailController,
+              ),
+              SizedBox(height: 20),
+              TextFieldWidget(
+                title: "Password",
+                hint: "Enter your password",
+                nextFunction: () async {
+                  await loginButtonFunction();
+                },
+                textEditingController: viewModel.passwordController,
+                isPassword: true,
+              ),
+              SizedBox(height: 10),
+              Container(
+                alignment: Alignment.centerRight,
+                child: UnderlinedTextWidget(
+                  text: "Forgot Password?",
+                  to: ForgotPasswordScreen(),
+                ),
+              ),
+              SizedBox(height: 13),
+              ButtonWidget(
+                buttonText: "Login",
+                buttonFn: () async {
+                  await loginButtonFunction();
+                },
+              ),
+              SizedBox(height: 10),
+              UnderlinedTextWidget(
+                text: "Don’t have an account? Sign up",
+                to: CreateAccountScreen(),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
