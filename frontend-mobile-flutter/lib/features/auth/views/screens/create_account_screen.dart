@@ -51,7 +51,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           pin: pinController.text,
           password: passwordController.text,
           confirmationPassword: confirmationPasswordController.text,
-          imageFile: imageFile!,
+          imageFile: imageFile,
         );
 
     hidePopup(context);

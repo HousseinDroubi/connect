@@ -14,7 +14,7 @@ class AuthViewModel {
     required String pin,
     required String password,
     required String confirmationPassword,
-    required File imageFile,
+    required File? imageFile,
   }) async {
     String? validationResult = validateCreateAccountRequest(
       imageFile: imageFile,
@@ -31,7 +31,7 @@ class AuthViewModel {
 
     Either<AppFailure, AppSuccess> result = await AuthRepository()
         .createAccount(
-          imageFile: imageFile,
+          imageFile: imageFile!,
           email: email,
           username: username,
           pin: pin,
