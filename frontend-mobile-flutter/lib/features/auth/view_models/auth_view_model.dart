@@ -124,15 +124,15 @@ class AuthViewModel extends _$AuthViewModel {
     }
   }
 
-  Future<void> getTokenAndPageFromDeepLinking(
+  void getTokenAndPageFromDeepLinking(
     GlobalKey<NavigatorState> navigatorKey,
     StreamSubscription<Uri>? linkSubscription,
-  ) async {
-    linkSubscription = AppLinks().uriLinkStream.listen((uri) async {
+  ) {
+    linkSubscription = AppLinks().uriLinkStream.listen((uri) {
       Map map = handleUri(uri);
       if (map["token"] != null) {
-        await AppNav.openAppLink(map["to"], navigatorKey);
         state = map["token"];
+        AppNav.openAppLink(map["to"], navigatorKey);
       }
     });
   }

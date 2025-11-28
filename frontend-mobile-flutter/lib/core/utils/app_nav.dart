@@ -17,11 +17,8 @@ class AppNav {
     Navigator.pop(context);
   }
 
-  static Future<void> openAppLink(
-    String to,
-    GlobalKey<NavigatorState> navigatorKey,
-  ) async {
-    await navigatorKey.currentState?.pushNamedAndRemoveUntil(
+  static void openAppLink(String to, GlobalKey<NavigatorState> navigatorKey) {
+    navigatorKey.currentState?.pushNamedAndRemoveUntil(
       "/$to",
       (Route<dynamic> route) => false,
     );
