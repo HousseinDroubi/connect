@@ -112,23 +112,33 @@ class AuthRepository {
     }
   }
 
-  Future<AuthModel> updateForgottenPassoword({
+  Future<Either<AppFailure, AppSuccess>> updateForgottenPassoword({
     required String password,
     required String token,
   }) async {
     try {
       final String url = "$_baseUrl/update_forgotten_password";
-      final response = await _dio.put(
-        url,
-        data: {"password": password, "token": token},
-        options: Options(headers: {'Content-Type': 'application/json'}),
-      );
-      return AuthModel.fromJson(response.data);
+      await _dio.put(url, data: {"password": password, "token": token});
+      return Right(AppSuccess());
     } on DioException catch (e) {
       final String result = e.response?.data["result"] ?? "failed";
-      final String error = e.response?.data["error"] ?? e.message;
 
-      return AuthModel.fromJson({"result": result, "error": error});
+      String message = "Something went wrong";
+      switch (result) {
+        case "token_not_found":
+          message = "Token not found";
+          break;
+        case "user_not_found":
+          message = "Token not found";
+          break;
+        case "user_not_verified":
+          message = "User not verified";
+          break;
+        case "user_account_deleted":
+          message = "User account deleted";
+          break;
+      }
+      return Left(AppFailure(message: message));
     }
   }
 }

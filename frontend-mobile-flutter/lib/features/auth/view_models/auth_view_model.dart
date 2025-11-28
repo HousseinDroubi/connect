@@ -84,6 +84,34 @@ class AuthViewModel extends _$AuthViewModel {
     }
   }
 
+  Future<Either<AppFailure, AppSuccess>> changePassword({
+    required BuildContext context,
+    required String token,
+    required String newPassword,
+    required String confirmationPassword,
+  }) async {
+    String? validationResult = validateChangeForgottenPasswordRequest(
+      newPassword: newPassword,
+      confirmationPassword: confirmationPassword,
+    );
+
+    if (validationResult != null) {
+      return Left(AppFailure(message: validationResult));
+    }
+
+    final Either<AppFailure, AppSuccess> result = await AuthRepository()
+        .updateForgottenPassoword(password: newPassword, token: token);
+
+    switch (result) {
+      case Left(value: AppFailure(message: final message)):
+        return Left(AppFailure(message: message));
+      case Right():
+        return Right(
+          AppSuccess(message: "Password updated successfully, please login"),
+        );
+    }
+  }
+
   Future<void> getTokenAndPageFromDeepLinking(
     GlobalKey<NavigatorState> navigatorKey,
     StreamSubscription<Uri>? linkSubscription,
