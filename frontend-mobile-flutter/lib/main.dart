@@ -1,8 +1,5 @@
 import 'dart:async';
 
-import 'package:app_links/app_links.dart';
-import 'package:connect/core/utils/app_nav.dart';
-import 'package:connect/core/utils/utils.dart';
 import 'package:connect/features/auth/view_models/auth_view_model.dart';
 import 'package:connect/features/auth/views/screens/create_account_screen.dart';
 import 'package:connect/features/auth/views/screens/forgot_password_screen.dart';
