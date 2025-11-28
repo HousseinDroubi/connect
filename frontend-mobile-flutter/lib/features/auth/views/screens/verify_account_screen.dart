@@ -1,32 +1,66 @@
 import 'package:connect/core/constants/app_colors.dart';
+import 'package:connect/core/constants/app_icons.dart';
 import 'package:connect/core/utils/app_nav.dart';
-import 'package:connect/features/auth/view_models/verify_account_screen_view_model.dart';
+import 'package:connect/core/utils/app_responses.dart';
+import 'package:connect/core/utils/dialog.dart';
+import 'package:connect/features/auth/view_models/auth_view_model.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fpdart/fpdart.dart';
 
-class VerifyAccountScreen extends StatefulWidget {
-  final String? token;
-  const VerifyAccountScreen({super.key, this.token});
+class VerifyAccountScreen extends ConsumerStatefulWidget {
+  const VerifyAccountScreen({super.key});
 
   @override
-  State<VerifyAccountScreen> createState() => _VerifyAccountScreenState();
+  ConsumerState<VerifyAccountScreen> createState() =>
+      _VerifyAccountScreenState();
 }
 
-class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
-  final VerifyAccountScreenViewModel viewModel = VerifyAccountScreenViewModel();
+class _VerifyAccountScreenState extends ConsumerState<VerifyAccountScreen> {
+  bool isDone = false;
+  bool isError = false;
 
   @override
   void initState() {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (widget.token == null) {
-        AppNav.pushAndRemoveUntil(context, "login");
-      } else {
-        await viewModel.verifyAccount(widget.token!, context);
-        setState(() {});
-      }
+      await init();
     });
+  }
+
+  Future<void> init() async {
+    final String? token = ref.watch(authViewModelProvider);
+    final notifier = ref.watch(authViewModelProvider.notifier);
+    if (token == null) {
+      AppNav.pushAndRemoveUntil(context, "login");
+    } else {
+      showPopup(popupCase: PopupLoading(context: context));
+      final Either<AppFailure, AppSuccess> result = await notifier
+          .verifyAccount(token);
+      hidePopup(context);
+
+      final String popupContent;
+      switch (result) {
+        case Left(value: AppFailure(message: final message)):
+          isError = true;
+          isDone = false;
+          popupContent = message;
+          break;
+        case Right(value: AppSuccess(message: final message)):
+          isError = false;
+          isDone = true;
+          popupContent = message;
+          break;
+      }
+
+      setState(() {});
+
+      showPopup(
+        popupCase: PopupAlert(context: context, popupContent: popupContent),
+      );
+    }
   }
 
   @override
@@ -37,30 +71,30 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              viewModel.isError
-                  ? VerifyAccountScreenViewModel.errorIconPath
-                  : viewModel.isDone
-                  ? VerifyAccountScreenViewModel.doneIconPath
-                  : VerifyAccountScreenViewModel.waitingIconPath,
+              isError
+                  ? AppIcons.errorIconPath
+                  : isDone
+                  ? AppIcons.doneIconPath
+                  : AppIcons.waitingIconPath,
               width: 150,
               height: 150,
             ),
             SizedBox(height: 20),
             Text(
-              viewModel.isError
+              isError
                   ? "Something went wrong!"
-                  : viewModel.isDone
+                  : isDone
                   ? "Account verified."
                   : "Verifying token...",
               style: TextStyle(fontSize: 16, color: AppColors.black),
             ),
-            if (viewModel.isDone)
+            if (isDone)
               Container(
                 margin: EdgeInsets.only(top: 20),
                 child: ButtonWidget(
                   buttonText: "Login now",
                   buttonFn: () {
-                    viewModel.navigateToLogin(context);
+                    AppNav.pushAndRemoveUntil(context, "login");
                   },
                 ),
               ),

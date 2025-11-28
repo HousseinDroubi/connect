@@ -6,4 +6,7 @@ class AppIcons {
   static const String galleryIconPath = "assets/icons/gallery.png";
   static const String imageDefaultPath = "assets/icons/profile_default.png";
   static const String addIconPath = "assets/icons/add_image.png";
+  static const String doneIconPath = "assets/icons/done.png";
+  static const String errorIconPath = "assets/icons/error.png";
+  static const String waitingIconPath = "assets/icons/waiting.png";
 }

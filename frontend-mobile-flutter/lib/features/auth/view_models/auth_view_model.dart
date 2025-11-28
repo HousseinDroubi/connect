@@ -112,6 +112,18 @@ class AuthViewModel extends _$AuthViewModel {
     }
   }
 
+  Future<Either<AppFailure, AppSuccess>> verifyAccount(String token) async {
+    Either<AppFailure, AppSuccess> result = await AuthRepository()
+        .verifyAccount(token);
+
+    switch (result) {
+      case Right():
+        return Right(AppSuccess(message: "Account account successfully"));
+      case Left(value: AppFailure(message: final message)):
+        return Left(AppFailure(message: message));
+    }
+  }
+
   Future<void> getTokenAndPageFromDeepLinking(
     GlobalKey<NavigatorState> navigatorKey,
     StreamSubscription<Uri>? linkSubscription,

@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:connect/core/constants/server_urls.dart';
 import 'package:connect/core/utils/app_responses.dart';
-import 'package:connect/features/auth/models/auth_model.dart';
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -64,19 +63,31 @@ class AuthRepository {
     }
   }
 
-  Future<AuthModel> verifyAccount(String token) async {
+  Future<Either<AppFailure, AppSuccess>> verifyAccount(String token) async {
     try {
       final String url = "$_baseUrl/verify_account/$token";
-      final response = await _dio.get(
-        url,
-        options: Options(headers: {'Content-Type': 'application/json'}),
-      );
-      return AuthModel.fromJson(response.data);
+      await _dio.get(url);
+      return Right(AppSuccess());
     } on DioException catch (e) {
       final String result = e.response?.data["result"] ?? "failed";
-      final String error = e.response?.data["error"] ?? e.message;
 
-      return AuthModel.fromJson({"result": result, "error": error});
+      String message = "Something went wrong";
+      switch (result) {
+        case "token_not_found":
+          message = "Token not found";
+          break;
+        case "user_not_found":
+          message = "User not found";
+          break;
+        case "user_account_found":
+          message = "User account deleted";
+          break;
+        case "user_already_verified":
+          message = "User already verified";
+          break;
+      }
+
+      return Left(AppFailure(message: message));
     }
   }
 
