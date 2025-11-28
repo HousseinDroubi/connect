@@ -31,7 +31,7 @@ class _UpdateForgottenPasswordScreenState
 
   Future<void> changePasswordButtonFunction(BuildContext context) async {
     String? token = ref.watch(authViewModelProvider);
-    final notifier = ref.watch(authViewModelProvider.notifier);
+    final notifier = ref.read(authViewModelProvider.notifier);
 
     if (token != null) {
       showPopup(popupCase: PopupLoading(context: context));
