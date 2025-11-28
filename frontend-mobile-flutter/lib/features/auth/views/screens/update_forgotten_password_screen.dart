@@ -30,7 +30,7 @@ class _UpdateForgottenPasswordScreenState
   final FocusNode _confirmationPasswordFocusNode = FocusNode();
 
   Future<void> changePasswordButtonFunction(BuildContext context) async {
-    String? token = ref.watch(authViewModelProvider);
+    String? token = ref.read(authViewModelProvider);
     final notifier = ref.read(authViewModelProvider.notifier);
 
     if (token != null) {
