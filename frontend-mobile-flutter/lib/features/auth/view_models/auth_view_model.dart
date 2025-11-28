@@ -1,7 +1,12 @@
+import 'dart:async';
 import 'dart:io';
+import 'package:app_links/app_links.dart';
+import 'package:connect/core/utils/app_nav.dart';
 import 'package:connect/core/utils/app_responses.dart';
+import 'package:connect/core/utils/utils.dart';
 import 'package:connect/features/auth/repositories/auth_repository.dart';
 import 'package:connect/core/utils/validate_requests.dart';
+import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -10,8 +15,8 @@ part 'auth_view_model.g.dart';
 @riverpod
 class AuthViewModel extends _$AuthViewModel {
   @override
-  AsyncValue<String?> build() {
-    return AsyncData(null);
+  String? build() {
+    return null;
   }
 
   Future<Either<AppFailure, AppSuccess>> createAccountRequest({
@@ -77,5 +82,18 @@ class AuthViewModel extends _$AuthViewModel {
           ),
         );
     }
+  }
+
+  Future<void> getTokenAndPageFromDeepLinking(
+    GlobalKey<NavigatorState> navigatorKey,
+    StreamSubscription<Uri>? linkSubscription,
+  ) async {
+    linkSubscription = AppLinks().uriLinkStream.listen((uri) async {
+      Map map = handleUri(uri);
+      if (map["token"] != null) {
+        await AppNav.openAppLink(map["to"], navigatorKey);
+        state = map["token"];
+      }
+    });
   }
 }

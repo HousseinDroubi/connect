@@ -1,11 +1,14 @@
+import 'dart:async';
+
+import 'package:connect/features/auth/view_models/auth_view_model.dart';
 import 'package:connect/features/auth/views/screens/create_account_screen.dart';
-import 'package:connect/features/auth/views/screens/deep_linking_screen.dart';
 import 'package:connect/features/auth/views/screens/forgot_password_screen.dart';
 import 'package:connect/features/auth/views/screens/login_screen.dart';
 import 'package:connect/features/auth/views/screens/update_forgotten_password_screen.dart';
 import 'package:connect/features/auth/views/screens/verify_account_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,21 +16,38 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  ConsumerState<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends ConsumerState<MyApp> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
+  StreamSubscription<Uri>? _linkSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    ref
+        .read(authViewModelProvider.notifier)
+        .getTokenAndPageFromDeepLinking(_navigatorKey, _linkSubscription);
+  }
+
+  @override
+  void dispose() {
+    _linkSubscription?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: _navigatorKey,
       title: "Connect",
-      initialRoute: "/",
+      initialRoute: "/login",
       routes: {
-        "/": (context) => DeepLinkingScreen(),
         "/login": (context) => LoginScreen(),
         "/create_account": (context) => CreateAccountScreen(),
         "/forgot_password": (context) => ForgotPasswordScreen(),

@@ -16,4 +16,14 @@ class AppNav {
   static void pop(BuildContext context) {
     Navigator.pop(context);
   }
+
+  static Future<void> openAppLink(
+    String to,
+    GlobalKey<NavigatorState> navigatorKey,
+  ) async {
+    await navigatorKey.currentState?.pushNamedAndRemoveUntil(
+      "/$to",
+      (Route<dynamic> route) => false,
+    );
+  }
 }
