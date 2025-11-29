@@ -11,7 +11,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 
 class UpdateForgottenPasswordScreen extends ConsumerStatefulWidget {
-  const UpdateForgottenPasswordScreen({super.key});
+  final String? token;
+  const UpdateForgottenPasswordScreen({super.key, this.token});
 
   @override
   ConsumerState<UpdateForgottenPasswordScreen> createState() =>
@@ -30,15 +31,14 @@ class _UpdateForgottenPasswordScreenState
   final FocusNode _confirmationPasswordFocusNode = FocusNode();
 
   Future<void> changePasswordButtonFunction(BuildContext context) async {
-    String? token = ref.read(authViewModelProvider);
-    final notifier = ref.read(authViewModelProvider.notifier);
+    final notifier = ref.read(authViewModelProvider);
 
-    if (token != null) {
+    if (widget.token != null) {
       showPopup(popupCase: PopupLoading(context: context));
       final Either<AppFailure, AppSuccess> result = await notifier
           .changePassword(
             context: context,
-            token: token,
+            token: widget.token!,
             newPassword: newPasswordController.text,
             confirmationPassword: confirmationNewPasswordController.text,
           );

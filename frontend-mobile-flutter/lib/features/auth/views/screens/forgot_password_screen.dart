@@ -24,7 +24,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     showPopup(popupCase: PopupLoading(context: context));
 
     fpdart.Either<AppFailure, AppSuccess> result = await ref
-        .read(authViewModelProvider.notifier)
+        .read(authViewModelProvider)
         .sendEmail(emailController.text);
 
     hidePopup(context);

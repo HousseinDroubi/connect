@@ -31,7 +31,7 @@ class _MyAppState extends ConsumerState<MyApp> {
   void initState() {
     super.initState();
     ref
-        .read(authViewModelProvider.notifier)
+        .read(authViewModelProvider)
         .getTokenAndPageFromDeepLinking(_navigatorKey, _linkSubscription);
   }
 

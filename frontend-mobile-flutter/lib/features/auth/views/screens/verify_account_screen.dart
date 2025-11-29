@@ -10,7 +10,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 
 class VerifyAccountScreen extends ConsumerStatefulWidget {
-  const VerifyAccountScreen({super.key});
+  final String? token;
+  const VerifyAccountScreen({super.key, this.token});
 
   @override
   ConsumerState<VerifyAccountScreen> createState() =>
@@ -31,14 +32,13 @@ class _VerifyAccountScreenState extends ConsumerState<VerifyAccountScreen> {
   }
 
   Future<void> init() async {
-    final String? token = ref.watch(authViewModelProvider);
-    final notifier = ref.watch(authViewModelProvider.notifier);
-    if (token == null) {
+    final notifier = ref.watch(authViewModelProvider);
+    if (widget.token == null) {
       AppNav.pushAndRemoveUntil(context, "login");
     } else {
       showPopup(popupCase: PopupLoading(context: context));
       final Either<AppFailure, AppSuccess> result = await notifier
-          .verifyAccount(token);
+          .verifyAccount(widget.token!);
       hidePopup(context);
 
       final String popupContent;
