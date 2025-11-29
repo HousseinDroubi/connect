@@ -1,5 +1,4 @@
 import 'package:connect/core/utils/utils.dart';
-import 'package:connect/features/auth/view_models/login_screen_view_model.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:connect/features/auth/views/widgets/logo_widget.dart';
 import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
@@ -14,8 +13,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final LoginScreenViewModel viewModel = LoginScreenViewModel();
+  // Text Editing Controllers
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
+  // Focus Nodes
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
 
@@ -40,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 nextFunction: () {
                   focusOn(context, _passwordFocusNode);
                 },
-                textEditingController: viewModel.emailController,
+                textEditingController: emailController,
               ),
               SizedBox(height: 20),
               TextFieldWidget(
@@ -50,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 nextFunction: () async {
                   await loginButtonFunction();
                 },
-                textEditingController: viewModel.passwordController,
+                textEditingController: passwordController,
                 isPassword: true,
               ),
               SizedBox(height: 10),
