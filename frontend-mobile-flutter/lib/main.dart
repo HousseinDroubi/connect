@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:connect/features/auth/repositories/auth_local_repository.dart';
 import 'package:connect/features/auth/view_models/auth_view_model.dart';
 import 'package:connect/features/auth/views/screens/create_account_screen.dart';
 import 'package:connect/features/auth/views/screens/forgot_password_screen.dart';
@@ -13,6 +14,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
+  final ProviderContainer container = ProviderContainer();
+  final notifier = container.read(authLocalRepositoryProvider);
+  await notifier.initSharedPreferences();
   runApp(ProviderScope(child: const MyApp()));
 }
 
