@@ -18,8 +18,17 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
 
   // Focus Nodes
-  final FocusNode _emailFocusNode = FocusNode();
-  final FocusNode _passwordFocusNode = FocusNode();
+  final FocusNode emailFocusNode = FocusNode();
+  final FocusNode passwordFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+    super.dispose();
+  }
 
   Future<void> loginButtonFunction() async {
     // TODO
@@ -36,17 +45,17 @@ class _LoginScreenState extends State<LoginScreen> {
               LogoWidget(title: "Welcome to Connect"),
               SizedBox(height: 30),
               TextFieldWidget(
-                focusNode: _emailFocusNode,
+                focusNode: emailFocusNode,
                 title: "Email or pin",
                 hint: "Enter your email or pin",
                 nextFunction: () {
-                  focusOn(context, _passwordFocusNode);
+                  focusOn(context, passwordFocusNode);
                 },
                 textEditingController: emailController,
               ),
               SizedBox(height: 20),
               TextFieldWidget(
-                focusNode: _passwordFocusNode,
+                focusNode: passwordFocusNode,
                 title: "Password",
                 hint: "Enter your password",
                 nextFunction: () async {

@@ -27,8 +27,17 @@ class _UpdateForgottenPasswordScreenState
       TextEditingController();
 
   // Focus nodes
-  final FocusNode _newPasswordFocusNode = FocusNode();
-  final FocusNode _confirmationPasswordFocusNode = FocusNode();
+  final FocusNode newPasswordFocusNode = FocusNode();
+  final FocusNode confirmationPasswordFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    newPasswordController.dispose();
+    confirmationNewPasswordController.dispose();
+    newPasswordFocusNode.dispose();
+    confirmationPasswordFocusNode.dispose();
+    super.dispose();
+  }
 
   Future<void> changePasswordButtonFunction(BuildContext context) async {
     final notifier = ref.read(authViewModelProvider);
@@ -75,18 +84,18 @@ class _UpdateForgottenPasswordScreenState
               TitleWidget(title: "Update Password"),
               SizedBox(height: 30),
               TextFieldWidget(
-                focusNode: _newPasswordFocusNode,
+                focusNode: newPasswordFocusNode,
                 title: "New Password",
                 hint: "Enter new password",
                 nextFunction: () {
-                  focusOn(context, _confirmationPasswordFocusNode);
+                  focusOn(context, confirmationPasswordFocusNode);
                 },
                 textEditingController: newPasswordController,
                 isPassword: true,
               ),
               SizedBox(height: 20),
               TextFieldWidget(
-                focusNode: _confirmationPasswordFocusNode,
+                focusNode: confirmationPasswordFocusNode,
                 title: "Confirmation Password",
                 hint: "Re-enter your new password",
                 nextFunction: () async {

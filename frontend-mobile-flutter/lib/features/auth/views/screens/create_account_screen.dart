@@ -25,11 +25,11 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
   File? imageFile;
 
   // Nodes
-  final FocusNode _emailFocusNode = FocusNode();
-  final FocusNode _usernameFocusNode = FocusNode();
-  final FocusNode _pinFocusNode = FocusNode();
-  final FocusNode _passwordFocusNode = FocusNode();
-  final FocusNode _confirmationPasswordFocusNode = FocusNode();
+  final FocusNode emailFocusNode = FocusNode();
+  final FocusNode usernameFocusNode = FocusNode();
+  final FocusNode pinFocusNode = FocusNode();
+  final FocusNode passwordFocusNode = FocusNode();
+  final FocusNode confirmationPasswordFocusNode = FocusNode();
 
   // Text controllers
   final TextEditingController emailController = TextEditingController();
@@ -82,6 +82,22 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
   }
 
   @override
+  void dispose() {
+    emailController.dispose();
+    usernameController.dispose();
+    pinController.dispose();
+    passwordController.dispose();
+    confirmationPasswordController.dispose();
+
+    emailFocusNode.dispose();
+    usernameFocusNode.dispose();
+    pinFocusNode.dispose();
+    passwordFocusNode.dispose();
+    confirmationPasswordFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -101,48 +117,48 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
                 imageSource: imageFile?.path,
               ),
               TextFieldWidget(
-                focusNode: _emailFocusNode,
+                focusNode: emailFocusNode,
                 title: "Email",
                 hint: "Enter your email",
                 nextFunction: () {
-                  focusOn(context, _usernameFocusNode);
+                  focusOn(context, usernameFocusNode);
                 },
                 textEditingController: emailController,
               ),
               SizedBox(height: 15),
               TextFieldWidget(
-                focusNode: _usernameFocusNode,
+                focusNode: usernameFocusNode,
                 title: "username",
                 hint: "Enter your username",
                 nextFunction: () {
-                  focusOn(context, _pinFocusNode);
+                  focusOn(context, pinFocusNode);
                 },
                 textEditingController: usernameController,
               ),
               SizedBox(height: 15),
               TextFieldWidget(
-                focusNode: _pinFocusNode,
+                focusNode: pinFocusNode,
                 title: "Pin",
                 hint: "Enter your pin",
                 nextFunction: () {
-                  focusOn(context, _passwordFocusNode);
+                  focusOn(context, passwordFocusNode);
                 },
                 textEditingController: pinController,
               ),
               SizedBox(height: 15),
               TextFieldWidget(
-                focusNode: _passwordFocusNode,
+                focusNode: passwordFocusNode,
                 title: "Password",
                 hint: "Enter your password",
                 nextFunction: () {
-                  focusOn(context, _confirmationPasswordFocusNode);
+                  focusOn(context, confirmationPasswordFocusNode);
                 },
                 isPassword: true,
                 textEditingController: passwordController,
               ),
               SizedBox(height: 15),
               TextFieldWidget(
-                focusNode: _confirmationPasswordFocusNode,
+                focusNode: confirmationPasswordFocusNode,
                 title: "Confirmation Password",
                 hint: "Re-enter your password",
                 nextFunction: () async {
