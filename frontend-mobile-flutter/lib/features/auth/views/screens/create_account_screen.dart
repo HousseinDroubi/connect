@@ -66,6 +66,7 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
         showPopup(
           popupCase: PopupAlert(context: context, popupContent: message),
         );
+
         clearTextEditingControllers([
           emailController,
           usernameController,
@@ -77,7 +78,6 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
         imageFile = null;
         break;
     }
-
     setState(() {});
   }
 
@@ -111,10 +111,10 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
               ProfileWidget(
                 onChange: (File imageFile) {
                   setState(() {
-                    imageFile = imageFile;
+                    this.imageFile = imageFile;
                   });
                 },
-                imageSource: imageFile?.path,
+                isImageFileExisted: imageFile != null,
               ),
               TextFieldWidget(
                 focusNode: emailFocusNode,

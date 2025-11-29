@@ -6,9 +6,15 @@ import 'package:connect/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatefulWidget {
-  final String? imageSource;
+  final String? imageNetworkSource;
+  final bool isImageFileExisted;
   final void Function(File imageFile) onChange;
-  const ProfileWidget({super.key, required this.onChange, this.imageSource});
+  const ProfileWidget({
+    super.key,
+    required this.onChange,
+    this.isImageFileExisted = false,
+    this.imageNetworkSource,
+  });
 
   @override
   State<ProfileWidget> createState() => _ProfileWidgetState();
@@ -30,7 +36,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             border: Border.all(color: AppColors.blue),
           ),
         ),
-        imageFile != null
+        widget.isImageFileExisted
             ? ClipRRect(
                 borderRadius: BorderRadiusGeometry.circular(50),
                 child: Image.file(
@@ -40,11 +46,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   fit: BoxFit.cover,
                 ),
               )
-            : widget.imageSource != null
+            : widget.imageNetworkSource != null
             ? ClipRRect(
                 borderRadius: BorderRadiusGeometry.circular(50),
                 child: Image.network(
-                  widget.imageSource!,
+                  widget.imageNetworkSource!,
                   width: 100,
                   height: 100,
                   fit: BoxFit.cover,
