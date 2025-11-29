@@ -130,7 +130,11 @@ class AuthViewModel {
     linkSubscription = AppLinks().uriLinkStream.listen((uri) {
       Map map = handleUri(uri);
       if (map["token"] != null) {
-        AppNav.openAppLink(map["to"], navigatorKey);
+        AppNav.openAppLink(
+          to: map["to"],
+          token: map["token"],
+          navigatorKey: navigatorKey,
+        );
       }
     });
   }

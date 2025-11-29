@@ -1,3 +1,5 @@
+import 'package:connect/features/auth/views/screens/update_forgotten_password_screen.dart';
+import 'package:connect/features/auth/views/screens/verify_account_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppNav {
@@ -17,9 +19,17 @@ class AppNav {
     Navigator.pop(context);
   }
 
-  static void openAppLink(String to, GlobalKey<NavigatorState> navigatorKey) {
-    navigatorKey.currentState?.pushNamedAndRemoveUntil(
-      "/$to",
+  static void openAppLink({
+    required String to,
+    required String token,
+    required GlobalKey<NavigatorState> navigatorKey,
+  }) {
+    navigatorKey.currentState?.pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (context) => to == "updated_forgotten_password"
+            ? UpdateForgottenPasswordScreen(token: token)
+            : VerifyAccountScreen(token: token),
+      ),
       (Route<dynamic> route) => false,
     );
   }
