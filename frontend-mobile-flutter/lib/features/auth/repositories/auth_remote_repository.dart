@@ -6,14 +6,14 @@ import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'auth_repository.g.dart';
+part 'auth_remote_repository.g.dart';
 
 @riverpod
-AuthRepository authRepository(AuthRepositoryRef ref) {
-  return AuthRepository();
+AuthRemoteRepository authRemoteRepository(AuthRemoteRepositoryRef ref) {
+  return AuthRemoteRepository();
 }
 
-class AuthRepository {
+class AuthRemoteRepository {
   final Dio _dio = Dio(
     BaseOptions(headers: {'Content-Type': 'application/json'}),
   );

@@ -4,7 +4,7 @@ import 'package:app_links/app_links.dart';
 import 'package:connect/core/utils/app_nav.dart';
 import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/core/utils/utils.dart';
-import 'package:connect/features/auth/repositories/auth_repository.dart';
+import 'package:connect/features/auth/repositories/auth_remote_repository.dart';
 import 'package:connect/core/utils/validate_requests.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
@@ -39,7 +39,7 @@ class AuthViewModel {
       return Left(AppFailure(message: validationResult));
     }
 
-    Either<AppFailure, AppSuccess> result = await AuthRepository()
+    Either<AppFailure, AppSuccess> result = await AuthRemoteRepository()
         .createAccount(
           imageFile: imageFile!,
           email: email,
@@ -68,7 +68,7 @@ class AuthViewModel {
       return Left(AppFailure(message: validationResult));
     }
 
-    Either<AppFailure, AppSuccess> response = await AuthRepository()
+    Either<AppFailure, AppSuccess> response = await AuthRemoteRepository()
         .forgotPassword(email);
 
     switch (response) {
@@ -98,7 +98,7 @@ class AuthViewModel {
       return Left(AppFailure(message: validationResult));
     }
 
-    final Either<AppFailure, AppSuccess> result = await AuthRepository()
+    final Either<AppFailure, AppSuccess> result = await AuthRemoteRepository()
         .updateForgottenPassoword(password: newPassword, token: token);
 
     switch (result) {
@@ -112,7 +112,7 @@ class AuthViewModel {
   }
 
   Future<Either<AppFailure, AppSuccess>> verifyAccount(String token) async {
-    Either<AppFailure, AppSuccess> result = await AuthRepository()
+    Either<AppFailure, AppSuccess> result = await AuthRemoteRepository()
         .verifyAccount(token);
 
     switch (result) {
