@@ -13,12 +13,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'auth_view_model.g.dart';
 
 @riverpod
-class AuthViewModel extends _$AuthViewModel {
-  @override
-  String? build() {
-    return null;
-  }
+AuthViewModel authViewModel(AuthViewModelRef ref) {
+  return AuthViewModel();
+}
 
+class AuthViewModel {
   Future<Either<AppFailure, AppSuccess>> createAccountRequest({
     required String email,
     required String username,
@@ -131,7 +130,6 @@ class AuthViewModel extends _$AuthViewModel {
     linkSubscription = AppLinks().uriLinkStream.listen((uri) {
       Map map = handleUri(uri);
       if (map["token"] != null) {
-        state = map["token"];
         AppNav.openAppLink(map["to"], navigatorKey);
       }
     });
