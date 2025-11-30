@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:connect/core/providers/current_user_notifier.dart';
 import 'package:connect/core/utils/utils.dart';
-import 'package:connect/features/auth/models/user_model.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:connect/features/auth/views/widgets/profile_widget.dart';
 import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
@@ -55,6 +54,14 @@ class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
     newPasswordFocusNode.dispose();
     newPasswordConfirmationFocusNode.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    usernameController.text = ref.read(
+      currentUserNotifierProvider.select((user) => user!.username),
+    );
+    super.initState();
   }
 
   @override
