@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:connect/core/providers/current_user_notifier.dart';
+import 'package:connect/core/utils/app_nav.dart';
 import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/core/utils/dialog.dart';
 import 'package:connect/core/utils/utils.dart';
@@ -98,7 +99,22 @@ class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
   }
 
   Future<void> deleteAccount() async {
-    // TODO
+    showPopup(popupCase: PopupLoading(context: context));
+    final notifier = ref.read(authViewModelProvider.notifier);
+    final Either<AppFailure, AppSuccess> result = await notifier
+        .deleteAccount();
+
+    hidePopup(context);
+
+    final String content;
+    switch (result) {
+      case Left(value: AppFailure(message: final message)):
+        content = message;
+        break;
+      case Right(value: AppSuccess()):
+        AppNav.pushAndRemoveUntil(context, "login");
+        break;
+    }
   }
 
   @override
