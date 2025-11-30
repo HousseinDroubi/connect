@@ -163,10 +163,7 @@ class AuthViewModel extends _$AuthViewModel {
     }
   }
 
-  Future<Either<AppFailure, AppSuccess>> getCurrentUser({
-    required String emailOrPin,
-    required String password,
-  }) async {
+  Future<Either<AppFailure, AppSuccess>> getCurrentUser() async {
     final String? token = _authLocalRepository.getToken();
     if (token == null) {
       return Left(AppFailure());
