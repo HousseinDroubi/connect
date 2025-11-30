@@ -25,15 +25,15 @@ class AppNav {
     required String token,
     required GlobalKey<NavigatorState> navigatorKey,
   }) {
-    navigatorKey.currentState?.pushAndRemoveUntil(
-      MaterialPageRoute(
-        builder: (context) => to == "update_forgotten_password"
-            ? UpdateForgottenPasswordScreen(token: token)
-            : to == "verify_account"
-            ? VerifyAccountScreen(token: token)
-            : LoginScreen(),
-      ),
-      (Route<dynamic> route) => false,
-    );
+    if (to == "updated_forgotten_password" || to == "verify_account") {
+      navigatorKey.currentState?.pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => to == "update_forgotten_password"
+              ? UpdateForgottenPasswordScreen(token: token)
+              : VerifyAccountScreen(token: token),
+        ),
+        (Route<dynamic> route) => false,
+      );
+    }
   }
 }
