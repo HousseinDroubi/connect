@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:io';
 
 import 'package:connect/core/constants/server_urls.dart';
@@ -265,6 +267,56 @@ class AuthRemoteRepository {
           break;
         case "user_account_deleted":
           message = "Account deleted.";
+          break;
+      }
+
+      return Left(AppFailure(message: message));
+    }
+  }
+
+  Future<Either<AppFailure, AppSuccess>> updatePassword({
+    required String token,
+    required String old_password,
+    required String new_password,
+  }) async {
+    try {
+      final String url = "$_baseUrl/update_password";
+
+      final formData = FormData.fromMap({
+        "old_password": old_password,
+        "new_password": new_password,
+      });
+
+      final response = await _dio.put(
+        url,
+        data: formData,
+        options: Options(
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
+
+      if (response.data["result"] != "password_updated") {
+        return Left(AppFailure());
+      }
+
+      return Right(AppSuccess());
+    } on DioException catch (e) {
+      final String result = e.response?.data["result"] ?? "failed";
+
+      String message = "Something went wrong";
+
+      switch (result) {
+        case "invalid_id":
+          message = "Token expired, please login again!";
+          break;
+        case "user_account_deleted":
+          message = "Account deleted.";
+          break;
+        case "old_password_same_as_new_password":
+          message = "Old password is same as new password";
           break;
       }
 
