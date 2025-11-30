@@ -38,7 +38,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   Future<void> loginButtonFunction() async {
-    showPopup(popupCase: PopupDialog(context: context));
+    showPopup(popupCase: PopupLoading(context: context));
 
     final notifier = ref.read(authViewModelProvider.notifier);
     final Either<AppFailure, AppSuccess> res = await notifier.login(
