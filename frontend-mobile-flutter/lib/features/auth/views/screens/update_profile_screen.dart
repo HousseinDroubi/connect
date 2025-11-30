@@ -1,0 +1,131 @@
+import 'dart:io';
+
+import 'package:connect/features/auth/views/widgets/button_widget.dart';
+import 'package:connect/features/auth/views/widgets/profile_widget.dart';
+import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
+import 'package:connect/features/auth/views/widgets/title_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class UpdateProfileScreen extends ConsumerStatefulWidget {
+  const UpdateProfileScreen({super.key});
+
+  @override
+  ConsumerState<UpdateProfileScreen> createState() =>
+      _UpdateProfileScreenState();
+}
+
+class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
+  File? imageFile;
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController currentPasswordController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
+  TextEditingController newPasswordConfirmationController =
+      TextEditingController();
+
+  Future<void> updateProfile() async {
+    // TODO
+  }
+
+  Future<void> updatePassword() async {
+    // TODO
+  }
+
+  Future<void> deleteAccount() async {
+    // TODO
+  }
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    currentPasswordController.dispose();
+    newPasswordController.dispose();
+    newPasswordConfirmationController.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(18),
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.topLeft,
+                    child: TitleWidget(title: "Edit Profile"),
+                  ),
+                  SizedBox(height: 10),
+                  ProfileWidget(
+                    onChange: (File newImageFile) {
+                      setState(() {
+                        imageFile = newImageFile;
+                      });
+                    },
+                  ),
+                  SizedBox(height: 10),
+                  TextFieldWidget(
+                    title: "Name",
+                    hint: "Enter your name",
+                    nextFunction: updateProfile,
+                    textEditingController: usernameController,
+                  ),
+                  SizedBox(height: 20),
+                  ButtonWidget(
+                    buttonText: "Save changes",
+                    buttonFn: updateProfile,
+                  ),
+                  SizedBox(height: 30),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: TitleWidget(title: "Update Password"),
+                  ),
+                  SizedBox(height: 20),
+                  TextFieldWidget(
+                    title: "Current Password",
+                    hint: "Enter your current password",
+                    nextFunction: updateProfile,
+                    textEditingController: currentPasswordController,
+                    isPassword: true,
+                  ),
+                  SizedBox(height: 25),
+                  TextFieldWidget(
+                    title: "New Password",
+                    hint: "Enter a new password",
+                    nextFunction: updateProfile,
+                    textEditingController: newPasswordController,
+                    isPassword: true,
+                  ),
+                  SizedBox(height: 25),
+                  TextFieldWidget(
+                    title: "New Password Confirmation",
+                    hint: "Re-enter a new password",
+                    nextFunction: updateProfile,
+                    textEditingController: newPasswordConfirmationController,
+                    isPassword: true,
+                  ),
+                  SizedBox(height: 25),
+                  ButtonWidget(
+                    buttonText: "Update Password",
+                    buttonFn: updatePassword,
+                  ),
+                  SizedBox(height: 20),
+                  ButtonWidget(
+                    buttonText: "Delete my account",
+                    buttonFn: deleteAccount,
+                    isColoredRed: true,
+                  ),
+                  SizedBox(height: 20),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
