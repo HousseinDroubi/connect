@@ -282,17 +282,12 @@ class AuthRemoteRepository {
     try {
       final String url = "$_baseUrl/update_password";
 
-      final formData = FormData.fromMap({
-        "old_password": old_password,
-        "new_password": new_password,
-      });
-
       final response = await _dio.put(
         url,
-        data: formData,
+        data: {"old_password": old_password, "new_password": new_password},
         options: Options(
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'application/json',
             "Authorization": "Bearer $token",
           },
         ),
@@ -305,7 +300,11 @@ class AuthRemoteRepository {
       return Right(AppSuccess());
     } on DioException catch (e) {
       final String result = e.response?.data["result"] ?? "failed";
-
+      print("-----------------1------------------");
+      print(e.toString());
+      print("**********************************");
+      print(result);
+      print("------------------2-----------------");
       String message = "Something went wrong";
 
       switch (result) {
@@ -317,6 +316,9 @@ class AuthRemoteRepository {
           break;
         case "old_password_same_as_new_password":
           message = "Old password is same as new password";
+          break;
+        case "old_password_wrong":
+          message = "Old password is wrong";
           break;
       }
 
