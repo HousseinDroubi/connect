@@ -171,7 +171,7 @@ class AuthRemoteRepository {
       final response = await _dio.post(url, data: data);
 
       if ((response.data as Map<String, dynamic>)["result"] != "logged_in") {
-        throw Error();
+        return Left(AppFailure());
       }
 
       final UserModel userModel = UserModel.fromMap(response.data);
@@ -206,7 +206,7 @@ class AuthRemoteRepository {
       );
 
       if ((response.data as Map<String, dynamic>)["result"] != "logged_in") {
-        throw Error();
+        return Left(AppFailure());
       }
 
       final UserModel userModel = UserModel.fromMap(response.data);
