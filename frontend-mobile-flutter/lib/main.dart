@@ -1,9 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
-
 import 'dart:async';
-
-import 'package:connect/core/utils/app_responses.dart';
-import 'package:connect/features/auth/repositories/auth_local_repository.dart';
 import 'package:connect/features/auth/view_models/auth_view_model.dart';
 import 'package:connect/features/auth/views/screens/create_account_screen.dart';
 import 'package:connect/features/auth/views/screens/forgot_password_screen.dart';
@@ -14,7 +10,6 @@ import 'package:connect/features/home/models/views/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fpdart/fpdart.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -63,7 +58,7 @@ class _MyAppState extends ConsumerState<MyApp> {
     return MaterialApp(
       navigatorKey: _navigatorKey,
       title: "Connect",
-      initialRoute: "/login",
+      initialRoute: widget.can_user_get_to_home ? "/home" : "/login",
       routes: {
         "/login": (context) => LoginScreen(),
         "/create_account": (context) => CreateAccountScreen(),
