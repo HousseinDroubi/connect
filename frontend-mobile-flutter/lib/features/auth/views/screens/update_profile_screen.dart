@@ -75,6 +75,7 @@ class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
                   SizedBox(height: 10),
                   ProfileWidget(
                     imageNetworkSource: user?.profile_url,
+                    isImageFileExisted: imageFile != null,
                     onChange: (File newImageFile) {
                       setState(() {
                         imageFile = newImageFile;
