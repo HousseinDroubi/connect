@@ -4,6 +4,7 @@ import 'package:connect/core/providers/current_user_notifier.dart';
 import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/core/utils/dialog.dart';
 import 'package:connect/core/utils/utils.dart';
+import 'package:connect/core/utils/widgets.dart';
 import 'package:connect/features/auth/view_models/auth_view_model.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:connect/features/auth/views/widgets/profile_widget.dart';
@@ -65,7 +66,35 @@ class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
   }
 
   Future<void> updatePassword() async {
-    // TODO
+    showPopup(popupCase: PopupLoading(context: context));
+    final notifier = ref.read(authViewModelProvider.notifier);
+    final Either<AppFailure, AppSuccess> result = await notifier.updatePassword(
+      old_password: currentPasswordController.text,
+      new_password: newPasswordController.text,
+      new_password_confirmation: newPasswordConfirmationController.text,
+    );
+
+    hidePopup(context);
+
+    final String content;
+
+    switch (result) {
+      case Left(value: AppFailure(message: final message)):
+        content = message;
+        break;
+      case Right(value: AppSuccess(message: final message)):
+        content = message;
+        clearTextEditingControllers([
+          currentPasswordController,
+          newPasswordController,
+          newPasswordConfirmationController,
+        ]);
+        break;
+    }
+
+    showPopup(
+      popupCase: PopupAlert(context: context, popupContent: content),
+    );
   }
 
   Future<void> deleteAccount() async {
