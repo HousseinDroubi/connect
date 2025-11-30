@@ -63,29 +63,9 @@ void showPopup({required PopupCase popupCase}) {
   Widget? content;
   TextStyle? textStyle;
   List<Widget>? actions = [];
-
   if (popupCase is PopupAlert || popupCase is PopupConfirmation) {
-    if (popupCase is PopupAlert) {
-      final PopupAlert popupAlert = popupCase;
-      content = Text(popupAlert.popupContent);
-      title = "Alert";
-      actions = [
-        TextButton(
-          onPressed: () {
-            AppNav.pop(popupAlert.context);
-          },
-          child: Center(
-            child: Text(
-              "Got it",
-              textAlign: TextAlign.center,
-              style: TextStyle(color: AppColors.black),
-            ),
-          ),
-        ),
-      ];
-    } else {
-      final PopupConfirmation popupConfirmation =
-          popupCase as PopupConfirmation;
+    if (popupCase is PopupConfirmation) {
+      final PopupConfirmation popupConfirmation = popupCase;
       content = Text(popupConfirmation.popupContent);
       title = "Confirmation";
       actions = [
@@ -101,6 +81,24 @@ void showPopup({required PopupCase popupCase}) {
             AppNav.pop(popupConfirmation.context);
           },
           child: Text("No", style: TextStyle(color: AppColors.black)),
+        ),
+      ];
+    } else {
+      final PopupAlert popupAlert = popupCase as PopupAlert;
+      content = Text(popupAlert.popupContent);
+      title = "Alert";
+      actions = [
+        TextButton(
+          onPressed: () {
+            AppNav.pop(popupAlert.context);
+          },
+          child: Center(
+            child: Text(
+              "Got it",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: AppColors.black),
+            ),
+          ),
         ),
       ];
     }
