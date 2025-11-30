@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:async';
 import 'dart:io';
 import 'package:app_links/app_links.dart';
@@ -225,6 +227,20 @@ class AuthViewModel extends _$AuthViewModel {
         return Left(AppFailure(message: message));
       case Right(value: AppSuccess()):
         return Right(AppSuccess(message: "Password updated!"));
+    }
+  }
+
+  Future<Either<AppFailure, AppSuccess>> deleteAccount() async {
+    Either<AppFailure, AppSuccess> result = await _authRemoteRepository
+        .deleteAccount(token: _authLocalRepository.getToken()!);
+
+    switch (result) {
+      case Left(value: AppFailure(message: String message)):
+        return Left(AppFailure(message: message));
+      case Right(value: AppSuccess()):
+        _currentUserNotifier.clearUserData();
+        await _authLocalRepository.clearSharedPreferences();
+        return Right(AppSuccess());
     }
   }
 
