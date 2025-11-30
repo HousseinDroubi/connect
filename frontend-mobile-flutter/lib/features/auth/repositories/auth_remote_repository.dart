@@ -300,11 +300,7 @@ class AuthRemoteRepository {
       return Right(AppSuccess());
     } on DioException catch (e) {
       final String result = e.response?.data["result"] ?? "failed";
-      print("-----------------1------------------");
-      print(e.toString());
-      print("**********************************");
-      print(result);
-      print("------------------2-----------------");
+
       String message = "Something went wrong";
 
       switch (result) {
