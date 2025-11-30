@@ -135,13 +135,11 @@ class AuthViewModel extends _$AuthViewModel {
   }
 
   Future<Either<AppFailure, AppSuccess>> login({
-    required int? pin,
-    required String? email,
+    required String emailOrPin,
     required String password,
   }) async {
     final String? validationResult = validateLoginRequest(
-      pin: pin,
-      email: email,
+      emailOrPin: emailOrPin,
       password: password,
     );
     if (validationResult != null) {
@@ -149,8 +147,8 @@ class AuthViewModel extends _$AuthViewModel {
     }
 
     Either<AppFailure, UserModel> result = await _authRemoteRepository.login(
-      email: email,
-      pin: pin,
+      email: emailOrPin.contains("@") ? emailOrPin : null,
+      pin: !emailOrPin.contains("@") ? emailOrPin as int : null,
       password: password,
     );
 

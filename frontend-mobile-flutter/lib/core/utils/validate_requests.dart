@@ -55,17 +55,14 @@ String? validateChangeForgottenPasswordRequest({
 }
 
 String? validateLoginRequest({
-  required String? email,
-  required int? pin,
+  required String emailOrPin,
   required String password,
 }) {
   List<String?> validations = [validatePassword(password: password)];
-  if (pin != null) {
-    validations.add(validatePin(pin: pin.toString()));
-  }
-
-  if (email != null) {
-    validations.add(validateEmail(email: email));
+  if (emailOrPin.contains("@")) {
+    validations.add(validateEmail(email: emailOrPin));
+  } else {
+    validations.add(validatePin(pin: emailOrPin));
   }
 
   for (String? validationResult in validations) {
