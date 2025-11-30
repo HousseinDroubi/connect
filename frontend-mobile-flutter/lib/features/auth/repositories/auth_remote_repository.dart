@@ -195,4 +195,24 @@ class AuthRemoteRepository {
       return Left(AppFailure(message: message));
     }
   }
+
+  Future<Either<AppFailure, UserModel>> getCurrentUser(String token) async {
+    try {
+      final String url = "$_baseUrl/";
+
+      final response = await _dio.get(
+        url,
+        options: Options(headers: {"Authorization": "Bearer $token"}),
+      );
+
+      if ((response.data as Map<String, dynamic>)["result"] != "logged_in") {
+        throw Error();
+      }
+
+      final UserModel userModel = UserModel.fromMap(response.data);
+      return Right(userModel);
+    } on DioException catch (e) {
+      return Left(AppFailure(message: e.toString()));
+    }
+  }
 }
