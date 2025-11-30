@@ -55,6 +55,15 @@ const login = async (request: Request, response: Response) => {
   return response.status(200).json(response_json);
 };
 
+const getCurrentUser = async (request: Request, response: Response) => {
+  const user: userDocumentInterface = request.body;
+  const response_json = await getUserData(user);
+
+  return response.status(200).json({
+    response_json,
+  });
+};
+
 const createNewAccount = async (request: Request, response: Response) => {
   // Get body from request
   const body: createUserAccountBodyInterface = request.body;
@@ -338,6 +347,7 @@ const updateForgottenPassword = async (
 
 export {
   login,
+  getCurrentUser,
   createNewAccount,
   forgotPassword,
   updateProfileData,

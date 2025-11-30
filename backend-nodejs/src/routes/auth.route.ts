@@ -7,6 +7,7 @@ import {
   deleteUserAccount,
   verifyAccount,
   updateForgottenPassword,
+  getCurrentUser,
 } from "../controllers/auth.controller";
 import { Router } from "express";
 import { upload } from "../middlewares/multer.middleware";
@@ -27,6 +28,12 @@ import {
 const router = Router();
 
 router.post("/login", loginValidationMiddleware, login);
+router.get(
+  "/",
+  isUserAuthenticated,
+  isUserAccountUnverifiedOrDeleted,
+  getCurrentUser
+);
 router.post(
   "/create_new_account",
   upload.single("image"),
