@@ -6,6 +6,7 @@ import 'package:connect/core/utils/app_nav.dart';
 import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/core/utils/utils.dart';
 import 'package:connect/features/auth/models/user_model.dart';
+import 'package:connect/features/auth/repositories/auth_local_repository.dart';
 import 'package:connect/features/auth/repositories/auth_remote_repository.dart';
 import 'package:connect/core/utils/validate_requests.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +17,13 @@ part 'auth_view_model.g.dart';
 
 @riverpod
 class AuthViewModel extends _$AuthViewModel {
+  late CurrentUserNotifier _currentUserNotifier;
+  late AuthLocalRepository _authLocalRepository;
+
   @override
   AsyncValue<UserModel>? build() {
+    _currentUserNotifier = ref.read(currentUserNotifierProvider.notifier);
+    _authLocalRepository = ref.read(authLocalRepositoryProvider);
     return null;
   }
 
@@ -121,6 +127,37 @@ class AuthViewModel extends _$AuthViewModel {
     switch (result) {
       case Right():
         return Right(AppSuccess(message: "Account account successfully"));
+      case Left(value: AppFailure(message: final message)):
+        return Left(AppFailure(message: message));
+    }
+  }
+
+  Future<Either<AppFailure, AppSuccess>> login({
+    required int? pin,
+    required String? email,
+    required String password,
+  }) async {
+    final String? validationResult = validateLoginRequest(
+      pin: pin,
+      email: email,
+      password: password,
+    );
+    if (validationResult != null) {
+      return Left(AppFailure(message: validationResult));
+    }
+
+    Either<AppFailure, UserModel> result = await AuthRemoteRepository().login(
+      email: email,
+      pin: pin,
+      password: password,
+    );
+
+    switch (result) {
+      case Right(value: final user):
+        _currentUserNotifier.addUser(user);
+        _authLocalRepository.setToken(user.token);
+        state = AsyncData(user);
+        return Right(AppSuccess());
       case Left(value: AppFailure(message: final message)):
         return Left(AppFailure(message: message));
     }
