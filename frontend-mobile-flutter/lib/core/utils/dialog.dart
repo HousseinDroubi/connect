@@ -71,8 +71,8 @@ void showPopup({required PopupCase popupCase}) {
       actions = [
         TextButton(
           onPressed: () async {
-            await popupConfirmation.confirmationFunction();
             AppNav.pop(popupConfirmation.context);
+            await popupConfirmation.confirmationFunction();
           },
           child: Text("Yes", style: TextStyle(color: AppColors.black)),
         ),
