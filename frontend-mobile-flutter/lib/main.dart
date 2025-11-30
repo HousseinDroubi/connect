@@ -27,7 +27,7 @@ Future<void> main() async {
   runApp(
     UncontrolledProviderScope(
       container: container,
-      child: ProviderScope(child: MyApp(can_user_get_to_home: result)),
+      child: MyApp(can_user_get_to_home: result),
     ),
   );
 }
