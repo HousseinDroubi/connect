@@ -1,0 +1,78 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
+// ignore_for_file: non_constant_identifier_names
+
+class Person {
+  final String id;
+  final String username;
+  final int pin;
+  final String profile_url;
+
+  const Person({
+    required this.id,
+    required this.username,
+    required this.pin,
+    required this.profile_url,
+  });
+
+  Person copyWith({
+    String? id,
+    String? username,
+    int? pin,
+    String? profile_url,
+  }) {
+    return Person(
+      id: id ?? this.id,
+      username: username ?? this.username,
+      pin: pin ?? this.pin,
+      profile_url: profile_url ?? this.profile_url,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'username': username,
+      'pin': pin,
+      'profile_url': profile_url,
+    };
+  }
+
+  factory Person.fromMap(Map<String, dynamic> map) {
+    return Person(
+      id: map['id'] as String,
+      username: map['username'] as String,
+      pin: map['pin'] as int,
+      profile_url: map['profile_url'] as String,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Person.fromJson(String source) =>
+      Person.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String toString() {
+    return 'Person(id: $id, username: $username, pin: $pin, profile_url: $profile_url)';
+  }
+
+  @override
+  bool operator ==(covariant Person other) {
+    if (identical(this, other)) return true;
+
+    return other.id == id &&
+        other.username == username &&
+        other.pin == pin &&
+        other.profile_url == profile_url;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        username.hashCode ^
+        pin.hashCode ^
+        profile_url.hashCode;
+  }
+}
