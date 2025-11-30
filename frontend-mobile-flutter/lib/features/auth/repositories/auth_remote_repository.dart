@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:connect/core/constants/server_urls.dart';
 import 'package:connect/core/utils/app_responses.dart';
+import 'package:connect/features/auth/models/user_model.dart';
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -149,6 +150,48 @@ class AuthRemoteRepository {
           message = "User account deleted";
           break;
       }
+      return Left(AppFailure(message: message));
+    }
+  }
+
+  Future<Either<AppFailure, UserModel>> login({
+    required int? pin,
+    required String? email,
+    required String password,
+  }) async {
+    try {
+      final String url = "$_baseUrl/login";
+      final Map<String, dynamic> data = {"password": password};
+      if (pin != null) {
+        data["pin"] = pin;
+      } else {
+        data["email"] = email;
+      }
+
+      final response = await _dio.post(url, data: data);
+
+      if ((response.data as Map<String, dynamic>)["result"] != "logged_in") {
+        throw Error();
+      }
+
+      final UserModel userModel = UserModel.fromJson(response.data);
+      return Right(userModel);
+    } on DioException catch (e) {
+      final String result = e.response?.data["result"] ?? "failed";
+      final String error = e.response?.data["error"] ?? e.message;
+
+      String message = "Something went wrong";
+
+      if (result == "validation_error" && error == "invalid_email") {
+        message = "Invalid email";
+      } else if (result == "wrong_email_or_password") {
+        message = "Wrong email or password";
+      } else if (result == "user_not_verified") {
+        message = "Please verify your account first!";
+      } else if (result == "user_account_deleted") {
+        message = "This account has been deleted!";
+      }
+
       return Left(AppFailure(message: message));
     }
   }
