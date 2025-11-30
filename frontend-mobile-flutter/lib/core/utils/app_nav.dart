@@ -1,4 +1,3 @@
-import 'package:connect/features/auth/views/screens/login_screen.dart';
 import 'package:connect/features/auth/views/screens/update_forgotten_password_screen.dart';
 import 'package:connect/features/auth/views/screens/verify_account_screen.dart';
 import 'package:flutter/material.dart';
