@@ -321,4 +321,43 @@ class AuthRemoteRepository {
       return Left(AppFailure(message: message));
     }
   }
+
+  Future<Either<AppFailure, AppSuccess>> deleteAccount({
+    required String token,
+  }) async {
+    try {
+      final String url = "$_baseUrl/delete_user_account";
+
+      final response = await _dio.delete(
+        url,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
+
+      if (response.data["result"] != "user_account_deleted") {
+        return Left(AppFailure());
+      }
+
+      return Right(AppSuccess());
+    } on DioException catch (e) {
+      final String result = e.response?.data["result"] ?? "failed";
+
+      String message = "Something went wrong";
+
+      switch (result) {
+        case "invalid_id":
+          message = "Token expired, please login again!";
+          break;
+        case "user_account_deleted":
+          message = "Account already deleted.";
+          break;
+      }
+
+      return Left(AppFailure(message: message));
+    }
+  }
 }
