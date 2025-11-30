@@ -163,6 +163,29 @@ class AuthViewModel extends _$AuthViewModel {
     }
   }
 
+  Future<Either<AppFailure, AppSuccess>> getCurrentUser({
+    required String emailOrPin,
+    required String password,
+  }) async {
+    final String? token = _authLocalRepository.getToken();
+    if (token == null) {
+      return Left(AppFailure());
+    }
+
+    Either<AppFailure, UserModel> result = await _authRemoteRepository
+        .getCurrentUser(token);
+
+    switch (result) {
+      case Right(value: final user):
+        _currentUserNotifier.addUser(user);
+        _authLocalRepository.setToken(user.token);
+        state = AsyncData(user);
+        return Right(AppSuccess());
+      case Left(value: AppFailure(message: final message)):
+        return Left(AppFailure(message: message));
+    }
+  }
+
   void getTokenAndPageFromDeepLinking(
     GlobalKey<NavigatorState> navigatorKey,
     StreamSubscription<Uri>? linkSubscription,
