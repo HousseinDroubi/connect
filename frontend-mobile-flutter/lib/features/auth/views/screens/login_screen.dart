@@ -1,18 +1,25 @@
+import 'package:connect/core/utils/app_nav.dart';
+import 'package:connect/core/utils/app_responses.dart';
+import 'package:connect/core/utils/dialog.dart';
 import 'package:connect/core/utils/utils.dart';
+import 'package:connect/core/utils/widgets.dart';
+import 'package:connect/features/auth/view_models/auth_view_model.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:connect/features/auth/views/widgets/logo_widget.dart';
 import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
 import 'package:connect/features/auth/views/widgets/underlined_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fpdart/fpdart.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   // Text Editing Controllers
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -31,7 +38,26 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> loginButtonFunction() async {
-    // TODO
+    showPopup(popupCase: PopupDialog(context: context));
+
+    final notifier = ref.read(authViewModelProvider.notifier);
+    final Either<AppFailure, AppSuccess> res = await notifier.login(
+      emailOrPin: emailController.text,
+      password: passwordController.text,
+    );
+
+    hidePopup(context);
+    switch (res) {
+      case Right(value: AppSuccess()):
+        clearTextEditingControllers([emailController, passwordController]);
+        AppNav.pushAndRemoveUntil(context, "home");
+        break;
+      case Left(value: AppFailure(message: final message)):
+        showPopup(
+          popupCase: PopupAlert(context: context, popupContent: message),
+        );
+        break;
+    }
   }
 
   @override
