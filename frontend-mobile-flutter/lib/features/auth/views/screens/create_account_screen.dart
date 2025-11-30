@@ -44,7 +44,7 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
     showPopup(popupCase: PopupLoading(context: context));
 
     final fpdart.Either<AppFailure, AppSuccess> result = await ref
-        .read(authViewModelProvider)
+        .read(authViewModelProvider.notifier)
         .createAccountRequest(
           email: emailController.text,
           username: usernameController.text,

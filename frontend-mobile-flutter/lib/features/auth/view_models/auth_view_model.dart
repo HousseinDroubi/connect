@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:app_links/app_links.dart';
+import 'package:connect/core/providers/current_user_notifier.dart';
 import 'package:connect/core/utils/app_nav.dart';
 import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/core/utils/utils.dart';
+import 'package:connect/features/auth/models/user_model.dart';
 import 'package:connect/features/auth/repositories/auth_remote_repository.dart';
 import 'package:connect/core/utils/validate_requests.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +15,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'auth_view_model.g.dart';
 
 @riverpod
-AuthViewModel authViewModel(AuthViewModelRef ref) {
-  return AuthViewModel();
-}
+class AuthViewModel extends _$AuthViewModel {
+  @override
+  AsyncValue<UserModel>? build() {
+    return null;
+  }
 
-class AuthViewModel {
   Future<Either<AppFailure, AppSuccess>> createAccountRequest({
     required String email,
     required String username,

@@ -32,7 +32,7 @@ class _VerifyAccountScreenState extends ConsumerState<VerifyAccountScreen> {
   }
 
   Future<void> init() async {
-    final notifier = ref.watch(authViewModelProvider);
+    final notifier = ref.watch(authViewModelProvider.notifier);
     if (widget.token == null) {
       AppNav.pushAndRemoveUntil(context, "login");
     } else {
