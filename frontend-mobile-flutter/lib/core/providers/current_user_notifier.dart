@@ -32,4 +32,8 @@ class CurrentUserNotifier extends _$CurrentUserNotifier {
       );
     }
   }
+
+  void clearUserData() {
+    state = null;
+  }
 }
