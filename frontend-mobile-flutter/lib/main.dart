@@ -18,7 +18,12 @@ Future<void> main() async {
   final ProviderContainer container = ProviderContainer();
   final notifier = container.read(authLocalRepositoryProvider);
   await notifier.initSharedPreferences();
-  runApp(ProviderScope(child: const MyApp()));
+  runApp(
+    UncontrolledProviderScope(
+      container: container,
+      child: ProviderScope(child: const MyApp()),
+    ),
+  );
 }
 
 class MyApp extends ConsumerStatefulWidget {
