@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:connect/core/providers/current_user_notifier.dart';
 import 'package:connect/core/utils/utils.dart';
+import 'package:connect/features/auth/models/user_model.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:connect/features/auth/views/widgets/profile_widget.dart';
 import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
@@ -57,6 +59,7 @@ class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = ref.watch(currentUserNotifierProvider);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -71,6 +74,7 @@ class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
                   ),
                   SizedBox(height: 10),
                   ProfileWidget(
+                    imageNetworkSource: user?.profile_url,
                     onChange: (File newImageFile) {
                       setState(() {
                         imageFile = newImageFile;
