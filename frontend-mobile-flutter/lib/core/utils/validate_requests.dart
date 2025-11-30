@@ -58,16 +58,17 @@ String? validateLoginRequest({
   required String emailOrPin,
   required String password,
 }) {
-  List<String?> validations = [validatePassword(password: password)];
+  List<String?> validations = [];
   if (emailOrPin.contains("@")) {
     validations.add(validateEmail(email: emailOrPin));
   } else {
     validations.add(validatePin(pin: emailOrPin));
   }
+  validations.add(validatePassword(password: password));
 
+  print(validations);
   for (String? validationResult in validations) {
     if (validationResult != null) return validationResult;
   }
-
   return null;
 }
