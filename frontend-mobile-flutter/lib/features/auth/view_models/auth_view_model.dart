@@ -179,8 +179,8 @@ class AuthViewModel extends _$AuthViewModel {
       return Left(AppFailure(message: validationResult));
     }
 
-    Either<AppFailure, Map<String, String>> result = await _authRemoteRepository
-        .updateProfileData(
+    Either<AppFailure, Map<String, dynamic>> result =
+        await _authRemoteRepository.updateProfileData(
           token: _authLocalRepository.getToken()!,
           imageFile: imageFile,
           username: username,
@@ -189,7 +189,7 @@ class AuthViewModel extends _$AuthViewModel {
     switch (result) {
       case Left(value: AppFailure(message: String message)):
         return Left(AppFailure(message: message));
-      case Right(value: Map<String, String> map):
+      case Right(value: Map<String, dynamic> map):
         _currentUserNotifier.updateUser(
           username: map["new_username"],
           profile_url: map["new_profile_url"],

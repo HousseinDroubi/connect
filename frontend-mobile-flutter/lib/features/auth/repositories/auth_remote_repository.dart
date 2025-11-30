@@ -216,7 +216,7 @@ class AuthRemoteRepository {
     }
   }
 
-  Future<Either<AppFailure, Map<String, String>>> updateProfileData({
+  Future<Either<AppFailure, Map<String, dynamic>>> updateProfileData({
     required String token,
     File? imageFile,
     String? username,
@@ -253,7 +253,7 @@ class AuthRemoteRepository {
         return Left(AppFailure());
       }
 
-      return Right(response.data as Map<String, String>);
+      return Right(response.data);
     } on DioException catch (e) {
       final String result = e.response?.data["result"] ?? "failed";
 
