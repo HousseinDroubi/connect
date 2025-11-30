@@ -11,7 +11,7 @@ AuthLocalRepository authLocalRepository(AuthLocalRepositoryRef ref) {
 class AuthLocalRepository {
   late SharedPreferences _sharedPreferences;
 
-  Future<void> initSharedPreferences() async {
+  Future<void> init() async {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 

@@ -16,8 +16,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
   final ProviderContainer container = ProviderContainer();
-  final notifier = container.read(authLocalRepositoryProvider);
+  final notifier = container.read(authViewModelProvider.notifier);
   await notifier.initSharedPreferences();
+
   runApp(
     UncontrolledProviderScope(
       container: container,

@@ -201,4 +201,8 @@ class AuthViewModel extends _$AuthViewModel {
       }
     });
   }
+
+  Future<void> initSharedPreferences() async {
+    _authLocalRepository.init();
+  }
 }
