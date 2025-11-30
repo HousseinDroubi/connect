@@ -72,3 +72,25 @@ String? validateLoginRequest({
   }
   return null;
 }
+
+String? validateUpdateProfileDataRequest({File? imageFile, String? username}) {
+  if (imageFile == null && username == null) {
+    return "Either change username and/or update your profile";
+  }
+
+  List<String?> validations = [];
+
+  if (imageFile != null) {
+    validateImage(imageFile: imageFile);
+  }
+
+  if (username != null) {
+    validateUsername(username: username);
+  }
+
+  for (String? validationResult in validations) {
+    if (validationResult != null) return validationResult;
+  }
+
+  return null;
+}
