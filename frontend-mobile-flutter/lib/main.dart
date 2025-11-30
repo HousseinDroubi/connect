@@ -7,6 +7,7 @@ import 'package:connect/features/auth/views/screens/forgot_password_screen.dart'
 import 'package:connect/features/auth/views/screens/login_screen.dart';
 import 'package:connect/features/auth/views/screens/update_forgotten_password_screen.dart';
 import 'package:connect/features/auth/views/screens/verify_account_screen.dart';
+import 'package:connect/features/home/models/views/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -58,6 +59,7 @@ class _MyAppState extends ConsumerState<MyApp> {
         "/verify_account": (context) => VerifyAccountScreen(),
         "/update_forgotten_password": (context) =>
             UpdateForgottenPasswordScreen(),
+        "/home": (context) => HomeScreen(),
       },
     );
   }
