@@ -20,6 +20,11 @@ String? validateUsername({required String username}) {
 
 String? validatePin({required String pin}) {
   if (!(pin.length == 6)) return "Pin must be exactly 6 digits";
+
+  if (!pin.split('').every((c) => RegExp(r'^[0-9]$').hasMatch(c))) {
+    return "Pin must contain only digits (0-9)";
+  }
+
   return null;
 }
 
