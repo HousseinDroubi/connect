@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:connect/core/utils/utils.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:connect/features/auth/views/widgets/profile_widget.dart';
 import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
@@ -16,12 +17,19 @@ class UpdateProfileScreen extends ConsumerStatefulWidget {
 }
 
 class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
+  // image file
   File? imageFile;
+
+  // Controller
   TextEditingController usernameController = TextEditingController();
   TextEditingController currentPasswordController = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();
   TextEditingController newPasswordConfirmationController =
       TextEditingController();
+
+  // Nodes
+  final FocusNode newPasswordFocusNode = FocusNode();
+  final FocusNode newPasswordConfirmationFocusNode = FocusNode();
 
   Future<void> updateProfile() async {
     // TODO
@@ -42,6 +50,8 @@ class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
     newPasswordController.dispose();
     newPasswordConfirmationController.dispose();
 
+    newPasswordFocusNode.dispose();
+    newPasswordConfirmationFocusNode.dispose();
     super.dispose();
   }
 
@@ -88,7 +98,9 @@ class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
                   TextFieldWidget(
                     title: "Current Password",
                     hint: "Enter your current password",
-                    nextFunction: updateProfile,
+                    nextFunction: () {
+                      focusOn(context, newPasswordFocusNode);
+                    },
                     textEditingController: currentPasswordController,
                     isPassword: true,
                   ),
@@ -96,7 +108,9 @@ class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
                   TextFieldWidget(
                     title: "New Password",
                     hint: "Enter a new password",
-                    nextFunction: updateProfile,
+                    nextFunction: () {
+                      focusOn(context, newPasswordConfirmationFocusNode);
+                    },
                     textEditingController: newPasswordController,
                     isPassword: true,
                   ),
