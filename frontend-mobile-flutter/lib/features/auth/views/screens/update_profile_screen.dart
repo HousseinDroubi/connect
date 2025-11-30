@@ -92,7 +92,6 @@ class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
         ]);
         break;
     }
-
     showPopup(
       popupCase: PopupAlert(context: context, popupContent: content),
     );
@@ -216,7 +215,16 @@ class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
                   SizedBox(height: 20),
                   ButtonWidget(
                     buttonText: "Delete my account",
-                    buttonFn: deleteAccount,
+                    buttonFn: () async {
+                      showPopup(
+                        popupCase: PopupConfirmation(
+                          context: context,
+                          popupContent:
+                              "Are you sure you want to delete your account?",
+                          confirmationFunction: deleteAccount,
+                        ),
+                      );
+                    },
                     isColoredRed: true,
                   ),
                   SizedBox(height: 20),
