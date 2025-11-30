@@ -148,7 +148,7 @@ class AuthViewModel extends _$AuthViewModel {
 
     Either<AppFailure, UserModel> result = await _authRemoteRepository.login(
       email: emailOrPin.contains("@") ? emailOrPin : null,
-      pin: !emailOrPin.contains("@") ? emailOrPin as int : null,
+      pin: !emailOrPin.contains("@") ? emailOrPin : null,
       password: password,
     );
 

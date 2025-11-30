@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:connect/core/constants/server_urls.dart';
@@ -155,7 +156,7 @@ class AuthRemoteRepository {
   }
 
   Future<Either<AppFailure, UserModel>> login({
-    required int? pin,
+    required String? pin,
     required String? email,
     required String password,
   }) async {
@@ -174,7 +175,7 @@ class AuthRemoteRepository {
         throw Error();
       }
 
-      final UserModel userModel = UserModel.fromJson(response.data);
+      final UserModel userModel = UserModel.fromMap(response.data);
       return Right(userModel);
     } on DioException catch (e) {
       final String result = e.response?.data["result"] ?? "failed";
