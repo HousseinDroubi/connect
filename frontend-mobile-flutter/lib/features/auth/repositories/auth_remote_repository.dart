@@ -215,4 +215,60 @@ class AuthRemoteRepository {
       return Left(AppFailure(message: e.toString()));
     }
   }
+
+  Future<Either<AppFailure, Map<String, String>>> updateProfileData({
+    required String token,
+    File? imageFile,
+    String? username,
+  }) async {
+    try {
+      final String url = "$_baseUrl/update_profile_data";
+
+      Map<String, dynamic> data = {};
+      if (username != null) {
+        data['username'] = username;
+      }
+
+      if (imageFile != null) {
+        data["image"] = await MultipartFile.fromFile(
+          imageFile.path,
+          filename: imageFile.path.split('/').last,
+        );
+      }
+
+      final formData = FormData.fromMap(data);
+
+      final response = await _dio.put(
+        url,
+        data: formData,
+        options: Options(
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
+
+      if (response.data["result"] != "data_updated") {
+        return Left(AppFailure());
+      }
+
+      return Right(response.data as Map<String, String>);
+    } on DioException catch (e) {
+      final String result = e.response?.data["result"] ?? "failed";
+
+      String message = "Something went wrong";
+
+      switch (result) {
+        case "invalid_id":
+          message = "Token expired, please login again!";
+          break;
+        case "user_account_deleted":
+          message = "Account deleted.";
+          break;
+      }
+
+      return Left(AppFailure(message: message));
+    }
+  }
 }
