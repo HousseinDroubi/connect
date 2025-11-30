@@ -59,15 +59,10 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             child: TextField(
               focusNode: widget.focusNode,
               onSubmitted: (String value) {
-                print("------------------");
-                print("value is ${value}");
                 if (value != "") {
                   widget.nextFunction();
-                  print("--------HI from here----------");
                 }
-                print("------------------");
               },
-
               controller: widget.textEditingController,
               cursorHeight: 15,
               style: TextStyle(
