@@ -106,10 +106,11 @@ class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
 
     hidePopup(context);
 
-    final String content;
     switch (result) {
       case Left(value: AppFailure(message: final message)):
-        content = message;
+        showPopup(
+          popupCase: PopupAlert(context: context, popupContent: message),
+        );
         break;
       case Right(value: AppSuccess()):
         AppNav.pushAndRemoveUntil(context, "login");
