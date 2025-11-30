@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:io';
 
 import 'package:connect/core/utils/validate_properties.dart';
@@ -73,19 +75,19 @@ String? validateLoginRequest({
   return null;
 }
 
-String? validateUpdateProfileDataRequest({File? imageFile, String? username}) {
-  if (imageFile == null && username == null) {
+String? validateUpdateProfileDataRequest({
+  required String username,
+  required String old_username,
+  File? imageFile,
+}) {
+  if (username == old_username && imageFile == null) {
     return "Either change username and/or update your profile";
   }
 
-  List<String?> validations = [];
+  List<String?> validations = [validateUsername(username: username)];
 
   if (imageFile != null) {
     validateImage(imageFile: imageFile);
-  }
-
-  if (username != null) {
-    validateUsername(username: username);
   }
 
   for (String? validationResult in validations) {
