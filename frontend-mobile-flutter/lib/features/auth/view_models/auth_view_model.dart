@@ -198,6 +198,36 @@ class AuthViewModel extends _$AuthViewModel {
     }
   }
 
+  Future<Either<AppFailure, AppSuccess>> updatePassword({
+    required String old_password,
+    required String new_password,
+    required String new_password_confirmation,
+  }) async {
+    String? validationResult = validateUpdatePasswordRequest(
+      old_password: old_password,
+      new_password: new_password,
+      new_password_confirmation: new_password_confirmation,
+    );
+
+    if (validationResult != null) {
+      return Left(AppFailure(message: validationResult));
+    }
+
+    Either<AppFailure, AppSuccess> result = await _authRemoteRepository
+        .updatePassword(
+          token: _authLocalRepository.getToken()!,
+          old_password: old_password,
+          new_password: new_password,
+        );
+
+    switch (result) {
+      case Left(value: AppFailure(message: String message)):
+        return Left(AppFailure(message: message));
+      case Right(value: AppSuccess()):
+        return Right(AppSuccess(message: "Password updated!"));
+    }
+  }
+
   Future<bool> canUserGetToHome() async {
     final String? token = _authLocalRepository.getToken();
     if (token == null) {
