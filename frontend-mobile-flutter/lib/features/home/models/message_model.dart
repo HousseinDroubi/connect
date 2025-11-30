@@ -45,7 +45,7 @@ class MessageModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
+      '_id': id,
       'sender': sender,
       'receiver': receiver,
       'is_text': is_text,
@@ -58,7 +58,7 @@ class MessageModel {
 
   factory MessageModel.fromMap(Map<String, dynamic> map) {
     return MessageModel(
-      id: map['id'] ?? "",
+      id: map['_id'] ?? "",
       sender: map['sender'] ?? "",
       receiver: map['receiver'] ?? "",
       is_text: map['is_text'] ?? false,
