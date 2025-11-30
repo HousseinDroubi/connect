@@ -1,5 +1,8 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:async';
 
+import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/features/auth/repositories/auth_local_repository.dart';
 import 'package:connect/features/auth/view_models/auth_view_model.dart';
 import 'package:connect/features/auth/views/screens/create_account_screen.dart';
@@ -11,6 +14,7 @@ import 'package:connect/features/home/models/views/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fpdart/fpdart.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,16 +23,18 @@ Future<void> main() async {
   final notifier = container.read(authViewModelProvider.notifier);
   await notifier.initSharedPreferences();
 
+  final bool result = await notifier.canUserGetToHome();
   runApp(
     UncontrolledProviderScope(
       container: container,
-      child: ProviderScope(child: const MyApp()),
+      child: ProviderScope(child: MyApp(can_user_get_to_home: result)),
     ),
   );
 }
 
 class MyApp extends ConsumerStatefulWidget {
-  const MyApp({super.key});
+  final bool can_user_get_to_home;
+  const MyApp({super.key, required this.can_user_get_to_home});
 
   @override
   ConsumerState<MyApp> createState() => _MyAppState();

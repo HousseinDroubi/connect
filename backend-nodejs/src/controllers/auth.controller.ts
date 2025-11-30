@@ -59,9 +59,7 @@ const getCurrentUser = async (request: Request, response: Response) => {
   const user: userDocumentInterface = request.body;
   const response_json = await getUserData(user);
 
-  return response.status(200).json({
-    response_json,
-  });
+  return response.status(200).json(response_json);
 };
 
 const createNewAccount = async (request: Request, response: Response) => {
