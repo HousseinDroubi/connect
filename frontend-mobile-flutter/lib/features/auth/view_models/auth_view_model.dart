@@ -163,6 +163,45 @@ class AuthViewModel extends _$AuthViewModel {
     }
   }
 
+  Future<Either<AppFailure, AppSuccess>> updateProfileData({
+    String? username,
+    File? imageFile,
+  }) async {
+    String? validationResult = validateUpdateProfileDataRequest(
+      imageFile: imageFile,
+      username: username,
+    );
+
+    if (validationResult != null) {
+      return Left(AppFailure(message: validationResult));
+    }
+    final token = ref.read(
+      currentUserNotifierProvider.select((user) => user!.token),
+    );
+
+    Either<AppFailure, Map<String, String>> result = await _authRemoteRepository
+        .updateProfileData(
+          token: token,
+          imageFile: imageFile!,
+          username: username,
+        );
+
+    switch (result) {
+      case Left(value: AppFailure(message: String message)):
+        return Left(AppFailure(message: message));
+      case Right(value: Map<String, String> map):
+        final user = ref.read(currentUserNotifierProvider);
+        final notifier = ref.read(currentUserNotifierProvider.notifier);
+        notifier.addUser(
+          user!.copyWith(
+            username: map["new_username"],
+            profile_url: map["new_profile_url"],
+          ),
+        );
+        return Right(AppSuccess(message: "Data updated!"));
+    }
+  }
+
   Future<bool> canUserGetToHome() async {
     final String? token = _authLocalRepository.getToken();
     if (token == null) {
