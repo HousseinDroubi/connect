@@ -163,10 +163,10 @@ class AuthViewModel extends _$AuthViewModel {
     }
   }
 
-  Future<Either<AppFailure, AppSuccess>> getCurrentUser() async {
+  Future<bool> canUserGetToHome() async {
     final String? token = _authLocalRepository.getToken();
     if (token == null) {
-      return Left(AppFailure());
+      return false;
     }
 
     Either<AppFailure, UserModel> result = await _authRemoteRepository
@@ -177,9 +177,9 @@ class AuthViewModel extends _$AuthViewModel {
         _currentUserNotifier.addUser(user);
         _authLocalRepository.setToken(user.token);
         state = AsyncData(user);
-        return Right(AppSuccess());
-      case Left(value: AppFailure(message: final message)):
-        return Left(AppFailure(message: message));
+        return true;
+      case Left(value: AppFailure()):
+        return false;
     }
   }
 
