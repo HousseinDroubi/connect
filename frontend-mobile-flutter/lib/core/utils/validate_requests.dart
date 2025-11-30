@@ -96,3 +96,25 @@ String? validateUpdateProfileDataRequest({
 
   return null;
 }
+
+String? validateUpdatePasswordRequest({
+  required String old_password,
+  required String new_password,
+  required String new_password_confirmation,
+}) {
+  List<String?> validations = [
+    validatePassword(password: old_password),
+    validatePassword(password: new_password),
+    validatePassword(password: new_password_confirmation),
+    validatePasswordAndConfirmationPassword(
+      password: new_password,
+      confirmationPassword: new_password_confirmation,
+    ),
+  ];
+
+  for (String? validationResult in validations) {
+    if (validationResult != null) return validationResult;
+  }
+
+  return null;
+}
