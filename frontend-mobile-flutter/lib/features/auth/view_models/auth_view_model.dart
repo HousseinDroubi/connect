@@ -19,11 +19,13 @@ part 'auth_view_model.g.dart';
 class AuthViewModel extends _$AuthViewModel {
   late CurrentUserNotifier _currentUserNotifier;
   late AuthLocalRepository _authLocalRepository;
+  late AuthRemoteRepository _authRemoteRepository;
 
   @override
   AsyncValue<UserModel>? build() {
     _currentUserNotifier = ref.read(currentUserNotifierProvider.notifier);
     _authLocalRepository = ref.read(authLocalRepositoryProvider);
+    _authRemoteRepository = ref.read(authRemoteRepositoryProvider);
     return null;
   }
 
@@ -48,7 +50,7 @@ class AuthViewModel extends _$AuthViewModel {
       return Left(AppFailure(message: validationResult));
     }
 
-    Either<AppFailure, AppSuccess> result = await AuthRemoteRepository()
+    Either<AppFailure, AppSuccess> result = await _authRemoteRepository
         .createAccount(
           imageFile: imageFile!,
           email: email,
@@ -77,7 +79,7 @@ class AuthViewModel extends _$AuthViewModel {
       return Left(AppFailure(message: validationResult));
     }
 
-    Either<AppFailure, AppSuccess> response = await AuthRemoteRepository()
+    Either<AppFailure, AppSuccess> response = await _authRemoteRepository
         .forgotPassword(email);
 
     switch (response) {
@@ -107,7 +109,7 @@ class AuthViewModel extends _$AuthViewModel {
       return Left(AppFailure(message: validationResult));
     }
 
-    final Either<AppFailure, AppSuccess> result = await AuthRemoteRepository()
+    final Either<AppFailure, AppSuccess> result = await _authRemoteRepository
         .updateForgottenPassoword(password: newPassword, token: token);
 
     switch (result) {
@@ -121,7 +123,7 @@ class AuthViewModel extends _$AuthViewModel {
   }
 
   Future<Either<AppFailure, AppSuccess>> verifyAccount(String token) async {
-    Either<AppFailure, AppSuccess> result = await AuthRemoteRepository()
+    Either<AppFailure, AppSuccess> result = await _authRemoteRepository
         .verifyAccount(token);
 
     switch (result) {
@@ -146,7 +148,7 @@ class AuthViewModel extends _$AuthViewModel {
       return Left(AppFailure(message: validationResult));
     }
 
-    Either<AppFailure, UserModel> result = await AuthRemoteRepository().login(
+    Either<AppFailure, UserModel> result = await _authRemoteRepository.login(
       email: email,
       pin: pin,
       password: password,
