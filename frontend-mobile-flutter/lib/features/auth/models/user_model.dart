@@ -66,11 +66,11 @@ class UserModel extends Person {
       username: map['username'] ?? "",
       profile_url: map['profile_url'] ?? "",
       pin: map['pin'] ?? -1,
-      email: map['email'] as String,
-      token: map['token'] as String,
-      is_online: map['is_online'] as bool,
+      email: map['email'] ?? "",
+      token: map['token'] ?? "",
+      is_online: map['is_online'] ?? false,
       conversations: List<ConversationModel>.from(
-        (map['conversations'] as List<int>).map<ConversationModel>(
+        (map['conversations'] as List<dynamic>).map<ConversationModel>(
           (x) => ConversationModel.fromMap(x as Map<String, dynamic>),
         ),
       ),
