@@ -6,7 +6,7 @@ import 'package:connect/core/utils/widgets.dart';
 import 'package:connect/features/auth/view_models/auth_view_model.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:connect/features/auth/views/widgets/logo_widget.dart';
-import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
+import 'package:connect/core/widgets/text_field_widget.dart';
 import 'package:connect/features/auth/views/widgets/underlined_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

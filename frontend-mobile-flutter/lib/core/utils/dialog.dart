@@ -1,7 +1,7 @@
 import 'package:connect/core/constants/app_colors.dart';
 import 'package:connect/core/utils/app_nav.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
-import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
+import 'package:connect/core/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 
 class PopupCase {

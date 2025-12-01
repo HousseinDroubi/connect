@@ -4,7 +4,7 @@ import 'package:connect/core/classes/person.dart';
 import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/core/utils/dialog.dart';
 import 'package:connect/core/widgets/title_widget.dart';
-import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
+import 'package:connect/core/widgets/text_field_widget.dart';
 import 'package:connect/features/home/view_models/home_view_model.dart';
 import 'package:connect/features/home/views/widgets/user_widget.dart';
 import 'package:flutter/material.dart';
