@@ -30,9 +30,7 @@ class ChatsScreen extends ConsumerWidget {
                   is_deleted: conversation.last_message?.deleted ?? false,
                   image_source: conversation.recipient?.profile_url,
                   is_for_chats: true,
-                  username: conversation.recipient == null
-                      ? "Connected Users"
-                      : conversation.recipient!.username,
+                  username: conversation.recipient?.username,
                   chats_last_mesasage: conversation.last_message != null
                       ? (conversation.last_message!.is_text
                             ? conversation.last_message!.content

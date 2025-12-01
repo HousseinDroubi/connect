@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class UserWidget extends ConsumerWidget {
-  final String username;
+  final String? username;
   final bool is_for_search;
   final bool is_for_chats;
   final bool is_for_conversation;
@@ -18,7 +18,7 @@ class UserWidget extends ConsumerWidget {
   final String? pin;
   const UserWidget({
     super.key,
-    required this.username,
+    this.username,
     this.is_for_search = false,
     this.is_for_chats = false,
     this.image_source,
@@ -44,7 +44,7 @@ class UserWidget extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                username,
+                username ?? "Connected users",
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
               ),
               if (is_for_search && pin != null)
