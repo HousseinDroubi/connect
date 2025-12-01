@@ -6,11 +6,7 @@ import 'package:flutter/material.dart';
 class UserImageWidget extends StatelessWidget {
   final String? image_source;
   final bool is_small;
-  const UserImageWidget({
-    super.key,
-    required this.image_source,
-    this.is_small = true,
-  });
+  const UserImageWidget({super.key, this.image_source, this.is_small = true});
 
   @override
   Widget build(BuildContext context) {
