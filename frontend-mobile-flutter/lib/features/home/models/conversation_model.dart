@@ -6,9 +6,9 @@ import 'package:connect/features/home/models/message_model.dart';
 
 class ConversationModel {
   final String id;
-  final MessageModel last_message;
+  final MessageModel? last_message;
   final DateTime created_at;
-  final Person recipient;
+  final Person? recipient;
   ConversationModel({
     required this.id,
     required this.last_message,
@@ -33,20 +33,22 @@ class ConversationModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       '_id': id,
-      'last_message': last_message.toMap(),
+      'last_message': last_message?.toMap(),
       'created_at': created_at,
-      'recipient': recipient.toMap(),
+      'recipient': recipient?.toMap(),
     };
   }
 
   factory ConversationModel.fromMap(Map<String, dynamic> map) {
     return ConversationModel(
       id: map['_id'] ?? "",
-      last_message: MessageModel.fromMap(
-        map['last_message'] as Map<String, dynamic>,
-      ),
+      last_message: map["last_message"] == null
+          ? null
+          : MessageModel.fromMap(map['last_message'] as Map<String, dynamic>),
       created_at: DateTime.parse(map['created_at']),
-      recipient: Person.fromMap(map['recipient'] as Map<String, dynamic>),
+      recipient: map["recipient"] == null
+          ? null
+          : Person.fromMap(map['recipient'] as Map<String, dynamic>),
     );
   }
 
