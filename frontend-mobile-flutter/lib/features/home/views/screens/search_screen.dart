@@ -23,12 +23,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   List<Person> search_users = [];
 
-  @override
-  void dispose() {
-    searchController.dispose();
-    super.dispose();
-  }
-
   Future<void> searchForUsers() async {
     showPopup(popupCase: PopupLoading(context: context));
     final Either<AppFailure, List<Person>> result = await ref

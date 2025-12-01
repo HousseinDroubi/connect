@@ -30,15 +30,6 @@ class _UpdateForgottenPasswordScreenState
   final FocusNode newPasswordFocusNode = FocusNode();
   final FocusNode confirmationPasswordFocusNode = FocusNode();
 
-  @override
-  void dispose() {
-    newPasswordController.dispose();
-    confirmationNewPasswordController.dispose();
-    newPasswordFocusNode.dispose();
-    confirmationPasswordFocusNode.dispose();
-    super.dispose();
-  }
-
   Future<void> changePasswordButtonFunction(BuildContext context) async {
     final notifier = ref.read(authViewModelProvider.notifier);
 

@@ -82,22 +82,6 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
   }
 
   @override
-  void dispose() {
-    emailController.dispose();
-    usernameController.dispose();
-    pinController.dispose();
-    passwordController.dispose();
-    confirmationPasswordController.dispose();
-
-    emailFocusNode.dispose();
-    usernameFocusNode.dispose();
-    pinFocusNode.dispose();
-    passwordFocusNode.dispose();
-    confirmationPasswordFocusNode.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

@@ -118,18 +118,6 @@ class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
   }
 
   @override
-  void dispose() {
-    usernameController.dispose();
-    currentPasswordController.dispose();
-    newPasswordController.dispose();
-    newPasswordConfirmationController.dispose();
-
-    newPasswordFocusNode.dispose();
-    newPasswordConfirmationFocusNode.dispose();
-    super.dispose();
-  }
-
-  @override
   void initState() {
     usernameController.text = ref.read(
       currentUserNotifierProvider.select((user) => user!.username),

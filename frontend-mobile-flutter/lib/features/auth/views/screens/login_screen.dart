@@ -28,15 +28,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final FocusNode emailFocusNode = FocusNode();
   final FocusNode passwordFocusNode = FocusNode();
 
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    emailFocusNode.dispose();
-    passwordFocusNode.dispose();
-    super.dispose();
-  }
-
   Future<void> loginButtonFunction() async {
     showPopup(popupCase: PopupLoading(context: context));
 
