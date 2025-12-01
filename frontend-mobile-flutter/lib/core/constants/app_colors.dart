@@ -9,4 +9,6 @@ class AppColors {
   static const Color body = Color(0xFFf5f5f5);
   static const Color grey = Color(0xFF9E9E9E);
   static const Color red = Color(0xFFF44336);
+  static const Color onlineColor = Color.fromARGB(255, 9, 241, 52);
+  static const Color offlineColor = Color.fromRGBO(220, 38, 38, 1);
 }
