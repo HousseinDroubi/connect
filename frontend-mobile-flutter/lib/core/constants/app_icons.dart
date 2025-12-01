@@ -11,4 +11,5 @@ class AppIcons {
   static const String waitingIconPath = "assets/icons/waiting.png";
   static const String conversationsIconPath = "assets/icons/conversations.png";
   static const String searchIconPath = "assets/icons/search.png";
+  static const String groupIconPath = "assets/icons/grouo.png";
 }
