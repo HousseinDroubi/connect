@@ -4,9 +4,9 @@ import 'package:connect/core/constants/app_colors.dart';
 import 'package:connect/core/constants/app_icons.dart';
 import 'package:connect/core/providers/current_user_notifier.dart';
 import 'package:connect/features/auth/views/screens/update_profile_screen.dart';
-import 'package:connect/features/home/models/views/screens/chats_screen.dart';
-import 'package:connect/features/home/models/views/screens/search_screen.dart';
-import 'package:connect/features/home/models/views/widgets/user_image_widget.dart';
+import 'package:connect/features/home/views/screens/chats_screen.dart';
+import 'package:connect/features/home/views/screens/search_screen.dart';
+import 'package:connect/features/home/views/widgets/user_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
