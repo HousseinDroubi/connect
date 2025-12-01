@@ -1,23 +1,24 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:connect/core/constants/app_colors.dart';
 import 'package:connect/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatefulWidget {
-  final String title;
   final String hint;
   final VoidCallback nextFunction;
   final TextEditingController textEditingController;
+  final String? title;
   final bool? isPassword;
   final bool? isFull;
-  final bool? isForMessages;
+  final bool isForMessages;
   final FocusNode? focusNode;
-
   const TextFieldWidget({
     super.key,
-    required this.title,
     required this.hint,
     required this.nextFunction,
     required this.textEditingController,
+    this.title,
     this.isPassword = false,
     this.isFull = false,
     this.isForMessages = false,
@@ -44,14 +45,15 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(
-          widget.title,
-          style: TextStyle(
-            color: AppColors.black,
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
+        if (!widget.isForMessages)
+          Text(
+            widget.title!,
+            style: TextStyle(
+              color: AppColors.black,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
         Container(
           margin: EdgeInsets.only(top: 4),
           child: SizedBox(
@@ -97,7 +99,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                           });
                         },
                       )
-                    : widget.isForMessages!
+                    : widget.isForMessages
                     ? IconButton(
                         icon: Image.asset(
                           widget.textEditingController.text.isEmpty
