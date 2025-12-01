@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class UserWidget extends ConsumerWidget {
-  final String? image_source;
   final String username;
   final bool is_for_search;
+  final String? image_source;
   final String? pin;
   const UserWidget({
     super.key,
-    this.image_source,
     required this.username,
     this.is_for_search = false,
+    this.image_source,
     this.pin,
   });
 
