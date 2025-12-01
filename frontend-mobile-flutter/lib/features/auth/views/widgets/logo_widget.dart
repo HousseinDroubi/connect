@@ -1,5 +1,5 @@
 import 'package:connect/core/constants/app_icons.dart';
-import 'package:connect/features/auth/views/widgets/title_widget.dart';
+import 'package:connect/core/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
 class LogoWidget extends StatelessWidget {
