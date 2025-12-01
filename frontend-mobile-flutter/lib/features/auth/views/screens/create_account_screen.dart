@@ -6,7 +6,7 @@ import 'package:connect/core/utils/utils.dart';
 import 'package:connect/core/utils/widgets.dart';
 import 'package:connect/features/auth/view_models/auth_view_model.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
-import 'package:connect/features/auth/views/widgets/profile_widget.dart';
+import 'package:connect/features/auth/views/widgets/image_picker_widget.dart';
 import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
 import 'package:connect/features/auth/views/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
@@ -108,7 +108,7 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
             children: [
               TitleWidget(title: "Create New Account"),
               SizedBox(height: 5),
-              ProfileWidget(
+              ImagePickerWidget(
                 onChange: (File imageFile) {
                   setState(() {
                     this.imageFile = imageFile;

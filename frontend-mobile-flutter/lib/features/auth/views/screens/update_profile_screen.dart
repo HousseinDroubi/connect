@@ -8,7 +8,7 @@ import 'package:connect/core/utils/utils.dart';
 import 'package:connect/core/utils/widgets.dart';
 import 'package:connect/features/auth/view_models/auth_view_model.dart';
 import 'package:connect/features/auth/views/widgets/button_widget.dart';
-import 'package:connect/features/auth/views/widgets/profile_widget.dart';
+import 'package:connect/features/auth/views/widgets/image_picker_widget.dart';
 import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
 import 'package:connect/features/auth/views/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
@@ -153,7 +153,7 @@ class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
                     child: TitleWidget(title: "Edit Profile"),
                   ),
                   SizedBox(height: 10),
-                  ProfileWidget(
+                  ImagePickerWidget(
                     imageNetworkSource: user?.profile_url,
                     isImageFileExisted: imageFile != null,
                     onChange: (File newImageFile) {

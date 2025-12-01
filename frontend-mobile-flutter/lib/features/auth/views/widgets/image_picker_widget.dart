@@ -5,11 +5,11 @@ import 'package:connect/core/utils/app_files.dart';
 import 'package:connect/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 
-class ProfileWidget extends StatefulWidget {
+class ImagePickerWidget extends StatefulWidget {
   final String? imageNetworkSource;
   final bool isImageFileExisted;
   final void Function(File imageFile) onChange;
-  const ProfileWidget({
+  const ImagePickerWidget({
     super.key,
     required this.onChange,
     this.isImageFileExisted = false,
@@ -17,10 +17,10 @@ class ProfileWidget extends StatefulWidget {
   });
 
   @override
-  State<ProfileWidget> createState() => _ProfileWidgetState();
+  State<ImagePickerWidget> createState() => _ImagePickerWidgetState();
 }
 
-class _ProfileWidgetState extends State<ProfileWidget> {
+class _ImagePickerWidgetState extends State<ImagePickerWidget> {
   File? imageFile;
 
   @override
