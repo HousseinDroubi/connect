@@ -72,21 +72,28 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             SizedBox(height: 20),
             Expanded(
               child: SingleChildScrollView(
-                child: Column(
-                  children: search_users
-                      .map(
-                        (Person p) => Container(
-                          margin: EdgeInsets.only(bottom: 15),
-                          child: UserWidget(
-                            image_source: p.profile_url,
-                            username: p.username,
-                            pin: p.pin.toString(),
-                            is_for_search: true,
-                          ),
-                        ),
+                child: !(search_users.isEmpty && searchController.text != "")
+                    ? Column(
+                        children: search_users
+                            .map(
+                              (Person p) => Container(
+                                margin: EdgeInsets.only(bottom: 15),
+                                child: UserWidget(
+                                  image_source: p.profile_url,
+                                  username: p.username,
+                                  pin: p.pin.toString(),
+                                  is_for_search: true,
+                                ),
+                              ),
+                            )
+                            .toList(),
                       )
-                      .toList(),
-                ),
+                    : Center(
+                        child: Text(
+                          "No result for \n ${searchController.text}",
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
               ),
             ),
           ],
