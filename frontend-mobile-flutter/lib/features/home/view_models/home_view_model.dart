@@ -14,24 +14,15 @@ class HomeViewModel extends _$HomeViewModel {
   late HomeUsersRepository _homeUsersRepository;
 
   @override
-  AsyncValue? build() {
+  void build() {
     _currentUserNotifier = ref.read(currentUserNotifierProvider);
     _homeUsersRepository = ref.read(homeUsersRepositoryProvider);
-    return null;
   }
 
-  Future<List<Person>?> searchUsers(String content) async {
-    state = AsyncValue.loading();
-    final Either<AppFailure, List<Person>> result = await _homeUsersRepository
-        .searchForUsers(token: _currentUserNotifier!.token, content: content);
-
-    switch (result) {
-      case Left(value: AppFailure(message: final message)):
-        state = AsyncValue.error(message, StackTrace.current);
-        return null;
-      case Right(value: List<Person> users):
-        state = AsyncValue.data(users);
-        return users;
-    }
+  Future<Either<AppFailure, List<Person>>> searchUsers(String content) async {
+    return await _homeUsersRepository.searchForUsers(
+      token: _currentUserNotifier!.token,
+      content: content,
+    );
   }
 }
