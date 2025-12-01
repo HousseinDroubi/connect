@@ -34,6 +34,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   void dispose() {
     widget.textEditingController.dispose();
+    widget.focusNode?.dispose();
     super.dispose();
   }
 
