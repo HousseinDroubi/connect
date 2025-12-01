@@ -1,6 +1,9 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:connect/core/classes/person.dart';
 import 'package:connect/core/widgets/title_widget.dart';
 import 'package:connect/features/auth/views/widgets/text_field_widget.dart';
+import 'package:connect/features/home/views/widgets/user_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,6 +16,8 @@ class SearchScreen extends ConsumerStatefulWidget {
 
 class _SearchScreenState extends ConsumerState<SearchScreen> {
   TextEditingController searchController = TextEditingController();
+
+  List<Person> search_users = [];
 
   @override
   void dispose() {
@@ -42,6 +47,23 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               hint: "Search by pin or username",
               nextFunction: searchForUsers,
               textEditingController: searchController,
+            ),
+            SizedBox(height: 20),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: search_users
+                      .map(
+                        (Person p) => UserWidget(
+                          image_source: p.profile_url,
+                          username: p.username,
+                          pin: p.pin.toString(),
+                          is_for_search: true,
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
             ),
           ],
         ),
