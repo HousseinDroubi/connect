@@ -11,20 +11,19 @@ part 'conversation_view_model.g.dart';
 @riverpod
 class ConversationViewModel extends _$ConversationViewModel {
   late AuthLocalRepository _authLocalRepository;
-  late CurrentUserNotifier _currentUserNotifier;
   late ConversationRepository _conversationRepository;
 
   @override
   AsyncValue<ConversationModel?> build() {
     _authLocalRepository = ref.read(authLocalRepositoryProvider);
     _conversationRepository = ref.read(conversationRepositoryProvider);
-    _currentUserNotifier = ref.read(currentUserNotifierProvider.notifier);
     return AsyncData(null);
   }
 
   Future<Either<AppFailure, ConversationModel>> getConversationMessages(
     String pin,
   ) async {
+    state = AsyncLoading();
     String token = _authLocalRepository.getToken()!;
     Either<AppFailure, ConversationModel> result = await _conversationRepository
         .getConversationMessages(token: token, pin: pin);
