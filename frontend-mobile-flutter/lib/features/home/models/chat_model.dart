@@ -2,11 +2,11 @@
 import 'dart:convert';
 
 import 'package:connect/core/classes/person.dart';
-import 'package:connect/features/home/models/chat_message_model.dart';
+import 'package:connect/core/classes/chat_message.dart';
 
 class ChatModel {
   final String id;
-  final ChatMessageModel? last_message;
+  final ChatMessage? last_message;
   final DateTime created_at;
   final Person? recipient;
   ChatModel({
@@ -18,7 +18,7 @@ class ChatModel {
 
   ChatModel copyWith({
     String? id,
-    ChatMessageModel? last_message,
+    ChatMessage? last_message,
     DateTime? created_at,
     Person? recipient,
   }) {
@@ -44,9 +44,7 @@ class ChatModel {
       id: map['_id'] ?? "",
       last_message: map["last_message"] == null
           ? null
-          : ChatMessageModel.fromMap(
-              map['last_message'] as Map<String, dynamic>,
-            ),
+          : ChatMessage.fromMap(map['last_message'] as Map<String, dynamic>),
       created_at: DateTime.parse(map['created_at']),
       recipient: map["recipient"] == null
           ? null

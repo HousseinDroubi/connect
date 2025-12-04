@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, non_constant_identifier_names
 import 'dart:convert';
 
-class ChatMessageModel {
+class ChatMessage {
   final String id;
   final String sender;
   final String receiver;
@@ -11,7 +11,7 @@ class ChatMessageModel {
   final bool deleted;
   final DateTime created_at;
 
-  ChatMessageModel({
+  ChatMessage({
     required this.id,
     required this.sender,
     required this.receiver,
@@ -22,7 +22,7 @@ class ChatMessageModel {
     required this.created_at,
   });
 
-  ChatMessageModel copyWith({
+  ChatMessage copyWith({
     String? id,
     String? sender,
     String? receiver,
@@ -32,7 +32,7 @@ class ChatMessageModel {
     bool? deleted,
     DateTime? created_at,
   }) {
-    return ChatMessageModel(
+    return ChatMessage(
       id: id ?? this.id,
       sender: sender ?? this.sender,
       receiver: receiver ?? this.receiver,
@@ -57,8 +57,8 @@ class ChatMessageModel {
     };
   }
 
-  factory ChatMessageModel.fromMap(Map<String, dynamic> map) {
-    return ChatMessageModel(
+  factory ChatMessage.fromMap(Map<String, dynamic> map) {
+    return ChatMessage(
       id: map['_id'] ?? "",
       sender: map['sender'] ?? "",
       receiver: map['receiver'] ?? "",
@@ -72,8 +72,8 @@ class ChatMessageModel {
 
   String toJson() => json.encode(toMap());
 
-  factory ChatMessageModel.fromJson(String source) =>
-      ChatMessageModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ChatMessage.fromJson(String source) =>
+      ChatMessage.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -81,7 +81,7 @@ class ChatMessageModel {
   }
 
   @override
-  bool operator ==(covariant ChatMessageModel other) {
+  bool operator ==(covariant ChatMessage other) {
     if (identical(this, other)) return true;
 
     return other.id == id &&
