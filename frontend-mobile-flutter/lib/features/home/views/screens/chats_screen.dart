@@ -27,6 +27,7 @@ class ChatsScreen extends ConsumerWidget {
               (ChatModel chat) => Container(
                 margin: EdgeInsets.only(bottom: 15),
                 child: UserWidget(
+                  pin: chat.recipient?.pin.toString() ?? "broadcast",
                   is_deleted: chat.last_message?.deleted ?? false,
                   image_source: chat.recipient?.profile_url,
                   is_for_chats: true,
