@@ -10,26 +10,26 @@ class ConversationModel {
   final String conversation_id;
   final List<Message> messages;
   final bool is_group;
-  final Person recipirent;
+  final Person recipient;
 
   ConversationModel({
     required this.conversation_id,
     required this.messages,
     required this.is_group,
-    required this.recipirent,
+    required this.recipient,
   });
 
   ConversationModel copyWith({
     String? conversation_id,
     List<Message>? messages,
     bool? is_group,
-    Person? recipirent,
+    Person? recipient,
   }) {
     return ConversationModel(
       conversation_id: conversation_id ?? this.conversation_id,
       messages: messages ?? this.messages,
       is_group: is_group ?? this.is_group,
-      recipirent: recipirent ?? this.recipirent,
+      recipient: recipient ?? this.recipient,
     );
   }
 
@@ -38,7 +38,7 @@ class ConversationModel {
       'conversation_id': conversation_id,
       'messages': messages.map((x) => x.toMap()).toList(),
       'is_group': is_group,
-      'recipirent': recipirent.toMap(),
+      'recipient': recipient.toMap(),
     };
   }
 
@@ -46,12 +46,12 @@ class ConversationModel {
     return ConversationModel(
       conversation_id: map['conversation_id'] ?? "",
       messages: List<Message>.from(
-        (map['messages'] as List<int>).map<Message>(
+        (map['messages'] as List<dynamic>).map<Message>(
           (x) => Message.fromMap(x as Map<String, dynamic>),
         ),
       ),
       is_group: map['is_group'] ?? false,
-      recipirent: Person.fromMap(map['recipirent'] as Map<String, dynamic>),
+      recipient: Person.fromMap(map['recipient'] as dynamic),
     );
   }
 
@@ -62,7 +62,7 @@ class ConversationModel {
 
   @override
   String toString() {
-    return 'ConversationModel(conversation_id: $conversation_id, messages: $messages, is_group: $is_group, recipirent: $recipirent)';
+    return 'ConversationModel(conversation_id: $conversation_id, messages: $messages, is_group: $is_group, recipient: $recipient)';
   }
 
   @override
@@ -72,7 +72,7 @@ class ConversationModel {
     return other.conversation_id == conversation_id &&
         listEquals(other.messages, messages) &&
         other.is_group == is_group &&
-        other.recipirent == recipirent;
+        other.recipient == recipient;
   }
 
   @override
@@ -80,6 +80,6 @@ class ConversationModel {
     return conversation_id.hashCode ^
         messages.hashCode ^
         is_group.hashCode ^
-        recipirent.hashCode;
+        recipient.hashCode;
   }
 }
