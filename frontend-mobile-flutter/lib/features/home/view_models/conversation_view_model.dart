@@ -1,8 +1,13 @@
+// ignore_for_file: non_constant_identifier_names
+
+import 'dart:typed_data';
+
 import 'package:connect/core/providers/current_conversation.dart';
 import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/features/auth/repositories/auth_local_repository.dart';
 import 'package:connect/features/home/models/conversation_model.dart';
 import 'package:connect/features/home/repositories/conversation_repository.dart';
+import 'package:connect/features/home/repositories/messages_repository.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -11,6 +16,7 @@ part 'conversation_view_model.g.dart';
 @riverpod
 class ConversationViewModel extends _$ConversationViewModel {
   late AuthLocalRepository _authLocalRepository;
+  late MessagesRepository _messagesRepository;
   late ConversationRepository _conversationRepository;
   late CurrentConversation _currentConversationNotifier;
 
@@ -18,6 +24,7 @@ class ConversationViewModel extends _$ConversationViewModel {
   void build() {
     _authLocalRepository = ref.read(authLocalRepositoryProvider);
     _conversationRepository = ref.read(conversationRepositoryProvider);
+    _messagesRepository = ref.read(messagesRepositoryProvider);
     _currentConversationNotifier = ref.read(
       currentConversationProvider.notifier,
     );
@@ -37,5 +44,12 @@ class ConversationViewModel extends _$ConversationViewModel {
         _currentConversationNotifier.addConversation(conversation);
         return Right(conversation);
     }
+  }
+
+  Future<Uint8List?> viewImage(String message_id) async {
+    return await _messagesRepository.viewImage(
+      token: _authLocalRepository.getToken()!,
+      message_id: message_id,
+    );
   }
 }
