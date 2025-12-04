@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, non_constant_identifier_names
 import 'dart:convert';
 
-class MessageModel {
+class ConversationMessageModel {
   final String id;
   final String sender;
   final String receiver;
@@ -10,7 +10,8 @@ class MessageModel {
   final String conversation_id;
   final bool deleted;
   final DateTime created_at;
-  MessageModel({
+
+  ConversationMessageModel({
     required this.id,
     required this.sender,
     required this.receiver,
@@ -21,7 +22,7 @@ class MessageModel {
     required this.created_at,
   });
 
-  MessageModel copyWith({
+  ConversationMessageModel copyWith({
     String? id,
     String? sender,
     String? receiver,
@@ -31,7 +32,7 @@ class MessageModel {
     bool? deleted,
     DateTime? created_at,
   }) {
-    return MessageModel(
+    return ConversationMessageModel(
       id: id ?? this.id,
       sender: sender ?? this.sender,
       receiver: receiver ?? this.receiver,
@@ -56,8 +57,8 @@ class MessageModel {
     };
   }
 
-  factory MessageModel.fromMap(Map<String, dynamic> map) {
-    return MessageModel(
+  factory ConversationMessageModel.fromMap(Map<String, dynamic> map) {
+    return ConversationMessageModel(
       id: map['_id'] ?? "",
       sender: map['sender'] ?? "",
       receiver: map['receiver'] ?? "",
@@ -71,8 +72,10 @@ class MessageModel {
 
   String toJson() => json.encode(toMap());
 
-  factory MessageModel.fromJson(String source) =>
-      MessageModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ConversationMessageModel.fromJson(String source) =>
+      ConversationMessageModel.fromMap(
+        json.decode(source) as Map<String, dynamic>,
+      );
 
   @override
   String toString() {
@@ -80,7 +83,7 @@ class MessageModel {
   }
 
   @override
-  bool operator ==(covariant MessageModel other) {
+  bool operator ==(covariant ConversationMessageModel other) {
     if (identical(this, other)) return true;
 
     return other.id == id &&

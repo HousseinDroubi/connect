@@ -2,11 +2,11 @@
 import 'dart:convert';
 
 import 'package:connect/core/classes/person.dart';
-import 'package:connect/features/home/models/message_model.dart';
+import 'package:connect/features/home/models/conversation_message_model.dart';
 
 class ConversationModel {
   final String id;
-  final MessageModel? last_message;
+  final ConversationMessageModel? last_message;
   final DateTime created_at;
   final Person? recipient;
   ConversationModel({
@@ -18,7 +18,7 @@ class ConversationModel {
 
   ConversationModel copyWith({
     String? id,
-    MessageModel? last_message,
+    ConversationMessageModel? last_message,
     DateTime? created_at,
     Person? recipient,
   }) {
@@ -44,7 +44,9 @@ class ConversationModel {
       id: map['_id'] ?? "",
       last_message: map["last_message"] == null
           ? null
-          : MessageModel.fromMap(map['last_message'] as Map<String, dynamic>),
+          : ConversationMessageModel.fromMap(
+              map['last_message'] as Map<String, dynamic>,
+            ),
       created_at: DateTime.parse(map['created_at']),
       recipient: map["recipient"] == null
           ? null
