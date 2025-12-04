@@ -43,7 +43,6 @@ class ConversationRepository {
         response.data,
       );
 
-      print(conversation.toString());
       return Right(conversation);
     } on DioException catch (e) {
       final String result = e.response?.data["result"] ?? "failed";
