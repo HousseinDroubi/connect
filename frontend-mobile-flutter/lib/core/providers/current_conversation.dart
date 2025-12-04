@@ -6,11 +6,11 @@ part 'current_conversation.g.dart';
 @Riverpod(keepAlive: true)
 class CurrentConversation extends _$CurrentConversation {
   @override
-  ConversationModel? build() {
-    return null;
+  AsyncData<ConversationModel?> build() {
+    return AsyncData(null);
   }
 
   void addConversation(ConversationModel conversation) {
-    state = conversation;
+    state = AsyncData(conversation);
   }
 }
