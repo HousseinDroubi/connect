@@ -12,6 +12,7 @@ class MessageWidget extends ConsumerWidget {
   final String sender_id;
   final bool is_text;
   final bool is_group;
+  final bool is_deleted;
   final DateTime created_at;
   final String? profile_url;
 
@@ -24,6 +25,7 @@ class MessageWidget extends ConsumerWidget {
     required this.is_group,
     required this.created_at,
     this.profile_url,
+    this.is_deleted = false,
   });
 
   @override
@@ -64,7 +66,10 @@ class MessageWidget extends ConsumerWidget {
                             ? AppColors.white
                             : AppColors.black,
                         fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: is_deleted
+                            ? FontWeight.w400
+                            : FontWeight.w500,
+                        fontStyle: is_deleted ? FontStyle.italic : null,
                       ),
                     )
                   : Image.network(fit: BoxFit.cover, content),
