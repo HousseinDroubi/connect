@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:connect/core/constants/app_colors.dart';
+import 'package:connect/core/utils/app_nav.dart';
 import 'package:connect/features/home/views/widgets/user_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,6 +38,13 @@ class UserWidget extends ConsumerWidget {
       height: 60,
       child: Row(
         children: [
+          if (is_for_conversation)
+            GestureDetector(
+              onTap: () {
+                AppNav.pop(context);
+              },
+              child: Icon(Icons.keyboard_arrow_left),
+            ),
           UserImageWidget(image_source: image_source, is_small: false),
           SizedBox(width: 7),
           Column(
