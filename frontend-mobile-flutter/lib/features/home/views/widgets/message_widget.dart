@@ -1,7 +1,12 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:connect/core/constants/app_colors.dart';
+import 'package:connect/core/constants/app_icons.dart';
 import 'package:connect/core/providers/current_user_notifier.dart';
+import 'package:connect/core/widgets/loader_widget.dart';
+import 'package:connect/features/home/repositories/conversation_repository.dart';
+import 'package:connect/features/home/repositories/messages_repository.dart';
+import 'package:connect/features/home/view_models/conversation_view_model.dart';
 import 'package:connect/features/home/views/widgets/user_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -72,7 +77,23 @@ class MessageWidget extends ConsumerWidget {
                         fontStyle: is_deleted ? FontStyle.italic : null,
                       ),
                     )
-                  : Image.network(fit: BoxFit.cover, content),
+                  : FutureBuilder(
+                      future: ref
+                          .read(conversationViewModelProvider.notifier)
+                          .viewImage(id),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Image.memory(
+                            fit: BoxFit.cover,
+                            snapshot.data!,
+                          );
+                        }
+                        if (snapshot.hasError) {
+                          return Image.asset(AppIcons.groupIconPath);
+                        }
+                        return LoaderWidget();
+                      },
+                    ),
             ),
           ),
         ),
