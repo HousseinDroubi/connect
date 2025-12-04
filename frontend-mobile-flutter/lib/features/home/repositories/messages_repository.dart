@@ -41,7 +41,7 @@ class MessagesRepository {
       }
 
       return Uint8List.fromList(response.data);
-    } on DioException catch (e) {
+    } catch (e) {
       return null;
     }
   }
