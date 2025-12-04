@@ -15,25 +15,30 @@ class ConversationViewModel extends _$ConversationViewModel {
   late CurrentConversation _currentConversationNotifier;
 
   @override
-  void build() {
+  AsyncValue<ConversationModel>? build() {
     _authLocalRepository = ref.read(authLocalRepositoryProvider);
     _conversationRepository = ref.read(conversationRepositoryProvider);
     _currentConversationNotifier = ref.read(
       currentConversationProvider.notifier,
     );
+
+    return null;
   }
 
   Future<Either<AppFailure, ConversationModel>> getConversationMessages(
     String pin,
   ) async {
+    state = AsyncLoading();
     String token = _authLocalRepository.getToken()!;
     Either<AppFailure, ConversationModel> result = await _conversationRepository
         .getConversationMessages(token: token, pin: pin);
 
     switch (result) {
       case Left(value: AppFailure(message: final message)):
+        state = AsyncError(message, StackTrace.current);
         return Left(AppFailure(message: message));
       case Right(value: final conversation):
+        state = AsyncData(conversation);
         _currentConversationNotifier.addConversation(conversation);
         return Right(conversation);
     }
