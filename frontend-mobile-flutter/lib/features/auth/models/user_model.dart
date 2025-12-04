@@ -56,7 +56,7 @@ class UserModel extends Person {
       'email': email,
       'token': token,
       'is_online': is_online,
-      'chats': chats.map((x) => x.toMap()).toList(),
+      'conversations': chats.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -70,7 +70,7 @@ class UserModel extends Person {
       token: map['token'] ?? "",
       is_online: map['is_online'] ?? false,
       chats: List<ChatModel>.from(
-        (map['chats'] as List<dynamic>).map<ChatModel>(
+        (map['conversations'] as List<dynamic>).map<ChatModel>(
           (x) => ChatModel.fromMap(x as Map<String, dynamic>),
         ),
       ),
