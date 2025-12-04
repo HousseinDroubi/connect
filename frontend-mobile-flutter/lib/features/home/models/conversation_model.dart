@@ -10,7 +10,7 @@ class ConversationModel {
   final String conversation_id;
   final List<Message> messages;
   final bool is_group;
-  final Person recipient;
+  final Person? recipient;
 
   ConversationModel({
     required this.conversation_id,
@@ -38,7 +38,7 @@ class ConversationModel {
       'conversation_id': conversation_id,
       'messages': messages.map((x) => x.toMap()).toList(),
       'is_group': is_group,
-      'recipient': recipient.toMap(),
+      'recipient': is_group ? null : recipient!.toMap(),
     };
   }
 
@@ -51,7 +51,9 @@ class ConversationModel {
         ),
       ),
       is_group: map['is_group'] ?? false,
-      recipient: Person.fromMap(map['recipient'] as dynamic),
+      recipient: map['is_group'] == true
+          ? null
+          : Person.fromMap(map['recipient'] as dynamic),
     );
   }
 
