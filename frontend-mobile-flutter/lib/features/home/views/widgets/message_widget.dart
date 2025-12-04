@@ -4,8 +4,6 @@ import 'package:connect/core/constants/app_colors.dart';
 import 'package:connect/core/constants/app_icons.dart';
 import 'package:connect/core/providers/current_user_notifier.dart';
 import 'package:connect/core/widgets/loader_widget.dart';
-import 'package:connect/features/home/repositories/conversation_repository.dart';
-import 'package:connect/features/home/repositories/messages_repository.dart';
 import 'package:connect/features/home/view_models/conversation_view_model.dart';
 import 'package:connect/features/home/views/widgets/user_image_widget.dart';
 import 'package:flutter/material.dart';
