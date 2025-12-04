@@ -59,8 +59,7 @@ class _MyAppState extends ConsumerState<MyApp> {
     return MaterialApp(
       navigatorKey: _navigatorKey,
       title: "Connect",
-      // initialRoute: widget.can_user_get_to_home ? "/home" : "/login",
-      initialRoute: "/conversation",
+      initialRoute: widget.can_user_get_to_home ? "/home" : "/login",
       routes: {
         "/login": (context) => LoginScreen(),
         "/create_account": (context) => CreateAccountScreen(),
