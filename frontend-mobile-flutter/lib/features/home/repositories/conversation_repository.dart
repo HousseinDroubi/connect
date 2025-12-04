@@ -1,4 +1,3 @@
-import 'package:connect/core/classes/person.dart';
 import 'package:connect/core/constants/server_urls.dart';
 import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/features/home/models/conversation_model.dart';

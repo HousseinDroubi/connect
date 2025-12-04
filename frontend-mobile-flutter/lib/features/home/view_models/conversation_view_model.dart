@@ -1,4 +1,3 @@
-import 'package:connect/core/providers/current_user_notifier.dart';
 import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/features/auth/repositories/auth_local_repository.dart';
 import 'package:connect/features/home/models/conversation_model.dart';
