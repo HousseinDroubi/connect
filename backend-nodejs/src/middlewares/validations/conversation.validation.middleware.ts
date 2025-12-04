@@ -19,7 +19,7 @@ const getConversationMessagesValidationMiddleware = (
   if (pin !== "broadcast") {
     if (body.user!.pin == Number(pin))
       return response.status(400).json({
-        result: "same user",
+        result: "same_user",
       });
 
     if (error) {
