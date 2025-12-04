@@ -41,10 +41,10 @@ class Person {
 
   factory Person.fromMap(Map<String, dynamic> map) {
     return Person(
-      id: map['_id'] as String,
-      username: map['username'] as String,
-      pin: map['pin'] as int,
-      profile_url: map['profile_url'] as String,
+      id: map['_id'] ?? "",
+      username: map['username'] ?? "",
+      pin: map['pin'] ?? 0,
+      profile_url: map['profile_url'] ?? "",
     );
   }
 
