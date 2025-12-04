@@ -2,27 +2,27 @@
 import 'dart:convert';
 
 import 'package:connect/core/classes/person.dart';
-import 'package:connect/features/home/models/conversation_message_model.dart';
+import 'package:connect/features/home/models/chat_message_model.dart';
 
-class ConversationModel {
+class ChatModel {
   final String id;
-  final ConversationMessageModel? last_message;
+  final ChatMessageModel? last_message;
   final DateTime created_at;
   final Person? recipient;
-  ConversationModel({
+  ChatModel({
     required this.id,
     required this.last_message,
     required this.created_at,
     required this.recipient,
   });
 
-  ConversationModel copyWith({
+  ChatModel copyWith({
     String? id,
-    ConversationMessageModel? last_message,
+    ChatMessageModel? last_message,
     DateTime? created_at,
     Person? recipient,
   }) {
-    return ConversationModel(
+    return ChatModel(
       id: id ?? this.id,
       last_message: last_message ?? this.last_message,
       created_at: created_at ?? this.created_at,
@@ -39,12 +39,12 @@ class ConversationModel {
     };
   }
 
-  factory ConversationModel.fromMap(Map<String, dynamic> map) {
-    return ConversationModel(
+  factory ChatModel.fromMap(Map<String, dynamic> map) {
+    return ChatModel(
       id: map['_id'] ?? "",
       last_message: map["last_message"] == null
           ? null
-          : ConversationMessageModel.fromMap(
+          : ChatMessageModel.fromMap(
               map['last_message'] as Map<String, dynamic>,
             ),
       created_at: DateTime.parse(map['created_at']),
@@ -56,16 +56,16 @@ class ConversationModel {
 
   String toJson() => json.encode(toMap());
 
-  factory ConversationModel.fromJson(String source) =>
-      ConversationModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ChatModel.fromJson(String source) =>
+      ChatModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'ConversationModel(id: $id, last_message: $last_message, created_at: $created_at, recipient: $recipient)';
+    return 'ChatModel(id: $id, last_message: $last_message, created_at: $created_at, recipient: $recipient)';
   }
 
   @override
-  bool operator ==(covariant ConversationModel other) {
+  bool operator ==(covariant ChatModel other) {
     if (identical(this, other)) return true;
 
     return other.id == id &&

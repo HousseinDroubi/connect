@@ -37,11 +37,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         },
         items: [
           BottomNavigationBarItem(
-            icon: Image.asset(
-              AppIcons.conversationsIconPath,
-              width: 25,
-              height: 25,
-            ),
+            icon: Image.asset(AppIcons.chatsIconPath, width: 25, height: 25),
             label: "Chats",
           ),
           BottomNavigationBarItem(

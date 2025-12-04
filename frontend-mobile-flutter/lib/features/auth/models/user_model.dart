@@ -4,13 +4,13 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 import 'package:connect/core/classes/person.dart';
-import 'package:connect/features/home/models/conversation_model.dart';
+import 'package:connect/features/home/models/chat_model.dart';
 
 class UserModel extends Person {
   final String email;
   final String token;
   final bool is_online;
-  final List<ConversationModel> conversations;
+  final List<ChatModel> chats;
 
   UserModel({
     required super.id,
@@ -20,7 +20,7 @@ class UserModel extends Person {
     required this.email,
     required this.token,
     required this.is_online,
-    required this.conversations,
+    required this.chats,
   });
 
   @override
@@ -32,7 +32,7 @@ class UserModel extends Person {
     String? email,
     String? token,
     bool? is_online,
-    List<ConversationModel>? conversations,
+    List<ChatModel>? chats,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -42,7 +42,7 @@ class UserModel extends Person {
       email: email ?? this.email,
       token: token ?? this.token,
       is_online: is_online ?? this.is_online,
-      conversations: conversations ?? this.conversations,
+      chats: chats ?? this.chats,
     );
   }
 
@@ -56,7 +56,7 @@ class UserModel extends Person {
       'email': email,
       'token': token,
       'is_online': is_online,
-      'conversations': conversations.map((x) => x.toMap()).toList(),
+      'chats': chats.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -69,9 +69,9 @@ class UserModel extends Person {
       email: map['email'] ?? "",
       token: map['token'] ?? "",
       is_online: map['is_online'] ?? false,
-      conversations: List<ConversationModel>.from(
-        (map['conversations'] as List<dynamic>).map<ConversationModel>(
-          (x) => ConversationModel.fromMap(x as Map<String, dynamic>),
+      chats: List<ChatModel>.from(
+        (map['chats'] as List<dynamic>).map<ChatModel>(
+          (x) => ChatModel.fromMap(x as Map<String, dynamic>),
         ),
       ),
     );
@@ -85,7 +85,7 @@ class UserModel extends Person {
 
   @override
   String toString() {
-    return 'UserModel(email: $email, token: $token, is_online: $is_online, conversations: $conversations)';
+    return 'UserModel(email: $email, token: $token, is_online: $is_online, chats: $chats)';
   }
 
   @override
@@ -95,7 +95,7 @@ class UserModel extends Person {
     return other.email == email &&
         other.token == token &&
         other.is_online == is_online &&
-        listEquals(other.conversations, conversations);
+        listEquals(other.chats, chats);
   }
 
   @override
@@ -103,6 +103,6 @@ class UserModel extends Person {
     return email.hashCode ^
         token.hashCode ^
         is_online.hashCode ^
-        conversations.hashCode;
+        chats.hashCode;
   }
 }

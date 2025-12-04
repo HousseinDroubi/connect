@@ -1,6 +1,6 @@
 import 'package:connect/core/providers/current_user_notifier.dart';
 import 'package:connect/core/widgets/title_widget.dart';
-import 'package:connect/features/home/models/conversation_model.dart';
+import 'package:connect/features/home/models/chat_model.dart';
 import 'package:connect/features/home/views/widgets/user_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,8 +10,8 @@ class ChatsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<ConversationModel> conversations = ref.watch(
-      currentUserNotifierProvider.select((user) => user?.conversations ?? []),
+    final List<ChatModel> chats = ref.watch(
+      currentUserNotifierProvider.select((user) => user?.chats ?? []),
     );
     return SafeArea(
       child: Padding(
@@ -23,17 +23,17 @@ class ChatsScreen extends ConsumerWidget {
               child: TitleWidget(title: "All messages"),
             ),
             SizedBox(height: 20),
-            ...conversations.map(
-              (ConversationModel conversation) => Container(
+            ...chats.map(
+              (ChatModel chat) => Container(
                 margin: EdgeInsets.only(bottom: 15),
                 child: UserWidget(
-                  is_deleted: conversation.last_message?.deleted ?? false,
-                  image_source: conversation.recipient?.profile_url,
+                  is_deleted: chat.last_message?.deleted ?? false,
+                  image_source: chat.recipient?.profile_url,
                   is_for_chats: true,
-                  username: conversation.recipient?.username,
-                  chats_last_mesasage: conversation.last_message != null
-                      ? (conversation.last_message!.is_text
-                            ? conversation.last_message!.content
+                  username: chat.recipient?.username,
+                  chats_last_mesasage: chat.last_message != null
+                      ? (chat.last_message!.is_text
+                            ? chat.last_message!.content
                             : "Photo")
                       : null,
                 ),
