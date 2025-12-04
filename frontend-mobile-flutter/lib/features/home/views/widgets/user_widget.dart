@@ -2,6 +2,7 @@
 
 import 'package:connect/core/constants/app_colors.dart';
 import 'package:connect/core/utils/app_nav.dart';
+import 'package:connect/core/utils/dialog.dart';
 import 'package:connect/features/home/view_models/conversation_view_model.dart';
 import 'package:connect/features/home/views/widgets/user_image_widget.dart';
 import 'package:flutter/material.dart';
@@ -34,12 +35,14 @@ class UserWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return GestureDetector(
+    return InkWell(
       onTap: pin != null
           ? () async {
+              showPopup(popupCase: PopupLoading(context: context));
               await ref
                   .read(conversationViewModelProvider.notifier)
                   .getConversationMessages(pin!);
+              hidePopup(context);
               AppNav.push(context, "conversation");
             }
           : null,
