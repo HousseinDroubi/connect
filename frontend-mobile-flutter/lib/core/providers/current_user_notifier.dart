@@ -2,6 +2,7 @@
 
 import 'package:connect/features/auth/models/user_model.dart';
 import 'package:connect/features/home/models/chat_model.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'current_user_notifier.g.dart';
@@ -35,5 +36,13 @@ class CurrentUserNotifier extends _$CurrentUserNotifier {
 
   void clearUserData() {
     state = null;
+  }
+
+  void deleteChat(String chat_id) {
+    state = state!.copyWith(
+      chats: state!.chats
+          .filter((ChatModel chat) => chat.id != chat_id)
+          .toList(),
+    );
   }
 }
