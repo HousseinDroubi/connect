@@ -52,4 +52,13 @@ class ConversationViewModel extends _$ConversationViewModel {
       message_id: message_id,
     );
   }
+
+  Future<Either<AppFailure, String>> deleteChat(String pin) async {
+    final result = await _conversationRepository.deleteConversation(
+      token: _authLocalRepository.getToken()!,
+      pin: pin,
+    );
+
+    return result;
+  }
 }
