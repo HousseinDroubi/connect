@@ -18,6 +18,8 @@ class MessageWidget extends ConsumerStatefulWidget {
   final bool is_deleted;
   final DateTime created_at;
   final String? profile_url;
+  final Function onDeleteMessage;
+  final VoidCallback onEditMessage;
 
   const MessageWidget({
     super.key,
@@ -27,6 +29,8 @@ class MessageWidget extends ConsumerStatefulWidget {
     required this.is_text,
     required this.is_group,
     required this.created_at,
+    required this.onDeleteMessage,
+    required this.onEditMessage,
     this.profile_url,
     this.is_deleted = false,
   });
@@ -116,9 +120,9 @@ class _MessageWidgetState extends ConsumerState<MessageWidget> {
           if (is_delete_icon_visible)
             GestureDetector(
               onTap: () {
+                widget.onDeleteMessage();
                 is_delete_icon_visible = false;
                 setState(() {});
-                // TODO
               },
               child: Container(
                 margin: EdgeInsets.only(
@@ -135,7 +139,7 @@ class _MessageWidgetState extends ConsumerState<MessageWidget> {
           if (is_edit_icon_visible)
             GestureDetector(
               onTap: () {
-                // TODO
+                widget.onEditMessage();
                 is_edit_icon_visible = false;
                 setState(() {});
               },
