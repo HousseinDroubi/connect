@@ -70,4 +70,13 @@ class ConversationViewModel extends _$ConversationViewModel {
         return Right(AppSuccess());
     }
   }
+
+  Future<Either<AppFailure, AppSuccess>> deleteMessage(
+    String message_id,
+  ) async {
+    return await _messagesRepository.deleteMessageForSender(
+      token: _authLocalRepository.getToken()!,
+      message_id: message_id,
+    );
+  }
 }
