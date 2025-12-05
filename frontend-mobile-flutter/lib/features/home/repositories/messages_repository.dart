@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:connect/core/constants/server_urls.dart';
@@ -90,6 +91,46 @@ class MessagesRepository {
         case "message_deleted":
           message = "Already deleted";
           break;
+      }
+
+      return Left(AppFailure(message: message));
+    }
+  }
+
+  Future<Either<AppFailure, String>> uploadImage({
+    required String token,
+    required File imageFile,
+  }) async {
+    try {
+      final String url = "$_baseUrl/create_new_account";
+      final formData = FormData.fromMap({
+        'image': await MultipartFile.fromFile(
+          imageFile.path,
+          filename: imageFile.path.split('/').last,
+        ),
+      });
+
+      final result = await _dio.post(
+        url,
+        data: formData,
+        options: Options(headers: {'Content-Type': 'multipart/form-data'}),
+      );
+
+      if (result.statusCode != 200) {
+        return Left(AppFailure());
+      }
+
+      return result.data["file_name"];
+    } on DioException catch (e) {
+      final String result = e.response?.data["result"] ?? "failed";
+      final String error = e.response?.data["error"] ?? e.message;
+
+      String message = "Something went wrong";
+
+      if (result == "validation_error" && error == "invalid_email") {
+        message = "Invalid email";
+      } else if (result == "email_or_pin_taken") {
+        message = "Email or pin is taken";
       }
 
       return Left(AppFailure(message: message));
