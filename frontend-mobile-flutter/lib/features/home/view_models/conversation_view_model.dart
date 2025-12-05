@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names
 
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:connect/core/classes/message.dart';
@@ -89,6 +90,22 @@ class ConversationViewModel extends _$ConversationViewModel {
           message_id,
         );
         _currentUserNotifier.updateLastMessageForChat(message, chat_id);
+        return Right(AppSuccess());
+    }
+  }
+
+  Future<Either<AppFailure, AppSuccess>> uploadImage(File imageFile) async {
+    final Either<AppFailure, String> result = await _messagesRepository
+        .uploadImage(
+          token: _authLocalRepository.getToken()!,
+          imageFile: imageFile,
+        );
+
+    switch (result) {
+      case Left(value: AppFailure(message: final message)):
+        return Left(AppFailure(message: message));
+      case Right(value: final file_name):
+        // TODO: send message
         return Right(AppSuccess());
     }
   }
