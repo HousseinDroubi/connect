@@ -1,7 +1,10 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:io';
+
 import 'package:connect/core/constants/app_colors.dart';
 import 'package:connect/core/providers/current_conversation.dart';
+import 'package:connect/core/utils/app_files.dart';
 import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/core/utils/dialog.dart';
 import 'package:connect/core/widgets/text_field_widget.dart';
@@ -39,6 +42,20 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
       default:
         break;
     }
+  }
+
+  Future<void> uploadImage() async {
+    File? imageFile = await AppFiles.pickUpImageFromGallery();
+    if (imageFile != null) {
+      showPopup(popupCase: PopupLoading(context: context));
+      final notifier = ref.read(conversationViewModelProvider.notifier);
+      notifier.uploadImage(imageFile);
+      hidePopup(context);
+    }
+  }
+
+  Future<void> sendMessage() async {
+    // TODO
   }
 
   @override
@@ -99,6 +116,8 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
                 isForMessages: true,
                 isFull: true,
                 nextFunction: () {},
+                onImagePickedUp: uploadImage,
+                onMessageSent: sendMessage,
                 textEditingController: messageController,
               ),
             ],
