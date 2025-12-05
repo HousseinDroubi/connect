@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:connect/core/constants/server_urls.dart';
 import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/features/home/models/conversation_model.dart';
@@ -70,6 +72,64 @@ class ConversationRepository {
           break;
         case "user_not_in_conversation":
           message = "User not in conversation";
+          break;
+      }
+      return Left(AppFailure(message: message));
+    }
+  }
+
+  Future<Either<AppFailure, String>> deleteConversation({
+    required String token,
+    required String pin,
+  }) async {
+    try {
+      final String url = "$_baseUrl/delete/$pin";
+      final response = await _dio.delete(
+        url,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer $token",
+          },
+        ),
+      );
+
+      if (response.statusCode != 200) {
+        return Left(AppFailure());
+      }
+
+      String chat_id = response.data["conversation_id"];
+
+      return Right(chat_id);
+    } on DioException catch (e) {
+      final String result = e.response?.data["result"] ?? "failed";
+
+      String message = "Something went wrong";
+
+      switch (result) {
+        case "invalid_id":
+          message = "Token expired, please login again!";
+          break;
+        case "user_account_deleted":
+          message = "Account already deleted.";
+          break;
+        case "same_user":
+          message = "Same user";
+          break;
+        case "other_user_not_found":
+          message = "Other user not found";
+          break;
+        case "other_user_not_verified":
+          message = "Other user not verified";
+          break;
+        case "other_user_account_deleted":
+          message = "Other user account deleted";
+          break;
+        case "conversation_not_found":
+          message = "Conversation not found";
+          break;
+        case "already_deleted":
+          message = "Already deleted";
           break;
       }
       return Left(AppFailure(message: message));
