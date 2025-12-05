@@ -173,7 +173,7 @@ class _UserWidgetState extends ConsumerState<UserWidget> {
                     );
                   },
                   icon: Image.asset(
-                    AppIcons.deleteChatIconPath,
+                    AppIcons.deleteIconPath,
                     width: 27,
                     height: 27,
                   ),
