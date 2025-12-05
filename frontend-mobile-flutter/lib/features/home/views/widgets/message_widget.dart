@@ -122,6 +122,7 @@ class _MessageWidgetState extends ConsumerState<MessageWidget> {
               onTap: () {
                 widget.onDeleteMessage();
                 is_delete_icon_visible = false;
+                is_edit_icon_visible = false;
                 setState(() {});
               },
               child: Container(
@@ -140,6 +141,7 @@ class _MessageWidgetState extends ConsumerState<MessageWidget> {
             GestureDetector(
               onTap: () {
                 widget.onEditMessage();
+                is_delete_icon_visible = false;
                 is_edit_icon_visible = false;
                 setState(() {});
               },
