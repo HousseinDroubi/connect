@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
-
+import 'package:connect/core/classes/chat_message.dart';
+import 'package:connect/core/classes/message.dart';
 import 'package:connect/features/auth/models/user_model.dart';
 import 'package:connect/features/home/models/chat_model.dart';
 import 'package:fpdart/fpdart.dart';
@@ -44,5 +45,35 @@ class CurrentUserNotifier extends _$CurrentUserNotifier {
           .filter((ChatModel chat) => chat.id != chat_id)
           .toList(),
     );
+  }
+
+  void updateLastMessageForChat(Message? message, String chat_id) {
+    final updatedChats = state!.chats.map((chat) {
+      print(chat.id);
+      print(chat_id);
+      if (chat.id == chat_id) {
+        if (message == null) {
+          return chat.copyWith(last_message: null);
+        } else if (message.id != chat.last_message?.id) {
+          return chat.copyWith(
+            last_message: ChatMessage(
+              id: message.id,
+              sender: message.sender.id,
+              receiver: message.receiver?.id,
+              is_text: message.is_text,
+              content: message.content,
+              chat_id: message.conversation_id,
+              deleted: message.deleted_for_others_at != null,
+              created_at: message.created_at,
+            ),
+          );
+        }
+      }
+      return chat;
+    }).toList();
+    state = state!.copyWith(chats: updatedChats);
+    state!.chats.toList().forEach((e) {
+      print(e.toString());
+    });
   }
 }
