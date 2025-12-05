@@ -9,7 +9,6 @@ import 'package:connect/features/home/models/chat_model.dart';
 class UserModel extends Person {
   final String email;
   final String token;
-  final bool is_online;
   final List<ChatModel> chats;
 
   UserModel({
@@ -17,9 +16,9 @@ class UserModel extends Person {
     required super.username,
     required super.profile_url,
     required super.pin,
+    required super.is_online,
     required this.email,
     required this.token,
-    required this.is_online,
     required this.chats,
   });
 
