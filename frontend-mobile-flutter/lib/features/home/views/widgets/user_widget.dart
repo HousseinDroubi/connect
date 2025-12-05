@@ -8,6 +8,7 @@ import 'package:connect/features/home/view_models/conversation_view_model.dart';
 import 'package:connect/features/home/views/widgets/user_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:connect/core/utils/dialog.dart';
 
 class UserWidget extends ConsumerStatefulWidget {
   final String? username;
@@ -158,10 +159,19 @@ class _UserWidgetState extends ConsumerState<UserWidget> {
                 opacity: is_delete_icon_visible ? 1 : 0,
                 child: IconButton(
                   onPressed: () {
-                    widget.onDeleteIconPressed!();
-                    setState(() {
-                      is_delete_icon_visible = false;
-                    });
+                    showPopup(
+                      popupCase: PopupConfirmation(
+                        context: context,
+                        popupContent:
+                            "Are you sure you want to delete conversation?",
+                        confirmationFunction: () {
+                          widget.onDeleteIconPressed!();
+                          setState(() {
+                            is_delete_icon_visible = false;
+                          });
+                        },
+                      ),
+                    );
                   },
                   icon: Image.asset(
                     AppIcons.deleteChatIconPath,
