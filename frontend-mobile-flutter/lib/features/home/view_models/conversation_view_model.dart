@@ -74,9 +74,17 @@ class ConversationViewModel extends _$ConversationViewModel {
   Future<Either<AppFailure, AppSuccess>> deleteMessage(
     String message_id,
   ) async {
-    return await _messagesRepository.deleteMessageForSender(
-      token: _authLocalRepository.getToken()!,
-      message_id: message_id,
-    );
+    final Either<AppFailure, AppSuccess> result = await _messagesRepository
+        .deleteMessageForSender(
+          token: _authLocalRepository.getToken()!,
+          message_id: message_id,
+        );
+    switch (result) {
+      case Left(value: AppFailure(message: final message)):
+        return Left(AppFailure(message: message));
+      case Right(value: AppSuccess()):
+        _currentConversationNotifier.deleteMessage(message_id);
+        return Right(AppSuccess());
+    }
   }
 }
