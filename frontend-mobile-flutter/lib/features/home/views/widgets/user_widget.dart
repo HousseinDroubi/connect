@@ -99,7 +99,7 @@ class _UserWidgetState extends ConsumerState<UserWidget> {
                     ),
                     if (widget.is_for_search && widget.pin != null)
                       Text(
-                        "pin: #$widget.pin",
+                        "pin: #${widget.pin}",
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
