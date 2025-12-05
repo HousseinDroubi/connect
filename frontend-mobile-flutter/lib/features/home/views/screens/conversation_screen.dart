@@ -22,11 +22,11 @@ class ConversationScreen extends ConsumerStatefulWidget {
 class _ConversationScreenState extends ConsumerState<ConversationScreen> {
   TextEditingController messageController = TextEditingController();
 
-  Future<void> deleteMessage(String message_id) async {
+  Future<void> deleteMessage(String message_id, String chat_id) async {
     showPopup(popupCase: PopupLoading(context: context));
     final notifier = ref.read(conversationViewModelProvider.notifier);
     final fpdart.Either<AppFailure, AppSuccess> result = await notifier
-        .deleteMessage(message_id);
+        .deleteMessage(message_id, chat_id);
 
     hidePopup(context);
 
@@ -83,7 +83,10 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
                         created_at: message.created_at,
                         sender_id: message.sender.id,
                         onDeleteMessage: () async {
-                          await deleteMessage(message.id);
+                          await deleteMessage(
+                            message.id,
+                            message.conversation_id,
+                          );
                         },
                         onEditMessage: () {},
                       ),

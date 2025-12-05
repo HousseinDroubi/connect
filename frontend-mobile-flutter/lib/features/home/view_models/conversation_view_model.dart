@@ -2,6 +2,7 @@
 
 import 'dart:typed_data';
 
+import 'package:connect/core/classes/message.dart';
 import 'package:connect/core/providers/current_conversation.dart';
 import 'package:connect/core/providers/current_user_notifier.dart';
 import 'package:connect/core/utils/app_responses.dart';
@@ -73,6 +74,7 @@ class ConversationViewModel extends _$ConversationViewModel {
 
   Future<Either<AppFailure, AppSuccess>> deleteMessage(
     String message_id,
+    String chat_id,
   ) async {
     final Either<AppFailure, AppSuccess> result = await _messagesRepository
         .deleteMessageForSender(
@@ -83,7 +85,10 @@ class ConversationViewModel extends _$ConversationViewModel {
       case Left(value: AppFailure(message: final message)):
         return Left(AppFailure(message: message));
       case Right(value: AppSuccess()):
-        _currentConversationNotifier.deleteMessage(message_id);
+        Message? message = _currentConversationNotifier.deleteMessage(
+          message_id,
+        );
+        _currentUserNotifier.updateLastMessageForChat(message, chat_id);
         return Right(AppSuccess());
     }
   }
