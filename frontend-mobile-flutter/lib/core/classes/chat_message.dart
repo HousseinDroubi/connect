@@ -4,7 +4,7 @@ import 'dart:convert';
 class ChatMessage {
   final String id;
   final String sender;
-  final String receiver;
+  final String? receiver;
   final bool is_text;
   final String content;
   final String chat_id;
@@ -14,12 +14,12 @@ class ChatMessage {
   ChatMessage({
     required this.id,
     required this.sender,
-    required this.receiver,
     required this.is_text,
     required this.content,
     required this.chat_id,
     required this.deleted,
     required this.created_at,
+    this.receiver,
   });
 
   ChatMessage copyWith({
