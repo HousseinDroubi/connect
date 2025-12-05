@@ -152,23 +152,24 @@ class _UserWidgetState extends ConsumerState<UserWidget> {
                 ),
               ],
             ),
-            AnimatedOpacity(
-              duration: Duration(milliseconds: 500),
-              opacity: is_delete_icon_visible ? 1 : 0,
-              child: IconButton(
-                onPressed: () {
-                  widget.onDeleteIconPressed!();
-                  setState(() {
-                    is_delete_icon_visible = false;
-                  });
-                },
-                icon: Image.asset(
-                  AppIcons.deleteChatIconPath,
-                  width: 27,
-                  height: 27,
+            if (is_delete_icon_visible)
+              AnimatedOpacity(
+                duration: Duration(milliseconds: 500),
+                opacity: is_delete_icon_visible ? 1 : 0,
+                child: IconButton(
+                  onPressed: () {
+                    widget.onDeleteIconPressed!();
+                    setState(() {
+                      is_delete_icon_visible = false;
+                    });
+                  },
+                  icon: Image.asset(
+                    AppIcons.deleteChatIconPath,
+                    width: 27,
+                    height: 27,
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ),
