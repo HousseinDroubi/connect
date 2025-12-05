@@ -123,16 +123,19 @@ class MessagesRepository {
       return result.data["file_name"];
     } on DioException catch (e) {
       final String result = e.response?.data["result"] ?? "failed";
-      final String error = e.response?.data["error"] ?? e.message;
 
       String message = "Something went wrong";
-
-      if (result == "validation_error" && error == "invalid_email") {
-        message = "Invalid email";
-      } else if (result == "email_or_pin_taken") {
-        message = "Email or pin is taken";
+      switch (result) {
+        case "invalid_id":
+          message = "Token expired, please login again!";
+          break;
+        case "user_account_deleted":
+          message = "Account already deleted.";
+          break;
+        case "missing_image":
+          message = "Missing image";
+          break;
       }
-
       return Left(AppFailure(message: message));
     }
   }
