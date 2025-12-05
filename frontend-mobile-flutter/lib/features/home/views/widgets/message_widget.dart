@@ -35,70 +35,121 @@ class MessageWidget extends ConsumerStatefulWidget {
 }
 
 class _MessageWidgetState extends ConsumerState<MessageWidget> {
+  bool is_edit_icon_visible = false;
+  bool is_delete_icon_visible = false;
+
   @override
   Widget build(BuildContext context) {
     final bool is_current_user =
         ref.read(currentUserNotifierProvider)!.id == widget.sender_id;
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      mainAxisAlignment: MainAxisAlignment.start,
-      textDirection: is_current_user ? TextDirection.rtl : TextDirection.ltr,
-      children: [
-        if (widget.is_group) UserImageWidget(image_source: widget.profile_url),
-        SizedBox(width: 10),
-        IntrinsicWidth(
-          child: IntrinsicHeight(
-            child: Container(
-              alignment: Alignment.centerLeft,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: is_current_user ? AppColors.blue : AppColors.iceBlue,
-              ),
-              constraints: BoxConstraints(
-                minHeight: 38,
-                maxHeight: 200,
-                minWidth: 70,
-                maxWidth: 200,
-              ),
-              padding: EdgeInsets.symmetric(
-                horizontal: widget.is_text ? 10 : 6,
-                vertical: 6,
-              ),
-              child: widget.is_text
-                  ? Text(
-                      widget.content,
-                      style: TextStyle(
-                        color: is_current_user
-                            ? AppColors.white
-                            : AppColors.black,
-                        fontSize: 16,
-                        fontWeight: widget.is_deleted
-                            ? FontWeight.w400
-                            : FontWeight.w500,
-                        fontStyle: widget.is_deleted ? FontStyle.italic : null,
+    return InkWell(
+      onLongPress: () {
+        setState(() {
+          if (is_current_user) {
+            is_edit_icon_visible = !is_edit_icon_visible;
+          }
+          is_delete_icon_visible = !is_delete_icon_visible;
+        });
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
+        textDirection: is_current_user ? TextDirection.rtl : TextDirection.ltr,
+        children: [
+          if (widget.is_group)
+            UserImageWidget(image_source: widget.profile_url),
+          SizedBox(width: 10),
+          IntrinsicWidth(
+            child: IntrinsicHeight(
+              child: Container(
+                alignment: Alignment.centerLeft,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: is_current_user ? AppColors.blue : AppColors.iceBlue,
+                ),
+                constraints: BoxConstraints(
+                  minHeight: 38,
+                  maxHeight: 200,
+                  minWidth: 70,
+                  maxWidth: 200,
+                ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: widget.is_text ? 10 : 6,
+                  vertical: 6,
+                ),
+                child: widget.is_text
+                    ? Text(
+                        widget.content,
+                        style: TextStyle(
+                          color: is_current_user
+                              ? AppColors.white
+                              : AppColors.black,
+                          fontSize: 16,
+                          fontWeight: widget.is_deleted
+                              ? FontWeight.w400
+                              : FontWeight.w500,
+                          fontStyle: widget.is_deleted
+                              ? FontStyle.italic
+                              : null,
+                        ),
+                      )
+                    : FutureBuilder(
+                        future: ref
+                            .read(conversationViewModelProvider.notifier)
+                            .viewImage(widget.id),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Image.memory(
+                              fit: BoxFit.cover,
+                              snapshot.data!,
+                            );
+                          }
+                          if (snapshot.hasError) {
+                            return Image.asset(AppIcons.groupIconPath);
+                          }
+                          return LoaderWidget();
+                        },
                       ),
-                    )
-                  : FutureBuilder(
-                      future: ref
-                          .read(conversationViewModelProvider.notifier)
-                          .viewImage(widget.id),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return Image.memory(
-                            fit: BoxFit.cover,
-                            snapshot.data!,
-                          );
-                        }
-                        if (snapshot.hasError) {
-                          return Image.asset(AppIcons.groupIconPath);
-                        }
-                        return LoaderWidget();
-                      },
-                    ),
+              ),
             ),
           ),
-        ),
-      ],
+          if (is_delete_icon_visible)
+            GestureDetector(
+              onTap: () {
+                is_delete_icon_visible = false;
+                setState(() {});
+                // TODO
+              },
+              child: Container(
+                margin: EdgeInsets.only(
+                  left: is_current_user ? 0 : 7,
+                  right: is_current_user ? 7 : 0,
+                ),
+                child: Image.asset(
+                  AppIcons.deleteIconPath,
+                  width: 25,
+                  height: 25,
+                ),
+              ),
+            ),
+          if (is_edit_icon_visible)
+            GestureDetector(
+              onTap: () {
+                // TODO
+                is_edit_icon_visible = false;
+                setState(() {});
+              },
+              child: Container(
+                margin: EdgeInsets.only(right: 7),
+                child: Image.asset(
+                  AppIcons.editIconPath,
+                  width: 25,
+                  height: 25,
+                ),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }
