@@ -156,7 +156,12 @@ class _UserWidgetState extends ConsumerState<UserWidget> {
               duration: Duration(milliseconds: 500),
               opacity: is_delete_icon_visible ? 1 : 0,
               child: IconButton(
-                onPressed: widget.onDeleteIconPressed,
+                onPressed: () {
+                  widget.onDeleteIconPressed!();
+                  setState(() {
+                    is_delete_icon_visible = false;
+                  });
+                },
                 icon: Image.asset(
                   AppIcons.deleteChatIconPath,
                   width: 27,
