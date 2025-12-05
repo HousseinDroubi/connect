@@ -17,6 +17,7 @@ class UserWidget extends ConsumerStatefulWidget {
   final bool is_online;
   final bool is_group;
   final bool is_deleted;
+  final VoidCallback? onDeleteIconPressed;
   final String? image_source;
   final String? chats_last_mesasage;
   final String? pin;
@@ -33,6 +34,7 @@ class UserWidget extends ConsumerStatefulWidget {
     this.is_online = false,
     this.is_group = false,
     this.is_deleted = false,
+    this.onDeleteIconPressed,
   });
 
   @override
@@ -154,7 +156,7 @@ class _UserWidgetState extends ConsumerState<UserWidget> {
               duration: Duration(milliseconds: 500),
               opacity: is_delete_icon_visible ? 1 : 0,
               child: IconButton(
-                onPressed: () {},
+                onPressed: widget.onDeleteIconPressed,
                 icon: Image.asset(
                   AppIcons.deleteChatIconPath,
                   width: 27,

@@ -1,6 +1,8 @@
 import 'package:connect/core/providers/current_user_notifier.dart';
+import 'package:connect/core/utils/dialog.dart';
 import 'package:connect/core/widgets/title_widget.dart';
 import 'package:connect/features/home/models/chat_model.dart';
+import 'package:connect/features/home/view_models/conversation_view_model.dart';
 import 'package:connect/features/home/views/widgets/user_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,6 +15,14 @@ class ChatsScreen extends ConsumerWidget {
     final List<ChatModel> chats = ref.watch(
       currentUserNotifierProvider.select((user) => user?.chats ?? []),
     );
+
+    Future<void> deleteChat(String pin) async {
+      showPopup(popupCase: PopupLoading(context: context));
+      final notifier = ref.read(conversationViewModelProvider.notifier);
+      await notifier.deleteChat(pin);
+      hidePopup(context);
+    }
+
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.all(18),
@@ -27,6 +37,9 @@ class ChatsScreen extends ConsumerWidget {
               (ChatModel chat) => Container(
                 margin: EdgeInsets.only(bottom: 15),
                 child: UserWidget(
+                  onDeleteIconPressed: () async {
+                    await deleteChat(chat.recipient!.pin.toString());
+                  },
                   pin: chat.recipient?.pin.toString() ?? "broadcast",
                   is_deleted: chat.last_message?.deleted ?? false,
                   image_source: chat.recipient?.profile_url,
