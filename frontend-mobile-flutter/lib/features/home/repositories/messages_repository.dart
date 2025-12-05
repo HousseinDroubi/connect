@@ -102,7 +102,7 @@ class MessagesRepository {
     required File imageFile,
   }) async {
     try {
-      final String url = "$_baseUrl/create_new_account";
+      final String url = "$_baseUrl/upload_image";
       final formData = FormData.fromMap({
         'image': await MultipartFile.fromFile(
           imageFile.path,
@@ -113,14 +113,19 @@ class MessagesRepository {
       final result = await _dio.post(
         url,
         data: formData,
-        options: Options(headers: {'Content-Type': 'multipart/form-data'}),
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer $token",
+          },
+        ),
       );
 
       if (result.statusCode != 200) {
         return Left(AppFailure());
       }
 
-      return result.data["file_name"];
+      return Right(result.data["file_name"]);
     } on DioException catch (e) {
       final String result = e.response?.data["result"] ?? "failed";
 
