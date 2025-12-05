@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:connect/core/classes/message.dart';
 import 'package:connect/features/home/models/conversation_model.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -17,7 +18,7 @@ class CurrentConversation extends _$CurrentConversation {
     state = AsyncData(conversation);
   }
 
-  void deleteMessage(String message_id) {
+  Message deleteMessage(String message_id) {
     final ConversationModel old_state = state.value!;
     state = AsyncData(
       old_state.copyWith(
@@ -26,5 +27,6 @@ class CurrentConversation extends _$CurrentConversation {
             .toList(),
       ),
     );
+    return state.value!.messages.last;
   }
 }
