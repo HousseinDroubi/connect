@@ -9,7 +9,7 @@ import 'package:connect/features/home/views/widgets/user_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MessageWidget extends ConsumerWidget {
+class MessageWidget extends ConsumerStatefulWidget {
   final String id;
   final String content;
   final String sender_id;
@@ -30,18 +30,21 @@ class MessageWidget extends ConsumerWidget {
     this.profile_url,
     this.is_deleted = false,
   });
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final bool is_current_user =
-        ref.read(currentUserNotifierProvider)!.id == sender_id;
+  ConsumerState<MessageWidget> createState() => _MessageWidgetState();
+}
 
+class _MessageWidgetState extends ConsumerState<MessageWidget> {
+  @override
+  Widget build(BuildContext context) {
+    final bool is_current_user =
+        ref.read(currentUserNotifierProvider)!.id == widget.sender_id;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.start,
       textDirection: is_current_user ? TextDirection.rtl : TextDirection.ltr,
       children: [
-        if (is_group) UserImageWidget(image_source: profile_url),
+        if (widget.is_group) UserImageWidget(image_source: widget.profile_url),
         SizedBox(width: 10),
         IntrinsicWidth(
           child: IntrinsicHeight(
@@ -58,27 +61,27 @@ class MessageWidget extends ConsumerWidget {
                 maxWidth: 200,
               ),
               padding: EdgeInsets.symmetric(
-                horizontal: is_text ? 10 : 6,
+                horizontal: widget.is_text ? 10 : 6,
                 vertical: 6,
               ),
-              child: is_text
+              child: widget.is_text
                   ? Text(
-                      content,
+                      widget.content,
                       style: TextStyle(
                         color: is_current_user
                             ? AppColors.white
                             : AppColors.black,
                         fontSize: 16,
-                        fontWeight: is_deleted
+                        fontWeight: widget.is_deleted
                             ? FontWeight.w400
                             : FontWeight.w500,
-                        fontStyle: is_deleted ? FontStyle.italic : null,
+                        fontStyle: widget.is_deleted ? FontStyle.italic : null,
                       ),
                     )
                   : FutureBuilder(
                       future: ref
                           .read(conversationViewModelProvider.notifier)
-                          .viewImage(id),
+                          .viewImage(widget.id),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return Image.memory(
