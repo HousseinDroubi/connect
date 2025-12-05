@@ -1,10 +1,16 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:connect/core/constants/app_colors.dart';
 import 'package:connect/core/providers/current_conversation.dart';
+import 'package:connect/core/utils/app_responses.dart';
+import 'package:connect/core/utils/dialog.dart';
 import 'package:connect/core/widgets/text_field_widget.dart';
+import 'package:connect/features/home/view_models/conversation_view_model.dart';
 import 'package:connect/features/home/views/widgets/message_widget.dart';
 import 'package:connect/features/home/views/widgets/user_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fpdart/fpdart.dart' as fpdart;
 
 class ConversationScreen extends ConsumerStatefulWidget {
   const ConversationScreen({super.key});
@@ -15,6 +21,26 @@ class ConversationScreen extends ConsumerStatefulWidget {
 
 class _ConversationScreenState extends ConsumerState<ConversationScreen> {
   TextEditingController messageController = TextEditingController();
+
+  Future<void> deleteMessage(String message_id) async {
+    showPopup(popupCase: PopupLoading(context: context));
+    final notifier = ref.read(conversationViewModelProvider.notifier);
+    final fpdart.Either<AppFailure, AppSuccess> result = await notifier
+        .deleteMessage(message_id);
+
+    hidePopup(context);
+
+    switch (result) {
+      case fpdart.Left(value: AppFailure(message: final message)):
+        showPopup(
+          popupCase: PopupAlert(context: context, popupContent: message),
+        );
+        break;
+      default:
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final conversation = ref.watch(currentConversationProvider).value;
@@ -56,6 +82,10 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
                         is_group: message.receiver == null,
                         created_at: message.created_at,
                         sender_id: message.sender.id,
+                        onDeleteMessage: () async {
+                          await deleteMessage(message.id);
+                        },
+                        onEditMessage: () {},
                       ),
                     );
                   },
