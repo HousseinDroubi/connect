@@ -8,7 +8,6 @@ import 'package:connect/features/home/view_models/conversation_view_model.dart';
 import 'package:connect/features/home/views/widgets/user_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:connect/core/utils/dialog.dart';
 
 class UserWidget extends ConsumerStatefulWidget {
   final String? username;
