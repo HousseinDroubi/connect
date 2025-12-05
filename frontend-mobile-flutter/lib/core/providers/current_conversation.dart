@@ -18,7 +18,7 @@ class CurrentConversation extends _$CurrentConversation {
     state = AsyncData(conversation);
   }
 
-  Message deleteMessage(String message_id) {
+  Message? deleteMessage(String message_id) {
     final ConversationModel old_state = state.value!;
     state = AsyncData(
       old_state.copyWith(
@@ -27,6 +27,6 @@ class CurrentConversation extends _$CurrentConversation {
             .toList(),
       ),
     );
-    return state.value!.messages.last;
+    return state.value!.messages.isNotEmpty ? state.value!.messages.last : null;
   }
 }
