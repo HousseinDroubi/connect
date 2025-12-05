@@ -24,7 +24,7 @@ class ChatModel {
   }) {
     return ChatModel(
       id: id ?? this.id,
-      last_message: last_message ?? this.last_message,
+      last_message: last_message,
       created_at: created_at ?? this.created_at,
       recipient: recipient ?? this.recipient,
     );
