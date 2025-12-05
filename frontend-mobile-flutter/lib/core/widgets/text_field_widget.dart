@@ -13,6 +13,8 @@ class TextFieldWidget extends StatefulWidget {
   final bool? isFull;
   final bool isForMessages;
   final FocusNode? focusNode;
+  final VoidCallback? onImagePickedUp;
+  final VoidCallback? onMessageSent;
   const TextFieldWidget({
     super.key,
     required this.hint,
@@ -23,6 +25,8 @@ class TextFieldWidget extends StatefulWidget {
     this.isFull = false,
     this.isForMessages = false,
     this.focusNode,
+    this.onImagePickedUp,
+    this.onMessageSent,
   });
 
   @override
@@ -106,7 +110,9 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                               ? AppIcons.galleryIconPath
                               : AppIcons.sendMessageIconPath,
                         ),
-                        onPressed: () {},
+                        onPressed: widget.textEditingController.text.isEmpty
+                            ? widget.onImagePickedUp
+                            : widget.onMessageSent,
                       )
                     : null,
               ),
