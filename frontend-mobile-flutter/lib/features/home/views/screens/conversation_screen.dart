@@ -45,7 +45,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
                   itemBuilder: (item, index) {
                     final message = conversation.messages[index];
                     return Container(
-                      margin: EdgeInsets.only(bottom: 12),
+                      margin: EdgeInsets.only(bottom: 8),
                       width: MediaQuery.sizeOf(context).width,
                       child: MessageWidget(
                         is_deleted: message.deleted_for_others_at != null,
