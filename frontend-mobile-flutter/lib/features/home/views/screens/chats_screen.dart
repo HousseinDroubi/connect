@@ -10,18 +10,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ChatsScreen extends ConsumerWidget {
   const ChatsScreen({super.key});
 
+  Future<void> deleteChat({
+    required String pin,
+    required BuildContext context,
+    required WidgetRef ref,
+  }) async {
+    showPopup(popupCase: PopupLoading(context: context));
+    final notifier = ref.read(conversationViewModelProvider.notifier);
+    await notifier.deleteChat(pin);
+    hidePopup(context);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final List<ChatModel> chats = ref.watch(
       currentUserNotifierProvider.select((user) => user?.chats ?? []),
     );
-
-    Future<void> deleteChat(String pin) async {
-      showPopup(popupCase: PopupLoading(context: context));
-      final notifier = ref.read(conversationViewModelProvider.notifier);
-      await notifier.deleteChat(pin);
-      hidePopup(context);
-    }
 
     return SafeArea(
       child: Padding(
@@ -38,7 +42,11 @@ class ChatsScreen extends ConsumerWidget {
                 margin: EdgeInsets.only(bottom: 15),
                 child: UserWidget(
                   onDeleteIconPressed: () async {
-                    await deleteChat(chat.recipient!.pin.toString());
+                    await deleteChat(
+                      pin: chat.recipient!.pin.toString(),
+                      context: context,
+                      ref: ref,
+                    );
                   },
                   pin: chat.recipient?.pin.toString() ?? "broadcast",
                   is_deleted: chat.last_message?.deleted ?? false,
