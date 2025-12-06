@@ -21,13 +21,8 @@ class WsRepository {
         Uri.parse("${ServerUrls.wsBaseUrl}?token=$token"),
       );
       is_connected = true;
-      wsListenToNewMessages();
     }
   }
 
-  void wsListenToNewMessages() {
-    _channel.stream.listen((dynamic data) {
-      print(data);
-    });
-  }
+  Stream<dynamic> get stream => _channel.stream;
 }

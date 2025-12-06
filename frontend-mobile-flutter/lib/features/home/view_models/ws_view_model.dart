@@ -15,5 +15,12 @@ class WsViewModel extends _$WsViewModel {
     _wsRepository = ref.read(wsRepositoryProvider);
     _currentUserNotifier = ref.read(currentUserNotifierProvider);
     _wsRepository.wsConnect(token: _currentUserNotifier!.token);
+    wsListenToMessages();
+  }
+
+  void wsListenToMessages() {
+    _wsRepository.stream.listen((data) {
+      print(data);
+    });
   }
 }
