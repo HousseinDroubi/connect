@@ -12,8 +12,16 @@ class WebsocketRepository extends _$WebsocketRepository {
   void build(Object other) {
     _channel = WebSocketChannel.connect(Uri.parse(ServerUrls.wsBaseUrl));
 
+    weListenToNewMessages();
+
     ref.onDispose(() {
       _channel.sink.close();
+    });
+  }
+
+  void weListenToNewMessages() {
+    _channel.stream.listen((dynamic data) {
+      print(data);
     });
   }
 }
