@@ -8,7 +8,8 @@ import 'package:connect/features/auth/views/widgets/button_widget.dart';
 import 'package:connect/features/auth/views/widgets/logo_widget.dart';
 import 'package:connect/core/widgets/text_field_widget.dart';
 import 'package:connect/features/auth/views/widgets/underlined_text_widget.dart';
-import 'package:connect/features/home/repositories/websocket_repository.dart';
+import 'package:connect/features/home/repositories/ws_repository.dart';
+import 'package:connect/features/home/view_models/ws_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
@@ -42,7 +43,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     switch (res) {
       case Right(value: AppSuccess()):
         clearTextEditingControllers([emailController, passwordController]);
-        ref.read(websocketRepositoryProvider);
+        ref.read(wsViewModelProvider);
         AppNav.pushAndRemoveUntil(context, "home");
         break;
       case Left(value: AppFailure(message: final message)):
