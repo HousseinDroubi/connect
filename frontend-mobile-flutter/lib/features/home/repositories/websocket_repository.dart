@@ -9,7 +9,7 @@ class WebsocketRepository extends _$WebsocketRepository {
   late WebSocketChannel _channel;
 
   @override
-  void build(Object other) {
+  void build() {
     _channel = WebSocketChannel.connect(Uri.parse(ServerUrls.wsBaseUrl));
 
     weListenToNewMessages();
