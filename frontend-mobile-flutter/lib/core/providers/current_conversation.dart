@@ -2,6 +2,7 @@
 
 import 'package:connect/core/classes/message.dart';
 import 'package:connect/features/home/models/conversation_model.dart';
+import 'package:connect/features/home/models/ws/receive/ws_receive_edit_message_model.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -31,6 +32,19 @@ class CurrentConversation extends _$CurrentConversation {
     if (state != null) {
       state = state!.copyWith(
         recipient: state!.recipient!.copyWith(is_online: is_online),
+      );
+    }
+  }
+
+  void updateLastMessage(WsReceiveEditMessageModel new_message) {
+    if (state != null) {
+      state = state!.copyWith(
+        messages: state!.messages.map((Message message) {
+          if (message.id == new_message.message_id) {
+            return message.copyWith(content: new_message.message_new_content);
+          }
+          return message;
+        }).toList(),
       );
     }
   }
