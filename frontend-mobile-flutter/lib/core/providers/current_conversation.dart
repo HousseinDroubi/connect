@@ -2,6 +2,7 @@
 
 import 'package:connect/core/classes/message.dart';
 import 'package:connect/features/home/models/conversation_model.dart';
+import 'package:connect/features/home/models/ws/receive/ws_receive_delete_message_model.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_edit_message_model.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -42,6 +43,22 @@ class CurrentConversation extends _$CurrentConversation {
         messages: state!.messages.map((Message message) {
           if (message.id == new_message.message_id) {
             return message.copyWith(content: new_message.message_new_content);
+          }
+          return message;
+        }).toList(),
+      );
+    }
+  }
+
+  void deleteMessageForAll(WsReceiveDeleteMessageModel deleted_message) {
+    if (state != null) {
+      state = state!.copyWith(
+        messages: state!.messages.map((Message message) {
+          if (deleted_message.message_id == message.id) {
+            return message.copyWith(
+              content: "This message has been deleted",
+              deleted_for_others_at: DateTime.now(),
+            );
           }
           return message;
         }).toList(),
