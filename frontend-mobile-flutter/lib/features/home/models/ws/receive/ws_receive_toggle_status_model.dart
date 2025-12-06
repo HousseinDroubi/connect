@@ -5,15 +5,15 @@ import 'dart:convert';
 
 import 'package:connect/features/home/models/ws/ws_model.dart';
 
-class WSReceiveToggleStatusModel extends WsModel {
+class WsReceiveToggleStatusModel extends WsModel {
   @override
   final String event_name = "toggle_user_status";
   final String from;
   final bool is_online;
-  WSReceiveToggleStatusModel({required this.from, required this.is_online});
+  WsReceiveToggleStatusModel({required this.from, required this.is_online});
 
-  WSReceiveToggleStatusModel copyWith({String? from, bool? is_online}) {
-    return WSReceiveToggleStatusModel(
+  WsReceiveToggleStatusModel copyWith({String? from, bool? is_online}) {
+    return WsReceiveToggleStatusModel(
       from: from ?? this.from,
       is_online: is_online ?? this.is_online,
     );
@@ -23,8 +23,8 @@ class WSReceiveToggleStatusModel extends WsModel {
     return <String, dynamic>{'from': from, 'is_online': is_online};
   }
 
-  factory WSReceiveToggleStatusModel.fromMap(Map<String, dynamic> map) {
-    return WSReceiveToggleStatusModel(
+  factory WsReceiveToggleStatusModel.fromMap(Map<String, dynamic> map) {
+    return WsReceiveToggleStatusModel(
       from: map['from'] as String,
       is_online: map['is_online'] as bool,
     );
@@ -32,17 +32,17 @@ class WSReceiveToggleStatusModel extends WsModel {
 
   String toJson() => json.encode(toMap());
 
-  factory WSReceiveToggleStatusModel.fromJson(String source) =>
-      WSReceiveToggleStatusModel.fromMap(
+  factory WsReceiveToggleStatusModel.fromJson(String source) =>
+      WsReceiveToggleStatusModel.fromMap(
         json.decode(source) as Map<String, dynamic>,
       );
 
   @override
   String toString() =>
-      'WSReceiveToggleStatusModel(from: $from, is_online: $is_online)';
+      'WsReceiveToggleStatusModel(from: $from, is_online: $is_online)';
 
   @override
-  bool operator ==(covariant WSReceiveToggleStatusModel other) {
+  bool operator ==(covariant WsReceiveToggleStatusModel other) {
     if (identical(this, other)) return true;
 
     return other.from == from && other.is_online == is_online;

@@ -1,21 +1,23 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 
 import 'package:connect/features/home/models/ws/ws_model.dart';
 
-class WSSendNewMessageModel extends WsModel {
+class WsSendNewMessageModel extends WsModel {
   @override
   final String event_name = "new_message";
   final bool is_text;
   final String content;
   final String? to;
-  WSSendNewMessageModel({
+  WsSendNewMessageModel({
     required this.is_text,
     required this.content,
     this.to,
   });
 
-  WSSendNewMessageModel copyWith({bool? is_text, String? content, String? to}) {
-    return WSSendNewMessageModel(
+  WsSendNewMessageModel copyWith({bool? is_text, String? content, String? to}) {
+    return WsSendNewMessageModel(
       is_text: is_text ?? this.is_text,
       content: content ?? this.content,
       to: to ?? this.to,
@@ -26,8 +28,8 @@ class WSSendNewMessageModel extends WsModel {
     return <String, dynamic>{'is_text': is_text, 'content': content, 'to': to};
   }
 
-  factory WSSendNewMessageModel.fromMap(Map<String, dynamic> map) {
-    return WSSendNewMessageModel(
+  factory WsSendNewMessageModel.fromMap(Map<String, dynamic> map) {
+    return WsSendNewMessageModel(
       is_text: map['is_text'] as bool,
       content: map['content'] as String,
       to: map['to'] != null ? map['to'] as String : null,
@@ -36,17 +38,17 @@ class WSSendNewMessageModel extends WsModel {
 
   String toJson() => json.encode(toMap());
 
-  factory WSSendNewMessageModel.fromJson(String source) =>
-      WSSendNewMessageModel.fromMap(
+  factory WsSendNewMessageModel.fromJson(String source) =>
+      WsSendNewMessageModel.fromMap(
         json.decode(source) as Map<String, dynamic>,
       );
 
   @override
   String toString() =>
-      'WSSendNewMessageModel(is_text: $is_text, content: $content, to: $to)';
+      'WsSendNewMessageModel(is_text: $is_text, content: $content, to: $to)';
 
   @override
-  bool operator ==(covariant WSSendNewMessageModel other) {
+  bool operator ==(covariant WsSendNewMessageModel other) {
     if (identical(this, other)) return true;
 
     return other.is_text == is_text &&

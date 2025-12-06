@@ -5,34 +5,34 @@ import 'dart:convert';
 
 import 'package:connect/features/home/models/ws/ws_model.dart';
 
-class WSDeleteMessageModel extends WsModel {
+class WsDeleteMessageModel extends WsModel {
   @override
   final String event_name = "delete_message";
   final String message_id;
-  WSDeleteMessageModel({required this.message_id});
+  WsDeleteMessageModel({required this.message_id});
 
-  WSDeleteMessageModel copyWith({String? message_id}) {
-    return WSDeleteMessageModel(message_id: message_id ?? this.message_id);
+  WsDeleteMessageModel copyWith({String? message_id}) {
+    return WsDeleteMessageModel(message_id: message_id ?? this.message_id);
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{'message_id': message_id};
   }
 
-  factory WSDeleteMessageModel.fromMap(Map<String, dynamic> map) {
-    return WSDeleteMessageModel(message_id: map['message_id'] as String);
+  factory WsDeleteMessageModel.fromMap(Map<String, dynamic> map) {
+    return WsDeleteMessageModel(message_id: map['message_id'] as String);
   }
 
   String toJson() => json.encode(toMap());
 
-  factory WSDeleteMessageModel.fromJson(String source) =>
-      WSDeleteMessageModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory WsDeleteMessageModel.fromJson(String source) =>
+      WsDeleteMessageModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'WSDeleteMessageModel(message_id: $message_id)';
+  String toString() => 'WsDeleteMessageModel(message_id: $message_id)';
 
   @override
-  bool operator ==(covariant WSDeleteMessageModel other) {
+  bool operator ==(covariant WsDeleteMessageModel other) {
     if (identical(this, other)) return true;
 
     return other.message_id == message_id;

@@ -6,15 +6,15 @@ import 'dart:convert';
 import 'package:connect/core/classes/message.dart';
 import 'package:connect/features/home/models/ws/ws_model.dart';
 
-class WSReceiveNewMesssageModel extends WsModel {
+class WsReceiveNewMesssageModel extends WsModel {
   @override
   final String event_name = "new_message";
   final String from;
   final Message message;
-  WSReceiveNewMesssageModel({required this.from, required this.message});
+  WsReceiveNewMesssageModel({required this.from, required this.message});
 
-  WSReceiveNewMesssageModel copyWith({String? from, Message? message}) {
-    return WSReceiveNewMesssageModel(
+  WsReceiveNewMesssageModel copyWith({String? from, Message? message}) {
+    return WsReceiveNewMesssageModel(
       from: from ?? this.from,
       message: message ?? this.message,
     );
@@ -24,8 +24,8 @@ class WSReceiveNewMesssageModel extends WsModel {
     return <String, dynamic>{'from': from, 'message': message.toMap()};
   }
 
-  factory WSReceiveNewMesssageModel.fromMap(Map<String, dynamic> map) {
-    return WSReceiveNewMesssageModel(
+  factory WsReceiveNewMesssageModel.fromMap(Map<String, dynamic> map) {
+    return WsReceiveNewMesssageModel(
       from: map['from'] as String,
       message: Message.fromMap(map['message'] as Map<String, dynamic>),
     );
@@ -33,17 +33,17 @@ class WSReceiveNewMesssageModel extends WsModel {
 
   String toJson() => json.encode(toMap());
 
-  factory WSReceiveNewMesssageModel.fromJson(String source) =>
-      WSReceiveNewMesssageModel.fromMap(
+  factory WsReceiveNewMesssageModel.fromJson(String source) =>
+      WsReceiveNewMesssageModel.fromMap(
         json.decode(source) as Map<String, dynamic>,
       );
 
   @override
   String toString() =>
-      'WSReceiveNewMesssageModel(from: $from, message: $message)';
+      'WsReceiveNewMesssageModel(from: $from, message: $message)';
 
   @override
-  bool operator ==(covariant WSReceiveNewMesssageModel other) {
+  bool operator ==(covariant WsReceiveNewMesssageModel other) {
     if (identical(this, other)) return true;
 
     return other.from == from && other.message == message;

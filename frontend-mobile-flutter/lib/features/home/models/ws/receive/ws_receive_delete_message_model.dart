@@ -5,7 +5,7 @@ import 'dart:convert';
 
 import 'package:connect/features/home/models/ws/send/ws_delete_message_model.dart';
 
-class WsReceiveDeleteMessageModel extends WSDeleteMessageModel {
+class WsReceiveDeleteMessageModel extends WsDeleteMessageModel {
   final String from;
   final String message_conversation_id;
 
