@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:connect/core/providers/current_conversation.dart';
 import 'package:connect/core/providers/current_user_notifier.dart';
 import 'package:connect/features/auth/repositories/auth_local_repository.dart';
+import 'package:connect/features/home/models/ws/receive/ws_receive_edit_message_model.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_toggle_status_model.dart';
 import 'package:connect/features/home/repositories/ws_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -39,6 +40,12 @@ class WsViewModel extends _$WsViewModel {
                 WsReceiveToggleStatusModel.fromMap(event_map);
             _currentUserNotifier.toggleUserStatusInChat(event);
             _currentConversation.toggleUserStatus(event.is_online);
+            break;
+          case "edit_message":
+            final WsReceiveEditMessageModel event =
+                WsReceiveEditMessageModel.fromMap(event_map);
+            _currentUserNotifier.updateLastMessageInChat(event);
+            _currentConversation.updateLastMessage(event);
             break;
           default:
         }
