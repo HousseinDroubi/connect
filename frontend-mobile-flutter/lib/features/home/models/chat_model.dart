@@ -17,8 +17,8 @@ class ChatModel {
   });
 
   ChatModel copyWith({
+    required ChatMessage? last_message,
     String? id,
-    ChatMessage? last_message,
     DateTime? created_at,
     Person? recipient,
   }) {
