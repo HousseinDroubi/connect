@@ -6,6 +6,7 @@ import 'package:connect/features/auth/views/screens/forgot_password_screen.dart'
 import 'package:connect/features/auth/views/screens/login_screen.dart';
 import 'package:connect/features/auth/views/screens/update_forgotten_password_screen.dart';
 import 'package:connect/features/auth/views/screens/verify_account_screen.dart';
+import 'package:connect/features/home/repositories/websocket_repository.dart';
 import 'package:connect/features/home/views/screens/conversation_screen.dart';
 import 'package:connect/features/home/views/screens/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,11 @@ Future<void> main() async {
   await notifier.initSharedPreferences();
 
   final bool result = await notifier.canUserGetToHome();
+
+  if (result) {
+    container.read(websocketRepositoryProvider);
+  }
+
   runApp(
     UncontrolledProviderScope(
       container: container,
