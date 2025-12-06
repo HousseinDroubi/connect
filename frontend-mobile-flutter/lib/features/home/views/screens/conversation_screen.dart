@@ -27,6 +27,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
   TextEditingController messageController = TextEditingController();
 
   Future<void> deleteMessage(String message_id, String chat_id) async {
+    hidePopup(context);
     showPopup(popupCase: PopupLoading(context: context));
     final notifier = ref.read(conversationViewModelProvider.notifier);
     final fpdart.Either<AppFailure, AppSuccess> result = await notifier
