@@ -60,8 +60,8 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final conversation = ref.watch(currentConversationProvider).value;
-
+    final conversation = ref.watch(currentConversationProvider)!;
+    print("from scren-------------------------------");
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -69,7 +69,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
           child: Column(
             children: [
               UserWidget(
-                image_source: conversation!.is_group
+                image_source: conversation.is_group
                     ? null
                     : conversation.recipient!.profile_url,
                 is_for_conversation: true,
