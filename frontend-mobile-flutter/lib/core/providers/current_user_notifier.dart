@@ -82,6 +82,7 @@ class CurrentUserNotifier extends _$CurrentUserNotifier {
         chats: state!.chats.map((ChatModel chat) {
           if (new_status.from == chat.recipient?.id) {
             return chat.copyWith(
+              last_message: chat.last_message,
               recipient: chat.recipient!.copyWith(
                 is_online: new_status.is_online,
               ),
