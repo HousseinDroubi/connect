@@ -3,6 +3,7 @@ import 'package:connect/core/classes/chat_message.dart';
 import 'package:connect/core/classes/message.dart';
 import 'package:connect/features/auth/models/user_model.dart';
 import 'package:connect/features/home/models/chat_model.dart';
+import 'package:connect/features/home/models/ws/receive/ws_receive_edit_message_model.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_toggle_status_model.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -85,6 +86,23 @@ class CurrentUserNotifier extends _$CurrentUserNotifier {
               last_message: chat.last_message,
               recipient: chat.recipient!.copyWith(
                 is_online: new_status.is_online,
+              ),
+            );
+          }
+          return chat;
+        }).toList(),
+      );
+    }
+  }
+
+  void updateLastMessageInChat(WsReceiveEditMessageModel new_message) {
+    if (state != null) {
+      state = state!.copyWith(
+        chats: state!.chats.map((ChatModel chat) {
+          if (new_message.message_conversation_id == chat.id) {
+            return chat.copyWith(
+              last_message: chat.last_message?.copyWith(
+                content: new_message.message_new_content,
               ),
             );
           }
