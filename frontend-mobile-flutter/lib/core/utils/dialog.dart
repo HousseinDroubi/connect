@@ -116,11 +116,11 @@ void showPopup({required PopupCase popupCase}) {
     title = "Delete Message";
     content = Container(
       alignment: Alignment.center,
-      height: popupCase is PopupDeleteMessageForMe ? 50 : 90,
+      height: popupCase is PopupDeleteMessageForAll ? 90 : 50,
       child: Column(
-        mainAxisAlignment: popupCase is PopupDeleteMessageForMe
-            ? MainAxisAlignment.center
-            : MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: popupCase is PopupDeleteMessageForAll
+            ? MainAxisAlignment.spaceBetween
+            : MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           if (popupCase is PopupDeleteMessageForAll)
