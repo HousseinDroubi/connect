@@ -36,7 +36,7 @@ class CurrentConversation extends _$CurrentConversation {
     }
   }
 
-  void updateLastMessage(WsReceiveEditMessageModel new_message) {
+  void updateMessage(WsReceiveEditMessageModel new_message) {
     if (state != null) {
       state = state!.copyWith(
         messages: state!.messages.map((Message message) {

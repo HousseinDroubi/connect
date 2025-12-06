@@ -45,7 +45,7 @@ class WsViewModel extends _$WsViewModel {
             final WsReceiveEditMessageModel event =
                 WsReceiveEditMessageModel.fromMap(event_map);
             _currentUserNotifier.updateLastMessageInChat(event);
-            _currentConversation.updateLastMessage(event);
+            _currentConversation.updateMessage(event);
             break;
           default:
         }
