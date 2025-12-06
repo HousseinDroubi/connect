@@ -2,10 +2,10 @@ import 'package:connect/core/constants/server_urls.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-part 'websocket_repository.g.dart';
+part 'ws_repository.g.dart';
 
 @Riverpod(keepAlive: true)
-class WebsocketRepository extends _$WebsocketRepository {
+class WsRepository extends _$WsRepository {
   late WebSocketChannel _channel;
 
   @override
