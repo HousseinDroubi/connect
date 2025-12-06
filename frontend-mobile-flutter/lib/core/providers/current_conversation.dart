@@ -10,23 +10,20 @@ part 'current_conversation.g.dart';
 @Riverpod(keepAlive: true)
 class CurrentConversation extends _$CurrentConversation {
   @override
-  AsyncData<ConversationModel?> build() {
-    return AsyncData(null);
+  ConversationModel? build() {
+    return null;
   }
 
   void addConversation(ConversationModel conversation) {
-    state = AsyncData(conversation);
+    state = conversation;
   }
 
   Message? deleteMessage(String message_id) {
-    final ConversationModel old_state = state.value!;
-    state = AsyncData(
-      old_state.copyWith(
-        messages: old_state.messages
-            .filter((message) => message.id != message_id)
-            .toList(),
-      ),
+    state = state!.copyWith(
+      messages: state!.messages
+          .filter((message) => message.id != message_id)
+          .toList(),
     );
-    return state.value!.messages.isNotEmpty ? state.value!.messages.last : null;
+    return state!.messages.isNotEmpty ? state!.messages.last : null;
   }
 }
