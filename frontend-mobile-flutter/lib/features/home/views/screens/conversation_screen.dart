@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:connect/core/constants/app_colors.dart';
 import 'package:connect/core/providers/current_conversation.dart';
+import 'package:connect/core/providers/current_user_notifier.dart';
 import 'package:connect/core/utils/app_files.dart';
 import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/core/utils/dialog.dart';
@@ -61,6 +62,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
   @override
   Widget build(BuildContext context) {
     final conversation = ref.watch(currentConversationProvider)!;
+    final current_user_id = ref.read(currentUserNotifierProvider)!.id;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -98,11 +100,31 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
                         is_group: message.receiver == null,
                         created_at: message.created_at,
                         sender_id: message.sender.id,
-                        onDeleteMessage: () async {
-                          await deleteMessage(
-                            message.id,
-                            message.conversation_id,
-                          );
+                        onDeleteMessage: () {
+                          message.sender.id == current_user_id
+                              ? showPopup(
+                                  popupCase: PopupDeleteMessageForAll(
+                                    context: context,
+                                    deleteMessageForMeFunction: () async {
+                                      await deleteMessage(
+                                        message.id,
+                                        message.conversation_id,
+                                      );
+                                    },
+                                    deleteMessageForAllFunction: () {},
+                                  ),
+                                )
+                              : showPopup(
+                                  popupCase: PopupDeleteMessageForMe(
+                                    context: context,
+                                    deleteMessageForMeFunction: () async {
+                                      await deleteMessage(
+                                        message.id,
+                                        message.conversation_id,
+                                      );
+                                    },
+                                  ),
+                                );
                         },
                         onEditMessage: () {},
                       ),
