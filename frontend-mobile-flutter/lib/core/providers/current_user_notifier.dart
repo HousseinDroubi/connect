@@ -99,7 +99,8 @@ class CurrentUserNotifier extends _$CurrentUserNotifier {
     if (state != null) {
       state = state!.copyWith(
         chats: state!.chats.map((ChatModel chat) {
-          if (new_message.message_conversation_id == chat.id) {
+          if (new_message.message_conversation_id == chat.id &&
+              new_message.message_id == chat.last_message?.id) {
             return chat.copyWith(
               last_message: chat.last_message?.copyWith(
                 content: new_message.message_new_content,
