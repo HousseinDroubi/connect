@@ -3,6 +3,7 @@ import 'package:connect/core/classes/chat_message.dart';
 import 'package:connect/core/classes/message.dart';
 import 'package:connect/features/auth/models/user_model.dart';
 import 'package:connect/features/home/models/chat_model.dart';
+import 'package:connect/features/home/models/ws/receive/ws_receive_toggle_status_model.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -49,8 +50,6 @@ class CurrentUserNotifier extends _$CurrentUserNotifier {
 
   void updateLastMessageForChat(Message? message, String chat_id) {
     final updatedChats = state!.chats.map((chat) {
-      print(chat.id);
-      print(chat_id);
       if (chat.id == chat_id) {
         if (message == null) {
           return chat.copyWith(last_message: null);
@@ -75,5 +74,22 @@ class CurrentUserNotifier extends _$CurrentUserNotifier {
     state!.chats.toList().forEach((e) {
       print(e.toString());
     });
+  }
+
+  void toggleUserStatusInChat(WsReceiveToggleStatusModel new_status) {
+    if (state != null) {
+      state = state!.copyWith(
+        chats: state!.chats.map((ChatModel chat) {
+          if (new_status.from == chat.recipient?.id) {
+            return chat.copyWith(
+              recipient: chat.recipient!.copyWith(
+                is_online: new_status.is_online,
+              ),
+            );
+          }
+          return chat;
+        }).toList(),
+      );
+    }
   }
 }
