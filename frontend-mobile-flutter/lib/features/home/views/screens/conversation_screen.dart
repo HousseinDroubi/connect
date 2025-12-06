@@ -61,7 +61,6 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
   @override
   Widget build(BuildContext context) {
     final conversation = ref.watch(currentConversationProvider)!;
-    print("from scren-------------------------------");
     return Scaffold(
       body: SafeArea(
         child: Padding(
