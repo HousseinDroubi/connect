@@ -2,9 +2,10 @@
 
 import 'dart:convert';
 
+import 'package:connect/core/providers/current_conversation.dart';
 import 'package:connect/core/providers/current_user_notifier.dart';
-import 'package:connect/features/auth/models/user_model.dart';
 import 'package:connect/features/auth/repositories/auth_local_repository.dart';
+import 'package:connect/features/home/models/ws/receive/ws_receive_toggle_status_model.dart';
 import 'package:connect/features/home/repositories/ws_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -13,12 +14,14 @@ part "ws_view_model.g.dart";
 @Riverpod(keepAlive: true)
 class WsViewModel extends _$WsViewModel {
   late CurrentUserNotifier _currentUserNotifier;
+  late CurrentConversation _currentConversation;
   late WsRepository _wsRepository;
 
   @override
   void build() {
     _wsRepository = ref.read(wsRepositoryProvider);
     _currentUserNotifier = ref.read(currentUserNotifierProvider.notifier);
+    _currentConversation = ref.read(currentConversationProvider.notifier);
     _wsRepository.wsConnect(
       token: ref.read(authLocalRepositoryProvider).getToken()!,
     );
@@ -27,7 +30,19 @@ class WsViewModel extends _$WsViewModel {
 
   void wsListenToMessages() {
     _wsRepository.stream.listen((data) {
-      print(data);
+      try {
+        final event_map = jsonDecode(data);
+        final event_name = event_map["event_name"];
+        switch (event_name) {
+          case "toggle_user_status":
+            final WsReceiveToggleStatusModel event =
+                WsReceiveToggleStatusModel.fromMap(event_map);
+            _currentUserNotifier.toggleUserStatusInChat(event);
+            _currentConversation.toggleUserStatus(event.is_online);
+            break;
+          default:
+        }
+      } catch (e) {}
     });
   }
 }
