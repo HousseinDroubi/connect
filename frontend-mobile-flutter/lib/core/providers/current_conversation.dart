@@ -26,4 +26,12 @@ class CurrentConversation extends _$CurrentConversation {
     );
     return state!.messages.isNotEmpty ? state!.messages.last : null;
   }
+
+  void toggleUserStatus(bool is_online) {
+    if (state != null) {
+      state = state!.copyWith(
+        recipient: state!.recipient!.copyWith(is_online: is_online),
+      );
+    }
+  }
 }
