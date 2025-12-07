@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 
-import 'package:connect/core/classes/person.dart';
 import 'package:connect/core/providers/current_conversation.dart';
 import 'package:connect/core/providers/current_user_notifier.dart';
 import 'package:connect/features/auth/repositories/auth_local_repository.dart';
