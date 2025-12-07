@@ -9,6 +9,7 @@ import 'package:connect/features/home/models/ws/receive/ws_receive_delete_messag
 import 'package:connect/features/home/models/ws/receive/ws_receive_edit_message_model.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_new_messsage_model.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_toggle_status_model.dart';
+import 'package:connect/features/home/models/ws/send/ws_delete_message_model.dart';
 import 'package:connect/features/home/repositories/ws_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -64,5 +65,12 @@ class WsViewModel extends _$WsViewModel {
         }
       } catch (e) {}
     });
+  }
+
+  void deleteMessage(String message_id) {
+    WsDeleteMessageModel wsDeleteMessageModel = WsDeleteMessageModel(
+      message_id: message_id,
+    );
+    _wsRepository.sendMessage(wsDeleteMessageModel.toJson());
   }
 }

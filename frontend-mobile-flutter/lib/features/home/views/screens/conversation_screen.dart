@@ -10,6 +10,7 @@ import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/core/utils/dialog.dart';
 import 'package:connect/core/widgets/text_field_widget.dart';
 import 'package:connect/features/home/view_models/conversation_view_model.dart';
+import 'package:connect/features/home/view_models/ws_view_model.dart';
 import 'package:connect/features/home/views/widgets/message_widget.dart';
 import 'package:connect/features/home/views/widgets/user_widget.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +65,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
   Widget build(BuildContext context) {
     final conversation = ref.watch(currentConversationProvider)!;
     final current_user_id = ref.read(currentUserNotifierProvider)!.id;
+    final wsNotifier = ref.read(wsViewModelProvider.notifier);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -112,7 +114,10 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
                                         message.conversation_id,
                                       );
                                     },
-                                    deleteMessageForAllFunction: () {},
+                                    deleteMessageForAllFunction: () {
+                                      wsNotifier.deleteMessage(message.id);
+                                      hidePopup(context);
+                                    },
                                   ),
                                 )
                               : showPopup(
