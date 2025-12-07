@@ -5,6 +5,7 @@ import 'package:connect/features/auth/models/user_model.dart';
 import 'package:connect/features/home/models/chat_model.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_delete_message_model.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_edit_message_model.dart';
+import 'package:connect/features/home/models/ws/receive/ws_receive_new_messsage_model.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_toggle_status_model.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -132,4 +133,57 @@ class CurrentUserNotifier extends _$CurrentUserNotifier {
       );
     }
   }
+
+  void addNewMessageInChat(WsReceiveNewMesssageModel new_message) {
+    if (state == null) return;
+    final String chat_id = new_message.message.conversation_id;
+    final List<ChatModel> chats = List<ChatModel>.from(state!.chats);
+    final index = chats.indexWhere((ChatModel chat) => chat.id == chat_id);
+    if (index == -1) return;
+
+    final ChatModel updatedChat = chats[index].copyWith(
+      last_message: ChatMessage(
+        id: new_message.message.id,
+        sender: new_message.message.sender.id,
+        is_text: new_message.message.is_text,
+        content: new_message.message.content,
+        chat_id: new_message.message.conversation_id,
+        deleted: new_message.message.deleted_for_others_at != null,
+        created_at: new_message.message.created_at,
+      ),
+    );
+
+    chats.removeAt(index);
+    chats.insert(0, updatedChat);
+
+    state = state!.copyWith(chats: chats);
+  }
 }
+
+
+
+
+
+
+
+
+// (state != null) {
+//       state = state!.copyWith(
+//         chats: state!.chats.map((ChatModel chat) {
+//           if (new_message.message.conversation_id == chat.id) {
+//             ChatModel updated_chat = chat.copyWith(
+//               last_message: ChatMessage(
+//                 id: new_message.message.id,
+//                 sender: new_message.message.sender.id,
+//                 is_text: new_message.message.is_text,
+//                 content: new_message.message.content,
+//                 chat_id: new_message.message.conversation_id,
+//                 deleted: new_message.message.deleted_for_others_at != null,
+//                 created_at: new_message.message.created_at,
+//               ),
+//             );
+//           }
+//           return chat;
+//         }).toList(),
+//       );
+//     }
