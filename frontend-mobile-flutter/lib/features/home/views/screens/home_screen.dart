@@ -22,7 +22,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final user_image = ref.watch(
-      currentUserNotifierProvider.select((user) => user!.profile_url),
+      currentUserNotifierProvider.select((user) => user?.profile_url),
     );
     final pages = [ChatsScreen(), SearchScreen(), UpdateProfileScreen()];
     return Scaffold(
