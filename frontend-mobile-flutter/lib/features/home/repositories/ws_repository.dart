@@ -24,5 +24,10 @@ class WsRepository {
     }
   }
 
+  void sendMessage(String json) {
+    if (!is_connected) return;
+    _channel.sink.add(json);
+  }
+
   Stream<dynamic> get stream => _channel.stream;
 }
