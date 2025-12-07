@@ -9,8 +9,10 @@ import 'package:connect/core/providers/current_user_notifier.dart';
 import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/features/auth/repositories/auth_local_repository.dart';
 import 'package:connect/features/home/models/conversation_model.dart';
+import 'package:connect/features/home/models/ws/send/ws_send_message_model.dart';
 import 'package:connect/features/home/repositories/conversation_repository.dart';
 import 'package:connect/features/home/repositories/messages_repository.dart';
+import 'package:connect/features/home/view_models/ws_view_model.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -114,7 +116,14 @@ class ConversationViewModel extends _$ConversationViewModel {
       case Left(value: AppFailure(message: final message)):
         return Left(AppFailure(message: message));
       case Right(value: final file_name):
-        // TODO: send message
+        ref
+            .read(wsViewModelProvider.notifier)
+            .sendMessage(
+              wsSendNewMessageModel: WsSendNewMessageModel(
+                is_text: false,
+                content: file_name,
+              ),
+            );
         return Right(AppSuccess());
     }
   }
