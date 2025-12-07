@@ -27,6 +27,7 @@ class WsEditMessageModel extends WsModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'event_name': event_name,
       'message_id': message_id,
       'message_new_content': message_new_content,
     };

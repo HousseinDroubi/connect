@@ -25,7 +25,12 @@ class WsSendNewMessageModel extends WsModel {
   }
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{'is_text': is_text, 'content': content, 'to': to};
+    return <String, dynamic>{
+      "event_name": event_name,
+      'is_text': is_text,
+      'content': content,
+      'to': to,
+    };
   }
 
   factory WsSendNewMessageModel.fromMap(Map<String, dynamic> map) {
