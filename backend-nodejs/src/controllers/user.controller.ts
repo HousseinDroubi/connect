@@ -10,6 +10,7 @@ const searchForUsers = async (request: Request, response: Response) => {
   if (!user_id) throw new Error("user id wasn't found");
 
   let users = await User.find({
+    is_verified: true,
     $or: [
       { username: { $regex: content, $options: "i" } },
       { email: { $regex: content, $options: "i" } },
