@@ -84,80 +84,83 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TitleWidget(title: "Create New Account"),
-              SizedBox(height: 5),
-              ImagePickerWidget(
-                onChange: (File imageFile) {
-                  setState(() {
-                    this.imageFile = imageFile;
-                  });
-                },
-                isImageFileExisted: imageFile != null,
-              ),
-              TextFieldWidget(
-                focusNode: emailFocusNode,
-                title: "Email",
-                hint: "Enter your email",
-                nextFunction: () {
-                  focusOn(context, usernameFocusNode);
-                },
-                textEditingController: emailController,
-              ),
-              SizedBox(height: 15),
-              TextFieldWidget(
-                focusNode: usernameFocusNode,
-                title: "username",
-                hint: "Enter your username",
-                nextFunction: () {
-                  focusOn(context, pinFocusNode);
-                },
-                textEditingController: usernameController,
-              ),
-              SizedBox(height: 15),
-              TextFieldWidget(
-                focusNode: pinFocusNode,
-                title: "Pin",
-                hint: "Enter your pin",
-                nextFunction: () {
-                  focusOn(context, passwordFocusNode);
-                },
-                textEditingController: pinController,
-              ),
-              SizedBox(height: 15),
-              TextFieldWidget(
-                focusNode: passwordFocusNode,
-                title: "Password",
-                hint: "Enter your password",
-                nextFunction: () {
-                  focusOn(context, confirmationPasswordFocusNode);
-                },
-                isPassword: true,
-                textEditingController: passwordController,
-              ),
-              SizedBox(height: 15),
-              TextFieldWidget(
-                focusNode: confirmationPasswordFocusNode,
-                title: "Confirmation Password",
-                hint: "Re-enter your password",
-                nextFunction: () async {
-                  await createAccountButtonFuction(context);
-                },
-                isPassword: true,
-                textEditingController: confirmationPasswordController,
-              ),
-              SizedBox(height: 20),
-              ButtonWidget(
-                buttonText: "Create new account",
-                buttonFn: () async {
-                  await createAccountButtonFuction(context);
-                },
-              ),
-            ],
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TitleWidget(title: "Create New Account"),
+                SizedBox(height: 5),
+                ImagePickerWidget(
+                  onChange: (File imageFile) {
+                    setState(() {
+                      this.imageFile = imageFile;
+                    });
+                  },
+                  isImageFileExisted: imageFile != null,
+                ),
+                TextFieldWidget(
+                  focusNode: emailFocusNode,
+                  title: "Email",
+                  hint: "Enter your email",
+                  nextFunction: () {
+                    focusOn(context, usernameFocusNode);
+                  },
+                  textEditingController: emailController,
+                ),
+                SizedBox(height: 15),
+                TextFieldWidget(
+                  focusNode: usernameFocusNode,
+                  title: "username",
+                  hint: "Enter your username",
+                  nextFunction: () {
+                    focusOn(context, pinFocusNode);
+                  },
+                  textEditingController: usernameController,
+                ),
+                SizedBox(height: 15),
+                TextFieldWidget(
+                  focusNode: pinFocusNode,
+                  title: "Pin",
+                  hint: "Enter your pin",
+                  nextFunction: () {
+                    focusOn(context, passwordFocusNode);
+                  },
+                  textEditingController: pinController,
+                ),
+                SizedBox(height: 15),
+                TextFieldWidget(
+                  focusNode: passwordFocusNode,
+                  title: "Password",
+                  hint: "Enter your password",
+                  nextFunction: () {
+                    focusOn(context, confirmationPasswordFocusNode);
+                  },
+                  isPassword: true,
+                  textEditingController: passwordController,
+                ),
+                SizedBox(height: 15),
+                TextFieldWidget(
+                  focusNode: confirmationPasswordFocusNode,
+                  title: "Confirmation Password",
+                  hint: "Re-enter your password",
+                  nextFunction: () async {
+                    await createAccountButtonFuction(context);
+                  },
+                  isPassword: true,
+                  textEditingController: confirmationPasswordController,
+                ),
+                SizedBox(height: 20),
+                ButtonWidget(
+                  buttonText: "Create new account",
+                  buttonFn: () async {
+                    await createAccountButtonFuction(context);
+                  },
+                ),
+                SizedBox(height: 20),
+              ],
+            ),
           ),
         ),
       ),
