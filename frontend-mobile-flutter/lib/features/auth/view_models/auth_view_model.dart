@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:app_links/app_links.dart';
+import 'package:connect/core/providers/current_conversation.dart';
 import 'package:connect/core/providers/current_user_notifier.dart';
 import 'package:connect/core/utils/app_nav.dart';
 import 'package:connect/core/utils/app_responses.dart';
@@ -20,12 +21,14 @@ part 'auth_view_model.g.dart';
 @riverpod
 class AuthViewModel extends _$AuthViewModel {
   late CurrentUserNotifier _currentUserNotifier;
+  late CurrentConversation _currentConversation;
   late AuthLocalRepository _authLocalRepository;
   late AuthRemoteRepository _authRemoteRepository;
 
   @override
   AsyncValue<UserModel>? build() {
     _currentUserNotifier = ref.read(currentUserNotifierProvider.notifier);
+    _currentConversation = ref.read(currentConversationProvider.notifier);
     _authLocalRepository = ref.read(authLocalRepositoryProvider);
     _authRemoteRepository = ref.read(authRemoteRepositoryProvider);
     return null;
@@ -282,5 +285,11 @@ class AuthViewModel extends _$AuthViewModel {
 
   Future<void> initSharedPreferences() async {
     await _authLocalRepository.init();
+  }
+
+  Future<void> logout() async {
+    await _authLocalRepository.clearSharedPreferences();
+    _currentUserNotifier.clearUserData();
+    _currentConversation.clear();
   }
 }
