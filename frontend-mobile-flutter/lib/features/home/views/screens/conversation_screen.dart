@@ -30,6 +30,8 @@ class ConversationScreen extends ConsumerStatefulWidget {
 class _ConversationScreenState extends ConsumerState<ConversationScreen> {
   TextEditingController messageController = TextEditingController();
   TextEditingController editMssageController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+  bool _keyboardWasVisible = false;
 
   Future<void> deleteMessage(String message_id, String chat_id) async {
     hidePopup(context);
@@ -61,12 +63,44 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
     }
   }
 
+  void _scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent + 50,
+          duration: Duration(milliseconds: 400),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollToBottom();
+  }
+
   @override
   Widget build(BuildContext context) {
     final conversation = ref.watch(currentConversationProvider)!;
     final current_user_id = ref.read(currentUserNotifierProvider)!.id;
     final wsNotifier = ref.read(wsViewModelProvider.notifier);
+    ref.listen(currentConversationProvider, (previous, next) {
+      _scrollToBottom();
+    });
+    final viewInsets = MediaQuery.of(context).viewInsets.bottom;
+    final isKeyboardVisible = viewInsets > 0;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (isKeyboardVisible && !_keyboardWasVisible) {
+        _scrollToBottom();
+      }
+      _keyboardWasVisible = isKeyboardVisible;
+    });
+
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10),
@@ -88,6 +122,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
               Divider(thickness: 0.4, color: AppColors.grey),
               Expanded(
                 child: ListView.builder(
+                  controller: _scrollController,
                   itemCount: conversation.messages.length,
                   itemBuilder: (item, index) {
                     final message = conversation.messages[index];
