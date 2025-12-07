@@ -169,8 +169,8 @@ void showPopup({required PopupCase popupCase}) {
 
     actions = [
       TextButton(
-        onPressed: () async {
-          await popupEditMessage.nextFunction;
+        onPressed: () {
+          popupEditMessage.nextFunction();
           AppNav.pop(popupEditMessage.context);
         },
         child: Text("Yes", style: TextStyle(color: AppColors.black)),
