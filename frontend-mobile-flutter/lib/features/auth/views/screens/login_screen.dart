@@ -56,54 +56,58 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: IntrinsicWidth(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              LogoWidget(title: "Welcome to Connect"),
-              SizedBox(height: 30),
-              TextFieldWidget(
-                focusNode: emailFocusNode,
-                title: "Email or pin",
-                hint: "Enter your email or pin",
-                nextFunction: () {
-                  focusOn(context, passwordFocusNode);
-                },
-                textEditingController: emailController,
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            child: IntrinsicWidth(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  LogoWidget(title: "Welcome to Connect"),
+                  SizedBox(height: 30),
+                  TextFieldWidget(
+                    focusNode: emailFocusNode,
+                    title: "Email or pin",
+                    hint: "Enter your email or pin",
+                    nextFunction: () {
+                      focusOn(context, passwordFocusNode);
+                    },
+                    textEditingController: emailController,
+                  ),
+                  SizedBox(height: 20),
+                  TextFieldWidget(
+                    focusNode: passwordFocusNode,
+                    title: "Password",
+                    hint: "Enter your password",
+                    nextFunction: () async {
+                      await loginButtonFunction();
+                    },
+                    textEditingController: passwordController,
+                    isPassword: true,
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: UnderlinedTextWidget(
+                      text: "Forgot Password?",
+                      to: "forgot_password",
+                    ),
+                  ),
+                  SizedBox(height: 13),
+                  ButtonWidget(
+                    buttonText: "Login",
+                    buttonFn: () async {
+                      await loginButtonFunction();
+                    },
+                  ),
+                  SizedBox(height: 10),
+                  UnderlinedTextWidget(
+                    text: "Don’t have an account? Sign up",
+                    to: "create_account",
+                  ),
+                ],
               ),
-              SizedBox(height: 20),
-              TextFieldWidget(
-                focusNode: passwordFocusNode,
-                title: "Password",
-                hint: "Enter your password",
-                nextFunction: () async {
-                  await loginButtonFunction();
-                },
-                textEditingController: passwordController,
-                isPassword: true,
-              ),
-              SizedBox(height: 10),
-              Container(
-                alignment: Alignment.centerRight,
-                child: UnderlinedTextWidget(
-                  text: "Forgot Password?",
-                  to: "forgot_password",
-                ),
-              ),
-              SizedBox(height: 13),
-              ButtonWidget(
-                buttonText: "Login",
-                buttonFn: () async {
-                  await loginButtonFunction();
-                },
-              ),
-              SizedBox(height: 10),
-              UnderlinedTextWidget(
-                text: "Don’t have an account? Sign up",
-                to: "create_account",
-              ),
-            ],
+            ),
           ),
         ),
       ),
