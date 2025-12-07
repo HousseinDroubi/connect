@@ -24,7 +24,7 @@ class AppNav {
     required String token,
     required GlobalKey<NavigatorState> navigatorKey,
   }) {
-    if (to == "updated_forgotten_password" || to == "verify_account") {
+    if (to == "update_forgotten_password" || to == "verify_account") {
       navigatorKey.currentState?.pushAndRemoveUntil(
         MaterialPageRoute(
           builder: (context) => to == "update_forgotten_password"
