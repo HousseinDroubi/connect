@@ -47,6 +47,7 @@ class ConversationViewModel extends _$ConversationViewModel {
         return Left(AppFailure(message: message));
       case Right(value: final conversation):
         _currentConversationNotifier.addConversation(conversation);
+        _currentUserNotifier.addNewChat(conversation);
         return Right(conversation);
     }
   }

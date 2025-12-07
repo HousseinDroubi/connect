@@ -3,6 +3,7 @@ import 'package:connect/core/classes/chat_message.dart';
 import 'package:connect/core/classes/message.dart';
 import 'package:connect/features/auth/models/user_model.dart';
 import 'package:connect/features/home/models/chat_model.dart';
+import 'package:connect/features/home/models/conversation_model.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_delete_message_model.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_edit_message_model.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_new_messsage_model.dart';
@@ -157,6 +158,33 @@ class CurrentUserNotifier extends _$CurrentUserNotifier {
     chats.insert(0, updatedChat);
 
     state = state!.copyWith(chats: chats);
+  }
+
+  void addNewChat(ConversationModel conversation_model) {
+    if (state == null) return;
+    state = state!.copyWith(
+      chats: [
+        ...state!.chats,
+        ChatModel(
+          id: conversation_model.conversation_id,
+          last_message: conversation_model.messages.isEmpty
+              ? null
+              : ChatMessage(
+                  id: conversation_model.messages.last.id,
+                  sender: conversation_model.messages.last.sender.id,
+                  is_text: conversation_model.messages.last.is_text,
+                  content: conversation_model.messages.last.content,
+                  chat_id: conversation_model.conversation_id,
+                  deleted:
+                      conversation_model.messages.last.deleted_for_others_at !=
+                      null,
+                  created_at: DateTime.now(),
+                ),
+          created_at: DateTime.now(),
+          recipient: conversation_model.recipient,
+        ),
+      ],
+    );
   }
 }
 
