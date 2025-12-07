@@ -162,6 +162,12 @@ class CurrentUserNotifier extends _$CurrentUserNotifier {
 
   void addNewChat(ConversationModel conversation_model) {
     if (state == null) return;
+    if (state!.chats.indexWhere(
+          (ChatModel model) => model.id == conversation_model.conversation_id,
+        ) !=
+        -1) {
+      return;
+    }
     state = state!.copyWith(
       chats: [
         ...state!.chats,
