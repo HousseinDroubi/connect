@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:async';
+import 'package:connect/core/constants/app_colors.dart';
 import 'package:connect/features/auth/view_models/auth_view_model.dart';
 import 'package:connect/features/auth/views/screens/create_account_screen.dart';
 import 'package:connect/features/auth/views/screens/forgot_password_screen.dart';
@@ -63,6 +64,12 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        textSelectionTheme: TextSelectionThemeData(
+          selectionHandleColor: AppColors.blue,
+          selectionColor: AppColors.blue.withValues(alpha: 0.4),
+        ),
+      ),
       navigatorKey: _navigatorKey,
       title: "Connect",
       initialRoute: widget.can_user_get_to_home ? "/home" : "/login",
