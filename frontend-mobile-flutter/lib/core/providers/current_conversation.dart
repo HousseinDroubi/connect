@@ -4,6 +4,7 @@ import 'package:connect/core/classes/message.dart';
 import 'package:connect/features/home/models/conversation_model.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_delete_message_model.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_edit_message_model.dart';
+import 'package:connect/features/home/models/ws/receive/ws_receive_new_messsage_model.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -64,5 +65,13 @@ class CurrentConversation extends _$CurrentConversation {
         }).toList(),
       );
     }
+  }
+
+  void addNewMessageInConversation(WsReceiveNewMesssageModel new_message) {
+    if (state == null) return;
+    if (new_message.message.conversation_id != state!.conversation_id) return;
+    state = state!.copyWith(
+      messages: [...state!.messages, new_message.message],
+    );
   }
 }
