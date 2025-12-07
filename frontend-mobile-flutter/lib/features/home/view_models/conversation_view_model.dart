@@ -46,8 +46,16 @@ class ConversationViewModel extends _$ConversationViewModel {
       case Left(value: AppFailure(message: final message)):
         return Left(AppFailure(message: message));
       case Right(value: final conversation):
-        _currentConversationNotifier.addConversation(conversation);
-        _currentUserNotifier.addNewChat(conversation);
+        _currentConversationNotifier.addConversation(
+          conversation.copyWith(
+            recipient: conversation.recipient?.copyWith(pin: int.parse(pin)),
+          ),
+        );
+        _currentUserNotifier.addNewChat(
+          conversation.copyWith(
+            recipient: conversation.recipient?.copyWith(pin: int.parse(pin)),
+          ),
+        );
         return Right(conversation);
     }
   }
