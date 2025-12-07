@@ -7,6 +7,7 @@ import 'package:connect/core/providers/current_user_notifier.dart';
 import 'package:connect/features/auth/repositories/auth_local_repository.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_delete_message_model.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_edit_message_model.dart';
+import 'package:connect/features/home/models/ws/receive/ws_receive_new_messsage_model.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_toggle_status_model.dart';
 import 'package:connect/features/home/repositories/ws_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -54,7 +55,12 @@ class WsViewModel extends _$WsViewModel {
             _currentUserNotifier.deleteLastMessageInChat(event);
             _currentConversation.deleteMessageForAll(event);
             break;
-          default:
+          case "new_message":
+            final WsReceiveNewMesssageModel event =
+                WsReceiveNewMesssageModel.fromMap(event_map);
+            _currentUserNotifier.addNewMessageInChat(event);
+            _currentConversation.addNewMessageInConversation(event);
+            break;
         }
       } catch (e) {}
     });
