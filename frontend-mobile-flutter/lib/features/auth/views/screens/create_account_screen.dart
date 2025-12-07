@@ -86,7 +86,6 @@ class _CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
