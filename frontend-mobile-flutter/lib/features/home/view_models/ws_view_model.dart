@@ -76,4 +76,8 @@ class WsViewModel extends _$WsViewModel {
   void editMessage({required WsEditMessageModel wsEditMessageModel}) {
     _wsRepository.sendMessage(wsEditMessageModel.toJson());
   }
+
+  void sendMessage({required WsSendNewMessageModel wsSendNewMessageModel}) {
+    _wsRepository.sendMessage(wsSendNewMessageModel.toJson());
+  }
 }

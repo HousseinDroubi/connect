@@ -11,6 +11,7 @@ import 'package:connect/core/utils/dialog.dart';
 import 'package:connect/core/widgets/text_field_widget.dart';
 import 'package:connect/features/home/models/ws/send/ws_delete_message_model.dart';
 import 'package:connect/features/home/models/ws/send/ws_edit_message_model.dart';
+import 'package:connect/features/home/models/ws/send/ws_send_message_model.dart';
 import 'package:connect/features/home/view_models/conversation_view_model.dart';
 import 'package:connect/features/home/view_models/ws_view_model.dart';
 import 'package:connect/features/home/views/widgets/message_widget.dart';
@@ -58,10 +59,6 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
       notifier.uploadImage(imageFile);
       hidePopup(context);
     }
-  }
-
-  Future<void> sendMessage() async {
-    // TODO
   }
 
   @override
@@ -173,9 +170,27 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
                 hint: "Type here",
                 isForMessages: true,
                 isFull: true,
-                nextFunction: () {},
+                nextFunction: () {
+                  wsNotifier.sendMessage(
+                    wsSendNewMessageModel: WsSendNewMessageModel(
+                      is_text: messageController.text != "",
+                      content: messageController.text,
+                      to: conversation.recipient?.id,
+                    ),
+                  );
+                  messageController.text = "";
+                },
                 onImagePickedUp: uploadImage,
-                onMessageSent: sendMessage,
+                onMessageSent: () {
+                  wsNotifier.sendMessage(
+                    wsSendNewMessageModel: WsSendNewMessageModel(
+                      is_text: true,
+                      content: messageController.text,
+                      to: conversation.recipient?.id,
+                    ),
+                  );
+                  messageController.text = "";
+                },
                 textEditingController: messageController,
               ),
             ],
