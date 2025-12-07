@@ -104,7 +104,8 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
                         created_at: message.created_at,
                         sender_id: message.sender.id,
                         onDeleteMessage: () {
-                          message.sender.id == current_user_id
+                          message.sender.id == current_user_id &&
+                                  message.deleted_for_others_at == null
                               ? showPopup(
                                   popupCase: PopupDeleteMessageForAll(
                                     context: context,
