@@ -2,9 +2,11 @@
 
 import 'dart:convert';
 
+import 'package:connect/core/classes/person.dart';
 import 'package:connect/core/providers/current_conversation.dart';
 import 'package:connect/core/providers/current_user_notifier.dart';
 import 'package:connect/features/auth/repositories/auth_local_repository.dart';
+import 'package:connect/features/home/models/conversation_model.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_delete_message_model.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_edit_message_model.dart';
 import 'package:connect/features/home/models/ws/receive/ws_receive_new_messsage_model.dart';
@@ -62,6 +64,18 @@ class WsViewModel extends _$WsViewModel {
             final WsReceiveNewMesssageModel event =
                 WsReceiveNewMesssageModel.fromMap(event_map);
             _currentUserNotifier.addNewMessageInChat(event);
+            _currentUserNotifier.addNewChat(
+              ConversationModel(
+                conversation_id: event.message.conversation_id,
+                messages: [event.message],
+                is_group: false,
+                recipient:
+                    ref.read(currentUserNotifierProvider)!.id ==
+                        event.message.sender.id
+                    ? event.message.receiver
+                    : event.message.sender,
+              ),
+            );
             _currentConversation.addNewMessageInConversation(event);
             break;
         }
