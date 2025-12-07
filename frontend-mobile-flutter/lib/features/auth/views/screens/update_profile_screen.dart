@@ -118,10 +118,8 @@ class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
   }
 
   Future<void> logout() async {
-    showPopup(popupCase: PopupLoading(context: context));
     final notifier = ref.read(authViewModelProvider.notifier);
     await notifier.logout();
-    hidePopup(context);
     AppNav.pushAndRemoveUntil(context, "login");
   }
 
