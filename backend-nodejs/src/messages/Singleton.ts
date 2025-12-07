@@ -163,6 +163,13 @@ class Singleton {
                 ],
                 last_message: null,
               });
+            } else {
+              if (conversation.between != null) {
+                const index = conversation.deleted_for.findIndex(
+                  (value) => String(value) === String(user._id)
+                );
+                conversation.deleted_for.splice(index, 1);
+              }
             }
 
             if (!new_message.is_text) {
