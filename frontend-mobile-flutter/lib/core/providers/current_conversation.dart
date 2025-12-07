@@ -74,4 +74,8 @@ class CurrentConversation extends _$CurrentConversation {
       messages: [...state!.messages, new_message.message],
     );
   }
+
+  void clear() {
+    state = null;
+  }
 }
