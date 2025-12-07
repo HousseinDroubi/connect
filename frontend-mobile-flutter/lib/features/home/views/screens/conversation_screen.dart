@@ -9,6 +9,8 @@ import 'package:connect/core/utils/app_files.dart';
 import 'package:connect/core/utils/app_responses.dart';
 import 'package:connect/core/utils/dialog.dart';
 import 'package:connect/core/widgets/text_field_widget.dart';
+import 'package:connect/features/home/models/ws/send/ws_delete_message_model.dart';
+import 'package:connect/features/home/models/ws/send/ws_edit_message_model.dart';
 import 'package:connect/features/home/view_models/conversation_view_model.dart';
 import 'package:connect/features/home/view_models/ws_view_model.dart';
 import 'package:connect/features/home/views/widgets/message_widget.dart';
@@ -116,7 +118,12 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
                                       );
                                     },
                                     deleteMessageForAllFunction: () {
-                                      wsNotifier.deleteMessage(message.id);
+                                      wsNotifier.deleteMessage(
+                                        wsDeleteMessageModel:
+                                            WsDeleteMessageModel(
+                                              message_id: message.id,
+                                            ),
+                                      );
                                       hidePopup(context);
                                     },
                                   ),
@@ -143,9 +150,11 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
                               nextFunction: () {
                                 // edit message
                                 wsNotifier.editMessage(
-                                  message_id: message.id,
-                                  message_new_content:
-                                      editMssageController.text,
+                                  wsEditMessageModel: WsEditMessageModel(
+                                    message_id: message.id,
+                                    message_new_content:
+                                        editMssageController.text,
+                                  ),
                                 );
 
                                 editMssageController.text = "";
