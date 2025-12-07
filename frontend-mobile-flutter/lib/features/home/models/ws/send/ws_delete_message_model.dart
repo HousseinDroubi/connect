@@ -16,7 +16,10 @@ class WsDeleteMessageModel extends WsModel {
   }
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{'message_id': message_id};
+    return <String, dynamic>{
+      'event_name': event_name,
+      'message_id': message_id,
+    };
   }
 
   factory WsDeleteMessageModel.fromMap(Map<String, dynamic> map) {
