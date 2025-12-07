@@ -120,6 +120,7 @@ class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
   Future<void> logout() async {
     final notifier = ref.read(authViewModelProvider.notifier);
     await notifier.logout();
+    hidePopup(context);
     AppNav.pushAndRemoveUntil(context, "login");
   }
 
@@ -225,7 +226,17 @@ class _UpdateProfileScreenState extends ConsumerState<UpdateProfileScreen> {
                   ButtonWidget(
                     isColoredRed: true,
                     buttonText: "Logout",
-                    buttonFn: logout,
+                    buttonFn: () {
+                      showPopup(
+                        popupCase: PopupConfirmation(
+                          context: context,
+                          popupContent: "Are you sure you want to logout?",
+                          confirmationFunction: () async {
+                            await logout();
+                          },
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
