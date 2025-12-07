@@ -26,6 +26,7 @@ class ConversationScreen extends ConsumerStatefulWidget {
 
 class _ConversationScreenState extends ConsumerState<ConversationScreen> {
   TextEditingController messageController = TextEditingController();
+  TextEditingController editMssageController = TextEditingController();
 
   Future<void> deleteMessage(String message_id, String chat_id) async {
     hidePopup(context);
@@ -132,7 +133,28 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
                                   ),
                                 );
                         },
-                        onEditMessage: () {},
+                        onEditMessage: () {
+                          editMssageController.text = message.content;
+
+                          showPopup(
+                            popupCase: PopupEditMessage(
+                              context: context,
+                              controller: editMssageController,
+                              nextFunction: () {
+                                // edit message
+                                wsNotifier.editMessage(
+                                  message_id: message.id,
+                                  message_new_content:
+                                      editMssageController.text,
+                                );
+
+                                editMssageController.text = "";
+                                // Hide popup
+                                hidePopup(context);
+                              },
+                            ),
+                          );
+                        },
                       ),
                     );
                   },
