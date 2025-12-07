@@ -193,31 +193,3 @@ class CurrentUserNotifier extends _$CurrentUserNotifier {
     );
   }
 }
-
-
-
-
-
-
-
-
-// (state != null) {
-//       state = state!.copyWith(
-//         chats: state!.chats.map((ChatModel chat) {
-//           if (new_message.message.conversation_id == chat.id) {
-//             ChatModel updated_chat = chat.copyWith(
-//               last_message: ChatMessage(
-//                 id: new_message.message.id,
-//                 sender: new_message.message.sender.id,
-//                 is_text: new_message.message.is_text,
-//                 content: new_message.message.content,
-//                 chat_id: new_message.message.conversation_id,
-//                 deleted: new_message.message.deleted_for_others_at != null,
-//                 created_at: new_message.message.created_at,
-//               ),
-//             );
-//           }
-//           return chat;
-//         }).toList(),
-//       );
-//     }
