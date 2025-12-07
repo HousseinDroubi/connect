@@ -162,34 +162,35 @@ class CurrentUserNotifier extends _$CurrentUserNotifier {
 
   void addNewChat(ConversationModel conversation_model) {
     if (state == null) return;
-    if (state!.chats.indexWhere(
-          (ChatModel model) => model.id == conversation_model.conversation_id,
-        ) !=
-        -1) {
+    final int index = state!.chats.indexWhere(
+      (ChatModel model) => model.id == conversation_model.conversation_id,
+    );
+    if (index != -1) {
       return;
     }
-    state = state!.copyWith(
-      chats: [
-        ...state!.chats,
-        ChatModel(
-          id: conversation_model.conversation_id,
-          last_message: conversation_model.messages.isEmpty
-              ? null
-              : ChatMessage(
-                  id: conversation_model.messages.last.id,
-                  sender: conversation_model.messages.last.sender.id,
-                  is_text: conversation_model.messages.last.is_text,
-                  content: conversation_model.messages.last.content,
-                  chat_id: conversation_model.conversation_id,
-                  deleted:
-                      conversation_model.messages.last.deleted_for_others_at !=
-                      null,
-                  created_at: DateTime.now(),
-                ),
-          created_at: DateTime.now(),
-          recipient: conversation_model.recipient,
-        ),
-      ],
+
+    final List<ChatModel> updatedChats = state!.chats;
+    updatedChats.insert(
+      0,
+      ChatModel(
+        id: conversation_model.conversation_id,
+        last_message: conversation_model.messages.isEmpty
+            ? null
+            : ChatMessage(
+                id: conversation_model.messages.last.id,
+                sender: conversation_model.messages.last.sender.id,
+                is_text: conversation_model.messages.last.is_text,
+                content: conversation_model.messages.last.content,
+                chat_id: conversation_model.conversation_id,
+                deleted:
+                    conversation_model.messages.last.deleted_for_others_at !=
+                    null,
+                created_at: DateTime.now(),
+              ),
+        created_at: DateTime.now(),
+        recipient: conversation_model.recipient,
+      ),
     );
+    state = state!.copyWith(chats: updatedChats);
   }
 }
