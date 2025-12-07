@@ -169,7 +169,7 @@ class CurrentUserNotifier extends _$CurrentUserNotifier {
       return;
     }
 
-    final List<ChatModel> updatedChats = state!.chats;
+    final List<ChatModel> updatedChats = [...state!.chats];
     updatedChats.insert(
       0,
       ChatModel(
