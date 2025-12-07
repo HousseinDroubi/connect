@@ -137,7 +137,7 @@ class _MessageWidgetState extends ConsumerState<MessageWidget> {
                 ),
               ),
             ),
-          if (is_edit_icon_visible)
+          if (is_edit_icon_visible && !widget.is_deleted && widget.is_text)
             GestureDetector(
               onTap: () {
                 widget.onEditMessage();
